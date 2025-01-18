@@ -271,6 +271,7 @@ html {
   .active>.page-link, .page-link.active {
     background-color: var(--secondary-color);
     border-color: var(--secondary-color);
+    color: var(--white-color); 
   }
   
   /*---------------------------------------
