@@ -1,3 +1,9 @@
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { CardEpisodeComponent } from './components/card-episode/card-episode.component';
+import { NgModule } from '@angular/core';
+import { TrendingEpisodesComponent } from './components/trending-episodes/trending-episodes.component';
 
-export const routes: Routes = [];
+export const routes: Routes = [
+  {path:'',component:TrendingEpisodesComponent}
+];
+

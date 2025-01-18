@@ -1,0 +1,7 @@
+<!-- Icône du cœur -->
+<a href="#" (click)="toggleLike()" class="me-1">
+  <i [ngClass]="{'bi-heart-fill': isLiked, 'bi-heart': !isLiked}" class="bi-heart"></i>
+</a>
+
+<!-- Affichage dynamique du nombre de likes -->
+<span>{{ likesCount }}</span>
