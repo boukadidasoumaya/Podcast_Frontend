@@ -1,10 +1,15 @@
 html {
     scroll-behavior: smooth;
   }
+  app-section-custom {
+    font-family: 'Arial', sans-serif; /* Change to your desired font */
+  }
+  
 /*---------------------------------------
   CUSTOM BLOCK              
 -----------------------------------------*/
 .custom-block {
+    
     border: 2px solid var(--primary-color);
     border-radius: var(--border-radius-medium);
     position: relative;
@@ -153,6 +158,13 @@ html {
     font-family: var(--title-font-family);
   }
   
+.badge {
+    background-color: var(--custom-btn-bg-color);
+    font-family: var(--title-font-family);
+    border-radius: var(--border-radius-large);
+    color: var(--white-color);
+    padding-bottom: 5px;
+  }
   .custom-block-top .badge {
     background-color: var(--secondary-color);
     color: var(--white-color);
@@ -193,75 +205,6 @@ html {
   .custom-block-overlay-info {
     padding: 15px 20px 20px 20px;
   }
-/*---------------------------------------
-  PROIFLE BLOCK               
------------------------------------------*/
-.profile-block {
-    margin-top: 10px;
-  }
-  
-  .profile-block-image {
-    border-radius: var(--border-radius-large);
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    margin-right: 10px;
-  }
-  
-  .profile-block p strong {
-    display: block;
-    font-family: var(--title-font-family);
-  }
-  
-  .profile-detail-block {
-    border: 1px solid #dee2e6;
-    border-radius: var(--border-radius-large);
-    padding: 25px 35px;
-  }
-  
-  .profile-detail-block p {
-    margin-bottom: 0;
-  }  
-  
-/*---------------------------------------
-  CUSTOM BUTTON               
------------------------------------------*/
-.custom-btn {
-    background: var(--custom-btn-bg-color);
-    border: 2px solid transparent;
-    border-radius: var(--border-radius-large);
-    color: var(--white-color);
-    font-family: var(--title-font-family);
-    font-size: var(--p-font-size);
-    font-weight: var(--font-weight-semibold);
-    line-height: normal;
-    transition: all 0.3s;
-    padding: 10px 20px;
-  }
-  
-  .custom-btn:hover {
-    background: var(--custom-btn-bg-hover-color);
-    color: var(--white-color);
-  }
-  
-  .custom-border-btn {
-    background: transparent;
-    border: 2px solid var(--custom-btn-bg-color);
-    color: var(--custom-btn-bg-color);
-  }
-  
-  .custom-border-btn:hover {
-    background: var(--custom-btn-bg-color);
-    border-color: transparent;
-    color: var(--primary-color);
-  }
-  
-  .custom-btn-bg-white {
-    border-color: var(--white-color);
-    color: var(--white-color);
-  }
-  
-
 
 /*---------------------------------------
   SOCIAL ICON               
@@ -336,6 +279,7 @@ html {
   .custom-icon {
     color: var(--primary-color);
   }
+
 
 /*---------------------------------------
   TYPOGRAPHY               
@@ -423,7 +367,3 @@ strong {
   color: var(--white-color);
 }
 
-  
-
-
-  
