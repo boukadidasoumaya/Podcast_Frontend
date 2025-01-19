@@ -1,0 +1,17 @@
+.site-footer-links {
+    margin-bottom: 0;
+    padding-left: 0;
+  }
+  
+  .site-footer-link-item {
+    display: inline-block;
+    list-style: none;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  .site-footer-link {
+    color: var(--white-color);
+    font-size: var(--p-font-size);
+    line-height: inherit;
+  }

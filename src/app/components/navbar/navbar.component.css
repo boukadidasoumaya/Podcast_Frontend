@@ -1,6 +1,6 @@
 .navbar {
     background-color: transparent;
-    position: fixed;
+    position: absolute;
     top: 0;  
     right: 0;
     left: 0;
@@ -14,15 +14,7 @@
     color: var(--white-color);
   }
   
-  .navbar .logo-image {
-    width: 100px;
-  }
-  
-  .logo-image {
-    width: 120px;
-    height: auto;
-  }
-  
+
   .navbar-brand,
   .navbar-brand:hover {
     font-size: var(--h3-font-size);
@@ -250,3 +242,13 @@
     color: var(--white-color);
   }
   
+  
+  .navbar-nav .dropdown-menu {
+    position: relative;
+    left: 10px;
+    opacity: 1;
+    pointer-events: auto;
+    max-width: 155px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }

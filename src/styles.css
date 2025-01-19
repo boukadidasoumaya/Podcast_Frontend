@@ -133,3 +133,149 @@ strong {
   background-color: var(--primary-color);
   color: var(--white-color);
 }
+
+@media screen and (min-width: 2160px) {
+	.hero-section {
+	  background-size: 100% 90%;
+	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	}
+}
+
+
+@media screen and (min-width: 1600px) {
+  .site-footer {
+    padding-top: 250px;
+  }
+}
+
+@media screen and (max-width: 1240px) {
+	.hero-section {
+	  background-size: 116%;
+	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	}
+}
+
+@media screen and (max-width: 991px) {
+  h1 {
+    font-size: 48px;
+  }
+
+  h2 {
+    font-size: 36px;
+  }
+
+  h3 {
+    font-size: 32px;
+  }
+
+  h4 {
+    font-size: 28px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+
+  h6 {
+    font-size: 18px;
+  }
+  
+  .hero-section {
+	  background-size: 160% 66%; 
+	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	}
+
+  .section-padding {
+    padding-top: 50px;
+    padding-bottom: 50px;
+  }
+
+  .navbar-nav {
+    background-color: var(--primary-color);
+    border-radius: var(--border-radius-medium);
+    padding: 30px;
+  }
+
+  .navbar-nav .nav-link {
+    padding: 5px 0;
+  }
+
+  .navbar-nav .dropdown-menu {
+    position: relative;
+    left: 10px;
+    opacity: 1;
+    pointer-events: auto;
+    max-width: 155px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+  }
+
+  .navbar-expand-lg .navbar-nav {
+    padding-bottom: 20px;
+  }
+
+  .nav-tabs .nav-link:first-child {
+    margin-right: 5px;
+  }
+
+  .nav-tabs .nav-link {
+    font-size: var(--copyright-font-size);
+    padding: 10px;
+  }
+
+  .copyright-text {
+    text-align: center;
+  }
+
+  .site-footer {
+    margin-top: -200px;
+    padding-top: 200px;
+    padding-bottom: 100px;
+  }
+}
+
+@media screen and (max-width: 540px) {
+	.hero-section {
+  		background-size: 180% 65%;
+		/* T o o p l a t e . c o m   C u s t o m i z e d */
+	}
+
+  .custom-block .custom-block-top {
+    flex-direction: column;
+  }
+
+  .custom-block .custom-block-top small:last-child {
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 36px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  h3 {
+    font-size: 26px;
+  }
+
+  h4 {
+    font-size: 22px;
+  }
+
+  h5 {
+    font-size: 20px;
+  }
+}
+
+@media screen and (max-width: 414px) {
+  .search-form {
+    max-width: 200px;
+  }
+
+}
+
