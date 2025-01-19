@@ -1,0 +1,20 @@
+<app-swiper>
+<div class="carousel-slide" *ngFor="let topic of displayedTopics">
+    <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+      <div class="custom-block custom-block-overlay">
+        <a href="detail-page.html" class="custom-block-image-wrap">
+          <img [src]="topic.image" class="custom-block-image img-fluid" alt="">
+        </a>
+
+        <div class="custom-block-info custom-block-overlay-info">
+          <h5 class="mb-1">
+            <a href="listing-page.html">
+              {{ topic.title }}
+            </a>
+          </h5>
+          <p class="badge mb-0">{{ topic.episodes }} Episodes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</app-swiper>

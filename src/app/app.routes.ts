@@ -3,10 +3,11 @@ import { CardEpisodeComponent } from './components/card-episode/card-episode.com
 import { NgModule } from '@angular/core';
 import { TrendingEpisodesComponent } from './components/trending-episodes/trending-episodes.component';
 import { SwiperComponent } from './components/swiper/swiper.component';
+import { TopicsComponent } from './components/topics/topics.component';
 
 export const routes: Routes = [
   {path:'',component:TrendingEpisodesComponent},
-  {path:'swiper',component:SwiperComponent},
+  {path:'swiper',component:TopicsComponent},
 ];
 
 
