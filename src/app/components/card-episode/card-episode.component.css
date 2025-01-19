@@ -1,60 +1,71 @@
-/*---------------------------------------
-  SECTION
------------------------------------------*/
-.section-title-wrap {
-  position: relative;
-}
+  a {
+    touch-action: manipulation;
+    transition: all 0.3s;
+    display: inline-block;
+    color: var(--primary-color);
+    text-decoration: none;
+  }
+  a:hover {
+    color: var(--link-hover-color);
+  }
 
-.section-title-wrap::after {
-  content: "";
-  background: var(--section-bg-color);
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
+  /*---------------------------------------
+    SECTION
+  -----------------------------------------*/
+  .section-title-wrap {
+    position: relative;
+  }
 
-.section-title {
-  background: var(--section-bg-color);
-  border-radius: var(--border-radius-large);
-  display: inline-block;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 0;
-  padding: 10px 25px;
-}
+  .section-title-wrap::after {
+    content: "";
+    background: var(--section-bg-color);
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
 
-.section-padding {
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
+  .section-title {
+    background: var(--section-bg-color);
+    border-radius: var(--border-radius-large);
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+    padding: 10px 25px;
+  }
 
-main {
-  position: relative;
-  z-index: 1;
-}
+  .section-padding {
+    padding-top: 100px;
+    padding-bottom: 100px;
+  }
 
-.section-bg {
-  background-color: var(--section-bg-color);
-}
+  main {
+    position: relative;
+    z-index: 1;
+  }
 
-.section-overlay {
-  background-color: var(--primary-color);
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  opacity: 0.85;
-}
+  .section-bg {
+    background-color: var(--section-bg-color);
+  }
 
-.section-overlay + .container {
-  position: relative;
-}
+  .section-overlay {
+    background-color: var(--primary-color);
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    height: 100%;
+    opacity: 0.85;
+  }
+
+  .section-overlay + .container {
+    position: relative;
+  }
 .badge {
   background-color: var(--custom-btn-bg-color);
   font-family: var(--title-font-family);

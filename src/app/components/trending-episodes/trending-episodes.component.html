@@ -14,10 +14,19 @@
           [description]="episode.description"
           [profileImage]="episode.profileImage"
           [profileName]="episode.profileName"
-          [profileRole]="episode.profileRole">
+          [profileRole]="episode.profileRole"
+          [listensCount]="episode.listensCount"
+          [likesCount]="episode.likesCount"
+          [commentsCount]="episode.commentsCount">
         </app-card-episode>
       </div>
 
     </div>
+    <div class="row">
+      <div class="col-12 text-end">
+        <a class="btn ">View More</a>
+      </div>
+    </div>
+
   </div>
 </section>
