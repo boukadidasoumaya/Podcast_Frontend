@@ -1,23 +1,36 @@
 html {
-    scroll-behavior: smooth;
-  }
-  app-section-custom {
-    font-family: 'Arial', sans-serif; /* Change to your desired font */
-  }
-  
+  scroll-behavior: smooth;
+}
+
+app-section-custom {
+  font-family: 'Arial', sans-serif; /* Change to your desired font */
+}
+
+carousel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px; /* Adds space between items */
+  justify-content: space-between;
+}
+
+.carousel-slide {
+  flex: 1 1 calc(25% - 20px); /* Default width: 4 items per row */
+  min-width: 250px; /* Prevents the card from becoming too skinny */
+  max-width: 350px; /* Sets a max-width to prevent stretching too much */
+  box-sizing: border-box; /* Ensures the padding doesn't affect the width */
+}
 /*---------------------------------------
   CUSTOM BLOCK              
 -----------------------------------------*/
 .custom-block {
-    
-    border: 2px solid var(--primary-color);
-    border-radius: var(--border-radius-medium);
-    position: relative;
-    overflow: hidden;
-    padding: 30px;
-    transition: all 0.3s ease;
-  }
+  width: 100%; /* Ensures the custom block takes up the full width available */
+  padding: 15px;
+  box-sizing: border-box; /* To avoid padding from affecting the width */
+  border-radius: var(--border-radius-medium);
+  transition: all 0.3s ease;
   
+}
+
   .custom-block:hover {
     background: var(--white-color);
     box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
@@ -35,6 +48,7 @@ html {
     position: relative;
     display: block;
     height: 100%;
+ 
   }
   
   .custom-block-image-wrap > a {
@@ -44,9 +58,11 @@ html {
   .custom-block-image {
     border-radius: var(--border-radius-medium);
     display: block;
-    width: 112px;
-    height: 112px;
     object-fit: cover;
+      width: 100%; /* Ensures the image is responsive */
+      height: auto; /* Maintain aspect ratio */
+      object-fit: cover; /* Ensures the image doesn't stretch */
+    
   }
   
   .custom-block-image-detail-page .custom-block-image {
@@ -367,4 +383,31 @@ strong {
   background-color: var(--primary-color);
   color: var(--white-color);
 }
+@media (min-width: 992px) {
+  .col-lg-3 {
+      width: 90.33%;
+  }
+}
 
+/* Media queries for responsiveness */
+/* Media queries for responsiveness */
+@media (max-width: 991px) {
+  .carousel-slide {
+    flex: 1 1 calc(50% - 20px); /* For medium screens, show 2 items per row */
+  }
+}
+
+@media (max-width: 576px) {
+  .carousel-slide {
+    flex: 1 1 100%; /* For small screens, show 1 item per row */
+  }
+}
+.carousel-control-prev-icon i, .carousel-control-next-icon i {
+  font-size: 2rem; /* Adjust size */
+  color: #ffffff; /* Change color */
+}
+
+
+.carousel-control-prev, .carousel-control-next {
+  background-color: transparent; /* Optional */
+}
