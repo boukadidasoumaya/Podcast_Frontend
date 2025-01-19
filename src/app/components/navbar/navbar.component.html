@@ -1,0 +1,57 @@
+<div class="site-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <app-logo></app-logo>
+      <app-search (searchEvent)="handleSearch($event)"></app-search>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-lg-auto">
+          <li class="nav-item">
+            <a class="nav-link active" routerLink="/index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              href="#"
+              id="navbarLightDropdownMenuLink"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              >Pages</a
+            >
+            <ul
+              class="dropdown-menu dropdown-menu-light"
+              aria-labelledby="navbarLightDropdownMenuLink"
+            >
+              <li>
+                <a class="dropdown-item" routerLink="/listing">Listing Page</a>
+              </li>
+              <li>
+                <a class="dropdown-item" routerLink="/detail">Detail Page</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact">Contact</a>
+          </li>
+        </ul>
+        <div class="ms-4">
+          <button
+            class="btn custom-btn custom-border-btn smoothscroll"
+            data-bs-toggle="modal"
+            data-bs-target="#uploadPodcastModal"
+          >
+            Upload Podcast
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="navbar-right">
+      <app-user-profile></app-user-profile>
+    </div>
+  </nav>
+  <app-upload-modal></app-upload-modal>
+</div>
