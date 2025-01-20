@@ -1,7 +1,8 @@
 <app-section-custom [title]="'cards'" [sectionId]="'2'">
   <carousel>
     <div class="carousel-slide" *ngFor="let card of cards">
-      <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+      <div [ngClass]="colClass">
+
         <!-- Dynamically pass the card data to the projected content -->
         <ng-container
           *ngTemplateOutlet="contentTemplate; context: { $implicit: card }"

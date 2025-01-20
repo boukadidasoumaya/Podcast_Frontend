@@ -16,7 +16,8 @@ import { ContentChild, ContentChildren, QueryList, TemplateRef } from '@angular/
   providers: [DecimalPipe] // Add DecimalPipe to providers
 })
 export class SwiperComponent {
-  @Input() cards: any[] = []
+  @Input() cards: any[] = [];
+  @Input() colClass: string = ''; // Input for column classes
   @ContentChild(TemplateRef) contentTemplate!: TemplateRef<any>;
 
 }
