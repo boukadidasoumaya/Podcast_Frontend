@@ -86,7 +86,7 @@ p,ul li{
   position: relative;
   top: -10%;
 }
-.profil-content .address {
+.profil-content .address, .job {
   margin-left: 10px;
   position: relative;
 }

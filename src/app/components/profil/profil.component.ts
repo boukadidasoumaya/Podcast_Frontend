@@ -6,7 +6,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { UserInfoModalComponent } from '../modals/user-info-modal/user-info-modal/user-info-modal.component';
 
 @Component({
-  selector: 'app-profile',
+  selector: 'app-profil',
   standalone: true,
   imports: [NavbarComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent
   ],
@@ -15,5 +15,24 @@ import { UserInfoModalComponent } from '../modals/user-info-modal/user-info-moda
 
 })
 export class ProfilComponent {
-  // ... votre code existant
+  user = {
+    profilImage:'assets/images/profile/exemple.jpg',
+    name: 'Soumaya',
+    birthDate: '16-05-2002',
+    address: 'Tunisia',
+    job: 'Influencer',
+    email:'soumaya.boukadida@insat.ucar.tn',
+    memberSince: 2002,
+    socialMedia: {
+      whatsapp: '52 916 913',
+      instagram: 'soumaya_boukadida',
+      twitter: 'soumaya boukadida'
+    }
+  };
+  updateUserPersonnalInfo={
+    name: 'Soumaya',
+    birthDate: '16-05-2002',
+    address: 'Tunisia',
+    job: 'Influencer',
+  }
 }

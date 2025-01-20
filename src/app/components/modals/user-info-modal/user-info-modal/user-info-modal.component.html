@@ -21,21 +21,21 @@
           <div class="mb-3">
             <label for="username" class="form-label">Nom d'utilisateur</label>
             <input type="text" class="form-control" id="username" name="username"
-                   [(ngModel)]="userData.username" required>
+                   [(ngModel)]="updateUserPersonnalInfo.username" required>
           </div>
 
           <!-- Champ Date de Naissance -->
           <div class="mb-3">
             <label for="birthday" class="form-label">Date de naissance</label>
             <input type="date" class="form-control" id="birthday" name="birthday"
-                   [(ngModel)]="userData.birthday" required>
+                   [(ngModel)]="updateUserPersonnalInfo.birthday" required>
           </div>
 
           <!-- Champ Pays -->
           <div class="mb-3">
             <label for="country" class="form-label">Pays</label>
             <select class="form-select" id="country" name="country"
-                    [(ngModel)]="userData.country" required>
+                    [(ngModel)]="updateUserPersonnalInfo.country" required>
               <option value="" disabled>Sélectionnez un pays</option>
               <option value="France">France</option>
               <option value="Tunisie">Tunisie</option>
