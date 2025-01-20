@@ -56,7 +56,12 @@ h4{
 .verified-image {
   display: inline-block;
   width: 30px;
-  height: auto;
+  height: 30px;
+}
+.verified-wrapper{
+  display: flex;
+  align-items: center; /* Aligne le texte et l'image verticalement */
+  gap: 0.5rem;
 }
 
 /* Partie sociale : icônes de partage */

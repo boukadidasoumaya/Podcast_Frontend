@@ -11,18 +11,50 @@
                   <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
               </div>
 
-                  <app-hero-card
+                  <owl-carousel-o [options]="customOptions">
+
+                    <ng-template carouselSlide>
+                      <app-hero-card
+                        [nom]="'william'"
+                        [badges]="['Creative','Design']"
+                        [imagesrc]="'../../../assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg'">
+                      </app-hero-card>
+                    </ng-template>
+
+                    <ng-template carouselSlide>
+                      <app-hero-card
+                    [nom]="'Taylor'"
+                    [badges]="['Modeling','Fasion']"
+                    [imagesrc]="'../../../assets/images/profile/exemple.jpg'">
+                  </app-hero-card>
+                    </ng-template>
+
+                    <ng-template carouselSlide>
+                      <app-hero-card
                     [nom]="'Candice'"
                     [badges]="['Business','Marketing']"
-                    [imagesrc]="'../../../assets/images/avatar.png'">
+                    [imagesrc]="'../../../assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg'">
                   </app-hero-card>
+                    </ng-template>
 
-                  <app-hero-card
-                    [nom]="'Candice'"
-                    [badges]="['Business','Marketing']"
-                    [imagesrc]="'../../../assets/images/avatar.png'">
+                    <ng-template carouselSlide>
+                      <app-hero-card
+                    [nom]="'Chan'"
+                    [badges]="['Education']"
+                    [imagesrc]="'../../../assets/images/profile/smart-attractive-asian-glasses-male-standing-smile-with-freshness-joyful-casual-blue-shirt-portrait-white-background.jpg'">
                   </app-hero-card>
+                    </ng-template>
 
+
+                    <ng-template carouselSlide>
+                      <app-hero-card
+                    [nom]="'Nick'"
+                    [badges]="['Acting']"
+                    [imagesrc]="'../../../assets/images/profile/man-portrait.jpg'">
+                  </app-hero-card>
+                    </ng-template>
+
+                  </owl-carousel-o>
 
           </div>
 

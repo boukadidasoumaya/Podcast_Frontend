@@ -48,50 +48,15 @@ p {
   font-weight: var(--font-weight-light);
 }
 
-a,
-button {
-  touch-action: manipulation;
-  transition: all 0.3s;
-}
-
-
-
 .hero-section {
   background-image: url('../../../assets/images/templatemo-wave-banner.jpg'), linear-gradient(#348CD2, #FFFFFF);
   background-repeat: no-repeat;
-  background-size: 108% 90%;
+  background-size: 108% 70%;
   background-position: top;
   padding-top: 200px;
   border-color: black;
 }
 
-.owl-carousel .owl-item {
-  opacity: 0.35;
-}
-
-.owl-carousel .owl-item.active.center {
-  opacity: 1;
-}
-
-.owl-carousel .owl-dots {
-  background-color: var(--white-color);
-  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
-  border-radius: var(--border-radius-large);
-  display: inline-block;
-  margin: auto;
-  margin-top: 40px;
-  padding: 15px 25px;
-  padding-bottom: 7px;
-}
-
-.owl-theme .owl-nav.disabled+.owl-dots {
-  margin-top: 40px;
-}
-
-.owl-theme .owl-dots .owl-dot.active span,
-.owl-theme .owl-dots .owl-dot:hover span {
-  background: var(--secondary-color);
-}
 
 
 /* start listening btn */
@@ -112,6 +77,26 @@ button {
 .custom-btn:hover {
   background: var(--custom-btn-bg-hover-color);
   color: var(--white-color);
+}
+/* slider dots  */
+::ng-deep .owl-dots {
+  background-color: var(--white-color);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+  border-radius: var(--border-radius-large);
+  display: inline-block;
+  margin: auto;
+  margin-top: 5px;
+  padding: 15px 25px;
+  padding-bottom: 7px;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+::ng-deep .owl-item {
+  opacity: 0.2;
+}
+::ng-deep .owl-item.center {
+  opacity: 1;
 }
 
 

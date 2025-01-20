@@ -5,6 +5,8 @@
 @import "assets/css/bootstrap-icons.css";
 @import "assets/css/owl.theme.default.min.css";
 @import "assets/css/owl.carousel.min.css";
+/* @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default'; */
 
 :root {
   --white-color:                  #ffffff;
