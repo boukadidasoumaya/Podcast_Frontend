@@ -4,10 +4,15 @@ import { NgModule } from '@angular/core';
 import { TrendingEpisodesComponent } from './components/trending-episodes/trending-episodes.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeroSectionComponent } from './components/hero-section/hero-section.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
   {path:'trending',component:TrendingEpisodesComponent},
-  {path:'profil',component:ProfilComponent}
+  {path:'profil',component:ProfilComponent},
+  {path:'hero',component:HeroSectionComponent},
+  {path:'hero-card',component:HeroCardComponent}
+
 
 ];
 

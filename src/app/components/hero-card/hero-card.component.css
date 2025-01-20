@@ -1,0 +1,178 @@
+h4{
+  font-size: var(--h4-font-size);
+  color: var(--dark-color);
+  font-family: var(--title-font-family);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Image principale du carousel */
+.owl-carousel-image {
+  display: block;
+  height: 350px; /* Hauteur de l'image */
+  width: 100%;
+  max-width: 300px; /* Largeur de l'image */
+
+}
+
+
+.owl-carousel-info-wrap {
+  position: relative;
+  border-radius: var(--border-radius-medium);
+  overflow: hidden;
+  text-align: left;
+  background-color: #fff; /* Fond blanc à la card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Ombre légère */
+  padding: 0px; /* Réduction de la marge interne */
+  width: 100%; /* Largeur fixe ou ajustez selon le besoin */
+  max-width: 300px; /* Assurez-vous que ça soit responsive */
+  height: 100%; /* Hauteur fixe ou ajustez selon le besoin */
+  margin: 0 auto; /* Centrer la card si besoin */
+}
+
+/* Contenu du texte (nom, badges) */
+.owl-carousel-info {
+  background-color: var(--section-bg-color);
+  box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  padding: 30px;
+}
+
+/* Badge */
+.badge {
+  background-color: var(--custom-btn-bg-color);
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  padding-bottom: 5px;
+  display: inline-block;
+  margin: 2px;
+  font-size:small;
+}
+
+/* Image vérifiée (avatar) */
+.verified-image {
+  display: inline-block;
+  width: 30px;
+  height: auto;
+}
+
+/* Partie sociale : icônes de partage */
+.social-share {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+}
+
+.social-icon-item {
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateX(0);
+  list-style: none;
+  margin: 10px;
+
+}
+
+.owl-carousel-info-wrap:hover .social-icon-item {
+  opacity: 1;
+  transform: translateY(-100px);
+
+}
+
+.social-icon-link {
+  background: var(--secondary-color);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  font-size: var(--p-font-size);
+  display: block;
+  margin-right: 10px;
+  text-align: center;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.social-icon-link:hover {
+  background: var(--primary-color);
+  color: var(--white-color);;
+}
+
+
+/* Dots du carousel */
+.owl-carousel .owl-dots {
+  background-color: var(--white-color);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  border-radius: var(--border-radius-large);
+  display: inline-block;
+  margin: auto;
+  margin-top: 40px;
+  padding: 15px 25px;
+  padding-bottom: 7px;
+}
+
+.owl-dots .owl-dot.active span,
+.owl-dots .owl-dot:hover span {
+  background: var(--secondary-color);
+}
+
+
+@media (min-width: 900px) {
+  .owl-carousel-info-wrap {
+    width: 280px; /* Taille fixe pour les grands écrans */
+    height: 400px;
+  }
+  .owl-carousel-image {
+    height: 300px;
+  }
+  .badge {
+    font-size: small;
+  }
+
+  .social-icon-link {
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+  }
+
+  .owl-carousel-info {
+    padding: 1.5rem; /* Espacement standard */
+  }
+
+  .owl-carousel .owl-dots {
+    padding: 15px 25px; /* Padding plus large pour les grands écrans */
+  }
+}
+
+@media (max-width: 900px) {
+  .owl-carousel-info-wrap {
+    width: 150px; /* Utiliser toute la largeur disponible */
+    height: 250px; /* Ajuster la hauteur */
+  }
+
+  .owl-carousel-image {
+    max-width: 100%; /* Image prend toute la largeur disponible */
+  }
+
+  .badge {
+    font-size: 12px; /* Réduire la taille de la police */
+  }
+
+  .social-icon-link {
+    width: 30px;
+    height: 30px;
+    font-size: 16px;
+  }
+
+  .owl-carousel-info {
+    padding: 1rem; /* Réduire l'espacement interne */
+    max-width: 100%;
+  }
+
+  .owl-carousel .owl-dots {
+    padding: 10px 15px; /* Ajuster le padding sur les petits écrans */
+  }
+}
