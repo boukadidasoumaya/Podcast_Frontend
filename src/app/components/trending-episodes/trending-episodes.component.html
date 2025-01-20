@@ -27,6 +27,16 @@
         <a class="btn ">View More</a>
       </div>
     </div>
-
+    <app-comment
+    *ngFor="let comment of commentData"
+    [comment]="comment"
+    [colWidthIm]="2"
+    [colLikeLg]="3"
+    [colLikeMd]="4"
+    [moreThanOne]="true">
+  </app-comment>
   </div>
+
 </section>
+
+

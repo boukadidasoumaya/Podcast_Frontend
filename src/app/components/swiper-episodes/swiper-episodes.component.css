@@ -1,0 +1,431 @@
+.littleswiper.details,
+.littleswiper.home {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: transform 0.5s ease-out, opacity 0.5s ease-in-out;
+}
+
+.littleswiper.reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.littleswiper .img {
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+  object-position: center;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  margin: 0 10px;
+}
+
+.littleswiper img {
+  height: 38vh;
+  width: 90%;
+  border-radius: 5px;
+  margin: 5px 0 0 10px;
+  box-shadow: inset 0 0 54px rgba(52, 58, 62, 0.7), 0 0 5px 0.2px rgba(226, 230, 232, 0.6);
+}
+
+.littleswiper .slick-dots li button::before {
+  color: #ffffff !important;
+}
+
+
+.littleswiper .slide {
+  position: relative;
+  transition: transform 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+
+.littleswiper .ep-number {
+  font-size: 18px;
+  text-align: center;
+}
+
+.littleswiper .r {
+  display: none;
+}
+
+.littleswiper .remove {
+  font-weight: 600;
+  display: flex;
+  text-align: center;
+  position: absolute;
+  top: 75%;
+  z-index: 999;
+  color: #ffffff !important;
+  margin-left: 40px;
+
+}
+
+.littleswiper .remove i {
+  display: flex;
+  position: absolute;
+  top: 20%;
+  left: -20px;
+}
+
+
+
+
+/*------ Settings ------*/
+.littleswiper .play-button {
+  position: absolute !important;
+  top: 38% !important;
+  left: 40% !important;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  font-size: 60px;
+  user-select: none;
+  fill: #ffffff;
+  display: none;
+  z-index: 999;
+}
+
+.littleswiper .play-button .play {
+  position: absolute;
+  animation: keyframes-fill .5s;
+}
+
+.littleswiper .play-button .pause {
+  position: absolute;
+  display: none;
+  animation: keyframes-fill .5s;
+}
+
+/* ------ On check event ------ */
+.littleswiper .play-button input:checked~.play {
+  display: none;
+}
+
+.littleswiper .play-button input:checked~.pause {
+  display: block;
+}
+
+/* ------ Hide the default checkbox ------ */
+.littleswiper .play-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+/* ------ Animation ------ */
+@keyframes keyframes-fill {
+  0% {
+    transform: rotate(-180deg) scale(0);
+    opacity: 0;
+  }
+
+  50% {
+    transform: rotate(-10deg) scale(1.2);
+  }
+}
+
+.littleswiper .slide.hovered {
+  transform: scale(1.01);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.littleswiper.details img:hover,
+.littleswiper .slide.list img:hover {
+  box-shadow: 0 0 4px 3px rgba(226, 230, 232, 0.5);
+  transform: scale(1.01);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.littleswiper.details .slider-item-content:hover::before,
+.littleswiper .slide.list:hover::before {
+  content: "";
+  position: absolute;
+  top: 1.2%;
+  left: 4.2%;
+  right: 0;
+  bottom: 0;
+  height: 89.3%;
+  width: 90.5%;
+  pointer-events: none;
+  border-radius: 5px;
+  z-index: 1;
+  transition: background-color 0.3s ease-in-out;
+  background-image: linear-gradient(to top, rgba(15, 19, 30, 0.1), rgba(15, 19, 30, 0.4), rgba(15, 19, 30, 0.2)),
+    linear-gradient(to bottom, rgba(15, 19, 30, 0.1), rgba(15, 19, 30, 0.4), rgba(15, 19, 30, 0.2));
+}
+
+.littleswiper.details .slider-item {
+  position: relative;
+}
+
+.littleswiper.details .play-button {
+  display: none;
+}
+
+.littleswiper.details .slider-item-content:hover .play-button {
+  display: block;
+}
+
+/**/
+
+
+.littleswiper .slider .slide .details {
+  width: 90%;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+  border-radius: 8px;
+  transition: 0.3s;
+  opacity: 0;
+  background: linear-gradient(to bottom,
+      rgba(0, 0, 0, 0.0),
+      rgba(0, 0, 0, 0.7));
+}
+
+
+.littleswiper .slider .slide:hover .details {
+  opacity: 1;
+}
+
+.littleswiper .slider .slide .details .left {
+  color: #fff;
+  transition: 0.4s;
+  opacity: 0;
+  transform: translateX(-100px);
+}
+
+.littleswiper .slider .slide:hover .details .left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+.littleswiper .slider .slide .details {
+
+  overflow: hidden;
+  position: absolute;
+  border-radius: 8px;
+  transition: 0.3s;
+  opacity: 0;
+  left: 4.4%
+}
+
+.littleswiper .slider .slide:hover .details {
+  opacity: 1;
+  background: linear-gradient(to top, rgba(15, 19, 30, 0.8), rgba(15, 19, 30, 0.2));
+}
+
+.littleswiper .slider .slide .details .left {
+  top: 10%;
+  color: #fff;
+  transform: translateX(-100px);
+  transition: 0.4s;
+  opacity: 0;
+}
+
+.littleswiper .slider .slide:hover .details .left {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.littleswiper .slider .slide .details .left p.name {
+
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+.littleswiper .slider .slide .details .left .date_quality {
+  display: flex;
+  align-items: center;
+}
+
+.littleswiper .slider .slide .details .left .date_quality p.quality {
+  width: 30px;
+  font-size: 13px;
+  background: #ffe100;
+  color: #282931;
+  margin-left: 10px;
+  margin-bottom: 8px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.littleswiper .slider .slide .details .left .date_quality p.date {
+  color: #fff;
+  font-size: 15px;
+  font-weight: bold;
+  text-align: left;
+  margin-left: 10px;
+  margin-bottom: 8px;
+}
+
+.littleswiper .slider .slide .details .left span.category {
+  margin-left:5px;
+  font-size: 13px;
+  margin-bottom: 8px;
+
+}
+
+.littleswiper .slider .slide .details .left .info {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.littleswiper .slider .slide .details .left .info .rate {
+  display: flex;
+  align-items: center;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.littleswiper .slider .slide .details .left .info .rate i {
+  font-size: 12px;
+  color: #ffd500;
+  margin-right: 5px;
+  margin-bottom: 15px;
+
+}
+
+.littleswiper .slider .slide .details .left .info .rate p {
+  font-size: 12px;
+}
+
+.littleswiper .slider .slide .details .left .info .time {
+  display: flex;
+  align-items: center;
+}
+
+.littleswiper .slider .slide .details .left .info .time i {
+  font-size: 12px;
+  color: #ffd500;
+  margin-left: 5px;
+  margin-bottom: 15px;
+
+}
+.littleswiper .slider .slide .details .left .info .time span,
+.littleswiper .slider .slide .details .left .info .time p {
+  font-size: 12px;
+  margin-left: 15px;
+}
+.littleswiper .slider .slide .details .left .info .time  span.season{
+  margin-left: -4px;
+  position: relative;
+  bottom: 8px;
+}
+.littleswiper .slider .slide .details .left .info .time  span.season .name{
+  position: relative;
+  right: 12%;
+}
+
+.littleswiper .slider .slide .details .right {
+  color: #fff;
+  transform: translateX(100px);
+  transition: 0.4s;
+  opacity: 0;
+}
+
+.littleswiper .slider .slide .details .right {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
+  bottom: 0%;
+
+}
+
+.littleswiper .slider .slide .details .right i {
+  width: 30px;
+  height: 30px;
+  line-height: 32px;
+  font-size: 20px;
+  text-align: center;
+  background-color: #ffe100;
+  border-radius: 50%;
+  cursor: pointer;
+  color: #282931;
+
+}
+
+
+
+
+
+.button.profil {
+  width: 70%;
+  border-radius: 20px;
+  height: 13%;
+  background-color: rgba(15, 19, 30, 0.93);
+  /*background-color: transparent;*/
+  border: 1px solid #6d6d6d;
+  font-weight: 600;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 3px 3px #6d6d6d;
+  cursor: pointer;
+  transition-duration: .3s;
+  overflow: hidden;
+  position: absolute;
+  top: 73%;
+  left: 15%;
+  z-index: 1;
+}
+
+.littleswiper .slider .slide:hover .button {
+  display: flex;
+}
+
+.button.profil .svgIcon {
+  width: 17px;
+  transition-duration: .3s;
+}
+
+.button.profil .svgIcon path {
+  fill: white;
+}
+
+.button.profil:hover {
+  transition-duration: .3s;
+  background-color: #fb6363;
+  align-items: center;
+  border: none;
+
+}
+
+.button.profil:active {
+  transform: translate(3px, 3px);
+  box-shadow: 0 0 #dedede;
+}
+
+.button.profil:hover .svgIcon {
+  width: 48px;
+  transition-duration: .3s;
+  margin-top: 2px;
+  transform: translateY(55%);
+}
+
+.button.profil::before {
+  position: absolute;
+  top: -50px;
+  content: "Remove from list";
+  color: white;
+  transition-duration: .3s;
+  font-size: 16px;
+}
+
+.button.profil:hover::before {
+  font-size: 13px;
+  top: -27px;
+  opacity: 1;
+  transform: translateY(30px);
+  transition-duration: .3s;
+}

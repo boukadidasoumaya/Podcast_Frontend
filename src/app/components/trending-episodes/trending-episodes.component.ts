@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
 import { CommonModule } from '@angular/common';  // Importation nécessaire
+import { CommentComponent } from '../comment/comment.component';
 
 @Component({
   selector: 'app-trending-episodes',
   standalone: true,
-  imports: [CardEpisodeComponent, CommonModule],  // Ajoute CommonModule ici
+  imports: [CardEpisodeComponent, CommonModule,CommentComponent],  // Ajoute CommonModule ici
   templateUrl: './trending-episodes.component.html',
   styleUrls: ['./trending-episodes.component.css']
 })
@@ -45,4 +46,41 @@ export class TrendingEpisodesComponent {
       commentsCount: '10k'
     }
   ];
+  // Exemple d'utilisation dans un autre composant
+  commentData = [
+    {
+      id: 1,
+      username: "John Doe",
+      text: "C'est un super commentaire !",
+      created_at: "2024-01-19T10:30:00",
+      user_image: "assets/images/profile/exemple.jpg",
+      replies: [
+        {
+          id: 2,
+          username: "Jane Doe",
+          text: "Je suis d'accord !",
+          created_at: "2024-01-19T11:00:00",
+          user_image: "assets/images/profile/exemple.jpg"
+        }
+      ]
+    },
+    {
+      id: 3,
+      username: "John Doe",
+      text: "C'est un autre super commentaire !",
+      created_at: "2024-01-19T10:30:00",
+      user_image: "assets/images/profile/exemple.jpg",
+      replies: [
+        {
+          id: 4,
+          username: "Jane Doe",
+          text: "Je suis également d'accord !",
+          created_at: "2024-01-19T11:00:00",
+          user_image: "assets/images/profile/exemple.jpg"
+        }
+      ]
+    }
+  ];
+
+
 }

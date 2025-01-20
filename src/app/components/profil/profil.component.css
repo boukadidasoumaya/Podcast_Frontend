@@ -22,6 +22,8 @@ p,ul li{
 
 .profil{
   background-color: var(--section-bg-color);
+  position: relative;
+  margin-top: -330px;
 }
 .profil-content {
 
@@ -194,7 +196,7 @@ background-color: #87b3c6;
   outline: none;
 }
 
-.social-media .whatsapp {
+.social-media .whatsapp , .instagram , .twitter{
   position: relative;
   top: 5px;
 }
