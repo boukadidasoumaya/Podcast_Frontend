@@ -1,4 +1,5 @@
 .site-footer-title,
 .site-footer p {
   color: var(--white-color);
+  font-weight: bold;
 }
