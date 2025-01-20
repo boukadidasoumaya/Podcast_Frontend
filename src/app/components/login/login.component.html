@@ -1,0 +1,65 @@
+<div id="container" class="container sign-in">
+    <!-- FORM SECTION -->
+    <div class="row">
+        <!-- SIGN UP -->
+        <div class="col align-items-center flex-col sign-up">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-up">
+                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
+                    <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email"></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password"></app-input-field>
+                    <app-action-button 
+                        buttonText="Sign up"
+                        messageText="Already have an account?"
+                        linkText="Sign in here"
+                        (linkClick)="toggle()">
+                    </app-action-button>
+                </div>
+            </div>
+        </div>
+        <!-- END SIGN UP -->
+        <!-- SIGN IN -->
+        <div class="col align-items-center flex-col sign-in">
+            <div class="form-wrapper align-items-center">
+                <div class="form sign-in">
+                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
+                    <app-action-button 
+                        buttonText="Sign in"
+                        questiontext="Forget Password?"
+                        messageText="Don't have an account?"
+                        linkText="Sign up here"
+                        (linkClick)="toggle()">
+                    </app-action-button>
+                </div>
+            </div>
+        </div>
+        <!-- END SIGN IN -->
+    </div>
+    <!-- END FORM SECTION -->
+    <!-- CONTENT SECTION -->
+    <div class="row content-row">
+        <!-- SIGN IN CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="text sign-in">
+                <h2>
+                    Welcome
+                </h2>
+            </div>
+            <div class="img sign-in"></div>
+        </div>
+        <!-- END SIGN IN CONTENT -->
+        <!-- SIGN UP CONTENT -->
+        <div class="col align-items-center flex-col">
+            <div class="img sign-up"></div>
+            <div class="text sign-up">
+                <h2>
+                    Join with us
+                </h2>
+            </div>
+        </div>
+        <!-- END SIGN UP CONTENT -->
+    </div>
+    <!-- END CONTENT SECTION -->
+</div>
