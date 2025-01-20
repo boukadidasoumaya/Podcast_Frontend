@@ -10,6 +10,7 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SwiperComponent } from './components/swiper/swiper.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TestComponent } from './components/test/test.component';
+import { ContactComponent } from './components/contact/contact.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
@@ -17,7 +18,7 @@ export const routes: Routes = [
   {path:'profil',component:ProfilComponent},
   {path:'details-podcast',component:DetailsPodcastComponent},
   {path:'topics',component:TopicsComponent},
-  
+  {path:'contact',component:ContactComponent},
 
   {path:'footer',component:FooterComponent},
 
