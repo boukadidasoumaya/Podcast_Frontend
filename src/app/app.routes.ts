@@ -7,13 +7,21 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { DetailsPodcastComponent } from './components/details-podcast/details-podcast.component';
 import { FooterComponent } from './components/footer/footer.component';
 
+import { SwiperComponent } from './components/swiper/swiper.component';
+import { TopicsComponent } from './components/topics/topics.component';
+import { TestComponent } from './components/test/test.component';
+
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path:'details-podcast',component:DetailsPodcastComponent},
-  {path:'footer',component:FooterComponent}
+  {path:'topics',component:TopicsComponent},
+  
 
+  {path:'footer',component:FooterComponent},
 
+  {path:'swiper',component:TestComponent}
 ];
+
 
