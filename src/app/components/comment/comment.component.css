@@ -1,0 +1,202 @@
+
+.photo{
+  width: 50px ;
+  height: 50px ;
+  border-radius: 50% ;
+  object-fit: cover;
+}
+.comments .icon{
+  width: 10px ;
+  height: 10px ;
+}
+.comments .span {
+  font-size: 24px ;
+  font-weight: 500;
+}
+
+.comments .comments {
+  background-color: #21252F;
+  border-radius: 15px;
+  /* min-height: 335px; */
+}
+
+
+
+.comments .all-comments.custom-scrollbar {
+  max-height: 61vh;
+  overflow-y: auto;
+}
+
+.comments .all-comments.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.comments .all-comments.custom-scrollbar::-webkit-scrollbar-track {
+  background-color: #e4e4e4;
+  border-radius: 100px;
+}
+
+.comments .all-comments.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #00071B;
+  border-radius: 100px;
+}
+
+.comments .all-comments.custom-scrollbar {
+  overflow: auto;
+}
+
+.comments .user-image-reply, .img-reply {
+  height: 45px !important;
+  width: 45px !important;
+}
+
+.comments .all-comments img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.comments .date {
+  font-size: smaller;
+}
+
+.custom-hr {
+  border-width: 3px;
+}
+
+
+
+.comments .like-button input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.comments .like-button {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  font-size: 20px;
+  user-select: none;
+  transition: 100ms;
+  height: 34px;
+}
+
+.comments .checkmark {
+  top: 0;
+  left: 0;
+  height: 1.3em;
+  width: 1.3em;
+  transition: 100ms;
+  animation: dislike_effect 400ms ease;
+}
+
+.comments .like-button input:checked~.checkmark path {
+  fill: #FF5353;
+  stroke-width: 0;
+}
+
+.comments .like-button input:checked~.checkmark {
+  animation: like_effect 400ms ease;
+}
+
+.comments .checkmark:hover {
+  transform: scale(1.1);
+}
+
+@keyframes like_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes dislike_effect {
+  0% {
+    transform: scale(0);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.comments .reply-button i {
+  font-size: 1.5rem;
+}
+
+/* .reply-icon {
+  transform: rotate(190deg);
+}  */
+.comments .reply-button img {
+  height: 24px;
+  width: 24px;
+}
+
+.comments .reply-button span {
+  font-size: smaller;
+  margin-left: 10px;
+}
+.comments .first-section {
+  background-color: rgba(68, 73, 85, 0.595);
+  padding: 8px;
+  border-radius: 15px;
+}
+
+
+.comments .btn {
+  background-color: transparent;
+  position: relative;
+  border: none;
+  margin-right: 5px;
+  height: 36px;
+}
+.comments .btn::after {
+  content: 'delete';
+  position: absolute;
+  top: -40%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: fit-content;
+  height: fit-content;
+  background-color: #fb6363;
+  padding: 4px 8px;
+  border-radius: 5px;
+  transition: .2s linear;
+  transition-delay: .2s;
+  color: white;
+  text-transform: uppercase;
+  font-size: 11px;
+  opacity: 0;
+  visibility: hidden;
+}
+
+.comments .btn i {
+  transition: .2s linear;
+  color: #a8a8a8;
+}
+
+.comments .btn i:hover {
+  transform: scale(1.5);
+  color: #fb6363;
+}
+
+.comments .btn:hover::after {
+  visibility: visible;
+  opacity: 1;
+  top: -65%;
+}
+
