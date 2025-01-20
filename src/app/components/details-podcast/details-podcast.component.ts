@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
+import { SectionCustomComponent } from '../section-custom/section-custom.component';
 
 @Component({
   selector: 'app-details-podcast',
   standalone: true,
-  imports: [CommonModule, CommentComponent],
+  imports: [CommonModule, CommentComponent,SectionCustomComponent],
   templateUrl: './details-podcast.component.html',
   styleUrl: './details-podcast.component.css'
 })

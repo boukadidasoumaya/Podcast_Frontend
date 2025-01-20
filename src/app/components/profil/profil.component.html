@@ -180,7 +180,15 @@
           <p class="fs-3">My List:</p>
         </div>
         <hr class="custom-hr">
-        <!-- Insert your Angular slider component here -->
+        <app-swiper [cards]="displayedTopics">
+          <ng-template let-topic>
+            <app-topics
+              [title]="topic.title"
+              [episodes]="topic.episodes"
+              [image]="topic.image"
+            ></app-topics>
+          </ng-template>
+        </app-swiper>
       </div>
     </div>
   </div>

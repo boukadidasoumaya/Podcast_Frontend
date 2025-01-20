@@ -1,53 +1,27 @@
-
 <div class="custom-block custom-block-full">
   <div class="custom-block-image-wrap">
     <a>
-      <img [src]="imagePath" class="custom-block-image img-fluid" alt="">
+      <img [src]="episode.imagePath" class="custom-block-image img-fluid" alt="">
     </a>
   </div>
 
   <div class="custom-block-info">
     <h5 class="mb-2">
-      <a href="">{{ title }}</a>
+      <a href="">{{ episode.title }}</a>
     </h5>
 
     <div class="profile-block d-flex">
-      <img [src]="profileImage" class="profile-block-image img-fluid" alt="">
-      <p>{{ profileName }} <strong>{{ profileRole }}</strong></p>
+      <img [src]="episode.profileImage" class="profile-block-image img-fluid" alt="">
+      <p>{{ episode.profileName }} <strong>{{ episode.profileRole }}</strong></p>
     </div>
 
-    <p class="mb-0">{{ description }}</p>
+    <p class="mb-0">{{ episode.description }}</p>
 
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
-      <!-- Composant pour l'icône écouteur -->
-      <app-headphones-icon
-        [listensCount]="listensCount">
-      </app-headphones-icon>
-
-      <!-- Composant pour l'icône cœur -->
-      <app-heart-icon
-        [likesCount]="likesCount"
-        (liked)="onLikeChanged($event)">
-      </app-heart-icon>
-
-      <!-- Composant pour l'icône chat -->
-      <app-comment-icon
-        [commentsCount]="commentsCount"
-        (commented)="onCommentChanged($event)">
-      </app-comment-icon>
+      <app-headphones-icon [listensCount]="episode.listensCount"></app-headphones-icon>
+      <app-heart-icon [likesCount]="episode.likesCount" (liked)="onLikeChanged($event)"></app-heart-icon>
+      <app-comment-icon [commentsCount]="episode.commentsCount" (commented)="onCommentChanged($event)"></app-comment-icon>
     </div>
-
-
-
   </div>
-  <div class="social-share d-flex flex-column ms-auto">
-    <a href="#" class="badge ms-auto">
-        <i class="bi-heart"></i>
-    </a>
-
-    <a href="#" class="badge ms-auto">
-        <i class="bi-bookmark"></i>
-    </a>
-</div>
-
+  <app-save-icon></app-save-icon>
 </div>

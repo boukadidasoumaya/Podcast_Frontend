@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
 import { CommonModule } from '@angular/common';  // Importation nécessaire
+import { SectionCustomComponent } from '../section-custom/section-custom.component';
 
 @Component({
   selector: 'app-trending-episodes',
   standalone: true,
-  imports: [CardEpisodeComponent, CommonModule],  // Ajoute CommonModule ici
+  imports: [CardEpisodeComponent, CommonModule,SectionCustomComponent],  // Ajoute CommonModule ici
   templateUrl: './trending-episodes.component.html',
   styleUrls: ['./trending-episodes.component.css']
 })

@@ -10,18 +10,19 @@ import { FooterComponent } from './components/footer/footer.component';
 import { SwiperComponent } from './components/swiper/swiper.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TestComponent } from './components/test/test.component';
+import { LoginComponent } from './components/login/login.component';
+import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
   {path:'trending',component:TrendingEpisodesComponent},
+  {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path:'details-podcast',component:DetailsPodcastComponent},
   {path:'topics',component:TopicsComponent},
-  
-
   {path:'footer',component:FooterComponent},
-
-  {path:'swiper',component:TestComponent}
+  {path:'swiper',component:TestComponent},
+  {path:'login' , component:LoginComponent}
 ];
 
 

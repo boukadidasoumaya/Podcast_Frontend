@@ -37,7 +37,7 @@
 }
 
 .comments .all-comments.custom-scrollbar::-webkit-scrollbar-thumb {
-  background-color: #00071B;
+  background-color: var(  --secondary-color);
   border-radius: 100px;
 }
 

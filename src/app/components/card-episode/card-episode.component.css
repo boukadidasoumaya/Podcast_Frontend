@@ -14,9 +14,3 @@
   position: relative;
   right: 5px;
 }
-.owl-carousel-info-wrap .social-share,
-.team-thumb .social-share {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-}
