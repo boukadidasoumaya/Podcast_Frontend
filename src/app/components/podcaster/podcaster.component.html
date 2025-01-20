@@ -1,0 +1,31 @@
+    <div class="team-thumb bg-white shadow-lg">
+        <img [src]="imageUrl" class="about-image img-fluid" alt="">
+
+        <div class="team-info">
+            <h4 class="mb-2">
+                {{ name }}
+                <img src="images/verified.png" class="verified-image img-fluid" alt="">
+            </h4>
+
+            <div *ngFor="let badge of badges">
+                <span class="badge">{{ badge }}</span>
+            </div>
+        </div>
+
+        <div class="social-share">
+            <ul class="social-icon">
+                <li class="social-icon-item">
+                    <a [href]="socialLinks.twitter" class="social-icon-link bi-twitter"></a>
+                </li>
+
+                <li class="social-icon-item">
+                    <a [href]="socialLinks.facebook" class="social-icon-link bi-facebook"></a>
+                </li>
+
+                <li class="social-icon-item">
+                    <a [href]="socialLinks.pinterest" class="social-icon-link bi-pinterest"></a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
