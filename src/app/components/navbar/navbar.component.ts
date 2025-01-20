@@ -1,17 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { SearchComponent } from "./search/search.component";
 import { LogoComponent } from "./logo/logo.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { UploadModalComponent } from "./upload-modal/upload-modal.component";
 import { CommonModule } from '@angular/common';
+import { HeaderComponent } from "../contact/header/header.component";
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [SearchComponent, LogoComponent, UserProfileComponent,  UploadModalComponent,CommonModule],
+  imports: [SearchComponent, LogoComponent, UserProfileComponent, UploadModalComponent, CommonModule, HeaderComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
 export class NavbarComponent {
+  @Input() text:any="Home";
   handleSearch(searchTerm: string): void {
     console.log('Search term from search component:', searchTerm);
   }
