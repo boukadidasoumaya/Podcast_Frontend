@@ -21,5 +21,10 @@ export class NavbarComponent {
   toggleNavbar() {
     this.isToggled = !this.isToggled;
   }
+  dropdownOpen = false;
 
+  toggleDropdown(event: Event) {
+    event.stopPropagation();
+    this.dropdownOpen = !this.dropdownOpen;
+  }
 }

@@ -52,4 +52,6 @@
     background: var(--custom-btn-bg-hover-color);
     border-color: transparent;
   }
-  
+  .custom-title{
+    font-weight: bold;
+  }

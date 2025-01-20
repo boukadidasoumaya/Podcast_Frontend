@@ -44,6 +44,7 @@
 body {
   background-color: var(--white-color);
   font-family: var(--body-font-family);
+  
 }
 
 
@@ -67,6 +68,7 @@ h5,
 h6 {
   font-family: var(--title-font-family);
   font-weight: var(--font-weight-semibold);
+  
 }
 
 h1 {
@@ -136,7 +138,7 @@ strong {
 @media screen and (min-width: 2160px) {
 	.hero-section {
 	  background-size: 100% 90%;
-	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	
 	}
 }
 
@@ -150,7 +152,7 @@ strong {
 @media screen and (max-width: 1240px) {
 	.hero-section {
 	  background-size: 116%;
-	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	  
 	}
 }
 
@@ -181,7 +183,7 @@ strong {
   
   .hero-section {
 	  background-size: 160% 66%; 
-	  /* T o o p l a t e . c o m   C u s t o m i z e d */
+	 
 	}
 
   .section-padding {
@@ -278,3 +280,10 @@ strong {
 
 }
 
+@media screen and (min-width: 992px) {
+  .navbar .dropdown:hover .dropdown-menu {
+    opacity: 1;
+    margin-top: 0;
+    pointer-events: auto;
+  }
+}
