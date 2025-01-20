@@ -1,5 +1,29 @@
-<app-section-custom [title]="'cards'" [sectionId]="'2'">
-  <carousel>
+<app-section-custom [title]="'cards'" [sectionId]="'2'" >
+  <carousel   
+  [infinite]="false"
+  [responsive]="true"
+  [autoSlide]="true"
+  [autoslideLimitPercentCard]="30"
+  [autoPlay]="false"
+  [autoPlayInterval]="1500"
+  [autoPlayAtStart]="false"
+  [autoPlaySlideToScroll]="1"
+  [displayAutoPlayControls]="true"
+  [slideToShow]="slideToShow"
+  [slideToScroll]="1"
+  [strechingLimit]="60"
+  [slideWidth]="slideWidth"
+  [slideMaxWidth]="700"
+  [dots]="true"
+  [arrows]="true"
+  [counter]="true"
+  [counterSeparator]="'/'"
+  [enableMouseDrag]="true"
+  [enableTouch]="true"
+  [gapBetweenSlides]="10"
+  [animationTimingFn]="'ease-out'"
+  [animationTimingMs]="300"
+  [maxDomSize]="4">
     <div class="carousel-slide" *ngFor="let card of cards">
       <div [ngClass]="colClass">
 

@@ -21,10 +21,10 @@ export class TestComponent {
       hostRole: 'Influencer',
       description: 'Lorem Ipsum dolor sit amet consectetur',
       stats: {
-        headphones: 120000,
-        heart: 42500,
-        chat: 11000,
-        download: 50000,
+        headphones: 120,
+        heart: 425,
+        chat: 11,
+        download: 50,
       },
     },
     {
@@ -35,12 +35,12 @@ export class TestComponent {
       hostName: 'John',
       hostImage: 'assets/images/podcast/27376480_7326766.jpg',
       hostRole: 'Tech Enthusiast',
-      description: 'The latest trends in technology.',
+      description: 'The lateszz /n t trends in technology.',
       stats: {
-        headphones: 200000,
-        heart: 80000,
-        chat: 5000,
-        download: 70000,
+        headphones: 20,
+        heart: 80,
+        chat: 50,
+        download: 70,
       },
     },{
       imageUrl: 'assets/images/podcast/27376480_7326766.jpg',
