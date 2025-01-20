@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { SwiperComponent } from "../swiper/swiper.component";
 import { CommonModule } from '@angular/common';
-
+import { Input } from '@angular/core';
 @Component({
   selector: 'app-topics',
   standalone: true,
-  imports: [SwiperComponent, CommonModule],
+  imports: [ CommonModule],
   templateUrl: './topics.component.html',
   styleUrl: './topics.component.css'
 })
@@ -13,6 +13,9 @@ export class TopicsComponent {
   currentPage = 1;
   itemsPerPage = 4;  // Adjust according to your needs
   totalItems = 0;
+  @Input() image: string = ''; // Input for image source
+  @Input() title: string = ''; // Input for title
+  @Input() episodes: number = 0; // Input for episodes (optional)
   
   pagedTopics = [
     { 
@@ -62,13 +65,6 @@ export class TopicsComponent {
     this.totalItems = this.pagedTopics.length;
   }
 
-  get totalPages() {
-    return Math.ceil(this.totalItems / this.itemsPerPage);
-  }
-
-  changePage(pageNumber: number) {
-    this.currentPage = pageNumber;
-  }
 
   // Calculate the topics to display based on the current page and items per page
   get displayedTopics() {

@@ -3,9 +3,10 @@ import { SectionCustomComponent } from "../section-custom/section-custom.compone
 import { DecimalPipe } from '@angular/common'; // Import DecimalPipe
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ViewportScroller } from '@angular/common'; // Import ViewportScroller
 import { CarouselModule } from 'ngx-carousel-ease';
 import { TopicsComponent } from '../topics/topics.component';
+import { Input } from '@angular/core';
+import { ContentChild, ContentChildren, QueryList, TemplateRef } from '@angular/core';
 @Component({
   selector: 'app-swiper',
   standalone: true,
@@ -15,5 +16,7 @@ import { TopicsComponent } from '../topics/topics.component';
   providers: [DecimalPipe] // Add DecimalPipe to providers
 })
 export class SwiperComponent {
-  
+  @Input() cards: any[] = []
+  @ContentChild(TemplateRef) contentTemplate!: TemplateRef<any>;
+
 }

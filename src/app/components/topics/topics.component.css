@@ -1,24 +1,4 @@
-html {
-    scroll-behavior: smooth;
-  }
-  
-  app-section-custom {
-    font-family: 'Arial', sans-serif; /* Change to your desired font */
-  }
-  
-  carousel {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px; /* Adds space between items */
-    justify-content: space-between;
-  }
-  
-  .carousel-slide {
-    flex: 1 1 calc(25% - 20px); /* Default width: 4 items per row */
-    min-width: 250px; /* Prevents the card from becoming too skinny */
-    max-width: 350px; /* Sets a max-width to prevent stretching too much */
-    box-sizing: border-box; /* Ensures the padding doesn't affect the width */
-  }
+
   /*---------------------------------------
     CUSTOM BLOCK              
   -----------------------------------------*/
