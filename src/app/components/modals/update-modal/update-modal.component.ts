@@ -19,6 +19,9 @@ export class UpdateModalComponent implements OnInit {
   updateForm!: FormGroup;
 
   constructor(private fb: FormBuilder) {}
+  triggerFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
 
   ngOnInit(): void {
     this.updateForm = this.fb.group({
