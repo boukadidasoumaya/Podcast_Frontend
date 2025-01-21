@@ -92,3 +92,55 @@ textarea {
 .btn-finish:hover {
   background-color: #e0a800;
 }
+
+.scrollable-content {
+  max-height: 400px; /* Ajuste cette valeur selon le besoin */
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  background-color: #007bff;
+  color: #fff;
+  padding: 1rem;
+  border-bottom: 2px solid #0056b3;
+}
+
+.modal-footer {
+  background-color: #f8f9fa;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-arrow {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.btn-arrow:hover {
+  background: #0056b3;
+}
+
+.btn-finish {
+  background: #28a745;
+  color: #fff;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.btn-finish:hover {
+  background: #218838;
+}
