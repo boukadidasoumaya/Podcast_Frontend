@@ -13,6 +13,8 @@ import { TestComponent } from './components/test/test.component';
 import { LoginComponent } from './components/login/login.component';
 import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { HeroSectionComponent } from './components/hero-section/hero-section.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
@@ -22,7 +24,8 @@ export const routes: Routes = [
   {path:'details-podcast',component:DetailsPodcastComponent},
   {path:'topics',component:TopicsComponent},
   {path:'contact',component:ContactComponent},
-
+  {path:'hero',component:HeroSectionComponent},
+  {path:'hero-card',component:HeroCardComponent},
   {path:'footer',component:FooterComponent},
   {path:'swiper',component:TestComponent},
   {path:'login' , component:LoginComponent}
