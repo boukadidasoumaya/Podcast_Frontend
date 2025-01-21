@@ -8,6 +8,7 @@ import { HeroSectionComponent } from './components/hero-section/hero-section.com
 import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/navbar/search/search.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
@@ -15,5 +16,7 @@ export const routes: Routes = [
   {path:'profil',component:ProfilComponent},
   {path:'hero',component:HeroSectionComponent},
   {path:'hero-card',component:HeroCardComponent},
-  {path:'home',component:HomeComponent}
+  {path:'home',component:HomeComponent},
+  {path:'search',component:SearchComponent}
+
 ];
