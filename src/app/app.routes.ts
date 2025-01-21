@@ -15,9 +15,8 @@ export const routes: Routes = [
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'',component:LatestEpisodesComponent},
   {path: 'latest-episodes', component: LatestEpisodesComponent },
-  {path: 'login', component: LoginComponent }
-  {path:'',component:NavbarComponent},
-  {path:'trending',component:TrendingEpisodesComponent},
+  {path: 'login', component: LoginComponent },
+  {path:'navbar',component:NavbarComponent},
   {path:'profil',component:ProfilComponent},
   {path:'hero',component:HeroSectionComponent},
   {path:'hero-card',component:HeroCardComponent},
