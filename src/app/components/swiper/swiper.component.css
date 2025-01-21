@@ -397,13 +397,13 @@ strong {
 
 /* Media queries for responsiveness */
 /* Media queries for responsiveness */
-@media (max-width: 991px) {
+@media (max-width: 991px ) and (min-width : 801) {
   .carousel-slide {
     flex: 1 1 calc(50% - 20px); /* For medium screens, show 2 items per row */
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 800px) {
   .carousel-slide {
     flex: 1 1 100%; /* For small screens, show 1 item per row */
   }

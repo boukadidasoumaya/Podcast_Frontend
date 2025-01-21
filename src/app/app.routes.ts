@@ -30,8 +30,6 @@ export const routes: Routes = [
   {path:'hero-card',component:HeroCardComponent},
   {path:'footer',component:FooterComponent},
   {path:'swiper',component:TestComponent},
-
-
   {path:'home',component:HomeComponent},
   {path:'search',component:SearchComponent}
 
