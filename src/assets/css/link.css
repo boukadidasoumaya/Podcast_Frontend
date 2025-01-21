@@ -1,0 +1,10 @@
+a {
+  touch-action: manipulation;
+  transition: all 0.3s;
+  display: inline-block;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--link-hover-color);
+}

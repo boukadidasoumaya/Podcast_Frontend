@@ -1,0 +1,56 @@
+<div class="site-header">
+  <nav class="navbar navbar-expand-lg">
+    <div class="container">
+      <app-logo></app-logo>
+      <app-search (searchEvent)="handleSearch($event)"></app-search>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-lg-auto">
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/index">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/about">Pages</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" routerLink="/contact">Contact</a>
+          </li>
+          <li>
+            <div class="ms-4">
+              <button
+                class="btn custom-btn custom-border-btn smoothscroll"
+                data-bs-toggle="modal"
+                data-bs-target="#uploadPodcastModal"
+              >
+                Upload Podcast
+              </button>
+            </div>
+          </li>
+          <br>
+          <li>
+            <div class="ms-4">
+              <app-user-profile ></app-user-profile>
+            </div>
+            
+          </li>
+         
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <app-upload-modal></app-upload-modal>
+</div>

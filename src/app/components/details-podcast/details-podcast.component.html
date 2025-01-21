@@ -1,0 +1,88 @@
+<!-- trending-episodes.component.html -->
+<section class="latest-podcast-section section-padding pb-0" id="section_2">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-12">
+        <app-section-custom
+          [title]="'Daily Talk'"
+          [sectionId]="''">
+        </app-section-custom>
+
+        <div class="row">
+          <div class="col-lg-3 col-12">
+            <div class="custom-block-icon-wrap">
+              <div class="custom-block-image-wrap custom-block-image-detail-page">
+                <img [src]="episode.imagePath" class="custom-block-image img-fluid" alt="{{ episode.title }}">
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-9 col-12">
+            <div class="custom-block-info">
+              <div class="custom-block-top d-flex mb-1">
+                <small class="me-4">
+                  <a href="#">
+                    <i class="bi-play"></i>
+                    Play now
+                  </a>
+                </small>
+
+                <small>
+                  <i class="bi-clock-fill custom-icon"></i>
+                  {{ episode.duration }}
+                </small>
+
+                <small class="ms-auto">Episode <span class="badge">{{ episode.episodeNumber }}</span></small>
+              </div>
+
+              <h2 class="mb-2">{{ episode.title }}</h2>
+
+              <p>{{ episode.description }}</p>
+
+              <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
+                <div class="d-flex mb-3 mb-lg-0 mb-md-0">
+                  <img [src]="episode.profileImage" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
+                  <p>
+                    {{ episode.profileName }}
+                    <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
+                    <strong>{{ episode.profileRole }}</strong>
+                  </p>
+                </div>
+
+                <ul class="social-icon ms-lg-auto ms-md-auto">
+                  <li class="social-icon-item">
+                    <a [href]="episode.socialLinks.instagram" class="social-icon-link bi-instagram"></a>
+                  </li>
+                  <li class="social-icon-item">
+                    <a [href]="episode.socialLinks.twitter" class="social-icon-link bi-twitter"></a>
+                  </li>
+                  <li class="social-icon-item">
+                    <a [href]="episode.socialLinks.whatsapp" class="social-icon-link bi-whatsapp"></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br>
+        <app-section-custom
+          [title]="'Comments'"
+          [sectionId]="''">
+        </app-section-custom>
+
+        <div class="container comments p-4"><div class="row all-comments custom-scrollbar">
+          <app-comment
+          *ngFor="let comment of commentData"
+          [comment]="comment"
+          [colWidthIm]="2"
+          [colLikeLg]="3"
+          [colLikeMd]="4"
+          [moreThanOne]="true">
+        </app-comment>
+        </div>
+      </div>
+
+      </div>
+    </div>
+  </div>
+</section>

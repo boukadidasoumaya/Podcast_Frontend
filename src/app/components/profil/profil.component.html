@@ -1,0 +1,200 @@
+<app-navbar  style="background-image: url('/assets/images/templatemo-wave-header-for-profil.jpg'), linear-gradient(#348CD2, #FFFFFF);"></app-navbar>
+
+
+<div class="profil">
+<div class="profil-content">
+  <div class="content">
+    <div class="container">
+      <div class="row">
+        <!-- Left Column - Profile Info -->
+        <div class="col-lg-3 col-md-4 col-sm-12">
+          <div class="cadre d-flex flex-column align-items-center justify-content-center">
+            <!-- Profile Image -->
+            <div class="row d-flex justify-content-center">
+              <img class="profileImage p-0 m-2" src="{{ user.profilImage}}" alt="Profile">
+              <div class="d-flex justify-content-end p-0">
+                <label for="file">
+                  <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" data-bs-toggle="modal"
+                  data-bs-target="#UserInfoModal">
+                </label>
+              </div>
+              <hr class="mt-4 mb-4">
+            </div>
+
+            <!-- User Details -->
+            <div class="row">
+              <div class="col-12 d-flex details pe-0">
+                <div class="d-flex" style="width: 100%">
+                  <!-- Charger l'icône depuis assets/icons -->
+                  <img src="assets/icons/user-icon.png" class="user-icon" alt="User Icon" width="24" height="24">
+
+                  <div class="d-flex flex-column" style="width: 100%">
+                    <p class="username" type="text">
+                      {{ user.name }}
+                      </p>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
+
+            <!-- Birthday -->
+            <div class="row">
+              <div class="col-12 d-flex details pe-0">
+                <div class="d-flex" style="width: 100%">
+                  <img src="assets/icons/birthday-icon.png" class="birthday-icon" alt="Birthday Icon" width="24" height="24">
+
+                  <div class="birthday">
+                    <p class="date mb-0">{{ user.birthDate }}</p>
+                    <p class="birth mb-3">Date Of Birth</p>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Address -->
+            <div class="row">
+              <div class="col-12 d-flex details pe-0">
+                <div class="d-flex" style="width: 100%">
+                  <img src="assets/icons/map-icon.png" class="map-icon" alt="Map Icon" width="24" height="24">
+
+                  <p class="address">{{ user.address}}</p>
+                </div>
+
+              </div>
+            </div>
+            <!-- JOB -->
+            <div class="row">
+              <div class="col-12 d-flex details pe-0">
+                <div class="d-flex" style="width: 100%">
+                  <img src="assets/icons/job-icon.png" class="job-icon" alt="Job Icon" width="24" height="24">
+
+                  <p class="job">{{ user.job }}</p>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Column - Account Details -->
+        <div class="col-lg-9 col-md-8 col-sm-12 profil-right">
+          <div class="row">
+            <div class="col-12">
+              <div class="account d-flex">
+                <h2>Account</h2>
+                <span class="fw-light fs-6 member">Member since 2002</span>
+              </div>
+              <hr class="custom-hr">
+            </div>
+
+            <!-- Subscribing and Billing -->
+            <div class="col-12">
+              <p class="fs-5 fw-light">Subscribing:</p>
+            </div>
+            <div class="col-12 sub-bil">
+              <ul>
+                <!-- Email -->
+                <li>
+                  <div class="row">
+                    <span class="col-10" style="word-break: break-all">{{ user.email}}</span>
+                    <span class="col-2 p-0 edit d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#emailModal">Update Email</span>
+                  </div>
+
+                </li>
+
+                <!-- Password -->
+                <li>
+                  <div class="row">
+                    <span class="col-10" style="word-break: break-all">Password : *****</span>
+                    <span class="col-2 p-0 edit d-flex justify-content-end " data-bs-toggle="modal" data-bs-target="#passwordModal ">Update Password</span>
+                  </div>
+                </li>
+
+
+
+              </ul>
+            </div>
+
+          <!-- Social Media Accounts Info -->
+<div class="col-12">
+  <p class="fs-5 fw-light">Social Media Details:</p>
+</div>
+<div class="col-12 social-media">
+
+      <div class="row align-items-center  mb-3">
+        <div class="col-2 d-flex justify-content-end">
+          <img src="assets/icons/whatsapp-icon.png" class="whatapp-icon" alt="WhatsApp Icon" width="24" height="24">
+        </div>
+        <div class="col-8 d-flex align-items-center">
+          <p class="whatsapp"> {{ user.socialMedia.whatsapp}}</p>
+        </div>
+      </div>
+
+
+    <!-- Instagram -->
+
+      <div class="row align-items-center mb-3">
+        <div class="col-2 d-flex justify-content-end">
+          <img src="assets/icons/instagram-icon.png" class="instagram-icon" alt="Instagram Icon" width="24" height="24">
+        </div>
+        <div class="col-8 d-flex align-items-center">
+          <p class="instagram">{{ user.socialMedia.instagram}}</p>
+        </div>
+      </div>
+
+
+    <!-- Twitter -->
+
+    <div class="row align-items-center mb-3">
+      <div class="col-2 d-flex justify-content-end">
+        <img src="assets/icons/twitter-icon.png" class="twitter-icon" alt="Twitter Icon" width="24" height="24">
+      </div>
+      <div class="col-8 d-flex align-items-center">
+        <p class="twitter">{{ user.socialMedia.instagram}}</p>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <span class="col-12 p-0 edit d-flex flex-column align-items-end justify-content-end">
+        <span style="text-decoration: none; word-wrap: break-word; text-align: right; max-width: 150px; display: inline-block" data-bs-toggle="modal"
+        data-bs-target="#socialMediaModal">
+          Manage your social media accounts
+        </span>
+      </span>
+    </div>
+
+
+</div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- My List Section -->
+      <div class="row mt-3">
+        <div class="col-12">
+          <p class="fs-3">My List:</p>
+        </div>
+        <hr class="custom-hr">
+        <app-swiper [cards]="displayedTopics">
+          <ng-template let-topic>
+            <app-topics
+              [title]="topic.title"
+              [episodes]="topic.episodes"
+              [image]="topic.image"
+            ></app-topics>
+          </ng-template>
+        </app-swiper>
+      </div>
+    </div>
+  </div>
+</div>
+<app-user-info-modal [updateUserPersonnalInfo]="updateUserPersonnalInfo"></app-user-info-modal>
+<app-email-modal></app-email-modal>
+<app-password-modal></app-password-modal>
+<app-social-media-modal></app-social-media-modal>
+</div>

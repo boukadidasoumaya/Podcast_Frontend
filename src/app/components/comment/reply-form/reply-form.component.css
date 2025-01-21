@@ -1,0 +1,90 @@
+
+
+
+
+.write-comment .user-image {
+  width: 50px ;
+  height: 50px ;
+  border-radius: 50% ;
+  object-fit: cover;
+}
+.write-comment .reply-box.disabled {
+  opacity: 0.5;
+    pointer-events: none;
+}
+
+.write-comment .box-container {
+  display: flex;
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 8px 8px 23px 23px;
+  padding: 5px;
+  box-shadow: 2px 2px 2px rgba(153, 153, 153, 0.9);
+  border: 1.5px solid #ccc;
+}
+
+.write-comment .box-container textarea {
+  width: 98%;
+  resize: none;
+  border: 0;
+  border-radius: 6px;
+  padding-left: 12px;
+  font-size: 16px !important;
+  outline: none;
+  caret-color: #0a84ff;
+  line-height: 1.5;
+}
+
+.write-comment .formatting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.write-comment .formatting button {
+  cursor: pointer;
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  border: 1px solid #2693ff;
+  outline: none;
+  background: #2693ff;
+}
+
+.write-comment .formatting button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.write-comment .formatting .send:hover {
+  border: 1px solid #0066CC;
+  background: #0066CC;
+  box-shadow: rgba(255, 255, 255, .2) 0 4px 15px inset, rgba(0, 0, 0, .1) 0 4px 5px, rgba(0, 0, 0, .1) 0 10px 15px;
+  transform: scale(1.04);
+  transition-duration: .3s;
+}
+
+.write-comment .formatting button:active {
+  transform: translate(2px, 2px);
+}
+
+
+
+.write-comment textarea {
+  width: 98%;
+  resize: none;
+  border: 0;
+  border-radius: 6px;
+  padding-left: 12px;
+  padding: auto;
+  font-size: 16px !important;
+  outline: none;
+  caret-color: #0a84ff;
+  line-height: 1.5;
+}
+
+
+
