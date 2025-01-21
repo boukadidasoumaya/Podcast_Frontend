@@ -5,9 +5,11 @@ import { TrendingEpisodesComponent } from './components/trending-episodes/trendi
 import { SwiperComponent } from './components/swiper/swiper.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TestComponent } from './components/test/test.component';
+import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
 export const routes: Routes = [
   {path:'',component:TrendingEpisodesComponent},
   {path:'swiper',component:TestComponent},
+  {path:'r',component:LatestEpisodesComponent},
 ];
 
 

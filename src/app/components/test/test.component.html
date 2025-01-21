@@ -23,5 +23,18 @@
     
     </ng-template>
   </app-swiper>
+  <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+    <ng-template let-card>
+      <app-latest-episode-card>
+      [imagePath]="episode.imagePath"
+      [title]="episode.title"
+      [description]="episode.description"
+      [profileImage]="episode.profileImage"
+      [profileName]="episode.profileName"
+      [profileRole]="episode.profileRole">
+    </app-latest-episode-card>
+    
+    </ng-template>
+  </app-swiper>
         <app-podcaster></app-podcaster>
          
