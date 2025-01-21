@@ -11,12 +11,15 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   styleUrls: ['./podcast-modal.component.css'],
 })
 export class PodcastModalComponent {
+[x: string]: any;
   step = 1;
   podcastForm: FormGroup;
   episodesCount = 0;
   episodeForm: FormGroup[] = [];
+  triggerFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
   
-  // Topics for the dropdown
   topics: string[] = [
     'Technology',
     'Health and Wellness',

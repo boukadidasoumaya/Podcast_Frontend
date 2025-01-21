@@ -91,13 +91,45 @@
                 formControlName="description"
                 placeholder="Enter episode description"
               ></textarea>
-
-              <label for="file-{{ i }}">MP4 File</label>
-              <input
-                id="file-{{ i }}"
-                type="file"
-                (change)="onFileSelect($event, i)"
-              />
+              <label for="file-{{ i }}">Attach Episode File</label>
+              <div>
+                <!-- Hidden file input -->
+                <input
+                  #fileInput
+                  id="file-{{ i }}"
+                  type="file"
+                  (change)="onFileSelect($event, i)"
+                  style="display: none"
+                />
+                <!-- Custom button -->
+                <button
+                  type="button"
+                  class="button"
+                  (click)="triggerFileInput(fileInput)"
+                >
+                  <span class="btn__icon">
+                    <svg
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      height="24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                      <path
+                        d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
+                      ></path>
+                      <path d="M9 15l3 -3l3 3"></path>
+                      <path d="M12 12l0 9"></path>
+                    </svg>
+                  </span>
+                  <span class="btn__text">Upload</span>
+                </button>
+              </div>
             </form>
           </div>
         </div>
