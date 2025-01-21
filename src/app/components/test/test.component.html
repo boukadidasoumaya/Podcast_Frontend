@@ -23,13 +23,5 @@
     
     </ng-template>
   </app-swiper>
-    <app-swiper [cards]="podcasters" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"  [slideToShow]="4" [slideWidth]="200">
-      <ng-template let-card>
-        <app-podcaster
-          [name]="card.name"
-          [imageUrl]="card.imageUrl"
-          [badges]="card.badges"
-          [socialLinks]="card.socialLinks">
-        </app-podcaster>  
-      </ng-template>
-  </app-swiper>
+        <app-podcaster></app-podcaster>
+         
