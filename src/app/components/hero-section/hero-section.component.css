@@ -49,7 +49,7 @@ p {
 }
 
 .hero-section {
-  /* background-image: url('../../../assets/images/templatemo-wave-banner.jpg'), linear-gradient(#348CD2, #FFFFFF); */
+  background-image: url('../../../assets/images/templatemo-wave-banner.jpg'), linear-gradient(#348CD2, #FFFFFF);
   background-repeat: no-repeat;
   background-size: 108% 70%;
   background-position: top;
