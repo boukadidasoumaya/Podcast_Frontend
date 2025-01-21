@@ -7,7 +7,7 @@
       ></app-topics>
     </ng-template>
   </app-swiper>
-  <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+  <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="600">
     <ng-template let-card>
         <app-episode-horizontal
         [title]="card.title"
@@ -20,8 +20,6 @@
         [description]="card.description"
         [stats]="card.stats"
       ></app-episode-horizontal>
-    
+
     </ng-template>
   </app-swiper>
-        <app-podcaster></app-podcaster>
-         

@@ -2,11 +2,10 @@ import { Component } from '@angular/core';
 import { SwiperComponent } from '../swiper/swiper.component';
 import { TopicsComponent } from '../topics/topics.component';
 import { EpisodeHorizontalComponent } from '../episode-horizontal/episode-horizontal.component';
-import { PodcasterComponent } from "../podcaster/podcaster.component";
 @Component({
   selector: 'app-test',
   standalone: true,
-  imports: [SwiperComponent, TopicsComponent, EpisodeHorizontalComponent, PodcasterComponent],
+  imports: [SwiperComponent,TopicsComponent, EpisodeHorizontalComponent],
   templateUrl: './test.component.html',
   styleUrl: './test.component.css'
 })
@@ -116,38 +115,6 @@ export class TestComponent {
       title: 'Cooking', 
       image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg', 
       episodes: 12 
-    }
-  ];
-  podcasters = [
-    {
-      name: 'Taylor',
-      imageUrl: 'images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      badges: ['Modeling', 'Fashion'],
-      socialLinks: {
-        twitter: 'https://twitter.com/taylor',
-        facebook: 'https://facebook.com/taylor',
-        pinterest: 'https://pinterest.com/taylor'
-      }
-    },
-    {
-      name: 'Jordan',
-      imageUrl: 'images/profile/jordan-profile.jpg',
-      badges: ['Podcasting', 'Tech'],
-      socialLinks: {
-        twitter: 'https://twitter.com/jordan',
-        facebook: 'https://facebook.com/jordan',
-        pinterest: 'https://pinterest.com/jordan'
-      }
-    },
-    {
-      name: 'Alex',
-      imageUrl: 'images/profile/alex-profile.jpg',
-      badges: ['Photography', 'Travel'],
-      socialLinks: {
-        twitter: 'https://twitter.com/alex',
-        facebook: 'https://facebook.com/alex',
-        pinterest: 'https://pinterest.com/alex'
-      }
     }
   ];
 }
