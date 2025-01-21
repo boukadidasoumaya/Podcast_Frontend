@@ -1,7 +1,22 @@
 .section-title-wrap {
     position: relative;
   }
-  
+  /* Adjust horizontal spacing between the cards (inside .row) */
+.latest-podcast-section .row {
+  display: flex;
+  flex-wrap: wrap; /* Make sure the items wrap when needed */
+row-gap: 15px ;}
+
+/* Adjust vertical spacing for each card */
+.latest-podcast-section .col-lg-6 {
+  margin-bottom: 30px; /* Add vertical space between the cards */
+}
+
+/* Optional: You can add padding to the cards to increase the inner space */
+.latest-podcast-section .col-lg-6 .app-episode-horizontal {
+  padding: 10px; /* Adjust the inner spacing of the cards */
+}
+
   .section-title-wrap::after {
     content: "";
     background: var(--section-bg-color);

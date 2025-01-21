@@ -4,50 +4,80 @@ import { LatestEpisodeCardComponent } from '../latest-episode-card/latest-episod
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
+import { EpisodeHorizontalComponent } from "../episode-horizontal/episode-horizontal.component";
 
 @Component({
   selector: 'app-latest-episodes',
   standalone: true,
-  imports: [LatestEpisodeCardComponent, CommonModule],
+  imports: [LatestEpisodeCardComponent, CommonModule, EpisodeHorizontalComponent],
   templateUrl: './latest-episodes.component.html',
   styleUrl: './latest-episodes.component.css'
 })
 export class LatestEpisodesComponent {
   episodes = [
-    {
-    imagePath: 'assets/images/podcast/11683425_4790593.jpg',
-    title: 'Modern Vintage',
-    profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-    profileName: 'Elsa',
-    profileRole: 'Influencer',
-    description: 'Lorem Ipsum dolor sit amet consectetur'
-  },
-  {
-    imagePath: 'assets/images/podcast/12577967_02.jpg',
-    title: 'Daily Talk',
-    profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-    profileName: 'William',
-    profileRole: 'Vlogger',
-    description: 'Lorem Ipsum dolor sit amet consectetur'
-    },
-    {
-      imagePath: 'assets/images/podcast/11683425_4790593.jpg',
-      title: 'Modern Vintage',
-      profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-      profileName: 'Elsa',
-      profileRole: 'Influencer',
-      description: 'Lorem Ipsum dolor sit amet consectetur'
-    },
-    {
-      imagePath: 'assets/images/podcast/12577967_02.jpg',
-      title: 'Daily Talk',
-      profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-      profileName: 'William',
-      profileRole: 'Vlogger',
-      description: 'Lorem Ipsum dolor sit amet consectetur'
-      }
-  ];
-
+      {
+        imageUrl: 'assets/images/podcast/27376480_7326766.jpg',
+        title: 'Modern Vintage',
+        episodeDuration: '50 Minutes',
+        episodeNumber: 15,
+        hostName: 'Elsa',
+        hostImage: 'images/profile/woman-posing-black-dress-medium-shot.jpg',
+        hostRole: 'Influencer',
+        description: 'Lorem Ipsum dolor sit amet consectetur',
+        stats: {
+          headphones: 120,
+          heart: 425,
+          chat: 11,
+          download: 50,
+        },
+      },
+      {
+        imageUrl: 'assets/images/podcast/27376480_7326766.jpg',
+        title: 'Tech Talks',
+        episodeDuration: '30 Minutes',
+        episodeNumber: 8,
+        hostName: 'John',
+        hostImage: 'assets/images/podcast/27376480_7326766.jpg',
+        hostRole: 'Tech Enthusiast',
+        description: 'The lateszz /n t trends in technology.',
+        stats: {
+          headphones: 20,
+          heart: 80,
+          chat: 50,
+          download: 70,
+        },
+      },{
+        imageUrl: 'assets/images/podcast/27376480_7326766.jpg',
+        title: 'Modern Vintage',
+        episodeDuration: '50 Minutes',
+        episodeNumber: 15,
+        hostName: 'Elsa',
+        hostImage: 'images/profile/woman-posing-black-dress-medium-shot.jpg',
+        hostRole: 'Influencer',
+        description: 'Lorem Ipsum dolor sit amet consectetur',
+        stats: {
+          headphones: 120000,
+          heart: 42500,
+          chat: 11000,
+          download: 50000,
+        },
+      },
+      {
+        imageUrl: 'assets/images/podcast/27376480_7326766.jpg',
+        title: 'Tech Talks',
+        episodeDuration: '30 Minutes',
+        episodeNumber: 8,
+        hostName: 'John',
+        hostImage: 'assets/images/podcast/27376480_7326766.jpg',
+        hostRole: 'Tech Enthusiast',
+        description: 'The latest trends in technology.',
+        stats: {
+          headphones: 200000,
+          heart: 80000,
+          chat: 5000,
+          download: 70000,
+        },
+      },];
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   episodesToShow() {
