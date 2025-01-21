@@ -31,6 +31,7 @@ export class PodcastModalComponent {
         this.fb.group({
           name: ['', Validators.required],
           description: ['', Validators.required],
+          topic:['',Validators.required],
           file: [null],
         })
       );
