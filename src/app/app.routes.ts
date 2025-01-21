@@ -11,6 +11,7 @@ import { SwiperComponent } from './components/swiper/swiper.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TestComponent } from './components/test/test.component';
 import { ContactComponent } from './components/contact/contact.component';
+import { UpdateComponent } from './components/update/update.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
@@ -22,7 +23,8 @@ export const routes: Routes = [
 
   {path:'footer',component:FooterComponent},
 
-  {path:'swiper',component:TestComponent}
+  {path:'swiper',component:TestComponent},
+  {path:'update',component:UpdateComponent}
 ];
 
 
