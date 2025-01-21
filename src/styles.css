@@ -6,6 +6,7 @@
 @import "assets/css/owl.theme.default.min.css";
 @import "assets/css/owl.carousel.min.css";
 
+
 :root {
   --white-color:                  #ffffff;
   --primary-color:                #00CC99;
@@ -44,7 +45,6 @@
 body {
   background-color: var(--white-color);
   font-family: var(--body-font-family);
-  
 }
 
 
@@ -68,7 +68,6 @@ h5,
 h6 {
   font-family: var(--title-font-family);
   font-weight: var(--font-weight-semibold);
-  
 }
 
 h1 {
@@ -100,7 +99,7 @@ h6 {
 p {
   color: var(--p-color);
   font-size: var(--p-font-size);
-  font-weight: bold;
+  font-weight: var(--font-weight-light);
 }
 
 ul li {
@@ -119,7 +118,6 @@ a {
   display: inline-block;
   color: var(--primary-color);
   text-decoration: none;
-  font-weight: bold;
 }
 
 a:hover {
@@ -134,211 +132,4 @@ strong {
 ::selection {
   background-color: var(--primary-color);
   color: var(--white-color);
-}
-
-@media screen and (min-width: 2160px) {
-	.hero-section {
-	  background-size: 100% 90%;
-	
-	}
-}
-
-
-@media screen and (min-width: 1600px) {
-  .site-footer {
-    padding-top: 250px;
-  }
-}
-
-@media screen and (max-width: 1240px) {
-	.hero-section {
-	  background-size: 116%;
-	  
-	}
-}
-
-@media screen and (max-width: 991px) {
-  h1 {
-    font-size: 48px;
-  }
-
-  h2 {
-    font-size: 36px;
-  }
-
-  h3 {
-    font-size: 32px;
-  }
-
-  h4 {
-    font-size: 28px;
-  }
-
-  h5 {
-    font-size: 20px;
-  }
-
-  h6 {
-    font-size: 18px;
-  }
-  
-  .hero-section {
-	  background-size: 160% 66%; 
-	 
-	}
-
-  .section-padding {
-    padding-top: 50px;
-    padding-bottom: 50px;
-  }
-
-  .navbar-nav {
-    background-color: var(--primary-color);
-    border-radius: var(--border-radius-medium);
-    padding: 30px;
-  }
-
-  .navbar-nav .nav-link {
-    padding: 5px 0;
-  }
-
-  .navbar-nav .dropdown-menu {
-    position: relative;
-    left: 10px;
-    opacity: 1;
-    pointer-events: auto;
-    max-width: 155px;
-    margin-top: 10px;
-    margin-bottom: 15px;
-  }
-
-  .navbar-expand-lg .navbar-nav {
-    padding-bottom: 20px;
-  }
-
-  .nav-tabs .nav-link:first-child {
-    margin-right: 5px;
-  }
-
-  .nav-tabs .nav-link {
-    font-size: var(--copyright-font-size);
-    padding: 10px;
-  }
-
-  .copyright-text {
-    text-align: center;
-  }
-
-  .site-footer {
-    margin-top: -200px;
-    padding-top: 200px;
-    padding-bottom: 100px;
-  }
-}
-
-@media screen and (max-width: 540px) {
-	.hero-section {
-  		background-size: 180% 65%;
-		/* T o o p l a t e . c o m   C u s t o m i z e d */
-	}
-
-  .custom-block .custom-block-top {
-    flex-direction: column;
-  }
-
-  .custom-block .custom-block-top small:last-child {
-    margin-top: 10px;
-    margin-bottom: 10px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  h1 {
-    font-size: 36px;
-  }
-
-  h2 {
-    font-size: 28px;
-  }
-
-  h3 {
-    font-size: 26px;
-  }
-
-  h4 {
-    font-size: 22px;
-  }
-
-  h5 {
-    font-size: 20px;
-  }
-}
-
-@media screen and (max-width: 414px) {
-  .search-form {
-    max-width: 200px;
-  }
-
-}
-
-@media screen and (min-width: 992px) {
-  .navbar .dropdown:hover .dropdown-menu {
-    opacity: 1;
-    margin-top: 0;
-    pointer-events: auto;
-  }
-}
-
-.section-title-wrap {
-  position: relative;
-}
-
-.section-title-wrap::after {
-  content: "";
-  background: var(--section-bg-color);
-  width: 100%;
-  height: 2px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-}
-
-.section-title {
-  background: var(--section-bg-color);
-  border-radius: var(--border-radius-large);
-  display: inline-block;
-  position: relative;
-  z-index: 2;
-  margin-bottom: 0;
-  padding: 10px 25px;
-}
-
-.section-padding {
-  padding-top: 100px;
-  padding-bottom: 100px;
-}
-main {
-  position: relative;
-  z-index: 1;
-}
-
-.section-bg {
-  background-color: var(--section-bg-color);
-}
-
-.section-overlay {
-  background-color: var(--primary-color);
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  width: 100%;
-  height: 100%;
-  opacity: 0.85;
-}
-
-.section-overlay + .container {
-  position: relative;
 }
