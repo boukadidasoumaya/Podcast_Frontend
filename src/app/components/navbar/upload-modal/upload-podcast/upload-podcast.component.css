@@ -1,0 +1,9 @@
+.upload-podcast {
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .upload-podcast .form-label {
+    font-weight: bold;
+  }
+  
