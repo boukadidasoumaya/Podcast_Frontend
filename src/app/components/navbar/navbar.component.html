@@ -1,13 +1,25 @@
 <div class="site-header">
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg ">
     <div class="container">
       <app-logo></app-logo>
       <app-search (searchEvent)="handleSearch($event)"></app-search>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarNav"
+        aria-controls="navbarNav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-lg-auto">
+        <ul class="navbar-nav ms-lg-auto" >
           <li class="nav-item">
-            <a class="nav-link active" routerLink="/index">Home</a>
+            <a class="nav-link" routerLink="/index">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" routerLink="/about">About</a>
@@ -47,10 +59,9 @@
             Upload Podcast
           </button>
         </div>
+
+        <app-user-profile class="ms-4"></app-user-profile>
       </div>
-    </div>
-    <div class="navbar-right">
-      <app-user-profile></app-user-profile>
     </div>
   </nav>
   <app-upload-modal></app-upload-modal>
