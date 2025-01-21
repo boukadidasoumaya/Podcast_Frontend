@@ -15,6 +15,20 @@ export class PodcastModalComponent {
   podcastForm: FormGroup;
   episodesCount = 0;
   episodeForm: FormGroup[] = [];
+  
+  // Topics for the dropdown
+  topics: string[] = [
+    'Technology',
+    'Health and Wellness',
+    'Education',
+    'Entertainment',
+    'Business',
+    'Society and Culture',
+    'Hobbies and Lifestyle',
+    'News and Politics',
+    'Spirituality and Religion',
+    'Comedy',
+  ];
 
   constructor(private fb: FormBuilder) {
     this.podcastForm = this.fb.group({
@@ -31,7 +45,7 @@ export class PodcastModalComponent {
         this.fb.group({
           name: ['', Validators.required],
           description: ['', Validators.required],
-          topic:['',Validators.required],
+          topic: ['', Validators.required], // Added topic with validation
           file: [null],
         })
       );

@@ -1,10 +1,14 @@
-<div class="modal" id="uploadPodcastModal" tabindex="-1" aria-labelledby="uploadPodcastModalLabel" aria-hidden="true">
+<div
+  class="modal"
+  id="uploadPodcastModal"
+  tabindex="-1"
+  aria-labelledby="uploadPodcastModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">
-          Add a Podcast
-        </h2>
+        <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
         <h2 *ngIf="step === 2">Configure Episodes</h2>
         <h2 *ngIf="step === 3">Upload Episodes</h2>
         <button
@@ -26,11 +30,12 @@
           />
 
           <label for="topic">Topic</label>
-          <textarea
-            id="topic"
-            formControlName="topic"
-            placeholder="Enter podcast topic"
-          ></textarea>
+          <select id="topic" formControlName="topic" class="form-control">
+            <option value="" disabled selected>Select a topic</option>
+            <option *ngFor="let topic of topics" [value]="topic">
+              {{ topic }}
+            </option>
+          </select>
 
           <label for="description">Description</label>
           <textarea
@@ -40,7 +45,11 @@
           ></textarea>
 
           <label for="image">Image</label>
-          <input id="image" type="file" (change)="onFileSelect($event, 'image')" />
+          <input
+            id="image"
+            type="file"
+            (change)="onFileSelect($event, 'image')"
+          />
         </form>
 
         <!-- Étape 2 : Nombre d'épisodes -->
@@ -52,7 +61,10 @@
             [(ngModel)]="episodesCount"
             placeholder="Enter number of episodes"
           />
-          <button class="btn-configure" (click)="setEpisodesCount(episodesCount)">
+          <button
+            class="btn-configure"
+            (click)="setEpisodesCount(episodesCount)"
+          >
             Configure
           </button>
         </div>
@@ -91,8 +103,12 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">←</button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">→</button>
+        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
+          ←
+        </button>
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
+          →
+        </button>
         <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
           Finish
         </button>
