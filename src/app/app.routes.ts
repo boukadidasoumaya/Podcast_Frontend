@@ -8,12 +8,15 @@ import { TestComponent } from './components/test/test.component';
 import { LoginComponent } from './components/login/login.component';
 import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
 import { ContactComponent } from './components/contact/contact.component';
-import { HeroSectionComponent } from './components/hero-section/hero-section.component';
-import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { DetailsPodcastComponent } from './components/details-podcast/details-podcast.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { HeroSectionComponent } from './components/hero-section/hero-section.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
+import { AppComponent } from './app.component';
+import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/navbar/search/search.component';
 
 export const routes: Routes = [
   {path:'',component:NavbarComponent},
@@ -27,6 +30,9 @@ export const routes: Routes = [
   {path:'hero-card',component:HeroCardComponent},
   {path:'footer',component:FooterComponent},
   {path:'swiper',component:TestComponent},
+
+
+  {path:'home',component:HomeComponent},
+  {path:'search',component:SearchComponent}
+
 ];
-
-
