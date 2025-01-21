@@ -1,4 +1,4 @@
-<app-swiper [cards]="displayedTopics">
+<app-swiper [cards]="displayedTopics" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'" [slideToShow]="4" [slideWidth]="300">
     <ng-template let-topic>
       <app-topics
         [title]="topic.title"
@@ -7,3 +7,21 @@
       ></app-topics>
     </ng-template>
   </app-swiper>
+  <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+    <ng-template let-card>
+        <app-episode-horizontal
+        [title]="card.title"
+        [episodeDuration]="card.episodeDuration"
+        [episodeNumber]="card.episodeNumber"
+        [imageUrl]="card.imageUrl"
+        [hostImage]="card.hostImage"
+        [hostName]="card.hostName"
+        [hostRole]="card.hostRole"
+        [description]="card.description"
+        [stats]="card.stats"
+      ></app-episode-horizontal>
+    
+    </ng-template>
+  </app-swiper>
+        <app-podcaster></app-podcaster>
+         
