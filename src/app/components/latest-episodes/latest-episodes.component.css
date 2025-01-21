@@ -1,6 +1,23 @@
 .section-title-wrap {
     position: relative;
   }
+  .custom-btn {
+    background-color: #0056b3; /* Slightly darker blue */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 8px 20px; /* Adjust padding for better appearance */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .custom-btn:hover {
+    background-color: #40e0d0; /* Turquoise color on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+    color: #fff; /* Ensure text remains white */
+  }
+  
   /* Adjust horizontal spacing between the cards (inside .row) */
 .latest-podcast-section .row {
   display: flex;

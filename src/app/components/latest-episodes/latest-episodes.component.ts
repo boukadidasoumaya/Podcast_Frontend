@@ -78,22 +78,20 @@ export class LatestEpisodesComponent {
           download: 70000,
         },
       },];
-  constructor(private router: Router, private route: ActivatedRoute) {}
+      displayedEpisodesCount =2; // Show 4 episodes initially
 
-  episodesToShow() {
-    if (this.isHomePage()) {
-      return this.episodes.slice(0, 2); 
+      // Method to get the currently displayed episodes
+      episodesToShow() {
+        return this.episodes.slice(0, this.displayedEpisodesCount);
+      }
+    
+      // Method to load more episodes
+      loadMoreEpisodes() {
+        this.displayedEpisodesCount += 4; // Load 4 more episodes each time
+      }
+    
+      // Example for checking if you're on the homepage
+      isHomePage() {
+        return true; // Replace with your actual condition
+      }
     }
-    return this.episodes;
-  }
-
-
-  isHomePage() {
-    return this.router.url === '/'; 
-  }
-
-
-  navigateToEpisodesPage() {
-    this.router.navigate(['/latest-episodes']); 
-  }
-}

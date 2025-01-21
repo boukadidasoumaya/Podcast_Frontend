@@ -6,10 +6,11 @@ import { SwiperComponent } from './components/swiper/swiper.component';
 import { TopicsComponent } from './components/topics/topics.component';
 import { TestComponent } from './components/test/test.component';
 import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
+import { HomeComponent } from './home/home.component';
 export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'swiper',component:TestComponent},
-  {path:'',component:LatestEpisodesComponent},
+  {path:'',component:HomeComponent},
 ];
 
 

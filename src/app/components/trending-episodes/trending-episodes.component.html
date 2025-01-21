@@ -1,12 +1,5 @@
-<section class="trending-podcast-section section-padding">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12 col-12">
-        <div class="section-title-wrap mb-5">
-          <h4 class="section-title">Trending episodes</h4>
-        </div>
-      </div>
 
+<div class="row">
       <div class="col-lg-4 col-12 mb-4 mb-lg-0" *ngFor="let episode of episodes">
         <app-card-episode
           [imagePath]="episode.imagePath"
@@ -17,7 +10,4 @@
           [profileRole]="episode.profileRole">
         </app-card-episode>
       </div>
-
-    </div>
-  </div>
-</section>
+</div>
