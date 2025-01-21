@@ -27,54 +27,79 @@ export class DetailsPodcastComponent {
     }
   };
 // Exemple d'utilisation dans un autre composant
-commentData = [
+commentData =[
   {
     id: 1,
-    username: "John Doe",
+    user: {
+      id: 4,
+      role: 'user',
+      username: "John Doe",
+      photo: "assets/images/profile/exemple.jpg",
+    },
     text: "C'est un super commentaire !",
     created_at: "2024-01-19T10:30:00",
-    user_image: "assets/images/profile/exemple.jpg",
     replies: [
       {
         id: 2,
-        username: "Jane Doe",
+        user: {
+          id: 5, // Ajoutez un ID utilisateur unique pour chaque utilisateur
+          role: 'user',
+          username: "Jane Doe",
+          photo: "assets/images/profile/exemple.jpg",
+        },
         text: "Je suis d'accord !",
         created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg",
         replies: [
           {
             id: 9,
-            username: "Jane Doe",
+            user: {
+              id: 6, // Ajoutez un ID utilisateur unique pour chaque utilisateur
+              role: 'user',
+              username: "Jane Doe",
+              photo: "assets/images/profile/exemple.jpg",
+            },
             text: "Je suis d'accord !",
             created_at: "2024-01-19T11:00:00",
-            user_image: "assets/images/profile/exemple.jpg"
-          }]
+          },
+        ],
       },
       {
         id: 5,
-        username: "Jane Doe",
+        user: {
+          id: 7, // Ajoutez un ID utilisateur unique pour chaque utilisateur
+          role: 'user',
+          username: "Jane Doe",
+          photo: "assets/images/profile/exemple.jpg",
+        },
         text: "Je suis également d'accord !",
         created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg"
-      }
-    ]
+      },
+    ],
   },
   {
     id: 3,
-    username: "John Doe",
+    user: {
+      id: 8,
+      role: 'user',
+      username: "John Doe",
+      photo: "assets/images/profile/exemple.jpg",
+    },
     text: "C'est un autre super commentaire !",
     created_at: "2024-01-19T10:30:00",
-    user_image: "assets/images/profile/exemple.jpg",
     replies: [
       {
         id: 4,
-        username: "Jane Doe",
+        user: {
+          id: 9, // Ajoutez un ID utilisateur unique pour chaque utilisateur
+          role: 'user',
+          username: "Jane Doe",
+          photo: "assets/images/profile/exemple.jpg",
+        },
         text: "Je suis également d'accord !",
         created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg"
-      }
-    ]
-  }
+      },
+    ],
+  },
 ];
 
 }

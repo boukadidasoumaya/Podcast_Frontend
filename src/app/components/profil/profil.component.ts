@@ -53,6 +53,16 @@ export class ProfilComponent {
       image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
       episodes: 35
     },
+    {
+      title: 'Mindfulness',
+      image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
+      episodes: 35
+    },
+    {
+      title: 'Mindfulness',
+      image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
+      episodes: 35
+    },
 
   ];
 }
