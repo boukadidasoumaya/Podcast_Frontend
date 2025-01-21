@@ -1,0 +1,46 @@
+/* Style général de la modale */
+.modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 600px;
+    width: 100%;
+  }
+  
+  /* Style de la barre d'en-tête de la modale */
+  .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+  }
+  
+  .modal-header h5 {
+    font-size: 20px;
+    font-weight: 600;
+    margin: 0;
+  }
+  
+  /* Style du bouton de fermeture */
+  .modal-header .btn-close {
+    background: transparent;
+    border: none;
+    font-size: 24px;
+    color: #aaa;
+  }
+  
+  .modal-header .btn-close:hover {
+    color: #333;
+  }
+  
+  /* Style du corps de la modale */
+  .modal-body {
+    padding: 20px;
+  }
+  
+  /* Modale visible */
+  .modal.fade.show {
+    display: block;
+  }
+  

@@ -2,30 +2,27 @@ import { Component, Input } from '@angular/core';
 import { HeartIconComponent } from '../heart-icon/heart-icon.component';
 import { CommentIconComponent } from '../comment-icon/comment-icon.component';
 import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
-import { SaveIconComponent } from "../save-icon/save-icon.component";
 
-// episode.model.ts
-interface Episode {
-  imagePath: string;
-  title: string;
-  description: string;
-  profileImage: string;
-  profileName: string;
-  profileRole: string;
-  listensCount: string;
-  likesCount: string;
-  commentsCount: string;
-}
 
 @Component({
   selector: 'app-card-episode',
   standalone: true,
-  imports: [HeartIconComponent, CommentIconComponent, HeadphonesIconComponent, SaveIconComponent], // Importation des composants
+  imports: [HeartIconComponent, CommentIconComponent, HeadphonesIconComponent], // Importation des composants
   templateUrl: './card-episode.component.html',
   styleUrls: ['./card-episode.component.css']
 })
 export class CardEpisodeComponent {
-  @Input() episode!: Episode; // L'input est un objet contenant toutes les informations
+  @Input() imagePath: string = '';
+  @Input() title: string = '';
+  @Input() description: string = '';
+  @Input() profileImage: string = '';
+  @Input() profileName: string = '';
+  @Input() profileRole: string = '';
+  // Compteurs pour chaque icône
+  listensCount: string = '100k';  // Nombre de lectures
+  likesCount: string = '2.5k';   // Nombre de likes
+  commentsCount: string = '924k'; // Nombre de commentaires
+
 
   // Événements lorsque l'utilisateur interagit avec les icônes
   onListenChanged(isListened: boolean) {

@@ -1,9 +1,59 @@
-.upload-podcast {
-    max-width: 400px;
-    margin: 0 auto;
-  }
-  
-  .upload-podcast .form-label {
-    font-weight: bold;
-  }
-  
+/* Style général du formulaire */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 16px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style des labels */
+label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+}
+
+/* Style des champs de saisie (input, textarea) */
+input[type="file"], 
+input[type="text"], 
+textarea {
+  padding: 10px;
+  font-size: 14px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Style du bouton de soumission */
+button[type="submit"] {
+  padding: 12px 16px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Changement de couleur au survol du bouton */
+button[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+/* Empêcher le bouton d'être cliquable si les champs ne sont pas remplis */
+button[type="submit"]:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Espace entre chaque champ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
