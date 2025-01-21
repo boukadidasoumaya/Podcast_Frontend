@@ -11,10 +11,10 @@ import { ReactiveFormsModule } from '@angular/forms';
   styleUrls: ['./update-modal.component.css'],
 })
 export class UpdateModalComponent implements OnInit {
-  @Input() isPodcast: boolean = true; // Détermine si c'est un podcast ou un épisode
-  @Input() entityData: any; // Données initiales pour le formulaire
-  @Output() onSave = new EventEmitter<any>(); // Émet les données mises à jour au parent
-  @Output() onClose = new EventEmitter<void>(); // Émet un événement lors de la fermeture du modal
+  @Input() isPodcast: boolean = true; 
+  @Input() entityData: any; 
+  @Output() onSave = new EventEmitter<any>(); 
+  @Output() onClose = new EventEmitter<void>(); 
 
   updateForm!: FormGroup;
 

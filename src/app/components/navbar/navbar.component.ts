@@ -8,7 +8,7 @@ import { PodcastModalComponent } from "../modals/podcast-modal/podcast-modal.com
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [SearchComponent, LogoComponent, UserProfileComponent, CommonModule, HeaderComponent, PodcastModalComponent],
+  imports: [SearchComponent, LogoComponent, UserProfileComponent, CommonModule, PodcastModalComponent],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
