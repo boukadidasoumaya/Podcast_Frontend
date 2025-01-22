@@ -1,0 +1,9 @@
+
+.player-wrapper {
+  max-width: 800px;
+  margin: 0 auto;
+}
+video {
+  width: 100%;
+  height: auto;
+}
