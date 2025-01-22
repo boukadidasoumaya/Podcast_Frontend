@@ -5,16 +5,56 @@
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
                 <div class="form sign-up">
-                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
-                    <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password"></app-input-field>
-                    <app-action-button 
-                        buttonText="Sign up"
-                        messageText="Already have an account?"
-                        linkText="Sign in here"
-                        (linkClick)="toggle()">
-                    </app-action-button>
+                    <div class="step" *ngIf="currentStep === 1">
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
+                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email"></app-input-field>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 2">
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date"></app-input-field>
+                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country"></app-input-field>
+                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job"></app-input-field>
+                        <app-input-field icon="bx bx-user-pin" type="select" placeholder="Role">
+                            <select>
+                                <option value="" disabled selected>Select Role</option>
+                                <option value="user">User</option>
+                                <option value="admin">Admin</option>
+                                <option value="editor">Editor</option>
+                            </select>
+                        </app-input-field>
+                        <app-input-field icon="bx bxl-facebook" type="url" placeholder="Facebook Profile URL"></app-input-field>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 3">
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password"></app-input-field>
+                    </div>
+
+                    <div class="navigation">
+                        <app-action-button  
+                            *ngIf="currentStep > 1" 
+                            buttonText="Previous"
+                            [messageText]="currentStep === 1 ? 'Already have an account?' : ''"
+                            [linkText]="currentStep === 1 ? 'Sign in here' : ''"
+                            (linkClick)="toggle()"
+                            (buttonClick)="previousStep()">
+                        </app-action-button >
+                        <app-action-button  
+                            *ngIf="currentStep < 3" 
+                            buttonText="Next"
+                            [messageText]="currentStep === 2 ? 'Already have an account?' : ''"
+                            [linkText]="currentStep === 2 ? 'Sign in here' : ''"
+                            (linkClick)="toggle()"
+                            (buttonClick)="nextStep()">
+                        </app-action-button >
+                        <app-action-button 
+                            *ngIf="currentStep === 3"
+                            buttonText="Sign up"
+                            messageText="Already have an account?"
+                            linkText="Sign in here"
+                            (linkClick)="toggle()">
+                        </app-action-button>
+                    </div>
                 </div>
             </div>
         </div>

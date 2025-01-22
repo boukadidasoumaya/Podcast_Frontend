@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { InputFieldComponent } from '../input-field/input-field.component';
 import { ActionButtonComponent } from '../action-button/action-button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [InputFieldComponent, ActionButtonComponent],
+  imports: [InputFieldComponent, ActionButtonComponent, CommonModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -21,6 +22,20 @@ export class LoginComponent {
     } else {
       container?.classList.add('sign-up');
       container?.classList.remove('sign-in');
+    }
+  }
+
+  currentStep = 1;
+  
+  nextStep() {
+    if (this.currentStep < 3) {
+      this.currentStep++;
+    }
+  }
+
+  previousStep() {
+    if (this.currentStep > 1) {
+      this.currentStep--;
     }
   }
 }

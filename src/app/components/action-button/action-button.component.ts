@@ -13,8 +13,13 @@ export class ActionButtonComponent {
   @Input() linkText: string = ''; 
   @Input() questiontext: string = ''; 
   @Output() linkClick = new EventEmitter<void>(); 
+  @Output() buttonClick = new EventEmitter<void>();
 
   onLinkAction() {
     this.linkClick.emit(); 
+  }
+
+  onButtonClick() {
+    this.buttonClick.emit();
   }
 }
