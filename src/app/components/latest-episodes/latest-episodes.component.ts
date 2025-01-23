@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
-import { LatestEpisodeCardComponent } from '../latest-episode-card/latest-episode-card.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +8,7 @@ import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-latest-episodes',
   standalone: true,
-  imports: [LatestEpisodeCardComponent,RouterLink, CommonModule, EpisodeHorizontalComponent],
+  imports: [RouterLink, CommonModule, EpisodeHorizontalComponent],
   templateUrl: './latest-episodes.component.html',
   styleUrl: './latest-episodes.component.css'
 })

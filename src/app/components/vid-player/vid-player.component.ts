@@ -22,6 +22,9 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
     if (videoElement) {
       this.player = new Plyr(videoElement, {
         controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
+        fullscreen: { enabled: true, fallback: true, iosNative: true },
+        settings: ['quality', 'speed', 'loop'],
+
       });
 
       // Listen for the 'timeupdate' event to track progress

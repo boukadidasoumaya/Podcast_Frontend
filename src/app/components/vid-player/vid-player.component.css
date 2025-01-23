@@ -1,9 +1,17 @@
-
+/* video-player.component.css */
 .player-wrapper {
   max-width: 800px;
-  margin: 0 auto;
+  width: 100%; /* Ensures the wrapper takes the full width up to max-width */
+  margin: 0 auto; /* Centers the wrapper */
+  background-color: black; /* Optional: adds a black background if the video has a small resolution */
 }
-video {
-  width: 100%;
+
+.plyr__video-embed {
+  display: block;
+  width: 100%; /* Ensure video takes full width of the container */
   height: auto;
+}
+
+video {
+  display: block; /* Ensures no unwanted space below the video */
 }
