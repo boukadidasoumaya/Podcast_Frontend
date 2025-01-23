@@ -4,30 +4,31 @@
         <!-- SIGN UP -->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-up">
+                <form class="form sign-up " #formulaire="ngForm"  >
                     <div class="step" *ngIf="currentStep === 1">
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname"></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname"></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
-                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstname"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastname"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
+                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email"></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 2">
-                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date"></app-input-field>
-                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country"></app-input-field>
-                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job"></app-input-field>
-                        <app-input-field icon="bx bx-user-pin" type="select" placeholder="Role">
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday"></app-input-field>
+                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country"></app-input-field>
+                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.job"></app-input-field>
+                        <app-input-field icon="bx bx-user-pin" type="select" placeholder="Role" name="role" [(ngModel)]="Data.role">
                             <select>
-                                <option value="" disabled selected>Select Role</option>
+                                <option value=""  selected>Select Role</option>
                                 <option value="user">User</option>
                                 <option value="admin">Admin</option>
                                 <option value="editor">Editor</option>
                             </select>
                         </app-input-field>
-                        <app-input-field icon="bx bxl-facebook" type="url" placeholder="Facebook Profile URL"></app-input-field>
+                        <app-input-field icon="bx bxl-whatsapp" type="url" placeholder="WhatsApp username" name="whatsapp_user" [(ngModel)]="Data.whatsapp_user"></app-input-field>
+                        <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="instagram_user" [(ngModel)]="Data.instagram_user"></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 3">
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password"></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password"></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword"></app-input-field>
                     </div>
 
                     <div class="navigation">
@@ -52,10 +53,11 @@
                             buttonText="Sign up"
                             messageText="Already have an account?"
                             linkText="Sign in here"
+                            (buttonClick)="signUp()"
                             (linkClick)="toggle()">
                         </app-action-button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
         <!-- END SIGN UP -->
@@ -63,8 +65,8 @@
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
                 <div class="form sign-in">
-                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
+                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password"></app-input-field>
                     <app-action-button 
                         buttonText="Sign in"
                         questiontext="Forget Password?"
