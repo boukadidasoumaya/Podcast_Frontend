@@ -1,19 +1,39 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { SwiperComponent } from '../swiper/swiper.component';
 import { TopicsComponent } from '../topics/topics.component';
 import { NavbarComponent } from '../navbar/navbar.component';
+import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/card-episode-with-details.component';
+import { CommentService } from '../services/comment.service';
 
 @Component({
   selector: 'app-details-podcast',
   standalone: true,
-  imports: [CommonModule, CommentComponent,SectionCustomComponent,SwiperComponent,TopicsComponent,NavbarComponent],
+  imports: [CommonModule, CommentComponent,SectionCustomComponent,SwiperComponent,TopicsComponent,NavbarComponent,CardEpisodeWithDetailsComponent],
   templateUrl: './details-podcast.component.html',
   styleUrl: './details-podcast.component.css'
 })
-export class DetailsPodcastComponent {
+export class DetailsPodcastComponent implements OnInit{
+  comments: any[] = []; // Store fetched comments
+  episodeId = 15; // Replace with actual episode ID
+  podcastId = 1; // Replace with actual podcast ID
+  constructor(private commentService: CommentService) {}
+  ngOnInit(): void {
+    // Request comments for the current podcast and episode
+    this.commentService.getComments(this.podcastId, this.episodeId);
+
+    // Subscribe to comments updates
+    this.commentService.onComments().subscribe((data) => {
+      this.comments = data;
+    });
+
+    // Listen for new comments
+    this.commentService.onNewComment().subscribe((newComment) => {
+      this.comments.push(newComment);
+    });
+  }
   episode = {
     imagePath: 'assets/images/podcast/11683425_4790593.jpg',
     title: 'Modern Vintage',
@@ -58,79 +78,6 @@ export class DetailsPodcastComponent {
 
   ];
 
-commentData =[
-  {
-    id: 1,
-    user: {
-      id: 4,
-      role: 'user',
-      username: "John Doe",
-      photo: "assets/images/profile/exemple.jpg",
-    },
-    text: "C'est un super commentaire !",
-    created_at: "2024-01-19T10:30:00",
-    replies: [
-      {
-        id: 2,
-        user: {
-          id: 5, // Ajoutez un ID utilisateur unique pour chaque utilisateur
-          role: 'user',
-          username: "Jane Doe",
-          photo: "assets/images/profile/exemple.jpg",
-        },
-        text: "Je suis d'accord !",
-        created_at: "2024-01-19T11:00:00",
-        replies: [
-          {
-            id: 9,
-            user: {
-              id: 6, // Ajoutez un ID utilisateur unique pour chaque utilisateur
-              role: 'user',
-              username: "Jane Doe",
-              photo: "assets/images/profile/exemple.jpg",
-            },
-            text: "Je suis d'accord !",
-            created_at: "2024-01-19T11:00:00",
-          },
-        ],
-      },
-      {
-        id: 5,
-        user: {
-          id: 7, // Ajoutez un ID utilisateur unique pour chaque utilisateur
-          role: 'user',
-          username: "Jane Doe",
-          photo: "assets/images/profile/exemple.jpg",
-        },
-        text: "Je suis également d'accord !",
-        created_at: "2024-01-19T11:00:00",
-      },
-    ],
-  },
-  {
-    id: 3,
-    user: {
-      id: 8,
-      role: 'user',
-      username: "John Doe",
-      photo: "assets/images/profile/exemple.jpg",
-    },
-    text: "C'est un autre super commentaire !",
-    created_at: "2024-01-19T10:30:00",
-    replies: [
-      {
-        id: 4,
-        user: {
-          id: 9, // Ajoutez un ID utilisateur unique pour chaque utilisateur
-          role: 'user',
-          username: "Jane Doe",
-          photo: "assets/images/profile/exemple.jpg",
-        },
-        text: "Je suis également d'accord !",
-        created_at: "2024-01-19T11:00:00",
-      },
-    ],
-  },
-];
+
 
 }
