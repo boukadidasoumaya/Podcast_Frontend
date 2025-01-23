@@ -1,16 +1,24 @@
-/* video-player.component.css */
+:root {
+  --plyr-color-main: cyan;
+}
 .player-wrapper {
-  max-width: 800px;
-  width: 100%; /* Ensures the wrapper takes the full width up to max-width */
-  margin: 0 auto; /* Centers the wrapper */
-  background-color: black; /* Optional: adds a black background if the video has a small resolution */
+  width: 100%; /* Allow it to scale based on the parent container */
+  max-width: 1000px; /* Set a maximum width */
+  aspect-ratio: 16/9; /* Maintain a rectangular aspect ratio */
+  margin: 0 auto; /* Center the player */
+  background-color: black; /* Optional: background color */
+  position: relative; /* Required for positioning the video */
+  overflow: hidden; /* Prevent overflow issues */
+}
+.plyr__video-embed, video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%; /* Stretch to the width of the wrapper */
+  height: 100%; /* Stretch to the height of the wrapper */
+  object-fit: cover; /* Ensures the video fills the rectangle without distortion */
 }
 
-.plyr__video-embed {
-  display: block;
-  width: 100%; /* Ensure video takes full width of the container */
-  height: auto;
-}
 
 video {
   display: block; /* Ensures no unwanted space below the video */

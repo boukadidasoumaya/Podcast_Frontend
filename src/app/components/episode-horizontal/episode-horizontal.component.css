@@ -257,6 +257,21 @@ https://templatemo.com/tm-584-pod-talk
     CUSTOM BLOCK              
   -----------------------------------------*/
   .custom-block {
+  width: 600px; /* Set a consistent width */
+  height:300px; /* Set a consistent height */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch; /* Align items evenly within the container */
+  padding: 16px;
+  border: 1px solid #ddd; /* Optional: Add a border for visibility */
+  border-radius: 8px;
+  background-color: white; /* Optional: Background color */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Shadow effect */
+  overflow: hidden; /* Prevent overflow of child elements */
+}
+
+  .custom-block {
     border: 2px solid var(--primary-color);
     border-radius: var(--border-radius-medium);
     position: relative;
