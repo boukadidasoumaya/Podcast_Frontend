@@ -1,7 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 // import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { CommonModule, NgFor } from '@angular/common';
+import { FormsModule, NgForm } from '@angular/forms';
+import { Comment } from '../../../interfaces/app.interfaces';
+import { CommentService } from '../../../services/comment.service';
 
 @Component({
   selector: 'app-reply-form',
@@ -11,56 +13,20 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './reply-form.component.css'
 })
 export class ReplyFormComponent  {
-  @Input() parentCommentId!: number;
-  @Output() onDataReceived = new EventEmitter<void>();
+  @Input() comment!: Comment;
+  @Output() onDataReceived = new EventEmitter<string>();
 
   replyText: string = '';
   token: string  = "gfgd";
-  imageUrl: string = 'assets/images/profile/exemple.jpg';
+  imageUrl: string = 'asset/images/';
   user: any;
 
-  // constructor(
-  //   private http: HttpClient
-  // ) {}
+  handleSubmit(event:Event): void {
+    if (this.replyText.trim()) {
+      this.onDataReceived.emit(this.replyText); // Émet la valeur de replyText
+      this.replyText = ''; // Réinitialise le champ après l'envoi
+    }
+  }
 
-  // ngOnInit(): void {
-  //   // Récupérer l'utilisateur depuis le service d'authentification
-  //   this.user = this.getCurrentUser();
-  //   if (this.user?.image) {
-  //     this.imageUrl = `http://localhost:5000/uploads/${this.user.image}`;
-  //   }
-  // }
-
-  // getCurrentUser(): any {
-  //   // Cette méthode devrait être remplacée par votre logique d'authentification
-  //   // Par exemple, en utilisant un service d'authentification
-  //   return JSON.parse(localStorage.getItem('user') || '{}');
-  // }
-
-  // handleSubmit(event: Event): void {
-  //   event.preventDefault();
-
-  //   if (!this.replyText.trim()) {
-  //     return;
-  //   }
-
-  //   const replyData = {
-  //     text: this.replyText,
-  //     user_id: this.user?.id,
-  //     created_at: new Date(),
-  //     parent_id: this.parentCommentId
-  //   };
-
-  //   this.http.post('http://localhost:5000/comment/add', replyData)
-  //     .subscribe({
-  //       next: (response) => {
-  //         this.replyText = '';
-  //         this.onDataReceived.emit();
-  //       },
-  //       error: (error) => {
-  //         console.error('Error:', error);
-  //       }
-  //     });
-  // }
 }
 

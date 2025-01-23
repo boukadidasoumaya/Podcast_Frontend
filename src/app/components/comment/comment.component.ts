@@ -1,18 +1,11 @@
 // comment.component.ts
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LikeButtonComponent } from './like-button/like-button.component';
 import { ReplyFormComponent } from './reply-form/reply-form.component';
+import { CommentService } from '../../services/comment.service';
 
-interface Comment {
-  id: number;
-  username: string;
-  text: string;
-  created_at: string;
-  user_image: string;
-  replies?: Comment[];
-}
-
+import {User,Comment,Podcast,Episode} from '../../interfaces/app.interfaces'
 @Component({
   selector: 'app-comment',
   standalone: true,
@@ -29,6 +22,7 @@ export class CommentComponent {
 
   viewReplies: boolean = false;
   showReplyForm: boolean = false; // Déclaration de la propriété manquante
+  constructor(private commentService: CommentService) {}
 
   formatCreatedAt(createdAt: string): string {
     const date = new Date(createdAt);
@@ -51,8 +45,20 @@ export class CommentComponent {
     console.log(this.showReplyForm);
     this.showReplyForm = !this.showReplyForm; // Bascule l'affichage du formulaire de réponse
   }
-  handleReplySubmit(replyData: any) {
-    // Implémentez la logique pour gérer la soumission d'une réponse
-    console.log('Réponse soumise:', replyData);
+
+  handleReplySubmit(replyText: string) {
+    this.toggleReplyForm();
+
+    const newReply = {
+      content: replyText,
+      parent: this.comment.id,
+      podcast: this.comment.podcast,
+      episode: this.comment.episode,
+      user: this.comment.user,
+    };
+
+    // Send to service
+    this.commentService.addComment(newReply);
+    this.viewReplies = true;
   }
 }

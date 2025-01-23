@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
@@ -6,7 +6,8 @@ import { SwiperComponent } from '../swiper/swiper.component';
 import { TopicsComponent } from '../topics/topics.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/card-episode-with-details.component';
-import { CommentService } from '../services/comment.service';
+import { CommentService } from '../../services/comment.service';
+import { Comment } from '../../interfaces/app.interfaces';
 
 @Component({
   selector: 'app-details-podcast',
@@ -17,23 +18,34 @@ import { CommentService } from '../services/comment.service';
 })
 export class DetailsPodcastComponent implements OnInit{
   comments: any[] = []; // Store fetched comments
-  episodeId = 15; // Replace with actual episode ID
-  podcastId = 1; // Replace with actual podcast ID
+   options={
+    "podcast":{
+        "id":1
+    },
+    "episode":{
+        "id":1
+    }
+}
   constructor(private commentService: CommentService) {}
+
   ngOnInit(): void {
-    // Request comments for the current podcast and episode
-    this.commentService.getComments(this.podcastId, this.episodeId);
+    // Récupérer les commentaires initiaux lorsque le composant est chargé
+    this.loadComments();
 
-    // Subscribe to comments updates
-    this.commentService.onComments().subscribe((data) => {
-      this.comments = data;
-    });
-
-    // Listen for new comments
-    this.commentService.onNewComment().subscribe((newComment) => {
-      this.comments.push(newComment);
+    // Écouter les nouveaux commentaires ajoutés en temps réel
+    this.commentService.onNewComment().subscribe((newComment: Comment) => {
+      this.comments.push(newComment); // Ajouter le nouveau commentaire à la liste
     });
   }
+
+  loadComments(): void {
+    // Récupérer tous les commentaires depuis le service
+    this.commentService.getComments(this.options).subscribe((comments: Comment[]) => {
+      this.comments = comments;
+    });
+  }
+
+
   episode = {
     imagePath: 'assets/images/podcast/11683425_4790593.jpg',
     title: 'Modern Vintage',
@@ -49,55 +61,34 @@ export class DetailsPodcastComponent implements OnInit{
       whatsapp: '#'
     }
   };
-// Exemple d'utilisation dans un autre composant
-commentData = [
-  {
-    id: 1,
-    username: "John Doe",
-    text: "C'est un super commentaire !",
-    created_at: "2024-01-19T10:30:00",
-    user_image: "assets/images/profile/exemple.jpg",
-    replies: [
-      {
-        id: 2,
-        username: "Jane Doe",
-        text: "Je suis d'accord !",
-        created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg",
-        replies: [
-          {
-            id: 9,
-            username: "Jane Doe",
-            text: "Je suis d'accord !",
-            created_at: "2024-01-19T11:00:00",
-            user_image: "assets/images/profile/exemple.jpg"
-          }]
-      },
-      {
-        id: 5,
-        username: "Jane Doe",
-        text: "Je suis également d'accord !",
-        created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg"
-      }
-    ]
-  },
-  {
-    id: 3,
-    username: "John Doe",
-    text: "C'est un autre super commentaire !",
-    created_at: "2024-01-19T10:30:00",
-    user_image: "assets/images/profile/exemple.jpg",
-    replies: [
-      {
-        id: 4,
-        username: "Jane Doe",
-        text: "Je suis également d'accord !",
-        created_at: "2024-01-19T11:00:00",
-        user_image: "assets/images/profile/exemple.jpg"
-      }
-    ]
-  }
-];
+  displayedEpisodes = [
+    {
+      title: 'Episode 1',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+    },
+    {
+      title: 'Episode 2 ',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+
+    },
+    {
+      title: 'Episode 3',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+    {
+      title: 'Episode 4',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+    {
+      title: 'Episode 5',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+
+  ];
+
+
 
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
+import { Comment } from '../interfaces/app.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -14,8 +15,12 @@ export class CommentService {
   }
 
   // Emit an event to fetch comments for a specific podcast and episode
-  getComments(podcastId: number, episodeId: number): void {
-    this.socket.emit('comments', { podcastId, episodeId });
+  getComments(options: any): Observable<Comment[]> {
+    console.log('comments');
+    this.socket.emit('comments', options);
+
+    // Return the observable that listens for the 'comments' event
+    return this.onComments();
   }
 
   // Listen for the 'comments' event and return the comments
@@ -29,6 +34,7 @@ export class CommentService {
 
   // Emit an event to add a new comment
   addComment(commentData: any): void {
+    console.log('hello');
     this.socket.emit('comment', commentData);
   }
 

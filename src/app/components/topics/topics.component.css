@@ -1,6 +1,6 @@
 
   /*---------------------------------------
-    CUSTOM BLOCK              
+    CUSTOM BLOCK
   -----------------------------------------*/
   .custom-block {
     width: 100%; /* Ensures the custom block takes up the full width available */
@@ -8,33 +8,33 @@
     box-sizing: border-box; /* To avoid padding from affecting the width */
     border-radius: var(--border-radius-medium);
     transition: all 0.3s ease;
-    
+
   }
-  
-    .custom-block:hover {
+
+    .custom-block:hover,.custom-block {
       background: var(--white-color);
       box-shadow: 0 1rem 3rem rgba(0,0,0,.175);
       border-color: transparent;
       transform: translateY(-3px);
     }
-    
+
     .custom-block-info {
       display: block;
       padding: 10px 20px;
       padding-bottom: 0;
     }
-    
+
     .custom-block-image-wrap {
       position: relative;
       display: block;
       height: 100%;
-   
+
     }
-    
+
     .custom-block-image-wrap > a {
       display: block;
     }
-    
+
     .custom-block-image {
       border-radius: var(--border-radius-medium);
       display: block;
@@ -42,31 +42,31 @@
         width: 100%; /* Ensures the image is responsive */
         height: auto; /* Maintain aspect ratio */
         object-fit: cover; /* Ensures the image doesn't stretch */
-      
+
     }
-    
+
     .custom-block-image-detail-page .custom-block-image {
       width: 100%;
       height: 212px;
     }
-    
+
     .custom-block .custom-block-icon {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
     }
-    
+
     .custom-block-icon-wrap {
       border-radius: var(--border-radius-medium);
       position: relative;
       overflow: hidden;
     }
-    
+
     .custom-block-icon-wrap .section-overlay {
       opacity: 0.25;
     }
-    
+
     .custom-block-btn-group {
       position: absolute;
       bottom: 0;
@@ -74,14 +74,14 @@
       left: 0;
       margin: 20px;
     }
-    
+
     .custom-block-btn-group .custom-block-icon {
       position: relative;
       top: 0;
       left: 0;
       transform: none;
     }
-    
+
     .custom-block-icon {
       background: var(--primary-color);
       border-radius: var(--border-radius-medium);
@@ -93,17 +93,17 @@
       line-height: 32.5px;
       transition: all 0.3s;
     }
-    
+
     .custom-block-icon:hover {
       background: var(--secondary-color);
       color: var(--white-color);
     }
-    
+
     .custom-block .custom-btn {
       font-size: var(--menu-font-size);
       padding: 7px 15px;
     }
-    
+
     .custom-block .custom-block-info + div .badge {
       background-color: var(--dark-color);
       color: var(--white-color);
@@ -118,42 +118,42 @@
       margin-top: 5px;
       margin-bottom: 5px;
     }
-    
+
     .custom-block .custom-block-info + div .badge:hover {
       background-color: var(--secondary-color);
     }
-    
+
     .custom-block-full {
       background-color: var(--section-bg-color);
       border-color: transparent;
     }
-    
+
     .custom-block-full:hover {
       border-color: var(--primary-color);
     }
-    
+
     .custom-block-full .custom-block-info {
       padding: 20px;
       padding-bottom: 0;
     }
-    
+
     .custom-block-full .custom-block-image {
       width: 100%;
       height: 210px;
     }
-    
+
     .custom-block-full .social-share {
       position: absolute;
       top: 0;
       right: 0;
       margin: 50px;
     }
-    
+
     .custom-block-top small {
       color: var(--p-color);
       font-family: var(--title-font-family);
     }
-    
+
   .badge {
       background-color: var(--custom-btn-bg-color);
       font-family: var(--title-font-family);
@@ -169,53 +169,53 @@
       height: 26.64px;
       line-height: 20px;
     }
-    
+
     .custom-block-bottom a:hover span {
       color: var(--primary-color);
     }
-    
+
     .custom-block-bottom a span {
       font-family: var(--title-font-family);
       color: var(--p-color);
       text-transform: uppercase;
       margin-left: 3px;
     }
-    
+
     .custom-block-overlay {
       border-color: transparent;
       padding: 0;
     }
-    
+
     .custom-block-overlay .custom-block-image {
       margin: auto;
       width: 100%;
       height: 210px;
       transition: all 0.3s;
     }
-    
+
     .custom-block-overlay:hover .custom-block-image {
       padding: 15px;
       padding-bottom: 0;
     }
-    
+
     .custom-block-overlay-info {
       padding: 15px 20px 20px 20px;
     }
-  
+
   /*---------------------------------------
-    SOCIAL ICON               
+    SOCIAL ICON
   -----------------------------------------*/
   .social-icon {
       margin: 0;
       padding: 0;
     }
-    
+
     .social-icon-item {
       list-style: none;
       display: inline-block;
       vertical-align: top;
     }
-    
+
     .social-icon-link {
       background: var(--secondary-color);
       border-radius: var(--border-radius-large);
@@ -229,21 +229,21 @@
       line-height: 40px;
       transition: background 0.2s, color 0.2s;
     }
-    
+
     .social-icon-link:hover {
       background: var(--primary-color);
       color: var(--white-color);
     }
-    
+
   /*---------------------------------------
-    PAGINATION               
+    PAGINATION
   -----------------------------------------*/
   .pagination {
       border: 1px solid #dee2e6;
       border-radius: var(--border-radius-large);
       padding: 20px;
     }
-    
+
     .page-link {
       border: 0;
       border-radius: var(--border-radius-small);
@@ -252,36 +252,36 @@
       margin: 0 5px;
       padding: 10px 20px;
     }
-    
+
     .page-link:hover,
     .page-item:first-child .page-link:hover,
     .page-item:last-child .page-link:hover {
       background-color: var(--secondary-color);
       color: var(--white-color);
     }
-    
+
     .page-item:first-child .page-link {
       margin-right: 10px;
     }
-    
+
     .active>.page-link, .page-link.active {
       background-color: var(--secondary-color);
       border-color: var(--secondary-color);
-      color: var(--white-color); 
+      color: var(--white-color);
     }
-    
+
     /*---------------------------------------
-      CUSTOM ICON COLOR               
+      CUSTOM ICON COLOR
     -----------------------------------------*/
     .custom-icon {
       color: var(--primary-color);
     }
-  
-  
+
+
   /*---------------------------------------
-    TYPOGRAPHY               
+    TYPOGRAPHY
   -----------------------------------------*/
-  
+
   h2,
   h3,
   h4,
@@ -289,76 +289,76 @@
   h6 {
     color: var(--dark-color);
   }
-  
+
   h1,
   h2,
   h3,
   h4,
   h5,
   h6 {
-    font-family: var(--title-font-family); 
+    font-family: var(--title-font-family);
     font-weight: var(--font-weight-semibold);
   }
-  
+
   h1 {
     font-size: var(--h1-font-size);
     font-weight: var(--font-weight-bold);
   }
-  
+
   h2 {
     font-size: var(--h2-font-size);
     font-weight: var(--font-weight-bold);
   }
-  
+
   h3 {
     font-size: var(--h3-font-size);
   }
-  
+
   h4 {
     font-size: var(--h4-font-size);
   }
-  
+
   h5 {
     font-size: var(--h5-font-size);
   }
-  
+
   h6 {
     font-size: var(--h6-font-size);
   }
-  
+
   p {
     color: var(--p-color);
     font-size: var(--p-font-size);
     font-weight: var(--font-weight-light);
   }
-  
+
   ul li {
     color: var(--p-color);
     font-size: var(--p-font-size);
     font-weight: var(--font-weight-light);
   }
-  
-  a, 
+
+  a,
   button {
     touch-action: manipulation;
     transition: all 0.3s;
   }
-  
+
   a {
     display: inline-block;
     color: var(--primary-color);
     text-decoration: none;
   }
-  
+
   a:hover {
     color: var(--link-hover-color);
   }
-  
+
   b,
   strong {
     font-weight: var(--font-weight-bold);
   }
-  
+
   ::selection {
     background-color: var(--primary-color);
     color: var(--white-color);
@@ -368,7 +368,7 @@
         width: 90.33%;
     }
   }
-  
+
   /* Media queries for responsiveness */
   /* Media queries for responsiveness */
   @media (max-width: 991px) {
@@ -376,7 +376,7 @@
       flex: 1 1 calc(50% - 20px); /* For medium screens, show 2 items per row */
     }
   }
-  
+
   @media (max-width: 576px) {
     .carousel-slide {
       flex: 1 1 100%; /* For small screens, show 1 item per row */
@@ -386,9 +386,8 @@
     font-size: 2rem; /* Adjust size */
     color: #ffffff; /* Change color */
   }
-  
-  
+
+
   .carousel-control-prev, .carousel-control-next {
     background-color: transparent; /* Optional */
   }
-  

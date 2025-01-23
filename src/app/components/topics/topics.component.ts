@@ -11,11 +11,11 @@ import { Input } from '@angular/core';
 })
 export class TopicsComponent {
   currentPage = 1;
-  itemsPerPage = 4;  // Adjust according to your needs
+  itemsPerPage = 4;
   totalItems = 0;
-  @Input() image: string = ''; // Input for image source
-  @Input() title: string = ''; // Input for title
-  @Input() episodes: number = 0; // Input for episodes (optional)
+  @Input() image: string = '';
+  @Input() title: string = '';
+  @Input() subtitle: string = '';
 
   pagedTopics = [
     {
@@ -61,7 +61,6 @@ export class TopicsComponent {
   ];
 
   ngOnInit(): void {
-    // Set the total number of items based on the length of pagedTopics
     this.totalItems = this.pagedTopics.length;
   }
 
