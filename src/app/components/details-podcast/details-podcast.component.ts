@@ -49,35 +49,55 @@ export class DetailsPodcastComponent implements OnInit{
       whatsapp: '#'
     }
   };
-  displayedEpisodes = [
-    {
-      title: 'Episode 1',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      episodes: 50
-    },
-    {
-      title: 'Episode 2 ',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      episodes: 12
-    },
-    {
-      title: 'Episode 3',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      episodes: 35
-    },
-    {
-      title: 'Episode 4',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      episodes: 35
-    },
-    {
-      title: 'Episode 5',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      episodes: 35
-    },
-
-  ];
-
-
+// Exemple d'utilisation dans un autre composant
+commentData = [
+  {
+    id: 1,
+    username: "John Doe",
+    text: "C'est un super commentaire !",
+    created_at: "2024-01-19T10:30:00",
+    user_image: "assets/images/profile/exemple.jpg",
+    replies: [
+      {
+        id: 2,
+        username: "Jane Doe",
+        text: "Je suis d'accord !",
+        created_at: "2024-01-19T11:00:00",
+        user_image: "assets/images/profile/exemple.jpg",
+        replies: [
+          {
+            id: 9,
+            username: "Jane Doe",
+            text: "Je suis d'accord !",
+            created_at: "2024-01-19T11:00:00",
+            user_image: "assets/images/profile/exemple.jpg"
+          }]
+      },
+      {
+        id: 5,
+        username: "Jane Doe",
+        text: "Je suis également d'accord !",
+        created_at: "2024-01-19T11:00:00",
+        user_image: "assets/images/profile/exemple.jpg"
+      }
+    ]
+  },
+  {
+    id: 3,
+    username: "John Doe",
+    text: "C'est un autre super commentaire !",
+    created_at: "2024-01-19T10:30:00",
+    user_image: "assets/images/profile/exemple.jpg",
+    replies: [
+      {
+        id: 4,
+        username: "Jane Doe",
+        text: "Je suis également d'accord !",
+        created_at: "2024-01-19T11:00:00",
+        user_image: "assets/images/profile/exemple.jpg"
+      }
+    ]
+  }
+];
 
 }

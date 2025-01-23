@@ -6,14 +6,10 @@ import { ReplyFormComponent } from './reply-form/reply-form.component';
 
 interface Comment {
   id: number;
-  user: {
-    id: number;
-    role: string;
-    username: string;
-    photo: string;
-  };
+  username: string;
   text: string;
   created_at: string;
+  user_image: string;
   replies?: Comment[];
 }
 

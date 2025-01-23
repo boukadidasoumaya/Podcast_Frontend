@@ -37,5 +37,22 @@ export class ProfilComponent {
     address: 'Tunisia',
     job: 'Influencer',
   }
+  displayedTopics = [
+    {
+      title: 'Productivity',
+      image: 'images/topics/physician-consulting-his-patient-clinic.jpg',
+      episodes: 50
+    },
+    {
+      title: 'Technician',
+      image: 'images/topics/repairman-doing-air-conditioner-service.jpg',
+      episodes: 12
+    },
+    {
+      title: 'Mindfulness',
+      image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
+      episodes: 35
+    },
 
+  ];
 }
