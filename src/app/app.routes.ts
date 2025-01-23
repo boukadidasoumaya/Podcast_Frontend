@@ -15,7 +15,7 @@ import { ProfilComponent } from './components/profil/profil.component';
 import { HeroSectionComponent } from './components/hero-section/hero-section.component';
 import { HeroCardComponent } from './components/hero-card/hero-card.component';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './components/home/home.component';
+import { HomeComponent } from './components/home1/home.component';
 import { SearchComponent } from './components/navbar/search/search.component';
 
 export const routes: Routes = [
@@ -32,5 +32,4 @@ export const routes: Routes = [
   {path:'swiper',component:TestComponent},
   {path:'home',component:HomeComponent},
   {path:'search',component:SearchComponent}
-
 ];

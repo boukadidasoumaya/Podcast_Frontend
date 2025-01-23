@@ -180,15 +180,7 @@
           <p class="fs-3">My List:</p>
         </div>
         <hr class="custom-hr">
-        <app-swiper [cards]="displayedTopics" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'" [slideToShow]="4" [slideWidth]="300">
-          <ng-template let-topic>
-            <app-topics
-              [title]="topic.title"
-              [episodes]="topic.episodes"
-              [image]="topic.image"
-            ></app-topics>
-          </ng-template>
-        </app-swiper>
+       
       </div>
     </div>
   </div>

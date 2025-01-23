@@ -2,11 +2,14 @@ import { Component } from '@angular/core';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
+import { SwiperComponent } from '../swiper/swiper.component';
+import { TopicsComponent } from '../topics/topics.component';
+import { NavbarComponent } from '../navbar/navbar.component';
 
 @Component({
   selector: 'app-details-podcast',
   standalone: true,
-  imports: [CommonModule, CommentComponent,SectionCustomComponent],
+  imports: [CommonModule, CommentComponent,SectionCustomComponent,SwiperComponent,TopicsComponent,NavbarComponent],
   templateUrl: './details-podcast.component.html',
   styleUrl: './details-podcast.component.css'
 })
@@ -26,7 +29,35 @@ export class DetailsPodcastComponent {
       whatsapp: '#'
     }
   };
-// Exemple d'utilisation dans un autre composant
+  displayedEpisodes = [
+    {
+      title: 'Episode 1',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 50
+    },
+    {
+      title: 'Episode 2 ',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 12
+    },
+    {
+      title: 'Episode 3',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+    {
+      title: 'Episode 4',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+    {
+      title: 'Episode 5',
+      image: 'assets/images/podcast/11683425_4790593.jpg',
+      episodes: 35
+    },
+
+  ];
+
 commentData =[
   {
     id: 1,

@@ -1,5 +1,5 @@
-<!-- trending-episodes.component.html -->
-<section class="latest-podcast-section section-padding pb-0" id="section_2">
+<app-navbar  style="background-image: url('/assets/images/templatemo-wave-header-for-profil.jpg'), linear-gradient(#348CD2, #FFFFFF);"></app-navbar>
+<section class="details-podcast-section section-padding pb-0" id="section_2">
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10 col-12">
@@ -65,6 +65,19 @@
           </div>
         </div>
         <br>
+        <app-section-custom
+          [title]="'Episodes'"
+          [sectionId]="''">
+        </app-section-custom>
+        <app-swiper [cards]="displayedEpisodes" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'" [slideToShow]="4" [slideWidth]="300">
+          <ng-template let-episode>
+            <app-topics
+              [title]="episode.title"
+              [episodes]="episode.episodes"
+              [image]="episode.image"
+            ></app-topics>
+          </ng-template>
+        </app-swiper>
         <app-section-custom
           [title]="'Comments'"
           [sectionId]="''">

@@ -19,3 +19,8 @@
   width: 20px;
   height: auto;
 }
+.details-podcast-section{
+  position: relative;
+  top: -300px;
+  background-color: #ffffff;
+}
