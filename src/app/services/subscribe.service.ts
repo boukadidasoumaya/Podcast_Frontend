@@ -1,5 +1,4 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import {  Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,10 +7,26 @@ import { Observable } from 'rxjs';
 export class SubscribeService {
   private apiUrl = 'http://localhost:3000/subscribe'; 
 
-  constructor(private http: HttpClient) {}
+  constructor() {}
 
   subscribe(email: string): Observable<any> {
-    return this.http.post(this.apiUrl, { email });
+    return new Observable(observer => {
+      fetch(this.apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      })
+      .then(response => response.json())
+      .then(data => {
+        observer.next(data);
+        observer.complete();
+      })
+      .catch(error => {
+        observer.error(error);
+      });
+    });
   }
   
 }
