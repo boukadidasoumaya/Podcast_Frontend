@@ -14,7 +14,7 @@
   </div>
 
   <div *ngIf="isHomePage() && displayedEpisodesCount < episodes.length" class="col-lg-12 text-center mt-4">
-    <button class="btn custom-btn" (click)="loadMoreEpisodes()">Load More</button>
-  
+    <button class="btn custom-btn" [routerLink]="'profil'">Load More</button>
+  </div>  
   </div>
-</div>
+

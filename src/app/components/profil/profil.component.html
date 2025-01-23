@@ -175,21 +175,25 @@
       </div>
 
       <!-- My List Section -->
-      <div class="row mt-3">
-        <div class="col-12">
-          <p class="fs-3">My List:</p>
-        </div>
-        <hr class="custom-hr">
-        <app-swiper [cards]="displayedTopics">
-          <ng-template let-topic>
-            <app-topics
-              [title]="topic.title"
-              [episodes]="topic.episodes"
-              [image]="topic.image"
-            ></app-topics>
-          </ng-template>
-        </app-swiper>
-      </div>
+      <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
+
+      <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+        <ng-template let-card>
+            <app-episode-horizontal
+            [title]="card.title"
+            [episodeDuration]="card.episodeDuration"
+            [episodeNumber]="card.episodeNumber"
+            [imageUrl]="card.imageUrl"
+            [hostImage]="card.hostImage"
+            [hostName]="card.hostName"
+            [hostRole]="card.hostRole"
+            [description]="card.description"
+            [stats]="card.stats"
+          ></app-episode-horizontal>
+        
+        </ng-template>
+      </app-swiper>    
+      </app-section-custom>
     </div>
   </div>
 </div>

@@ -5,11 +5,11 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
 import { EpisodeHorizontalComponent } from "../episode-horizontal/episode-horizontal.component";
-
+import { RouterLink } from '@angular/router';
 @Component({
   selector: 'app-latest-episodes',
   standalone: true,
-  imports: [LatestEpisodeCardComponent, CommonModule, EpisodeHorizontalComponent],
+  imports: [LatestEpisodeCardComponent,RouterLink, CommonModule, EpisodeHorizontalComponent],
   templateUrl: './latest-episodes.component.html',
   styleUrl: './latest-episodes.component.css'
 })
