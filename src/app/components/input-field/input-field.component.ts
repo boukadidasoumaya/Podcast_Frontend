@@ -39,16 +39,6 @@ export class InputFieldComponent {
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
   }
-/*
-  onInput(event: InputEvent): void {
-    const target = event.target;
-    if (target instanceof HTMLInputElement) {
-      this.value = target.value;
-      this.onChange(this.value);
-      this.onTouched();
-    }
-  }
-    */
   onInput(value: string): void {
     this.value = value;
     this.onChange(value);
