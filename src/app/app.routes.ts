@@ -8,11 +8,13 @@ import { LatestEpisodesComponent } from './components/latest-episodes/latest-epi
 import { HomeComponent } from './home/home.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
+import { VidPageComponent } from './vid-page/vid-page.component';
 export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path:'',component:HomeComponent},
-  {path:'v',component:VidPlayerComponent},
+  {path:'v',component:VidPageComponent},
+  {path:'a',component:VidPlayerComponent},
 ];
 
 

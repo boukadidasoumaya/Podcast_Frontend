@@ -1,0 +1,5 @@
+app-vid-player {
+    flex: 0 0 auto; /* Prevent flex shrinking */
+    width: 100%; /* Or desired fixed size */
+  }
+  
