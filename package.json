@@ -24,6 +24,7 @@
     "bootstrap": "^5.3.3",
     "font-awesome": "^4.7.0",
     "ngx-carousel-ease": "^0.1.4",
+    "plyr": "^3.7.8",
     "primeicons": "^7.0.0",
     "primeng": "^17.18.15",
     "rxjs": "~7.8.0",

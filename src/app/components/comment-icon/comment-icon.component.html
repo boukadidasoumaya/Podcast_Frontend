@@ -1,6 +1,5 @@
 <!-- Lien avec l'icône de chat -->
 <a href="#" (click)="toggleComment()" [ngClass]="{'bi-chat-fill': isCommented, 'bi-chat': !isCommented}" class="bi-chat me-1">
   <!-- Affiche dynamiquement le nombre de commentaires -->
-
+  <span>{{ commentsCount }}</span>
 </a>
-<span>{{ commentsCount }}</span>

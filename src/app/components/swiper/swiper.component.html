@@ -1,7 +1,31 @@
-<app-section-custom [title]="'cards'" [sectionId]="'2'">
-  <carousel>
+  <carousel   
+  [infinite]="false"
+  [responsive]="true"
+  [autoSlide]="true"
+  [autoslideLimitPercentCard]="30"
+  [autoPlay]="false"
+  [autoPlayInterval]="1500"
+  [autoPlayAtStart]="false"
+  [autoPlaySlideToScroll]="1"
+  [displayAutoPlayControls]="true"
+  [slideToShow]="slideToShow"
+  [slideToScroll]="1"
+  [strechingLimit]="60"
+  [slideWidth]="slideWidth"
+  [slideMaxWidth]="700"
+  [dots]="true"
+  [arrows]="true"
+  [counter]="false"
+  [counterSeparator]="'/'"
+  [enableMouseDrag]="true"
+  [enableTouch]="true"
+  [gapBetweenSlides]="10"
+  [animationTimingFn]="'ease-out'"
+  [animationTimingMs]="300"
+  [maxDomSize]="4">
     <div class="carousel-slide" *ngFor="let card of cards">
-      <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+      <div [ngClass]="colClass">
+
         <!-- Dynamically pass the card data to the projected content -->
         <ng-container
           *ngTemplateOutlet="contentTemplate; context: { $implicit: card }"
@@ -9,17 +33,6 @@
       </div>
     </div>
     <!-- Custom Carousel Arrows -->
-    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon">
-        <i class="bi bi-chevron-left"></i> <!-- Bootstrap icon for left arrow -->
-      </span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
-      <span class="carousel-control-next-icon">
-        <i class="bi bi-chevron-right"></i> <!-- Bootstrap icon for right arrow -->
-      </span>
-      <span class="visually-hidden">Next</span>
-    </button>
+    
+ 
   </carousel>
-</app-section-custom>
