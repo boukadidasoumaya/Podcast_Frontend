@@ -27,6 +27,27 @@ export class LoginComponent {
     password: '',
     confirmPassword: ''
   };
+ 
+  isStepValid(step: number): boolean {
+    switch (step) {
+      case 1:
+        return !!(this.Data.firstname && 
+                 this.Data.lastname && 
+                 this.Data.username && 
+                 this.Data.email &&
+                 this.isValidEmail(this.Data.email));
+      case 2:
+        return !!(this.Data.birthday && 
+                 this.Data.country && 
+                 this.Data.job && 
+                 this.Data.role);
+      case 3:
+        return !!(this.Data.password && 
+                 this.Data.confirmPassword);
+      default:
+        return false;
+    }
+  }
 
   toggle(): void {
     this.isSignIn = !this.isSignIn;
@@ -40,11 +61,18 @@ export class LoginComponent {
     }
   }
 
+  isValidEmail(email: string): boolean {
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    return emailRegex.test(email);
+  }
+
   currentStep = 1;
   
   nextStep() {
-    if (this.currentStep < 3) {
-      this.currentStep++;
+    if (this.isStepValid(this.currentStep)) {
+      if (this.currentStep < 3) {
+        this.currentStep++;
+      }
     }
   }
 

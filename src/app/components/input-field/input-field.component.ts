@@ -1,10 +1,11 @@
 import { Component, forwardRef, Input  } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-input-field',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, CommonModule],
   templateUrl: './input-field.component.html',
   styleUrl: './input-field.component.css',
   providers: [{
@@ -18,9 +19,13 @@ export class InputFieldComponent {
   @Input() type: string = 'text'; 
   @Input() placeholder: string = '';
   @Input() name: string = '';
+  @Input() required: boolean = false;
 
-  value: string = ' ';
+  value: any = ' ';
   disabled: boolean = false;
+  touched: boolean = false;
+
+
   onChange = (_: any) => {};
   onTouched = () => {};
 
@@ -44,4 +49,6 @@ export class InputFieldComponent {
     this.onChange(value);
     this.onTouched();
   }
+
+ 
 }

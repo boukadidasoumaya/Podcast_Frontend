@@ -6,16 +6,16 @@
             <div class="form-wrapper align-items-center">
                 <form class="form sign-up " #formulaire="ngForm"  >
                     <div class="step" *ngIf="currentStep === 1">
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstname"></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastname"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstname" ></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastname" ></app-input-field>
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
-                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email"></app-input-field>
+                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 2">
-                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday"></app-input-field>
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
                         <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country"></app-input-field>
-                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.job"></app-input-field>
-                        <app-input-field icon="bx bx-user-pin" type="select" placeholder="Role" name="role" [(ngModel)]="Data.role">
+                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.job" ></app-input-field>
+                        <app-input-field icon="bx bx-user-pin" type="select" placeholder="Role" name="role" [(ngModel)]="Data.role" >
                             <select>
                                 <option value=""  selected>Select Role</option>
                                 <option value="user">User</option>
@@ -27,8 +27,8 @@
                         <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="instagram_user" [(ngModel)]="Data.instagram_user"></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 3">
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password"></app-input-field>
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword"></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" ></app-input-field>
                     </div>
 
                     <div class="navigation">
@@ -46,7 +46,8 @@
                             [messageText]="currentStep === 2 ? 'Already have an account?' : ''"
                             [linkText]="currentStep === 2 ? 'Sign in here' : ''"
                             (linkClick)="toggle()"
-                            (buttonClick)="nextStep()">
+                            (buttonClick)="nextStep()"
+                            [disabled]="!isStepValid(currentStep)">
                         </app-action-button >
                         <app-action-button 
                             *ngIf="currentStep === 3"
@@ -65,8 +66,8 @@
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
                 <div class="form sign-in">
-                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password"></app-input-field>
+                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username" ></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
                     <app-action-button 
                         buttonText="Sign in"
                         questiontext="Forget Password?"
