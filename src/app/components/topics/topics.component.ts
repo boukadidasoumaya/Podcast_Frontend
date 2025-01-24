@@ -11,57 +11,56 @@ import { Input } from '@angular/core';
 })
 export class TopicsComponent {
   currentPage = 1;
-  itemsPerPage = 4;  // Adjust according to your needs
+  itemsPerPage = 4;
   totalItems = 0;
-  @Input() image: string = ''; // Input for image source
-  @Input() title: string = ''; // Input for title
-  @Input() episodes: number = 0; // Input for episodes (optional)
-  
+  @Input() image: string = '';
+  @Input() title: string = '';
+  @Input() subtitle: string = '';
+
   pagedTopics = [
-    { 
-      title: 'Productivity', 
-      image: 'images/topics/physician-consulting-his-patient-clinic.jpg', 
+    {
+      title: 'Productivity',
+      image: 'images/topics/physician-consulting-his-patient-clinic.jpg',
       episodes: 50
     },
-    { 
-      title: 'Technician', 
-      image: 'images/topics/repairman-doing-air-conditioner-service.jpg', 
-      episodes: 12 
+    {
+      title: 'Technician',
+      image: 'images/topics/repairman-doing-air-conditioner-service.jpg',
+      episodes: 12
     },
-    { 
-      title: 'Mindfulness', 
-      image: 'images/topics/woman-practicing-yoga-mat-home.jpg', 
+    {
+      title: 'Mindfulness',
+      image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
       episodes: 35
     },
-    { 
-      title: 'Cooking', 
-      image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg', 
-      episodes: 12 
-    }, 
-    { 
-      title: 'Productivity', 
-      image: 'images/topics/physician-consulting-his-patient-clinic.jpg', 
+    {
+      title: 'Cooking',
+      image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg',
+      episodes: 12
+    },
+    {
+      title: 'Productivity',
+      image: 'images/topics/physician-consulting-his-patient-clinic.jpg',
       episodes: 50
     },
-    { 
-      title: 'Technician', 
-      image: 'images/topics/repairman-doing-air-conditioner-service.jpg', 
-      episodes: 12 
+    {
+      title: 'Technician',
+      image: 'images/topics/repairman-doing-air-conditioner-service.jpg',
+      episodes: 12
     },
-    { 
-      title: 'Mindfulness', 
-      image: 'images/topics/woman-practicing-yoga-mat-home.jpg', 
+    {
+      title: 'Mindfulness',
+      image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
       episodes: 35
     },
-    { 
-      title: 'Cooking', 
-      image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg', 
-      episodes: 12 
+    {
+      title: 'Cooking',
+      image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg',
+      episodes: 12
     }
   ];
 
   ngOnInit(): void {
-    // Set the total number of items based on the length of pagedTopics
     this.totalItems = this.pagedTopics.length;
   }
 

@@ -1,14 +1,14 @@
 
   <div class="row">
     <div [ngClass]="'col-lg-' + 1 + ' col-md-' + colWidthIm + ' col-sm-2'" class="d-flex justify-content-end">
-      <img class="photo" [src]="comment.user_image || 'assets/avatar.png'" alt="" />
+      <img class="photo" [src]="comment.user.photo || 'assets/avatar.png'" alt="" />
     </div>
     <div [ngClass]="'col-lg-' + (11) + ' col-md-' + (12 - colWidthIm) + ' col-sm-10'">
       <div class="one-comment">
-        <div class="writer fw-bold">{{ comment.username }}</div>
-        <div class="date">{{ formatCreatedAt(comment.created_at) }}</div>
+        <div class="writer fw-bold">{{ comment.user.username }}</div>
+        <div class="date">{{ formatCreatedAt(comment.createdAt) }}</div>
         <div class="d-flex justify-content-between align-items-end">
-          <div class="content mt-2">{{ comment.text }}</div>
+          <div class="content mt-2">{{ comment.content}}</div>
           <button class="btn">
             <i class="fa-solid fa-trash"></i>
           </button>
@@ -35,8 +35,8 @@
           </div>
           <div *ngIf="showReplyForm">
             <app-reply-form
-              [parentCommentId]="comment.id"
-              (onSubmit)="handleReplySubmit($event)"
+              [comment]="comment"
+              (onDataReceived)="handleReplySubmit($event)"
             ></app-reply-form>
           </div>
 
