@@ -1,10 +1,11 @@
-/* video-player.component.css */
 .player-wrapper {
-  max-width: 800px;
+  max-width: 1000px;
   width: 100%; /* Ensures the wrapper takes the full width up to max-width */
+  height: auto; /* Ensures it adapts properly */
+  flex-shrink: 0; /* Prevent shrinking in flexbox layouts */
   margin: 0 auto; /* Centers the wrapper */
-  background-color: black; /* Optional: adds a black background if the video has a small resolution */
 }
+
 
 .plyr__video-embed {
   display: block;

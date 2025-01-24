@@ -14,11 +14,17 @@
   font-weight: 500;
 }
 
-.comments .comments {
-  background-color: #21252F;
-  border-radius: 15px;
-  /* min-height: 335px; */
+.comments {
+  flex-shrink: 0; /* Prevent shrinking */
+  width: 100%; /* Occupies full width */
+  overflow: hidden; /* Avoid overflow affecting layout */
 }
+
+.comments .comments {
+  min-height: 200px; /* Add a reasonable minimum height */
+  max-height: calc(100vh - 200px); /* Constrain height to avoid overlap */
+}
+
 
 
 

@@ -1,5 +1,8 @@
-app-vid-player {
-    flex: 0 0 auto; /* Prevent flex shrinking */
-    width: 100%; /* Or desired fixed size */
+app-section-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px; /* Spacing between sections */
+    width: 100%;
   }
   

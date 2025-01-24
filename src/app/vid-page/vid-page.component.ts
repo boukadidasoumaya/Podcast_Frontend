@@ -5,16 +5,69 @@ import { SectionCustomComponent } from '../components/section-custom/section-cus
 import { VidPlayerComponent } from '../components/vid-player/vid-player.component';
 import { CommentComponent } from '../components/comment/comment.component';
 import { ViewChild, ElementRef } from '@angular/core';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-vid-page',
   standalone: true,
-  imports: [SwiperComponent,TopicsComponent,CommentComponent,SectionCustomComponent,VidPlayerComponent],
+  imports: [SwiperComponent,CommonModule,TopicsComponent,CommentComponent,SectionCustomComponent,VidPlayerComponent],
   templateUrl: './vid-page.component.html',
   styleUrl: './vid-page.component.css'
 })
 export class VidPageComponent {
     @ViewChild('player') playerElement!: ElementRef;
+    
+    commentData = [
+      {
+        id: 1,
+        username: "John Doe",
+        text: "C'est un super commentaire !",
+        created_at: "2024-01-19T10:30:00",
+        user_image: "assets/images/profile/exemple.jpg",
+        replies: [
+          {
+            id: 2,
+            username: "Jane Doe",
+            text: "Je suis d'accord !",
+            created_at: "2024-01-19T11:00:00",
+            user_image: "assets/images/profile/exemple.jpg",
+            replies: [
+              {
+                id: 9,
+                username: "Jane Doe",
+                text: "Je suis d'accord !",
+                created_at: "2024-01-19T11:00:00",
+                user_image: "assets/images/profile/exemple.jpg"
+              }]
+          },
+          {
+            id: 5,
+            username: "Jane Doe",
+            text: "Je suis également d'accord !",
+            created_at: "2024-01-19T11:00:00",
+            user_image: "assets/images/profile/exemple.jpg"
+          }
+        ]
+      },
+      {
+        id: 3,
+        username: "John Doe",
+        text: "C'est un autre super commentaire !",
+        created_at: "2024-01-19T10:30:00",
+        user_image: "assets/images/profile/exemple.jpg",
+        replies: [
+          {
+            id: 4,
+            username: "Jane Doe",
+            text: "Je suis également d'accord !",
+            created_at: "2024-01-19T11:00:00",
+            user_image: "assets/images/profile/exemple.jpg"
+          }
+        ]
+      }
+    ];
+    
   
+    
   podcastData = [
     {
       imageUrl: 'assets/images/podcast/27376480_7326766.jpg',

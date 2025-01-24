@@ -14,5 +14,15 @@
   
 </app-section-custom>
 <app-section-custom [title]='"comments"' [id]='"section_2"'>
-  
+  <div class="container comments p-4"><div class="row all-comments custom-scrollbar">
+    <app-comment
+    *ngFor="let comment of commentData"
+    [comment]="comment"
+    [colWidthIm]="2"
+    [colLikeLg]="3"
+    [colLikeMd]="4"
+    [moreThanOne]="true">
+  </app-comment>
+  </div>
+</div>
 </app-section-custom>
