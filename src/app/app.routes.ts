@@ -13,8 +13,8 @@ export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path:'',component:HomeComponent},
-  {path:'v',component:VidPageComponent},
-  {path:'a',component:VidPlayerComponent},
+    { path: 'podcast/:podcastId/episode/:id', component: VidPageComponent },
+    {path:'a',component:VidPlayerComponent},
 ];
 
 
