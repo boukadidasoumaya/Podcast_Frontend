@@ -15,8 +15,8 @@ import { SectionCustomComponent } from "../section-custom/section-custom.compone
 export class VidPlayerComponent implements AfterViewInit, OnDestroy {
   private player: Plyr | undefined;
   private hasCountedView = false;
-  @Input() videoSource!: string; // Episode ID from the backend
-  @Input() episodeId!: string; // Episode ID from the backend
+  @Input() filepath!: string; // Episode ID from the backend
+  @Input() episodeId!: number; // Episode ID from the backend
 
   constructor(private elRef: ElementRef, private http: HttpClient) {}
 

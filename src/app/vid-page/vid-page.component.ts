@@ -8,6 +8,7 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { EpisodeService } from './vid-page.service';
 import { HttpClientModule } from '@angular/common/http';
+import { Episode } from '../components/models/episode.model';
 
 @Component({
   selector: 'app-vid-page',
@@ -28,34 +29,44 @@ import { HttpClientModule } from '@angular/common/http';
 export class VidPageComponent implements OnInit {
   @ViewChild('player') playerElement!: ElementRef;
 
-  currentEpisode: any;
-  relatedEpisodes: any[] = [];
-  comments: any[] = [];
-  podcastId!: string; // Add this property
+currentEpisode!: Episode; // Ensure this matches the Episode interface
+relatedEpisodes: Episode[] = []; // Related episodes should be an array of Episode
+comments: any[] = []; // This can remain 'any[]' unless you create a specific comment model
+podcastId!: string; // No changes here
+
 
   constructor(private route: ActivatedRoute, private episodeService: EpisodeService) {}
 
   ngOnInit() {
     console.log('innnnn')
     this.route.params.subscribe((params) => {
-      const episodeId = params['id'];
+      const episodeId = +params['id']; // Convert string to number using the "+" operator
       this.podcastId = params['podcastId']; // Fetch podcastId from route params
       this.loadEpisode(episodeId);
     });
   }
 
-  loadEpisode(episodeId: string) {
-    this.episodeService.getEpisodeById(episodeId).subscribe((episode) => {
-      this.currentEpisode = episode;
-      this.loadRelatedEpisodes(episodeId);
-      this.loadComments(episodeId);
+  loadEpisode(episodeId: number) {
+    this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
+      console.log(episodeId)
+      this.currentEpisode = episode; // TypeScript will ensure it matches the Episode interface
+      console.log('Loaded Episode:', episode);
+      this.loadRelatedEpisodes();
     });
   }
+  
 
-  loadRelatedEpisodes(episodeId: string) {
-    this.episodeService.getRelatedEpisodes(episodeId, this.podcastId).subscribe((episodes: any[]) => {
-      this.relatedEpisodes = episodes;
-    });
+  loadRelatedEpisodes() {
+    this.episodeService.getRelatedEpisodes(this.podcastId).subscribe(
+      (episodes: any[]) => {
+        this.relatedEpisodes = episodes;
+        console.log('Relatedzz Episodes:', episodes); // Log to see the result
+
+      },
+      (error) => {
+        console.error('Error fetching related episodes:', error); // Handle error
+      }
+    );
   }
 
   loadComments(episodeId: string) {
