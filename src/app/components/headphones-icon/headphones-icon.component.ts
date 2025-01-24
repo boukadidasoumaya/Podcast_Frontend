@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 })
 export class HeadphonesIconComponent {
   // Permet de passer le nombre d'écoutes en entrée (dynamique)
-  @Input() listensCount: string = '0';
+  @Input() views: number = 0;
 }

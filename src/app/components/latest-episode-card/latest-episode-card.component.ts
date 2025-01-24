@@ -17,19 +17,19 @@ export class LatestEpisodeCardComponent {
     @Input() profileImage: string = '';
     @Input() profileName: string = '';
     @Input() profileRole: string = '';
-    listensCount: string = '100k';  
-    likesCount: string = '2.5k'; 
-    commentsCount: string = '924k'; 
-  
-  
+    views: number = 0;
+    numberOfLikes: number = 0;
+    numberOfComments: number = 0;
+
+
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
     }
-  
+
     onLikeChanged(isLiked: boolean) {
       console.log('Like modifié:', isLiked);
     }
-  
+
     onCommentChanged(isCommented: boolean) {
       console.log('Commentaire modifié:', isCommented);
     }

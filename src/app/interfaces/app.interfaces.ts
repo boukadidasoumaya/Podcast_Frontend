@@ -1,22 +1,55 @@
-export interface User{
-  id :number;
-  photo: string;
+export interface User {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
   username: string;
-  role : string;
+  photo: string | null;
+  profession: string | null;
+  facebookLink: string | null;
+  linkedinLink: string | null;
+  instagramLink: string | null;
+
 }
-export interface Podcast{
+
+export interface Podcast {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  views: number;
+  duration: string;
+  rating: number;
+  download_Count: number;
+  nbre_episode: number;
+  user: User;
+}
+export interface Episode {
+  id: number;
+  title: string;
+  number: number;
+  description: string;
+  duration: number;
+  coverImage: string;
+  views: number;
+  numberOfLikes: number;
+  numberOfComments: number;
+  podcast: Podcast;
+}
+
+export interface PodcastId{
   id:number
 }
-export interface Episode{
+export interface EpisodeId{
   id:number
 }
 export interface Comment {
   id: number;
   content: string;
   parent?: Comment | null;
-  podcast?: Podcast;
-  episode?: Episode;
+  podcast?: PodcastId;
+  episode?: EpisodeId;
   user: User;
   createdAt: string;
-  replies?: Comment[]; 
+  replies?: Comment[];
 }

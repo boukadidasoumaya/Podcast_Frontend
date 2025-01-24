@@ -23,16 +23,13 @@ export class DetailsPodcastComponent implements OnInit{
         "id":1
     },
     "episode":{
-        "id":1
+        "id":2
     }
 }
   constructor(private commentService: CommentService) {}
 
   ngOnInit(): void {
-    // Récupérer les commentaires initiaux lorsque le composant est chargé
     this.loadComments();
-
-    // Écouter les nouveaux commentaires ajoutés en temps réel
     this.commentService.onNewComment().subscribe((newComment: Comment) => {
       this.comments.push(newComment); // Ajouter le nouveau commentaire à la liste
     });

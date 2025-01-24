@@ -5,7 +5,7 @@ import { LikeButtonComponent } from './like-button/like-button.component';
 import { ReplyFormComponent } from './reply-form/reply-form.component';
 import { CommentService } from '../../services/comment.service';
 
-import {User,Comment,Podcast,Episode} from '../../interfaces/app.interfaces'
+import {User,Comment} from '../../interfaces/app.interfaces'
 @Component({
   selector: 'app-comment',
   standalone: true,

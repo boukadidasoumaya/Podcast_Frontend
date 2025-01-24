@@ -47,18 +47,18 @@
       <div class="custom-block-bottom d-flex justify-content-between mt-3">
         <!-- Composant pour l'icône écouteur -->
         <app-headphones-icon
-          [listensCount]="listensCount">
+          [views]="views">
         </app-headphones-icon>
 
     <!-- Composant pour l'icône cœur -->
         <app-heart-icon
-          [likesCount]="likesCount"
+          [numberOfLikes]="numberOfLikes"
           (liked)="onLikeChanged($event)">
         </app-heart-icon>
 
     <!-- Composant pour l'icône chat -->
         <app-comment-icon
-          [commentsCount]="commentsCount"
+          [numberOfComments]="numberOfComments"
           (commented)="onCommentChanged($event)">
         </app-comment-icon>
 

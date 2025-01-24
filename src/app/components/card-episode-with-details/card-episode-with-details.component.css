@@ -2,7 +2,7 @@
 @import "../../../assets/css/section.css";
 @import "../../../assets/css/profil-block.css";
 @import "../../../assets/css/social-icon.css";
-
+@import "../../../assets/css/link.css";
 
 .badge {
   background-color: var(--custom-btn-bg-color);

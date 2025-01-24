@@ -1,6 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
 import { CommonModule } from '@angular/common';  // Importation nécessaire
+import { Episode } from '../../interfaces/app.interfaces';
+import { EpisodeService } from '../../services/episode.service';
 
 @Component({
   selector: 'app-trending-episodes',
@@ -9,31 +11,23 @@ import { CommonModule } from '@angular/common';  // Importation nécessaire
   templateUrl: './trending-episodes.component.html',
   styleUrls: ['./trending-episodes.component.css']
 })
-export class TrendingEpisodesComponent {
-  episodes = [
-    {
-      imagePath: 'assets/images/podcast/27376480_7326766.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-      profileName: 'Elsa',
-      profileRole: 'Influencer'
-    },
-    {
-      imagePath: 'assets/images/podcast/27670664_7369753.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      profileName: 'Taylor',
-      profileRole: 'Creator'
-    },
-    {
-      imagePath: 'assets/images/podcast/12577967_02.jpg',
-      title: 'Daily Talk',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-      profileName: 'William',
-      profileRole: 'Vlogger'
-    }
-  ];
+export class TrendingEpisodesComponent implements OnInit {
+  episodes: Episode[] = [];
+
+  constructor(private episodeService: EpisodeService) {}
+
+  ngOnInit(): void {
+    this.episodeService.getAllEpisodes().subscribe((data) => {
+      this.episodes = data;
+    });
+  }
+
+  incrementViews(id: number): void {
+    this.episodeService.incrementViews(id).subscribe((response) => {
+      const episode = this.episodes.find((ep) => ep.id === id);
+      if (episode) {
+        episode.views = response.views;
+      }
+    });
+  }
 }
