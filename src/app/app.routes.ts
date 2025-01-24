@@ -13,8 +13,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/navbar/search/search.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
+import { HomeComponent } from './home/home.component';
 
 export const routes: Routes = [
+  {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},

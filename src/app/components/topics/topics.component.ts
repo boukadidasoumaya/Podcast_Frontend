@@ -16,6 +16,7 @@ export class TopicsComponent {
   @Input() image: string = '';
   @Input() title: string = '';
   @Input() subtitle: string = '';
+  @Input() episodes: number = 0;
 
   pagedTopics = [
     {
