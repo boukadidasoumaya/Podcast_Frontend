@@ -12,6 +12,7 @@ export class ActionButtonComponent {
   @Input() messageText: string = ''; 
   @Input() linkText: string = ''; 
   @Input() questiontext: string = ''; 
+  @Input() disabled: boolean = false;
   @Output() linkClick = new EventEmitter<void>(); 
   @Output() buttonClick = new EventEmitter<void>();
 

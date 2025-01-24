@@ -3,7 +3,8 @@ import { InputFieldComponent } from '../input-field/input-field.component';
 import { ActionButtonComponent } from '../action-button/action-button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
-
+import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -14,16 +15,16 @@ import { FormsModule, NgForm } from '@angular/forms';
 export class LoginComponent {
   isSignIn: boolean = true;
   Data = {
-    firstname: '',
-    lastname: '',
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     birthday: '',
     country: '',
-    job: '',
+    profession: '',
     role: '',
-    whatsapp_user: '',
-    instagram_user: '',
+    whatsappUser: '',
+    instagramLink: '',
     password: '',
     confirmPassword: ''
   };
@@ -31,15 +32,15 @@ export class LoginComponent {
   isStepValid(step: number): boolean {
     switch (step) {
       case 1:
-        return !!(this.Data.firstname && 
-                 this.Data.lastname && 
+        return !!(this.Data.firstName && 
+                 this.Data.lastName && 
                  this.Data.username && 
                  this.Data.email &&
                  this.isValidEmail(this.Data.email));
       case 2:
         return !!(this.Data.birthday && 
                  this.Data.country && 
-                 this.Data.job && 
+                 this.Data.profession && 
                  this.Data.role);
       case 3:
         return !!(this.Data.password && 
@@ -82,12 +83,46 @@ export class LoginComponent {
     }
   }
 
+  constructor(private authService: AuthService, private router: Router) {}
+
   signUp(): void {
-    console.log("firstname :",this.Data.firstname); 
+    this.authService.register(this.Data).subscribe({
+      next: (response) => {
+        this.router.navigate(['/']);
+        console.log('Registration successful', response);
+      },
+      error: (error) => {
+        console.error('Registration failed', error);
+      },
+    });
   }
+
+  signIn() {
+    this.authService.login(this.Data).subscribe({
+      next: (response) => {
+        console.log('Login successful', response);
+  
+        // Check for 'accessToken' instead of 'token'
+        if (response.accessToken) {
+          localStorage.setItem('authToken', response.accessToken);
+  
+          // Navigate to the home page
+          this.router.navigate(['/home']); // Adjust route as needed
+        } else {
+          console.error('Token not found in the response.');
+        }
+      },
+      error: (error) => {
+        console.error('Login failed', error);
+        // Optionally, display an error message to the user
+      },
+    });
+  }
+  
+  
   onSubmit(form: NgForm) {
     if (form.valid) {
-      console.log("firstname :",this.Data.firstname);
+      console.log("firstname :",this.Data.firstName);
     }
   }
 }

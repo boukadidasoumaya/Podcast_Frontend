@@ -38,6 +38,22 @@ body {
     max-width: 100%;
 }
 
+select {
+    width: 100%;
+    padding: 1rem 3rem;
+    font-size: 1rem;
+    background-color: var(--gray);
+    border-radius: 0.5rem;
+    border: 0.125rem solid var(--white);
+    outline: none;
+    appearance: none; 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+select:focus {
+    border: 0.125rem solid var(--primary-color);
+}
+
 .row {
     display: flex;
     flex-wrap: wrap;

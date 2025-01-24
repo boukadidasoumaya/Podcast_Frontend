@@ -1,5 +1,5 @@
 <div class="action-group">
-    <button (click)="onButtonClick()">
+    <button [disabled]="disabled"  (click)="onButtonClick() " >
         {{ buttonText }}
     </button>
     <p>

@@ -13,9 +13,8 @@ import { LatestEpisodesComponent } from './components/latest-episodes/latest-epi
 import { LoginComponent } from './components/login/login.component';
 export const routes: Routes = [
   {path:'trending',component:TrendingEpisodesComponent},
-  {path:'',component:LatestEpisodesComponent},
   {path: 'latest-episodes', component: LatestEpisodesComponent },
-  {path: 'login', component: LoginComponent },
+  {path: '', component: LoginComponent },
   {path:'navbar',component:NavbarComponent},
   {path:'profil',component:ProfilComponent},
   {path:'hero',component:HeroSectionComponent},
