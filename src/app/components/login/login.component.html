@@ -30,10 +30,25 @@
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" ></app-input-field>
                     </div>
-
+                    <div class="step" *ngIf="currentStep === 4">
+                        <h3>Select Your Interests</h3>
+                        <div class="interests-container">
+                            <div *ngFor="let interest of interests"
+                                 class="interest-tag"
+                                 [class.selected]="isInterestSelected(interest)"
+                                 (click)="toggleInterest(interest)">
+                                {{ interest }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 5">
+                        Congratulations!
+                        <br>
+                        Your registration was successeful  
+                    </div>
                     <div class="navigation">
                         <app-action-button  
-                            *ngIf="currentStep > 1" 
+                            *ngIf="currentStep > 1 && currentStep < 5" 
                             buttonText="Previous"
                             [messageText]="currentStep === 1 ? 'Already have an account?' : ''"
                             [linkText]="currentStep === 1 ? 'Sign in here' : ''"
@@ -41,16 +56,21 @@
                             (buttonClick)="previousStep()">
                         </app-action-button >
                         <app-action-button  
-                            *ngIf="currentStep < 3" 
+                            *ngIf="currentStep === 5" 
+                            buttonText="Sign in Now"
+                            (buttonClick)="toggle()">
+                        </app-action-button >
+                        <app-action-button  
+                            *ngIf="currentStep < 4" 
                             buttonText="Next"
-                            [messageText]="currentStep === 2 ? 'Already have an account?' : ''"
-                            [linkText]="currentStep === 2 ? 'Sign in here' : ''"
+                            [messageText]="(currentStep === 2 || currentStep === 3) ? 'Already have an account?' : ''"
+                            [linkText]="(currentStep === 2 || currentStep === 3) ? 'Sign in here' : ''"
                             (linkClick)="toggle()"
                             (buttonClick)="nextStep()"
                             [disabled]="!isStepValid(currentStep)">
                         </app-action-button >
                         <app-action-button 
-                            *ngIf="currentStep === 3"
+                            *ngIf="currentStep === 4"
                             buttonText="Sign up"
                             messageText="Already have an account?"
                             linkText="Sign in here"

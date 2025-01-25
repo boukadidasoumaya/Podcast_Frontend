@@ -15,6 +15,7 @@ interface RegisterData {
     whatsappUser: string;
     instagramLink: string;
     password: string;
+    interests: string[];
   }
   
   interface LoginData {
@@ -42,7 +43,8 @@ export class AuthService {
       role: data.role,
       whatsappUser: data.whatsappUser,
       instagramLink: data.instagramLink,
-      password: data.password
+      password: data.password,
+      interests: data.selectedInterests,
     };
     console.log('Register data:', transformedData);
     return this.http.post(`${this.apiUrl}/auth/register`, transformedData);
@@ -56,4 +58,5 @@ export class AuthService {
     console.log('Sending login data:', loginData);
     return this.http.post(`${this.apiUrl}/auth/login`, loginData);
   }
+  
 }

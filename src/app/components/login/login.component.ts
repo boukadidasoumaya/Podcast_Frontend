@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -26,10 +27,13 @@ export class LoginComponent {
     whatsappUser: '',
     instagramLink: '',
     password: '',
-    confirmPassword: ''
-  };
+    confirmPassword: '',
+    selectedInterests: [] as string[]
+    };
  
-  isStepValid(step: number): boolean {
+    interests: string[] = [];
+
+    isStepValid(step: number): boolean {
     switch (step) {
       case 1:
         return !!(this.Data.firstName && 
@@ -44,7 +48,9 @@ export class LoginComponent {
                  this.Data.role);
       case 3:
         return !!(this.Data.password && 
-                 this.Data.confirmPassword);
+                 this.Data.confirmPassword&&
+                 this.Data.password === this.Data.confirmPassword 
+                );
       default:
         return false;
     }
@@ -71,7 +77,7 @@ export class LoginComponent {
   
   nextStep() {
     if (this.isStepValid(this.currentStep)) {
-      if (this.currentStep < 3) {
+      if (this.currentStep < 4) {
         this.currentStep++;
       }
     }
@@ -83,12 +89,12 @@ export class LoginComponent {
     }
   }
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private http: HttpClient,private authService: AuthService, private router: Router) {}
 
   signUp(): void {
     this.authService.register(this.Data).subscribe({
       next: (response) => {
-        this.router.navigate(['/']);
+        this.currentStep++;
         console.log('Registration successful', response);
       },
       error: (error) => {
@@ -102,24 +108,48 @@ export class LoginComponent {
       next: (response) => {
         console.log('Login successful', response);
   
-        // Check for 'accessToken' instead of 'token'
         if (response.accessToken) {
           localStorage.setItem('authToken', response.accessToken);
   
-          // Navigate to the home page
-          this.router.navigate(['/home']); // Adjust route as needed
+          this.router.navigate(['/home']); 
         } else {
           console.error('Token not found in the response.');
         }
       },
       error: (error) => {
         console.error('Login failed', error);
-        // Optionally, display an error message to the user
       },
     });
   }
   
-  
+  ngOnInit() {
+    this.loadInterests();
+  }
+
+  loadInterests() {
+    this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({
+      next: (data) => {
+        this.interests = data; 
+      },
+      error: (err) => {
+        console.error('Failed to load interests:', err);
+      }
+    });
+  }
+
+  isInterestSelected(interest: string): boolean {
+    return this.Data.selectedInterests.includes(interest);
+  }
+
+  toggleInterest(interest: string): void {
+    const index = this.Data.selectedInterests.indexOf(interest);
+    if (index === -1) {
+        this.Data.selectedInterests.push(interest);
+    } else {
+        this.Data.selectedInterests.splice(index, 1);
+    }
+  }
+
   onSubmit(form: NgForm) {
     if (form.valid) {
       console.log("firstname :",this.Data.firstName);
