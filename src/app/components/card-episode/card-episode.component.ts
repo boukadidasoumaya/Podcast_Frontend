@@ -3,6 +3,7 @@ import { HeartIconComponent } from '../heart-icon/heart-icon.component';
 import { CommentIconComponent } from '../comment-icon/comment-icon.component';
 import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
 
+
 @Component({
   selector: 'app-card-episode',
   standalone: true,
@@ -17,11 +18,11 @@ export class CardEpisodeComponent {
   @Input() profileImage: string = '';
   @Input() profileName: string = '';
   @Input() profileRole: string = '';
+  // Compteurs pour chaque icône
+  listensCount: string = '100k';  // Nombre de lectures
+  likesCount: string = '2.5k';   // Nombre de likes
+  commentsCount: string = '924k'; // Nombre de commentaires
 
-  // Déclarez ces variables comme des @Input() pour pouvoir les passer depuis le parent
-  @Input() listensCount: string = '100k';  // Nombre de lectures
-  @Input() likesCount: string = '2.5k';   // Nombre de likes
-  @Input() commentsCount: string = '924k'; // Nombre de commentaires
 
   // Événements lorsque l'utilisateur interagit avec les icônes
   onListenChanged(isListened: boolean) {

@@ -1,0 +1,24 @@
+<app-section-custom [title]="currentEpisode.name" [id]="'section_2'">
+  <app-vid-player [episodeId]="currentEpisode.id" [filepath]="currentEpisode.filepath"></app-vid-player>
+</app-section-custom>
+
+<app-section-custom [title]="'Related Episodes'" [id]="'section_2'">
+  <app-swiper
+    [cards]="relatedEpisodes"
+    [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"
+    [slideToShow]="4"
+    [slideWidth]="300">
+    <ng-template let-episode>
+      <app-topics
+        [customtext]="'min'"
+        [title]="episode.name"
+        [episodes]="episode.duration"
+        [podcastId]="episode.podcast.id"
+  [episodeId]="episode.id"
+        [image]="episode.podcast.image"
+        [ngClass]="{ 'selected': episode.id === currentEpisode.id }"  
+        (click)="loadEpisode(episode.id)">
+      </app-topics>
+    </ng-template>
+  </app-swiper>
+</app-section-custom>

@@ -244,6 +244,7 @@
 
 
   .navbar-nav .dropdown-menu {
+    display: none;
     position: relative;
     left: 10px;
     opacity: 1;
@@ -251,4 +252,10 @@
     max-width: 155px;
     margin-top: 10px;
     margin-bottom: 15px;
+  }
+  .navbar .dropdown.show .dropdown-menu {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
