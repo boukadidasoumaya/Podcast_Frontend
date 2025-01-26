@@ -22,7 +22,7 @@
           {{ episode.duration }}
         </small>
 
-        <small class="ms-auto">Episode <span class="badge">{{ episode.episodeNumber }}</span></small>
+        <small class="ms-auto">Episode <span class="badge">{{ episode.podcast.nbre_episode }}</span></small>
       </div>
 
       <h2 class="mb-2">{{ episode.title }}</h2>
@@ -35,19 +35,19 @@
           <p>
             {{ episode.profileName }}
             <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
-            <strong>{{ episode.profileRole }}</strong>
+            <strong>{{ episode.podcast.user.profession }}</strong>
           </p>
         </div>
 
         <ul class="social-icon ms-lg-auto ms-md-auto">
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.instagram" class="social-icon-link bi-instagram"></a>
+            <a [href]="episode.podcast.user.intagramLink" class="social-icon-link bi-instagram"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.twitter" class="social-icon-link bi-twitter"></a>
+            <a [href]="episode.twitterLink" class="social-icon-link bi-twitter"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.whatsapp" class="social-icon-link bi-whatsapp"></a>
+            <a [href]="episode.facebookLink" class="social-icon-link bi-whatsapp"></a>
           </li>
         </ul>
       </div>

@@ -1,20 +1,22 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HeartIconComponent } from '../heart-icon/heart-icon.component';
 import { CommentIconComponent } from '../comment-icon/comment-icon.component';
 import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
-import { Episode } from '../../interfaces/app.interfaces';
-
+import { Episode, User } from '../../interfaces/app.interfaces';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-card-episode',
   standalone: true,
-  imports: [HeartIconComponent, CommentIconComponent, HeadphonesIconComponent], // Importation des composants
+  imports: [RouterModule, HeartIconComponent, CommentIconComponent, HeadphonesIconComponent],
   templateUrl: './card-episode.component.html',
   styleUrls: ['./card-episode.component.css']
 })
 export class CardEpisodeComponent {
   @Input() episode!: Episode;
-
+  @Input() numberOfLikes!: number;
+  @Input() isLiked: boolean = false; // Add this line
+  @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
 
 
   // Événements lorsque l'utilisateur interagit avec les icônes
@@ -22,8 +24,10 @@ export class CardEpisodeComponent {
     console.log('Lecture modifiée:', isListened);
   }
 
-  onLikeChanged(isLiked: boolean) {
-    console.log('Like modifié:', isLiked);
+  // Modified method to emit the liked event
+  onLikeChanged() {
+    this.isLiked = !this.isLiked;
+    this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
   }
 
   onCommentChanged(isCommented: boolean) {

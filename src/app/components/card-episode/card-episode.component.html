@@ -1,6 +1,6 @@
 
 <div class="custom-block custom-block-full">
-  <div class="custom-block-image-wrap">
+  <div [routerLink]="['/details-podcast', episode.id]" class="custom-block-image-wrap">
     <a>
       <img [src]="episode.coverImage" class="custom-block-image img-fluid" alt="">
     </a>
@@ -11,12 +11,12 @@
       <a>{{ episode.title }}</a>
     </h5>
 
-    <div class="profile-block d-flex">
+    <div [routerLink]="['/details-podcast', episode.id]" class="profile-block d-flex">
       <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="">
       <p>{{ episode.podcast.user.username }} <strong>{{ episode.podcast.user.profession }}</strong></p>
     </div>
 
-    <p class="mb-0">{{ episode.description }}</p>
+    <p [routerLink]="['/details-podcast', episode.id]" class="mb-0">{{ episode.description }}</p>
 
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
       <!-- Composant pour l'icône écouteur -->
@@ -25,9 +25,10 @@
       </app-headphones-icon>
 
       <!-- Composant pour l'icône cœur -->
+      <!-- In card-episode.component.html -->
       <app-heart-icon
-        [numberOfLikes]="episode.numberOfLikes"
-        (liked)="onLikeChanged($event)">
+        [numberOfLikes]="numberOfLikes"
+        (liked)="onLikeChanged()">
       </app-heart-icon>
 
       <!-- Composant pour l'icône chat -->

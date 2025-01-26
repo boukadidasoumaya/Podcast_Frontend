@@ -11,7 +11,7 @@ export class CommentService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io(APP_API.comments);
+    this.socket = io(APP_API.websocket);
   }
 
   getComments(options: any): Observable<Comment[]> {

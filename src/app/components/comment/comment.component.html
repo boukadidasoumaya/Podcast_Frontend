@@ -35,7 +35,7 @@
           </div>
           <div *ngIf="showReplyForm">
             <app-reply-form
-              [comment]="comment"
+      
               (onDataReceived)="handleReplySubmit($event)"
             ></app-reply-form>
           </div>
@@ -65,9 +65,13 @@
               [colLikeMd]="4"
               [moreThanOne]="reply !== comment.replies[comment.replies.length - 1]">
             </app-comment>
+
           </div>
+
         </div>
+
         <hr *ngIf="moreThanOne" />
+
       </div>
     </div>
   </div>

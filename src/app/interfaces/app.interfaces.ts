@@ -35,8 +35,11 @@ export interface Episode {
   numberOfLikes: number;
   numberOfComments: number;
   podcast: Podcast;
+  likes:Like;
 }
-
+export interface Like {
+  id:number
+}
 export interface PodcastId{
   id:number
 }

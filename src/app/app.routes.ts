@@ -20,7 +20,7 @@ export const routes: Routes = [
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
-  {path:'details-podcast',component:DetailsPodcastComponent},
+  {path: 'details-podcast/:id', component: DetailsPodcastComponent },
   {path:'topics',component:TopicsComponent},
   {path:'contact',component:ContactComponent},
   {path:'footer',component:FooterComponent},

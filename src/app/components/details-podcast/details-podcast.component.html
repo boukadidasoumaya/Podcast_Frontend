@@ -8,7 +8,7 @@
           [sectionId]="''">
         </app-section-custom>
 
-        <app-card-episode-with-details [episode]="episode"></app-card-episode-with-details>
+        <app-card-episode-with-details [episode]="episodeDetails"></app-card-episode-with-details>
 
         <br>
         <app-section-custom
@@ -28,19 +28,9 @@
           [sectionId]="''">
         </app-section-custom>
 
-        <div class="container comments p-4"><div class="row all-comments custom-scrollbar">
-          <app-comment
-          *ngFor="let comment of comments"
-          [comment]="comment"
-          [colWidthIm]="2"
-          [colLikeLg]="3"
-          [colLikeMd]="4"
-          [moreThanOne]="true">
-        </app-comment>
-        </div>
+        <app-comment-section [options]="options" [currentUser]="currentUser"></app-comment-section>
       </div>
 
       </div>
     </div>
-  </div>
 </section>

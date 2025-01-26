@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode } from '../interfaces/app.interfaces'; // Assure-toi que tu as un modèle Episode
+import { APP_API } from '../config/app-api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EpisodeService {
-  private apiUrl = 'http://localhost:3000/episodes'; // URL de ton API backend
+  private apiUrl = APP_API.episode; // URL de ton API backend
 
   constructor(private http: HttpClient) {}
 

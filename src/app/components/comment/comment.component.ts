@@ -51,7 +51,7 @@ export class CommentComponent {
 
     const newReply = {
       content: replyText,
-      parent: this.comment.id,
+      parent: this.comment,
       podcast: this.comment.podcast,
       episode: this.comment.episode,
       user: this.comment.user,

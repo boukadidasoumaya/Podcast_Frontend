@@ -1,9 +1,10 @@
-
 <div class="row">
-      <div class="col-lg-4 col-12 mb-4 mb-lg-0" *ngFor="let episode of episodes">
-        <app-card-episode
-        [episode]="episode"
-        >
-        </app-card-episode>
-      </div>
+  <div class="col-lg-4 col-12 mb-4 mb-lg-0" *ngFor="let episode of episodes">
+    <app-card-episode
+      [episode]="episode"
+      [numberOfLikes]="likes[episode.id]"
+      [isLiked]="likedEpisodes[episode.id]"
+      (liked)="onLikeChanged($event)">
+    </app-card-episode>
+  </div>
 </div>
