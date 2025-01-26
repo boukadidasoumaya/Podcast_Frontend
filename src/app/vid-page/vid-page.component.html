@@ -15,7 +15,7 @@
         [episodes]="episode.duration"
         [podcastId]="episode.podcast.id"
   [episodeId]="episode.id"
-        [image]="episode.podcast.image"
+        [image]="episode.coverImage"
         [ngClass]="{ 'selected': episode.id === currentEpisode.id }"  
         (click)="loadEpisode(episode.id)">
       </app-topics>
@@ -23,3 +23,18 @@
   </app-swiper>
 </app-section-custom>
 
+<app-section-custom [title]='"Comments"' [id]='"section_2"'>
+  <div class="container comments p-4">
+    <div class="row all-comments custom-scrollbar">
+      <app-comment
+        *ngFor="let comment of comments"
+        [comment]="comment"
+        [colWidthIm]="2"
+        [colLikeLg]="3"
+        [colLikeMd]="4"
+        [moreThanOne]="true"
+      ></app-comment>
+    </div>
+  </div>
+</app-section-custom>
+<app-comment-section podcast></app-comment-section>

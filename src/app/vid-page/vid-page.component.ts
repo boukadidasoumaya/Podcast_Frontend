@@ -6,9 +6,10 @@ import { VidPlayerComponent } from '../components/vid-player/vid-player.componen
 import { CommentComponent } from '../components/comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { EpisodeService } from './vid-page.service';
+import { EpisodeService } from '../services/vid-page.service';
 import { HttpClientModule } from '@angular/common/http';
-import { Episode } from '../components/models/episode.model';
+import { Episode } from '../models/episode.model';
+import { CommentSectionComponent } from "../components/comment-section/comment-section.component";
 
 @Component({
   selector: 'app-vid-page',
@@ -21,7 +22,8 @@ import { Episode } from '../components/models/episode.model';
     CommentComponent,
     SectionCustomComponent,
     VidPlayerComponent,
-  ],
+    CommentSectionComponent
+],
   providers: [EpisodeService], // Ensure EpisodeService is provided here
   templateUrl: './vid-page.component.html',
   styleUrls: ['./vid-page.component.css'],

@@ -13,30 +13,39 @@ export interface User {
 }
 
 export interface Podcast {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string | null;
   id: number;
   name: string;
-  description: string;
-  image: string;
   views: number;
-  duration: string;
-  rating: number;
+  duration: string; // Format: "50m"
+  description: string;
+  image: string; // URL to the podcast's image
+  rating: number; // Average rating
   download_Count: number;
-  nbre_episode: number;
+  nbre_episode: number; // Total number of episodes
   user: User;
 }
+
 export interface Episode {
+  createdAt: string;
+  updatedAt: string;
+  deletedAt?: string | null;
   id: number;
-  title: string;
-  number: number;
-  description: string;
-  duration: number;
+  name: string;
+  number: number; // Episode number
+  duration: number; // Duration in seconds
+  filepath: string; // URL to the video/audio file
+  views: number; // Number of views
+  podcast: Podcast; // Nested podcast object
   coverImage: string;
-  views: number;
   numberOfLikes: number;
   numberOfComments: number;
-  podcast: Podcast;
   likes:Like;
+description :string;
 }
+
 export interface Like {
   id:number
 }

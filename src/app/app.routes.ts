@@ -28,7 +28,5 @@ export const routes: Routes = [
   {path:'search',component:SearchComponent},
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
-  {path:'',component:HomeComponent},
     { path: 'podcast/:podcastId/episode/:id', component: VidPageComponent },
-    {path:'a',component:VidPlayerComponent},
 ];
