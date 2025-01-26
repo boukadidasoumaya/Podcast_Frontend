@@ -1,16 +1,28 @@
 <form class="custom-form search-form flex-fill me-3" role="search" (ngSubmit)="onSearch()">
-    <div class="input-group input-group-lg">
-      <input 
-        [(ngModel)]="searchTerm" 
-        name="search" 
-        type="search" 
-        class="form-control" 
-        id="search" 
-        placeholder="Search Podcast" 
-        aria-label="Search">
+    <div class="input-group input-group-lg position-relative">
+      <input
+        [(ngModel)]="searchTerm"
+        (input)="onInputChange()"
+        (blur)="onBlur()"
+        name="search"
+        type="search"
+        class="form-control"
+        id="search"
+        placeholder="Search Podcast"
+        aria-label="Search"
+        autocomplete="off">
       <button type="submit" class="form-control" id="submit">
         <i class="bi-search"></i>
       </button>
+
     </div>
+    <ul *ngIf="suggestions.length && showsuggestions" class="list-group position-absolute w-100 mt-2">
+      <li
+        *ngFor="let suggestion of suggestions"
+        class="list-group-item list-group-item-action"
+        (click)="onSuggestionClick(suggestion)">
+        {{ suggestion }}
+      </li>
+    </ul>
   </form>
-  
+

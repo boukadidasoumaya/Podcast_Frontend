@@ -1,39 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
-import { CommonModule } from '@angular/common';  // Importation nécessaire
+import { CommonModule } from '@angular/common';
+import { Episode, User } from '../../interfaces/app.interfaces';
+import { EpisodeService } from '../../services/episode.service';
+import { Subscription } from 'rxjs';
+import { LikeEpisodeService } from '../../services/like.service';
 
 @Component({
   selector: 'app-trending-episodes',
   standalone: true,
-  imports: [CardEpisodeComponent, CommonModule],  // Ajoute CommonModule ici
+  imports: [CardEpisodeComponent, CommonModule, RouterLink],
   templateUrl: './trending-episodes.component.html',
   styleUrls: ['./trending-episodes.component.css']
 })
-export class TrendingEpisodesComponent {
-  episodes = [
-    {
-      imagePath: 'assets/images/podcast/27376480_7326766.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-      profileName: 'Elsa',
-      profileRole: 'Influencer'
-    },
-    {
-      imagePath: 'assets/images/podcast/27670664_7369753.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      profileName: 'Taylor',
-      profileRole: 'Creator'
-    },
-    {
-      imagePath: 'assets/images/podcast/12577967_02.jpg',
-      title: 'Daily Talk',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-      profileName: 'William',
-      profileRole: 'Vlogger'
+export class TrendingEpisodesComponent implements OnInit, OnDestroy {
+  episodes: Episode[] = [];
+  private likeSubscription: any;
+  private unlikeSubscription: any;
+
+  // Nombre de likes pour chaque épisode
+  likes: { [episodeId: number]: number } = {};
+
+  // Track liked state for each episode
+  likedEpisodes: { [episodeId: number]: boolean } = {};
+
+  user: Partial<User> = {
+    id: 1
+  };
+
+  constructor(
+    private episodeService: EpisodeService,
+    private likeEpisodeService: LikeEpisodeService
+  ) {}
+
+  ngOnInit(): void {
+    this.episodeService.getAllEpisodesTrending().subscribe((data) => {
+      this.episodes = data;
+
+      // Initialiser le nombre de likes et l'état like pour chaque épisode
+      this.episodes.forEach((episode) => {
+        this.likes[episode.id] = episode.numberOfLikes;
+      });
+    });
+
+    // Listen for likes in real-time and update the likes count for each episode
+    this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
+      data.totalLikes.forEach((likeData: any) => {
+        this.likes[likeData.episode] = likeData.numberOfLikes;
+        this.likedEpisodes[likeData.episode] = true;
+        console.log(this.likes);
+        console.log(this.likedEpisodes);
+      });
+    });
+
+    // Listen for unlikes and update the likes count accordingly
+    this.unlikeSubscription = this.likeEpisodeService.onUnlikeEpisode().subscribe((data) => {
+      data.totalLikes.forEach((likeData: any) => {
+        this.likes[likeData.episode] = likeData.numberOfLikes;
+        this.likedEpisodes[likeData.episode] = false;
+        console.log(this.likes);
+        console.log(this.likedEpisodes);
+
+
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.likeSubscription?.unsubscribe();
+    this.unlikeSubscription?.unsubscribe();
+  }
+
+  onLikeChanged(event: { isLiked: boolean, episode: Episode }): void {
+    const { isLiked, episode } = event;
+
+    if (isLiked) {
+      this.likeEpisodeService.likeEpisode(this.user, episode);
+    } else {
+      this.likeEpisodeService.unlikeEpisode(this.user, episode);
     }
-  ];
+  }
 }

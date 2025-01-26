@@ -1,14 +1,13 @@
   <div class="custom-block custom-block-overlay">
     <a [routerLink]="['/podcast', podcastId, 'episode', episodeId]" class="custom-block-image-wrap">      <img [src]="image" class="custom-block-image img-fluid" alt="">
     </a>
-  
+
     <div class="custom-block-info custom-block-overlay-info">
       <h5 class="mb-1">
-        <a href="listing-page.html">
+        <a >
           {{ title }}
         </a>
       </h5>
       <p class="badge mb-0">{{ episodes }} {{customtext }}</p>
     </div>
   </div>
-  
