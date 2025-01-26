@@ -1,16 +1,15 @@
-import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
+import { CommentComponent } from '../comment/comment.component';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { SwiperComponent } from '../swiper/swiper.component';
 import { TopicsComponent } from '../topics/topics.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/card-episode-with-details.component';
-import { CommentService } from '../../services/comment.service';
-import { Comment,Episode, User } from '../../interfaces/app.interfaces';
-import { EpisodeService } from '../../services/episode.service';
 import { CommentSectionComponent } from '../comment-section/comment-section.component';
+import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../interfaces/app.interfaces';
+import { EpisodeService } from '../../services/episode.service';
 
 @Component({
   selector: 'app-details-podcast',
@@ -26,19 +25,19 @@ import { CommentSectionComponent } from '../comment-section/comment-section.comp
     CommentSectionComponent
   ],
   templateUrl: './details-podcast.component.html',
-  styleUrl: './details-podcast.component.css'
- })
- export class DetailsPodcastComponent implements OnInit {
+  styleUrls: ['./details-podcast.component.css']
+})
+export class DetailsPodcastComponent implements OnInit {
   comments: Comment[] = [];
   episodeDetails: Episode | null = null;
   episodeId: number | null = null;
-  currentUser:Partial<User>={
-    id:1
-  }
-  options = {
-    "podcast": { "id": 1 },
-    "episode": { "id": 1 }
+  podcastDetails: Podcast | null = null;
+
+  currentUser: Partial<User> = {
+    id: 1
   };
+
+
 
   displayedEpisodes = [
     {
@@ -74,25 +73,23 @@ import { CommentSectionComponent } from '../comment-section/comment-section.comp
   ) {}
 
   ngOnInit(): void {
-    console.log("router",this.activatedRoute.paramMap);
     this.activatedRoute.paramMap.subscribe(params => {
       const id = params.get('id');
-      console.log("id",id);
       if (id) {
         this.episodeId = +id;
         this.loadEpisodeDetails();
       }
-
     });
-
   }
 
   loadEpisodeDetails(): void {
     if (this.episodeId) {
       this.episodeService.getEpisodeById(this.episodeId).subscribe({
         next: (episode: Episode) => {
+          console.log('details',episode);
           this.episodeDetails = episode;
-          this.options.episode.id = episode.id;
+          this.podcastDetails = episode.podcast;
+
         },
         error: (error) => {
           console.error('Error fetching episode details:', error);
@@ -100,6 +97,4 @@ import { CommentSectionComponent } from '../comment-section/comment-section.comp
       });
     }
   }
-
-
- }
+}

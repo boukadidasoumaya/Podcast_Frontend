@@ -35,13 +35,12 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.episodeService.getAllEpisodes().subscribe((data) => {
+    this.episodeService.getAllEpisodesTrending().subscribe((data) => {
       this.episodes = data;
 
       // Initialiser le nombre de likes et l'état like pour chaque épisode
       this.episodes.forEach((episode) => {
         this.likes[episode.id] = episode.numberOfLikes;
-        this.likedEpisodes[episode.id] = false; // Default to not liked
       });
     });
 
@@ -50,6 +49,8 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
       data.totalLikes.forEach((likeData: any) => {
         this.likes[likeData.episode] = likeData.numberOfLikes;
         this.likedEpisodes[likeData.episode] = true;
+        console.log(this.likes);
+        console.log(this.likedEpisodes);
       });
     });
 
@@ -58,6 +59,10 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
       data.totalLikes.forEach((likeData: any) => {
         this.likes[likeData.episode] = likeData.numberOfLikes;
         this.likedEpisodes[likeData.episode] = false;
+        console.log(this.likes);
+        console.log(this.likedEpisodes);
+
+
       });
     });
   }

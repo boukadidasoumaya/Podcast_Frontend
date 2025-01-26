@@ -21,7 +21,15 @@ export class EpisodeService {
   getAllEpisodes(): Observable<Episode[]> {
     return this.http.get<Episode[]>(`${this.apiUrl}`);
   }
+ // Fetch trending episodes
+  getAllEpisodesTrending(): Observable<Episode[]> {
+  return this.http.get<Episode[]>(`${this.apiUrl}/trending`);
+  }
 
+// Fetch latest episodes
+  getAllEpisodesLatest(): Observable<Episode[]> {
+  return this.http.get<Episode[]>(`${this.apiUrl}/latest`);
+  }
   // Récupérer un épisode par son ID
   getEpisodeById(id: number): Observable<Episode> {
     return this.http.get<Episode>(`${this.apiUrl}/${id}`);

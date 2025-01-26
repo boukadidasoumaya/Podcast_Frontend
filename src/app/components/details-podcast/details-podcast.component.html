@@ -28,8 +28,12 @@
           [sectionId]="''">
         </app-section-custom>
 
-        <app-comment-section [options]="options" [currentUser]="currentUser"></app-comment-section>
-      </div>
+        <app-comment-section
+        *ngIf="episodeDetails"
+        [episode]="episodeDetails"
+        [currentUser]="currentUser">
+      </app-comment-section>
+            </div>
 
       </div>
     </div>

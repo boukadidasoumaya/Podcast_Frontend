@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../services/comment.service';
-import { Comment, User } from '../../interfaces/app.interfaces';
+import { Comment, Episode, EpisodeId, PodcastId, User } from '../../interfaces/app.interfaces';
 import { ReplyFormComponent } from "../comment/reply-form/reply-form.component";
 
 @Component({
@@ -13,25 +13,39 @@ import { ReplyFormComponent } from "../comment/reply-form/reply-form.component";
   styleUrl: './comment-section.component.css'
 })
 export class CommentSectionComponent {
-  @Input() options: any = {};
   @Input() currentUser: Partial<User> = {};
-
+  @Input() episode !:Episode;
+  options: {
+    podcast: PodcastId | null;
+    episode: EpisodeId | null;
+  } = {
+    podcast: null,
+    episode: null
+  };
   comments: Comment[] = [];
 
-  constructor(private commentService: CommentService) {}
+  constructor(private commentService: CommentService) {
+
+  }
 
   ngOnInit(): void {
+    console.log('episode',this.episode);
     this.loadComments();
-
-    // Listen for new comments and update the list
     this.commentService.onNewComment().subscribe((newComment: Comment) => {
       this.comments.push(newComment);
     });
   }
 
   loadComments(): void {
+    this.options = {
+      podcast: { id: this.episode.podcast.id },
+      episode: { id: this.episode.id }
+    };
     this.commentService.getComments(this.options).subscribe((comments: Comment[]) => {
+      console.log(comments);
       this.comments = comments;
+      console.log('options',this.options);
+
     });
   }
 
