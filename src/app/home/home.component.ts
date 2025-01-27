@@ -6,10 +6,11 @@ import { TopicsComponent } from '../components/topics/topics.component';
 import { TrendingEpisodesComponent } from "../components/trending-episodes/trending-episodes.component";
 import { FooterComponent } from "../components/footer/footer.component";
 import { NavbarComponent } from "../components/navbar/navbar.component";
+import { HeroSectionComponent } from "../components/hero-section/hero-section.component";
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [SectionCustomComponent, SwiperComponent, LatestEpisodesComponent, TopicsComponent, TrendingEpisodesComponent, FooterComponent, NavbarComponent],
+  imports: [SectionCustomComponent, SwiperComponent, LatestEpisodesComponent, TopicsComponent, TrendingEpisodesComponent, FooterComponent, NavbarComponent, HeroSectionComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
