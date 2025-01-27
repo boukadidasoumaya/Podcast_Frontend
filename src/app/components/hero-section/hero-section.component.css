@@ -85,7 +85,7 @@ p {
   border-radius: var(--border-radius-large);
   display: inline-block;
   margin: auto;
-  margin-top: 0px;
+  margin-top: 5px;
   padding: 15px 25px;
   padding-bottom: 7px;
   position: relative;
