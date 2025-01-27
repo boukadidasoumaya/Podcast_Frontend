@@ -74,5 +74,4 @@ export class PagesComponent {
     commentsCount: '10k'
   }];
 
-
 }
