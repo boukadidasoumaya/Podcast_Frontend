@@ -11,15 +11,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   styleUrls: ['./podcast-modal.component.css'],
 })
 export class PodcastModalComponent {
-[x: string]: any;
   step = 1;
   podcastForm: FormGroup;
   episodesCount = 0;
   episodeForm: FormGroup[] = [];
-  triggerFileInput(fileInput: HTMLInputElement): void {
-    fileInput.click();
-  }
-  
   topics: string[] = [
     'Technology',
     'Health and Wellness',
@@ -38,21 +33,27 @@ export class PodcastModalComponent {
       title: ['', Validators.required],
       description: ['', Validators.required],
       image: [null],
+      episodesCount: [0, [Validators.required, Validators.min(1), Validators.max(2)]], 
     });
   }
 
   setEpisodesCount(count: number): void {
+    this.episodesCount = Math.min(count, 10); 
     this.episodeForm = [];
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < this.episodesCount; i++) {
       this.episodeForm.push(
         this.fb.group({
           name: ['', Validators.required],
           description: ['', Validators.required],
-          topic: ['', Validators.required], // Added topic with validation
+          topic: ['', Validators.required], 
           file: [null],
         })
       );
     }
+  }
+
+  triggerFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
   }
 
   onFileSelect(event: Event, controlNameOrIndex: string | number): void {

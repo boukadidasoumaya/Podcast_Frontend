@@ -9,8 +9,8 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
-        <h2 *ngIf="step === 2">Configure Episodes</h2>
-        <h2 *ngIf="step === 3">Upload Episodes</h2>
+        <h2 *ngIf="step === 2">Upload Episodes</h2>
+        <h2 *ngIf="step === 3">Finish Upload</h2>
         <button
           type="button"
           class="btn-close"
@@ -19,7 +19,7 @@
         ></button>
       </div>
       <div class="modal-body scrollable-content">
-        <!-- Étape 1 : Informations sur le podcast -->
+        <!-- Étape 1 : Informations sur le podcast et nombre d'épisodes -->
         <form *ngIf="step === 1" [formGroup]="podcastForm" class="form-step">
           <label for="title">Podcast Name</label>
           <input
@@ -44,10 +44,19 @@
             placeholder="Enter description"
           ></textarea>
 
+          <label for="episodesCount">Number of Episodes</label>
+          <input
+            id="episodesCount"
+            formControlName="episodesCount"
+            type="number"
+            placeholder="Enter number of episodes"
+            [max]="2"
+            (input)="setEpisodesCount(podcastForm.get('episodesCount')?.value)"
+          />
+
           <label for="image">Image</label>
 
           <div>
-            <!-- Hidden file input -->
             <input
               id="image"
               type="file"
@@ -55,8 +64,6 @@
               style="display: none"
               #fileInput
             />
-
-            <!-- Custom button -->
             <button
               class="button"
               type="button"
@@ -87,25 +94,8 @@
           </div>
         </form>
 
-        <!-- Étape 2 : Nombre d'épisodes -->
+        <!-- Étape 2 : Téléchargement des épisodes -->
         <div *ngIf="step === 2" class="form-step">
-          <label for="episodesCount">Number of Episodes</label>
-          <input
-            id="episodesCount"
-            type="number"
-            [(ngModel)]="episodesCount"
-            placeholder="Enter number of episodes"
-          />
-          <button
-            class="btn-configure"
-            (click)="setEpisodesCount(episodesCount)"
-          >
-            Configure
-          </button>
-        </div>
-
-        <!-- Étape 3 : Téléchargement des épisodes -->
-        <div *ngIf="step === 3" class="form-step">
           <div
             *ngFor="let form of episodeForm; let i = index"
             class="episode-form"
@@ -128,7 +118,6 @@
               ></textarea>
               <label for="file-{{ i }}">Attach Episode File</label>
               <div>
-                <!-- Hidden file input -->
                 <input
                   #fileInput
                   id="file-{{ i }}"
@@ -136,7 +125,6 @@
                   (change)="onFileSelect($event, i)"
                   style="display: none"
                 />
-                <!-- Custom button -->
                 <button
                   type="button"
                   class="button"
@@ -176,7 +164,7 @@
         <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
           →
         </button>
-        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
+        <button *ngIf="step === 3" class="btn-finish"  (click)="finishUpload()">
           Finish
         </button>
       </div>
