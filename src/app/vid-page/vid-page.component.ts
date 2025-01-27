@@ -38,7 +38,6 @@ episodeId: number | null = null;
   constructor(private route: ActivatedRoute, private episodeService: EpisodeService) {}
 
   ngOnInit() {
-    console.log('innnnn')
     this.route.params.subscribe((params) => {
       const episodeId = +params['id']; // Convert string to number using the "+" operator
       this.podcastId = params['podcastId']; // Fetch podcastId from route params
@@ -50,7 +49,6 @@ episodeId: number | null = null;
     this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
       console.log(episodeId)
       this.currentEpisode = episode; // TypeScript will ensure it matches the Episode interface
-      console.log('Loaded Episode:', episode);
       this.loadRelatedEpisodes();
     });
   }

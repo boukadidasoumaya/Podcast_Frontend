@@ -18,10 +18,7 @@ import { RelatedSectionComponent } from '../../related-section/related-section.c
   imports: [
     CommonModule,
     RelatedSectionComponent,
-    CommentComponent,
     SectionCustomComponent,
-    SwiperComponent,
-    TopicsComponent,
     NavbarComponent,
     CardEpisodeWithDetailsComponent,
     CommentSectionComponent
@@ -39,35 +36,6 @@ export class DetailsPodcastComponent implements OnInit {
     id: 1
   };
 
-
-
-  displayedEpisodes = [
-    {
-      title: 'Episode 1',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      description: 'First episode of the podcast series'
-    },
-    {
-      title: 'Episode 2',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      description: 'Second episode exploring new topics'
-    },
-    {
-      title: 'Episode 3',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      description: 'Diving deeper into the podcast theme'
-    },
-    {
-      title: 'Episode 4',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      description: 'Special guest interview'
-    },
-    {
-      title: 'Episode 5',
-      image: 'assets/images/podcast/11683425_4790593.jpg',
-      description: 'Season finale highlights'
-    }
-  ];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -90,6 +58,7 @@ export class DetailsPodcastComponent implements OnInit {
         next: (episode: Episode) => {
           console.log('details',episode);
           this.episodeDetails = episode;
+          console.log(this.episodeDetails)
           this.podcastDetails = episode.podcast;
 
         },
