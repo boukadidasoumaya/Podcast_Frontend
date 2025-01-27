@@ -23,6 +23,11 @@
             ></app-topics>
           </ng-template>
         </app-swiper>
+        <app-related-section 
+  (episodeSelected)="onEpisodeSelected($event)">
+</app-related-section>
+
+
         <app-section-custom
           [title]="'Comments'"
           [sectionId]="''">

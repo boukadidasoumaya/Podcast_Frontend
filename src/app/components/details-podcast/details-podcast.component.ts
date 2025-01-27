@@ -10,12 +10,14 @@ import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/ca
 import { CommentSectionComponent } from '../comment-section/comment-section.component';
 import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../interfaces/app.interfaces';
 import { EpisodeService } from '../../services/episode.service';
+import { RelatedSectionComponent } from '../../related-section/related-section.component';
 
 @Component({
   selector: 'app-details-podcast',
   standalone: true,
   imports: [
     CommonModule,
+    RelatedSectionComponent,
     CommentComponent,
     SectionCustomComponent,
     SwiperComponent,
@@ -95,6 +97,10 @@ export class DetailsPodcastComponent implements OnInit {
           console.error('Error fetching episode details:', error);
         }
       });
+    }}
+    onEpisodeSelected(episodeId: number) {
+      this.episodeId = episodeId;
+    
+      console.log('Episode selected:', episodeId);}
+  
     }
-  }
-}
