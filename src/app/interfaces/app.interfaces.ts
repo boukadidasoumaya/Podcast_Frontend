@@ -65,3 +65,9 @@ export interface Comment {
   createdAt: string;
   replies?: Comment[];
 }
+
+export interface Owner {
+  firstName: string;
+  photo: string;
+  interests: string[];
+}

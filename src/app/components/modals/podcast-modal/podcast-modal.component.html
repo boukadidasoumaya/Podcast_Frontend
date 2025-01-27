@@ -1,10 +1,14 @@
-<div class="modal" id="uploadPodcastModal" tabindex="-1" aria-labelledby="uploadPodcastModalLabel" aria-hidden="true">
+<div
+  class="modal"
+  id="uploadPodcastModal"
+  tabindex="-1"
+  aria-labelledby="uploadPodcastModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">
-          Add a Podcast
-        </h2>
+        <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
         <h2 *ngIf="step === 2">Configure Episodes</h2>
         <h2 *ngIf="step === 3">Upload Episodes</h2>
         <button
@@ -25,6 +29,14 @@
             placeholder="Enter podcast name"
           />
 
+          <label for="topic">Topic</label>
+          <select id="topic" formControlName="topic" class="form-control">
+            <option value="" disabled selected>Select a topic</option>
+            <option *ngFor="let topic of topics" [value]="topic">
+              {{ topic }}
+            </option>
+          </select>
+
           <label for="description">Description</label>
           <textarea
             id="description"
@@ -33,7 +45,46 @@
           ></textarea>
 
           <label for="image">Image</label>
-          <input id="image" type="file" (change)="onFileSelect($event, 'image')" />
+
+          <div>
+            <!-- Hidden file input -->
+            <input
+              id="image"
+              type="file"
+              (change)="onFileSelect($event, 'image')"
+              style="display: none"
+              #fileInput
+            />
+
+            <!-- Custom button -->
+            <button
+              class="button"
+              type="button"
+              (click)="triggerFileInput(fileInput)"
+            >
+              <span class="btn__icon">
+                <svg
+                  stroke-linejoin="round"
+                  stroke-linecap="round"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                  viewBox="0 0 24 24"
+                  height="24"
+                  width="24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                  <path
+                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
+                  ></path>
+                  <path d="M9 15l3 -3l3 3"></path>
+                  <path d="M12 12l0 9"></path>
+                </svg>
+              </span>
+              <span class="btn__text">Upload</span>
+            </button>
+          </div>
         </form>
 
         <!-- Étape 2 : Nombre d'épisodes -->
@@ -45,7 +96,10 @@
             [(ngModel)]="episodesCount"
             placeholder="Enter number of episodes"
           />
-          <button class="btn-configure" (click)="setEpisodesCount(episodesCount)">
+          <button
+            class="btn-configure"
+            (click)="setEpisodesCount(episodesCount)"
+          >
             Configure
           </button>
         </div>
@@ -72,20 +126,56 @@
                 formControlName="description"
                 placeholder="Enter episode description"
               ></textarea>
-
-              <label for="file-{{ i }}">MP4 File</label>
-              <input
-                id="file-{{ i }}"
-                type="file"
-                (change)="onFileSelect($event, i)"
-              />
+              <label for="file-{{ i }}">Attach Episode File</label>
+              <div>
+                <!-- Hidden file input -->
+                <input
+                  #fileInput
+                  id="file-{{ i }}"
+                  type="file"
+                  (change)="onFileSelect($event, i)"
+                  style="display: none"
+                />
+                <!-- Custom button -->
+                <button
+                  type="button"
+                  class="button"
+                  (click)="triggerFileInput(fileInput)"
+                >
+                  <span class="btn__icon">
+                    <svg
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      viewBox="0 0 24 24"
+                      height="24"
+                      width="24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
+                      <path
+                        d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
+                      ></path>
+                      <path d="M9 15l3 -3l3 3"></path>
+                      <path d="M12 12l0 9"></path>
+                    </svg>
+                  </span>
+                  <span class="btn__text">Upload</span>
+                </button>
+              </div>
             </form>
           </div>
         </div>
       </div>
       <div class="modal-footer">
-        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">←</button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">→</button>
+        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
+          ←
+        </button>
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
+          →
+        </button>
         <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
           Finish
         </button>
