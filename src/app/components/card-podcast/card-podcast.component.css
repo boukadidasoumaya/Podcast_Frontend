@@ -1,0 +1,148 @@
+/* General Card Styling */
+.podcast-card {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+  height: 308px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin: 20px;
+  cursor: pointer;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
+  position: relative; /* Nécessaire pour un positionnement global */
+}
+.episode-badge {
+  position: absolute;
+  top: 10px;
+  right: 60px;
+  background-color: #392a29;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: bold;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+/* Cover Image */
+.cover-container {
+  width: 100%;
+  height: 180px;
+  overflow: hidden;
+  position: relative;
+}
+.cover-container {
+  width: 300px;
+  height: 68%;
+  overflow: hidden;
+  border-bottom: 2px solid #726463;
+}
+
+.cover-image {
+  position: relative;
+  width: 250px;
+  height: 210px;
+}
+
+
+/* Content Section */
+.content-container {
+  /* padding: 15px; */
+  background-color: #f7f7f7;
+  height: 32%;
+  gap: 10px;
+}
+
+/* Title */
+.podcast-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+/* Presenter Section */
+.presenters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 5px;
+}
+
+.presenter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.presenter-image {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+
+}
+
+.presenter-name {
+  display: none;
+}
+
+.presenter:hover .presenter-name {
+  display: block;
+}
+
+
+/* Topic and Episode Count */
+.topic, .episode-count {
+  color: #666;
+}
+
+.topic {
+  font-weight: 500;
+  background-color: var(--custom-btn-bg-color);
+  font-family: Comic Sans MS, Comic Sans, cursive;
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  padding: 5px;
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  font-size: 0.9rem;
+}
+
+.episode-count {
+  font-weight: 600;
+  color: #333;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .podcast-card {
+      width: 90%;
+  }
+
+  .content-container {
+      padding: 10px;
+  }
+
+  .podcast-title {
+      font-size: 1rem;
+  }
+
+  .presenter-name {
+      font-size: 0.85rem;
+  }
+
+  .topic, .episode-count {
+      font-size: 0.85rem;
+  }
+}
+
+
+
+

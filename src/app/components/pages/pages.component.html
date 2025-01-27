@@ -1,0 +1,26 @@
+<div class="cont">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h3>Filtre</h3>
+    <app-filtre></app-filtre>
+
+  </div>
+
+  <!-- Cards Grid -->
+  <div class="content">
+    <div class="card" *ngFor="let podcast of podcasts | filterBy:['title']:[''] ">
+      <!-- <app-card-episode
+        [imagePath]="podcast.imagePath"
+        [title]="podcast.title"
+        [description]="podcast.description"
+        [profileImage]="podcast.profileImage"
+        [profileName]="podcast.profileName"
+        [profileRole]="podcast.profileRole"
+        [listensCount]="podcast.listensCount"
+        [likesCount]="podcast.likesCount"
+        [commentsCount]="podcast.commentsCount"
+      ></app-card-episode> -->
+      <app-card-podcast></app-card-podcast>
+    </div>
+  </div>
+</div>
