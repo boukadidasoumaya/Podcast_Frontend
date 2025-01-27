@@ -111,7 +111,7 @@ export class LoginComponent {
         if (response.accessToken) {
           localStorage.setItem('authToken', response.accessToken);
   
-          this.router.navigate(['/home']); 
+          this.router.navigate(['/profil']); 
         } else {
           console.error('Token not found in the response.');
         }
