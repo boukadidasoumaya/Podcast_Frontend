@@ -5,9 +5,10 @@ import { SectionCustomComponent } from '../components/section-custom/section-cus
 import { Input,Output } from '@angular/core';
 import { Episode } from '../interfaces/app.interfaces';
 import { EpisodeService } from '../services/vid-page.service';
-import { NgClass } from '@angular/common';
+import { takeUntil } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
+import { Subject } from 'rxjs';
 @Component({
   selector: 'app-related-section',
   standalone: true,
@@ -16,6 +17,8 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
   styleUrl: './related-section.component.css',
 })
 export class RelatedSectionComponent {
+  private destroy$ = new Subject<void>();
+
   @Output() episodeSelected = new EventEmitter<number>(); // Emits episode ID
      podcastId!: number; // Get podcastId from parent component
     @Input() currentEpisode!: Episode; // Get podcastId from parent component
@@ -23,38 +26,46 @@ export class RelatedSectionComponent {
     @Input() routerLink!: string | any[]; // Accepts string or array for routes
 
     constructor(private route: ActivatedRoute,private episodeService: EpisodeService) {}
-  
     ngOnInit(): void {
-      this.route.params.subscribe((params) => {
-        const episodeId = +params['id']; // Convert string to number using the "+" operator
-      this.loadEpisodeinit(episodeId);
-      this.loadRelatedEpisodes();});
-    }
-    loadEpisodeinit(episodeId: number) {
-      this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
-        console.log(episodeId)
-        this.currentEpisode = episode; // TypeScript will ensure it matches the Episode interface
-        console.log('Loaded Episode:', episode);
-        this.podcastId=this.currentEpisode.podcast.id
+      this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
+        const episodeId = +params['id'];
+        this.loadEpisodeinit(episodeId);
         this.loadRelatedEpisodes();
       });
     }
-    loadRelatedEpisodes() {
-      if (this.podcastId) {
-        this.episodeService.getRelatedEpisodes(this.podcastId).subscribe(
-          (episodes: any[]) => {
-            this.relatedEpisodes = episodes;
-            console.log('Related Episodes:', episodes);
-          },
-          (error) => {
-            console.error('Error fetching related episodes:', error);
-          }
-        );
-      }
+  
+    loadEpisodeinit(episodeId: number) {
+      this.episodeService
+        .getEpisodeById(episodeId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe((episode: Episode) => {
+          this.currentEpisode = episode;
+          this.podcastId = this.currentEpisode.podcast.id;
+          this.loadRelatedEpisodes();
+        });
     }
   
+    loadRelatedEpisodes() {
+      if (this.podcastId) {
+        this.episodeService
+          .getRelatedEpisodes(this.podcastId)
+          .pipe(takeUntil(this.destroy$))
+          .subscribe(
+            (episodes: any[]) => {
+              this.relatedEpisodes = episodes;
+            },
+            (error) => {
+              console.error('Error fetching related episodes:', error);
+            }
+          );
+      }
+    }
     loadEpisode(episodeId: number) {
       this.episodeSelected.emit(episodeId); // Emit the episode ID to the parent component
     }
+  
+    ngOnDestroy(): void {
+      this.destroy$.next();
+      this.destroy$.complete();
+    }
   }
-

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
@@ -23,7 +23,7 @@ import { RelatedSectionComponent } from '../../related-section/related-section.c
   templateUrl: './details-podcast.component.html',
   styleUrls: ['./details-podcast.component.css']
 })
-export class DetailsPodcastComponent implements OnInit {
+export class DetailsPodcastComponent implements OnInit,OnDestroy {
   comments: Comment[] = [];
   episodeDetails: Episode | null = null;
   episodeId: number | null = null;
@@ -38,6 +38,9 @@ export class DetailsPodcastComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private episodeService: EpisodeService
   ) {}
+  ngOnDestroy(): void {
+   
+  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -65,6 +68,6 @@ export class DetailsPodcastComponent implements OnInit {
     onEpisodeSelected(episodeId: number) {
       this.episodeId = episodeId;
     
-      }
+      console.log('Episode selected:', episodeId);}
   
     }
