@@ -6,6 +6,9 @@
     <app-comment
       *ngFor="let comment of comments"
       [comment]="comment"
+      [isLiked]="isCommentLiked(comment.id)"
+      [likesCount]="likes[comment.id]"
+      (liked)="onLikeChanged($event)"
       [colWidthIm]="2"
       [colLikeLg]="3"
       [colLikeMd]="4"

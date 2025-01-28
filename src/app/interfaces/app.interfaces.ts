@@ -64,6 +64,8 @@ export interface Comment {
   user: User;
   createdAt: string;
   replies?: Comment[];
+  likesCount:number;
+  isLiked?:boolean;
 }
 
 export interface Owner {

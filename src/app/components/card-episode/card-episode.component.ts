@@ -15,20 +15,20 @@ import { RouterModule } from '@angular/router';
 export class CardEpisodeComponent {
   @Input() episode!: Episode;
   @Input() numberOfLikes!: number;
-  @Input() isLiked: boolean = false; // Add this line
+  @Input() isLiked!: boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
-
-
-  // Événements lorsque l'utilisateur interagit avec les icônes
+  constructor(){
+    console.log('islikes',this.isLiked);
+  }
   onListenChanged(isListened: boolean) {
     console.log('Lecture modifiée:', isListened);
   }
 
   // Modified method to emit the liked event
-  onLikeChanged() {
-    this.isLiked = !this.isLiked;
-    this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
+  onLikeChanged(liked: boolean) {
+    this.liked.emit({ isLiked: liked, episode: this.episode });
   }
+
 
   onCommentChanged(isCommented: boolean) {
     console.log('Commentaire modifié:', isCommented);

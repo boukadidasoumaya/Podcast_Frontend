@@ -33,11 +33,6 @@ export class DetailsPodcastComponent implements OnInit {
   episodeId: number | null = null;
   podcastDetails: Podcast | null = null;
 
-  currentUser: Partial<User> = {
-    id: 1
-  };
-
-
 
   displayedEpisodes = [
     {
