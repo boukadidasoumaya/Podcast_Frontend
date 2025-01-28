@@ -11,20 +11,26 @@ import { FooterComponent } from './components/footer/footer.component';
 import { DetailsPodcastComponent } from './components/details-podcast/details-podcast.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { HeroSectionComponent } from './components/hero-section/hero-section.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
+import { AppComponent } from './app.component';
 import { SearchComponent } from './components/navbar/search/search.component';
+import { LoginComponent } from './components/login/login.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
-import { HomeComponent } from './home/home.component';
-
+import { VidPageComponent } from './vid-page/vid-page.component';
 export const routes: Routes = [
-  {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
-  {path:'latest', component:LatestEpisodesComponent},
+  {path: 'latest-episodes', component: LatestEpisodesComponent },
+  {path: '', component: LoginComponent },
+  {path:'navbar',component:NavbarComponent},
   {path:'profil',component:ProfilComponent},
-  {path:'details-podcast',component:DetailsPodcastComponent},
-  {path:'topics',component:TopicsComponent},
-  {path:'contact',component:ContactComponent},
-  {path:'footer',component:FooterComponent},
+  {path:'hero',component:HeroSectionComponent},
+  {path:'hero-card',component:HeroCardComponent},
+  {path:'home',component:HomeComponent},
   {path:'search',component:SearchComponent},
-  {path:'latest-episodes',component:LatestEpisodesComponent},
-  {path:'v',component:VidPlayerComponent},
+  { path: 'podcast/:podcastId/episode/:id', component: VidPageComponent },
+  {path:'a',component:VidPlayerComponent},
 ];
+
+

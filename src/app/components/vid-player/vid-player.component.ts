@@ -6,7 +6,7 @@ import { Input } from '@angular/core';
 import { SectionCustomComponent } from "../section-custom/section-custom.component";
 @Component({
   selector: 'app-vid-player',
-  imports: [HttpClientModule, SectionCustomComponent],
+  imports: [HttpClientModule],
   standalone: true,
   templateUrl: './vid-player.component.html',
   styleUrl: './vid-player.component.css'
@@ -15,7 +15,8 @@ import { SectionCustomComponent } from "../section-custom/section-custom.compone
 export class VidPlayerComponent implements AfterViewInit, OnDestroy {
   private player: Plyr | undefined;
   private hasCountedView = false;
- // Episode ID from the backend
+  @Input() filepath!: string; // Episode ID from the backend
+  @Input() episodeId!: number; // Episode ID from the backend
 
   constructor(private elRef: ElementRef, private http: HttpClient) {}
 
@@ -31,7 +32,6 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
 
       // Listen for the 'timeupdate' event to track progress
       this.player.on('timeupdate', () => {
-        console.log('working')
         this.trackProgress();
       });
     }
@@ -57,7 +57,7 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
   }
 
   private incrementViewCount(): void {
-    const apiUrl = `http://localhost:3000/episodes/1/views`; // Adjust the URL as per your backend
+    const apiUrl = `http://localhost:3000/episodes/${this.episodeId}/views`; // Adjust the URL as per your backend
     this.http.post(apiUrl, {}).subscribe({
       next: (response) => console.log('View counted:', response),
       error: (error) => console.error('Error counting view:', error),
