@@ -2,7 +2,7 @@
   <app-vid-player [episodeId]="currentEpisode.id" [filepath]="currentEpisode.filepath"></app-vid-player>
 </app-section-custom>
 <app-related-section 
-[routerLink]="['/podcast', currentEpisode.podcast.id, 'episode', currentEpisode.id]"
+[routerLink]="['/episode', currentEpisode.id]"
   (episodeSelected)="onEpisodeSelected($event)">
 </app-related-section>
 

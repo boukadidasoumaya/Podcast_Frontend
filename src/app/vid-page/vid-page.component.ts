@@ -4,7 +4,7 @@ import { TopicsComponent } from '../components/topics/topics.component';
 import { SectionCustomComponent } from '../components/section-custom/section-custom.component';
 import { VidPlayerComponent } from '../components/vid-player/vid-player.component';
 import { CommentComponent } from '../components/comment/comment.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { EpisodeService } from '../services/vid-page.service';
@@ -14,10 +14,8 @@ import { RelatedSectionComponent } from '../related-section/related-section.comp
   selector: 'app-vid-page',
   standalone: true,
   imports: [RelatedSectionComponent,
-    SwiperComponent,
     HttpClientModule,
     CommonModule,
-    TopicsComponent,
     CommentComponent,
     SectionCustomComponent,
     VidPlayerComponent,
@@ -40,7 +38,6 @@ episodeId: number | null = null;
   ngOnInit() {
     this.route.params.subscribe((params) => {
       const episodeId = +params['id']; // Convert string to number using the "+" operator
-      this.podcastId = params['podcastId']; // Fetch podcastId from route params
       this.loadEpisode(episodeId);
     });
   }
@@ -48,7 +45,9 @@ episodeId: number | null = null;
   loadEpisode(episodeId: number) {
     this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
       console.log(episodeId)
-      this.currentEpisode = episode; // TypeScript will ensure it matches the Episode interface
+      this.currentEpisode = episode;
+      this.podcastId =this.currentEpisode.podcast.id  // Fetch podcastId from route params
+      // TypeScript will ensure it matches the Episode interface
       this.loadRelatedEpisodes();
     });
   }
