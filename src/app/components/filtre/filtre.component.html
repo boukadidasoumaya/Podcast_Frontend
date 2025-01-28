@@ -1,17 +1,15 @@
 <div class="filter-container">
+  <!-- Search Section -->
   <section class="search-section">
     <label>Title</label>
     <div class="search-input">
-      <input type="text" placeholder="Rechercher un podcast">
+      <input type="text" placeholder="Rechercher un podcast" name="title" [(ngModel)]="filtres.title">
     </div>
     <label>Topic</label>
     <div class="category-select">
 
-      <select>
-        <option value="0">topic1</option>
-        <option value="1">topic2</option>
-        <option value="2">topic3</option>
-        <option value="3">topic4</option>
+      <select name="topic" [(ngModel)]="filtres.topic">
+        <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
       </select>
     </div>
   </section>
@@ -21,8 +19,8 @@
       <div class="filter-group">
         <label>Duration</label>
         <div class="range-input">
-          <input type="number" placeholder="De" min="30" max="2025">
-          <input type="number" placeholder="À" min="30" max="2025">
+          <input type="number" placeholder="De" min="30" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
+          <input type="number" placeholder="À" min="30" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
         </div>
       </div>
 
@@ -33,24 +31,21 @@
     <div class="price-filter">
       <label>Nombre d'épisodes</label>
       <div class="search-input">
-        <input type="text" placeholder="nombre d'épisodes">
+        <input type="text" placeholder="nombre d'épisodes" name="episodesCount" [(ngModel)]="filtres.nbre_episodes">
       </div>
     </div>
 
     <label>Presentor</label>
     <div class="category-select">
 
-      <select>
-        <option value="0">presentor1</option>
-        <option value="1">presentor2</option>
-        <option value="2">presentor3</option>
-        <option value="3">presentor4</option>
+      <select name="presentor" [(ngModel)]="filtres.user">
+        <option *ngFor="let user of users" value="user">{{ user }}</option>
       </select>
     </div>
   </section>
 
   <section class="filter-actions">
-    <button class="btn-primary">Rechercher</button>
-    <button class="btn-secondary">Réinitialiser</button>
+    <button class="btn-primary" (click)="filtrer()">Rechercher</button>
+    <button class="btn-secondary" (click)="reinitialiser()">Réinitialiser</button>
   </section>
 </div>

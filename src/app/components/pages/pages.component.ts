@@ -7,12 +7,13 @@ import { FiltreComponent } from '../filtre/filtre.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { CardPodcastComponent } from '../card-podcast/card-podcast.component';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [TrendingEpisodesComponent,CardEpisodeComponent, CommonModule,SearchComponent,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent],
+  imports: [TrendingEpisodesComponent,CardEpisodeComponent, CommonModule,SearchComponent,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent,HttpClientModule],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.css'
 })
