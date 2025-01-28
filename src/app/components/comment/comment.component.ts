@@ -7,10 +7,11 @@ import { CommentService } from '../../services/comment.service';
 
 import {User,Comment} from '../../interfaces/app.interfaces'
 import { LikeCommentService } from '../../services/likeComment.service';
+import { DeleteButtonComponent } from './delete-button/delete-button.component';
 @Component({
   selector: 'app-comment',
   standalone: true,
-  imports: [CommonModule,LikeButtonComponent,ReplyFormComponent],
+  imports: [CommonModule,LikeButtonComponent,ReplyFormComponent,DeleteButtonComponent],
   templateUrl: './comment.component.html',
   styleUrls: ['./comment.component.css']
 })
@@ -22,7 +23,10 @@ export class CommentComponent {
   @Input() moreThanOne: boolean = false;
   @Input() isLiked: boolean = false;
   @Input() likesCount!: number;
+  @Input() currentUser!:Partial<User>;
   @Output() liked = new EventEmitter<{ isLiked: boolean, comment:Comment }>();
+  @Output() deletedComment=new EventEmitter<Comment>
+  @Output() replyAdded = new EventEmitter<Comment>(); // New event emitter for replies
 
   viewReplies: boolean = false;
   showReplyForm: boolean = false; // Déclaration de la propriété manquante
@@ -61,21 +65,31 @@ export class CommentComponent {
     this.showReplyForm = !this.showReplyForm; // Bascule l'affichage du formulaire de réponse
   }
 
-  handleReplySubmit(replyText: string) {
-    this.toggleReplyForm();
+  async handleReplySubmit(replyText: string) {
+    try {
+      const newReply = {
+        content: replyText,
+        parent: this.comment,
+        podcast: this.comment.podcast,
+        episode: this.comment.episode,
+        user: this.currentUser,
 
-    const newReply = {
-      content: replyText,
-      parent: this.comment,
-      podcast: this.comment.podcast,
-      episode: this.comment.episode,
-      user: this.comment.user,
-    };
+      };
 
-    // Send to service
-    this.commentService.addComment(newReply);
-    this.viewReplies = true;
+      // Send to service and wait for the response
+      this.commentService.addComment(newReply);
+
+      // Show replies and hide reply form
+      this.viewReplies = true;
+      this.showReplyForm = false;
+
+    } catch (error) {
+      console.error('Error creating reply:', error);
+      // Handle error appropriately
+    }
   }
+
+
   // Modified method to emit the liked event
   onLikeChanged(liked: boolean) {
     this.liked.emit({ isLiked: liked, comment: this.comment });
@@ -90,11 +104,17 @@ export class CommentComponent {
   }
 
   onReplyLikeChanged(event: { isLiked: boolean, comment: Comment }) {
-    // Mettre à jour l'état local
     const replyId = event.comment.id;
     this.replyLikedState[replyId] = event.isLiked;
-
-    // Propager l'événement vers le haut
     this.liked.emit(event);
   }
+
+  deleteMessage() {
+    console.log('Le message a été supprimé');
+    this.deletedComment.emit(this.comment);
+  }
+  isCurrentUserCommentOwner(): boolean {
+    return this.currentUser?.id === this.comment.user.id;
+  }
+
 }

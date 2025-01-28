@@ -136,4 +136,12 @@ export class CommentSectionComponent {
   isCommentLiked(commentId: number): boolean {
     return this.likedComments[commentId] || false;
   }
+  deleteComment(comment: Comment, user: Partial<User>): void {
+    this.commentService.deleteComment(comment, user).subscribe();
+    console.log('Comment deleted successfully');
+    this.comments = this.comments.filter((c) => c.id !== comment.id);
+    console.log(this.comments);
+  }
+
+
 }

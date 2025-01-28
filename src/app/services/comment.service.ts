@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { Comment } from '../interfaces/app.interfaces';
+import { Comment, User } from '../interfaces/app.interfaces';
 import { APP_API } from "../config/app-api.config";
 
 @Injectable({
@@ -41,4 +41,24 @@ export class CommentService {
       });
     });
   }
+  deleteComment(comment: Comment, user: Partial<User>): Observable<void> {
+    return new Observable((subscriber) => {
+      console.log('Deleting comment with ID:', comment.id);
+      this.socket.emit('deleteComment', { comment, user });
+    });
+  }
+
+
+  onCommentDeleted(): Observable<string> {
+    return new Observable((subscriber) => {
+      this.socket.on('commentDeleted', (deletedCommentId: string) => {
+        subscriber.next(deletedCommentId);
+      });
+
+      return () => {
+        this.socket.off('commentDeleted');
+      };
+    });
+  }
+
 }

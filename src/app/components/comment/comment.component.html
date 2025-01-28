@@ -9,9 +9,7 @@
         <div class="date">{{ formatCreatedAt(comment.createdAt) }}</div>
         <div class="d-flex justify-content-between align-items-end">
           <div class="content mt-2">{{ comment.content}}</div>
-          <button class="btn">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+          <app-delete-button *ngIf="isCurrentUserCommentOwner()" (deleteConfirmed)="deleteMessage()"></app-delete-button>
         </div>
 
         <div class="container">
@@ -62,12 +60,14 @@
             <app-comment
               *ngFor="let reply of comment.replies; trackBy: trackById"
               [comment]="reply"
-              [colWidthIm]="2"
-              [colLikeLg]="3"
-              [colLikeMd]="4"
+              [currentUser]="currentUser"
               [isLiked]="isReplyLiked(reply.id)"
               [likesCount]="getReplyLikesCount(reply.id)"
               (liked)="onReplyLikeChanged($event)"
+              (replyAdded)="replyAdded.emit($event)"
+              [colWidthIm]="2"
+              [colLikeLg]="3"
+              [colLikeMd]="4"
               [moreThanOne]="reply !== comment.replies[comment.replies.length - 1]">
             </app-comment>
           </div>
