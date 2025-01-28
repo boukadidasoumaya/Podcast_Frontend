@@ -1,10 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { CommentComponent } from '../comment/comment.component';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
-import { SwiperComponent } from '../swiper/swiper.component';
-import { TopicsComponent } from '../topics/topics.component';
 import { NavbarComponent } from '../navbar/navbar.component';
 import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/card-episode-with-details.component';
 import { CommentSectionComponent } from '../comment-section/comment-section.component';
@@ -56,9 +53,7 @@ export class DetailsPodcastComponent implements OnInit {
     if (this.episodeId) {
       this.episodeService.getEpisodeById(this.episodeId).subscribe({
         next: (episode: Episode) => {
-          console.log('details',episode);
           this.episodeDetails = episode;
-          console.log(this.episodeDetails)
           this.podcastDetails = episode.podcast;
 
         },
@@ -70,6 +65,6 @@ export class DetailsPodcastComponent implements OnInit {
     onEpisodeSelected(episodeId: number) {
       this.episodeId = episodeId;
     
-      console.log('Episode selected:', episodeId);}
+      }
   
     }

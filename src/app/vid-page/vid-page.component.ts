@@ -58,7 +58,6 @@ episodeId: number | null = null;
     this.episodeService.getRelatedEpisodes(this.podcastId).subscribe(
       (episodes: any[]) => {
         this.relatedEpisodes = episodes;
-        console.log('Relatedzz Episodes:', episodes); // Log to see the result
 
       },
       (error) => {

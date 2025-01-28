@@ -6,12 +6,12 @@
       [slideToShow]="4"
       [slideWidth]="300">
       <ng-template let-episode>
-        <app-topics
+        <app-topics  
           [customtext]="'min'"
           [title]="episode.name"
           [episodes]="episode.duration"
-          [podcastId]="episode.podcast.id"
-          [episodeId]="episode.id"
+      
+          [routerLink]="routerLink"
           [image]="episode.coverImage"
           (click)="loadEpisode(episode.id)">
         </app-topics>

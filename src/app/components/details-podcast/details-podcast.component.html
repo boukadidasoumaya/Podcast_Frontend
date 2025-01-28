@@ -13,6 +13,8 @@
         <br>
        
         <app-related-section 
+        [routerLink]="['/details-podcast',episodeId]"
+
   (episodeSelected)="onEpisodeSelected($event)">
 </app-related-section>
         <app-comment-section

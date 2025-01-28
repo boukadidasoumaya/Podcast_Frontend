@@ -7,11 +7,11 @@ import { Episode } from '../interfaces/app.interfaces';
 import { EpisodeService } from '../services/vid-page.service';
 import { NgClass } from '@angular/common';
 import { EventEmitter } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 @Component({
   selector: 'app-related-section',
   standalone: true,
-  imports: [SwiperComponent,TopicsComponent,SectionCustomComponent],
+  imports: [SwiperComponent,TopicsComponent,SectionCustomComponent, RouterLink],
   templateUrl: './related-section.component.html',
   styleUrl: './related-section.component.css',
 })
@@ -20,11 +20,11 @@ export class RelatedSectionComponent {
      podcastId!: number; // Get podcastId from parent component
     @Input() currentEpisode!: Episode; // Get podcastId from parent component
     relatedEpisodes: Episode[] = []; // Related episodes array
-  
+    @Input() routerLink!: string | any[]; // Accepts string or array for routes
+
     constructor(private route: ActivatedRoute,private episodeService: EpisodeService) {}
   
     ngOnInit(): void {
-      console.log('dfghjklklklkl')
       this.route.params.subscribe((params) => {
         const episodeId = +params['id']; // Convert string to number using the "+" operator
       this.loadEpisodeinit(episodeId);
