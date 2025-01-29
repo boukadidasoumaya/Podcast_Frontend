@@ -1,9 +1,18 @@
-
 .player-wrapper {
-  max-width: 800px;
-  margin: 0 auto;
+  max-width: 1000px;
+  width: 100%; /* Ensures the wrapper takes the full width up to max-width */
+  height: auto; /* Ensures it adapts properly */
+  flex-shrink: 0; /* Prevent shrinking in flexbox layouts */
+  margin: 0 auto; /* Centers the wrapper */
 }
-video {
-  width: 100%;
+
+
+.plyr__video-embed {
+  display: block;
+  width: 100%; /* Ensure video takes full width of the container */
   height: auto;
+}
+
+video {
+  display: block; /* Ensures no unwanted space below the video */
 }

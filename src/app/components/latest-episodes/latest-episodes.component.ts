@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
-import { LatestEpisodeCardComponent } from '../latest-episode-card/latest-episode-card.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ActivatedRoute } from '@angular/router';
@@ -8,7 +7,9 @@ import { EpisodeHorizontalComponent } from "../episode-horizontal/episode-horizo
 import { RouterLink } from '@angular/router';
 import { Episode, User } from '../../interfaces/app.interfaces';
 import { EpisodeService } from '../../services/episode.service';
-import { LikeEpisodeService } from '../../services/like.service';
+import { LikeEpisodeService } from '../../services/likeEpisode-websocket.service';
+import { UserService } from '../../services/user.service';
+import { LikeEpisodeServiceRest } from '../../services/likeEpisode-rest.service';
 @Component({
   selector: 'app-latest-episodes',
   standalone: true,
@@ -28,22 +29,32 @@ export class LatestEpisodesComponent {
   // Track liked state for each episode
   likedEpisodes: { [episodeId: number]: boolean } = {};
 
-  user: Partial<User> = {
-    id: 1
-  };
+  user: Partial<User> = {};
 
   constructor(
     private episodeService: EpisodeService,
-    private likeEpisodeService: LikeEpisodeService
+    private likeEpisodeService: LikeEpisodeService,
+    private likeEpisodeServiceRest:LikeEpisodeServiceRest,
+
+    private userService:UserService
   ) {}
 
   ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.user = user;
+      console.log('Utilisateur actuel:', this.user);
+    });
     this.episodeService.getAllEpisodesLatest().subscribe((data) => {
       this.episodes = data;
       console.log(this.episodes);
-      // Initialiser le nombre de likes et l'état like pour chaque épisode
       this.episodes.forEach((episode) => {
         this.likes[episode.id] = episode.numberOfLikes;
+      });
+    });
+    // Récupération des épisodes likés par l'utilisateur
+    this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
+      likedEpisodes.forEach((episode) => {
+        this.likedEpisodes[episode.id] = true;
       });
     });
 

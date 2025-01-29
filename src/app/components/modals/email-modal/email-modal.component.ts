@@ -1,7 +1,8 @@
 // email-modal.component.ts
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-email-modal',
@@ -16,12 +17,36 @@ export class EmailModalComponent {
     newEmail: '',
     confirmEmail: ''
   };
-
-  onEmailUpdate(form: any) {
+  constructor(private userService: UserService) {}  
+  onEmailUpdate(form: NgForm) {
     if (form.valid) {
-      console.log('Email update:', this.emailData);
-      this.emailUpdated.emit(this.emailData.newEmail);
-      // Ajoutez votre logique de mise à jour ici
+      if (this.emailData.newEmail !== this.emailData.confirmEmail) {
+        alert('New Emails do not match!');
+        return;
+      }
+
+      const emailUpdateData = {
+        currentEmail: this.emailData.currentEmail,
+        newEmail: this.emailData.newEmail
+      };
+
+      this.userService.updateEmail(emailUpdateData).subscribe({
+        next: (response) => {
+          console.log('Email updated successfully:', response);
+          this.emailData = {
+            currentEmail: '',
+            newEmail: '',
+            confirmEmail: ''
+          };
+          alert('Email updated successfully!');
+        },
+        error: (error) => {
+          console.error('Error updating Email:', error);
+          alert(error.error.message || 'Error updating Email');
+        },
+      });
+    } else {
+      alert('Please fill all required fields correctly');
     }
   }
 }

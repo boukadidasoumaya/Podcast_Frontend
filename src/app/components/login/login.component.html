@@ -4,18 +4,81 @@
         <!-- SIGN UP -->
         <div class="col align-items-center flex-col sign-up">
             <div class="form-wrapper align-items-center">
-                <div class="form sign-up">
-                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
-                    <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password"></app-input-field>
-                    <app-action-button 
-                        buttonText="Sign up"
-                        messageText="Already have an account?"
-                        linkText="Sign in here"
-                        (linkClick)="toggle()">
-                    </app-action-button>
-                </div>
+                <form class="form sign-up " #formulaire="ngForm"  >
+                    <div class="step" *ngIf="currentStep === 1">
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstName" ></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastName" ></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
+                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 2">
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
+                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country"></app-input-field>
+                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.profession" ></app-input-field>
+                        <div class="form-group">
+                            <select id="role" class="form-control" [(ngModel)]="Data.role" name="role">
+                              <option value="" selected>Select Role</option>
+                              <option value="User">User</option>
+                              <option value="Admin">Admin</option>
+                              <option value="SuperAdmin">SuperAdmin</option>
+                            </select>
+                          </div>
+                        <app-input-field icon="bx bxl-whatsapp" type="url" placeholder="WhatsApp username" name="whatsapp_user" [(ngModel)]="Data.whatsappUser"></app-input-field>
+                        <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="instagram_user" [(ngModel)]="Data.instagramLink"></app-input-field>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 3">
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" ></app-input-field>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 4">
+                        <h3>Select Your Interests</h3>
+                        <div class="interests-container">
+                            <div *ngFor="let interest of interests"
+                                 class="interest-tag"
+                                 [class.selected]="isInterestSelected(interest)"
+                                 (click)="toggleInterest(interest)">
+                                {{ interest }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step" *ngIf="currentStep === 5">
+                        Congratulations!
+                        <br>
+                        Your registration was successeful  
+                    </div>
+                    <div class="navigation">
+                        <app-action-button  
+                            *ngIf="currentStep > 1 && currentStep < 5" 
+                            buttonText="Previous"
+                            [messageText]="currentStep === 1 ? 'Already have an account?' : ''"
+                            [linkText]="currentStep === 1 ? 'Sign in here' : ''"
+                            (linkClick)="toggle()"
+                            (buttonClick)="previousStep()">
+                        </app-action-button >
+                        <app-action-button  
+                            *ngIf="currentStep === 5" 
+                            buttonText="Sign in Now"
+                            (buttonClick)="toggle()">
+                        </app-action-button >
+                        <app-action-button  
+                            *ngIf="currentStep < 4" 
+                            buttonText="Next"
+                            [messageText]="(currentStep === 2 || currentStep === 3) ? 'Already have an account?' : ''"
+                            [linkText]="(currentStep === 2 || currentStep === 3) ? 'Sign in here' : ''"
+                            (linkClick)="toggle()"
+                            (buttonClick)="nextStep()"
+                            [disabled]="!isStepValid(currentStep)">
+                        </app-action-button >
+                        <app-action-button 
+                            *ngIf="currentStep === 4"
+                            buttonText="Sign up"
+                            messageText="Already have an account?"
+                            linkText="Sign in here"
+                            (buttonClick)="signUp()"
+                            (linkClick)="toggle()">
+                        </app-action-button>
+                    </div>
+                </form>
             </div>
         </div>
         <!-- END SIGN UP -->
@@ -23,13 +86,14 @@
         <div class="col align-items-center flex-col sign-in">
             <div class="form-wrapper align-items-center">
                 <div class="form sign-in">
-                    <app-input-field icon="bx bxs-user" type="text" placeholder="Username"></app-input-field>
-                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password"></app-input-field>
+                    <app-input-field icon="bx bxs-user" type="text" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
+                    <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
                     <app-action-button 
                         buttonText="Sign in"
                         questiontext="Forget Password?"
                         messageText="Don't have an account?"
                         linkText="Sign up here"
+                        (buttonClick)="signIn()"
                         (linkClick)="toggle()">
                     </app-action-button>
                 </div>

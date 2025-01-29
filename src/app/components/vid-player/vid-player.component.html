@@ -1,5 +1,6 @@
+<!-- video-player.component.html -->
 <div class="player-wrapper">
-  <video id="player" controls>
-    <source src="https://cdn.plyr.io/static/blank.mp4" type="video/mp4" />
+  <video class="plyr" id="player">
+    <source [src]="filepath" type="video/mp4" />
   </video>
 </div>

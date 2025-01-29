@@ -11,10 +11,27 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   styleUrls: ['./podcast-modal.component.css'],
 })
 export class PodcastModalComponent {
+[x: string]: any;
   step = 1;
   podcastForm: FormGroup;
   episodesCount = 0;
   episodeForm: FormGroup[] = [];
+  triggerFileInput(fileInput: HTMLInputElement): void {
+    fileInput.click();
+  }
+  
+  topics: string[] = [
+    'Technology',
+    'Health and Wellness',
+    'Education',
+    'Entertainment',
+    'Business',
+    'Society and Culture',
+    'Hobbies and Lifestyle',
+    'News and Politics',
+    'Spirituality and Religion',
+    'Comedy',
+  ];
 
   constructor(private fb: FormBuilder) {
     this.podcastForm = this.fb.group({
@@ -31,6 +48,7 @@ export class PodcastModalComponent {
         this.fb.group({
           name: ['', Validators.required],
           description: ['', Validators.required],
+          topic: ['', Validators.required], // Added topic with validation
           file: [null],
         })
       );

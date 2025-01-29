@@ -8,7 +8,7 @@
 
   <div class="custom-block-info">
     <h5 class="mb-2">
-      <a>{{ episode.title }}</a>
+      <a>{{ episode.name }}</a>
     </h5>
 
     <div [routerLink]="['/details-podcast', episode.id]" class="profile-block d-flex">
@@ -28,7 +28,8 @@
       <!-- In card-episode.component.html -->
       <app-heart-icon
         [numberOfLikes]="numberOfLikes"
-        (liked)="onLikeChanged()">
+        [isLiked]="isLiked"
+        (liked)="onLikeChanged($event)">
       </app-heart-icon>
 
       <!-- Composant pour l'icône chat -->

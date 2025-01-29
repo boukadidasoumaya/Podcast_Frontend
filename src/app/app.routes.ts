@@ -15,6 +15,7 @@ import { SearchComponent } from './components/navbar/search/search.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
 import { HomeComponent } from './home/home.component';
 
+import { VidPageComponent } from './vid-page/vid-page.component';
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
@@ -26,5 +27,8 @@ export const routes: Routes = [
   {path:'footer',component:FooterComponent},
   {path:'search',component:SearchComponent},
   {path:'latest-episodes',component:LatestEpisodesComponent},
-  {path:'v',component:VidPlayerComponent},
+  {path:'profil',component:ProfilComponent},
+  {path: 'login', component: LoginComponent },
+
+    { path: 'podcast/:podcastId/episode/:id', component: VidPageComponent },
 ];

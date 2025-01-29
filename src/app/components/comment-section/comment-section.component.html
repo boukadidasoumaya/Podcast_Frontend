@@ -1,9 +1,16 @@
+<app-section-custom [title]='"Comments"' [id]='"section_2"'>
+
 <div class="comments">
 <div class="container  p-4">
   <div class="row all-comments custom-scrollbar">
     <app-comment
       *ngFor="let comment of comments"
       [comment]="comment"
+      [isLiked]="isCommentLiked(comment.id)"
+      [likesCount]="likes[comment.id]"
+      (liked)="onLikeChanged($event)"
+      (deletedComment)="deleteComment(comment,user)"
+      [currentUser]="user"
       [colWidthIm]="2"
       [colLikeLg]="3"
       [colLikeMd]="4"
@@ -13,3 +20,4 @@
 </div>
 <app-reply-form (onDataReceived)="handleReplySubmit($event)"></app-reply-form>
 </div>
+</app-section-custom>

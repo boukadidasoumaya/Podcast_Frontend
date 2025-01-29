@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-like-button',
@@ -9,7 +9,13 @@ import { Component, Input } from '@angular/core';
   styleUrl: './like-button.component.css'
 })
 export class LikeButtonComponent {
-  @Input() iconClass: string = 'bi-heart';
-  @Input() label: string = 'Like';
+  @Input() isLiked: boolean = false;
+  @Input() likesCount!: number;
+  @Output() liked = new EventEmitter<boolean>();
+
+  toggleLike() {
+    this.isLiked = !this.isLiked;
+    this.liked.emit(this.isLiked);
+  }
 
 }

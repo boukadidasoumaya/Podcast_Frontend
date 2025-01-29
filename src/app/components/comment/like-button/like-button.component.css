@@ -1,0 +1,7 @@
+.bi-heart-fill {
+  color: red;
+}
+
+.bi-heart {
+  color: var(--p-color);
+}

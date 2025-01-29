@@ -1,0 +1,25 @@
+<section class="hero-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12 col-12">
+        <!-- Header Text -->
+        <div class="text-center mb-5 pb-2">
+          <h1 class="text-white">Listen to Pod Talk</h1>
+          <p class="text-white">Listen to it everywhere. Explore your favorite podcasts.</p>
+          <a href="#section_2" class="btn custom-btn smoothscroll mt-3">Start listening</a>
+        </div>
+
+        <!-- Carousel -->
+        <owl-carousel-o [options]="customOptions">
+          <ng-template *ngFor="let slide of slides" carouselSlide>
+            <app-hero-card
+              [nom]="slide.nom"
+              [badges]="slide.badges"
+              [imagesrc]="slide.imagesrc">
+            </app-hero-card>
+          </ng-template>
+        </owl-carousel-o>
+      </div>
+    </div>
+  </div>
+</section>
