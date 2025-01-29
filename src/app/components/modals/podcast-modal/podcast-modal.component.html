@@ -1,34 +1,85 @@
-<div class="modal" id="uploadPodcastModal" tabindex="-1" aria-labelledby="uploadPodcastModalLabel" aria-hidden="true">
+<div
+  class="modal"
+  id="uploadPodcastModal"
+  tabindex="-1"
+  aria-labelledby="uploadPodcastModalLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
         <h2 *ngIf="step === 2">Upload Episodes</h2>
         <h2 *ngIf="step === 3">Finish Upload</h2>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body scrollable-content">
         <!-- Step 1: Podcast details -->
         <form *ngIf="step === 1" #podcastForm="ngForm">
           <label for="title">Podcast Name</label>
-          <input id="title" [(ngModel)]="data.podcast.name" name="title" type="text" required placeholder="Enter podcast name" />
+          <input
+            id="title"
+            [(ngModel)]="data.podcast.name"
+            name="title"
+            type="text"
+            required
+            placeholder="Enter podcast name"
+          />
 
           <label for="topic">Topic</label>
-          <select id="topic" [(ngModel)]="data.podcast.topic" name="topic" required class="form-control">
+          <select
+            id="topic"
+            [(ngModel)]="data.podcast.topic"
+            name="topic"
+            required
+            class="form-control"
+          >
             <option value="" disabled selected>Select a topic</option>
-            <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+            <option *ngFor="let topic of topics" [value]="topic">
+              {{ topic }}
+            </option>
           </select>
 
           <label for="description">Description</label>
-          <textarea id="description" [(ngModel)]="data.podcast.description" name="description" required placeholder="Enter description"></textarea>
+          <textarea
+            id="description"
+            [(ngModel)]="data.podcast.description"
+            name="description"
+            required
+            placeholder="Enter description"
+          ></textarea>
 
           <label for="episodesCount">Number of Episodes</label>
-          <input id="episodesCount" [(ngModel)]="data.podcast.nbre_episode" name="episodesCount" type="number" [max]="5" required (input)="setEpisodesCount(data.podcast.nbre_episode)" placeholder="Enter number of episodes" />
+          <input
+            id="episodesCount"
+            [(ngModel)]="data.podcast.nbre_episode"
+            name="episodesCount"
+            type="number"
+            [max]="5"
+            required
+            (input)="setEpisodesCount(data.podcast.nbre_episode)"
+            placeholder="Enter number of episodes"
+          />
 
           <label for="image">Image</label>
           <div>
-            <input id="image" type="file" (change)="onFileSelect($event, 'podcast')" style="display: none" #fileInput />
-            <button class="button" type="button" (click)="triggerFileInput(fileInput)">
+            <input
+              id="image"
+              type="file"
+              (change)="onFileSelect($event, 'podcast')"
+              style="display: none"
+              #fileInput
+            />
+            <button
+              class="button"
+              type="button"
+              (click)="triggerFileInput(fileInput)"
+            >
               <span class="btn__text">Upload</span>
             </button>
           </div>
@@ -36,50 +87,95 @@
 
         <!-- Step 2: Episode details -->
         <div *ngIf="step === 2">
-          <div *ngFor="let episode of data.episodes; let i = index" class="episode-form">
+          <div
+            *ngFor="let episode of data.episodes; let i = index"
+            class="episode-form"
+          >
             <h3>Episode {{ i + 1 }}</h3>
-            
+
             <!-- Episode Name -->
             <label for="episode-name-{{ i }}">Episode Name</label>
-            <input id="episode-name-{{ i }}" [(ngModel)]="episode.name" name="episode-name-{{ i }}" type="text" required placeholder="Enter episode name" />
-        
+            <input
+              id="episode-name-{{ i }}"
+              [(ngModel)]="episode.name"
+              name="episode-name-{{ i }}"
+              type="text"
+              required
+              placeholder="Enter episode name"
+            />
+
             <!-- Episode Description -->
             <label for="episode-description-{{ i }}">Description</label>
-            <textarea id="episode-description-{{ i }}" [(ngModel)]="episode.description" name="episode-description-{{ i }}" required placeholder="Enter episode description"></textarea>
-        
+            <textarea
+              id="episode-description-{{ i }}"
+              [(ngModel)]="episode.description"
+              name="episode-description-{{ i }}"
+              required
+              placeholder="Enter episode description"
+            ></textarea>
+
             <!-- Episode Duration -->
             <label for="episode-duration-{{ i }}">Duration (in seconds)</label>
-            <input id="episode-duration-{{ i }}" [(ngModel)]="episode.duration" name="episode-duration-{{ i }}" type="number" required placeholder="Enter episode duration in seconds" />
-        
+            <input
+              id="episode-duration-{{ i }}"
+              [(ngModel)]="episode.duration"
+              name="episode-duration-{{ i }}"
+              type="number"
+              required
+              placeholder="Enter episode duration in seconds"
+            />
+
             <!-- Episode File -->
             <label for="episode-file-{{ i }}">Attach Episode File</label>
             <div>
-              <input #fileInput id="episode-file-{{ i }}" type="file" (change)="onFileSelect($event, 'episode', i)" style="display: none" />
-              <button type="button" class="button" (click)="triggerFileInput(fileInput)">
+              <input
+                #fileInput
+                id="episode-file-{{ i }}"
+                type="file"
+                (change)="onFileSelect($event, 'episode', i)"
+                style="display: none"
+              />
+              <button
+                type="button"
+                class="button"
+                (click)="triggerFileInput(fileInput)"
+              >
                 <span class="btn__text">Upload</span>
               </button>
             </div>
-        
+
             <!-- Episode Cover Image -->
             <label for="episode-cover-image-{{ i }}">Cover Image</label>
             <div>
-              <input #coverImageInput id="episode-cover-image-{{ i }}" type="file" (change)="onFileSelect($event, 'episode-cover', i)" style="display: none" />
-              <button type="button" class="button" (click)="triggerFileInput(coverImageInput)">
+              <input
+                #coverImageInput
+                id="episode-cover-image-{{ i }}"
+                type="file"
+                (change)="onFileSelect($event, 'episode-cover', i)"
+                style="display: none"
+              />
+              <button
+                type="button"
+                class="button"
+                (click)="triggerFileInput(coverImageInput)"
+              >
                 <span class="btn__text">Upload Cover Image</span>
               </button>
             </div>
-
-            <!-- Episode Upload Button -->
-            <button type="button" class="btn-upload" (click)="uploadEpisode(episode, i)">Upload Episode {{ i + 1 }}</button>
           </div>
         </div>
-
       </div>
 
       <div class="modal-footer">
-        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">←</button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">→</button>
-        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">Finish</button>
+        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
+          ←
+        </button>
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
+          →
+        </button>
+        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
+          Finish
+        </button>
       </div>
     </div>
   </div>

@@ -138,11 +138,7 @@ export class PodcastModalComponent {
       console.error('Error uploading to Cloudinary:', error);
     }
   }
-  uploadEpisode(episode: Episode, index: number) {
-    if (episode.filepath instanceof File) {
-      this.uploadFileToCloudinary(episode.filepath, 'episode', index);
-    }
-  }
+
   
   
 
