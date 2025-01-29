@@ -29,6 +29,8 @@ export class CommentSectionComponent {
     episode: null
   };
 
+  repliesLikedState: { [replyId: number]: boolean } = {};
+  repliesLikes: { [replyId: number]: number } = {};
 
   // Nombre de likes pour chaque commentaire
   likes: { [commentId: number]: number } = {};
@@ -52,7 +54,6 @@ export class CommentSectionComponent {
       console.log('Utilisateur actuel:', this.user);
     });
 
-    console.log('episode', this.episode);
     this.loadComments();
 
     // Écouter les nouveaux commentaires
@@ -90,23 +91,34 @@ export class CommentSectionComponent {
       podcast: { id: this.episode.podcast.id },
       episode: { id: this.episode.id }
     };
+
     this.commentService.getComments(this.options).subscribe((comments: Comment[]) => {
       this.comments = comments;
       console.log('loaded comments', this.comments);
 
-      // Initialiser le nombre de likes pour chaque commentaire
+      // Initialiser le nombre de likes et l'état des likes pour chaque commentaire et ses replies
       this.comments.forEach((comment) => {
         this.likes[comment.id] = comment.likesCount || 0;
+        this.likedComments[comment.id] = this.hasUserLiked(comment);
+        console.log(this.likedComments);
+        // Vérifier aussi les replies si elles existent
+        if (comment.replies && comment.replies.length > 0) {
+          comment.replies.forEach((reply) => {
+            this.likes[reply.id] = reply.likesCount || 0;
+            this.likedComments[reply.id] = this.hasUserLiked(reply);
+          });
+        }
       });
     });
-
-    // Charger l'état des likes de l'utilisateur
-    // this.likeCommentServiceRest.getLikedCommentsByUser().subscribe((likedComments) => {
-    //   likedComments.forEach((comment) => {
-    //     this.likedComments[comment.id] = true;
-    //   });
-    // });
   }
+
+  //  Fonction utilitaire pour vérifier si l'utilisateur a liké un commentaire
+  private hasUserLiked(comment: Comment): boolean {
+    return Array.isArray(comment.likesComment) &&
+      comment.likesComment.some(like => like.user.id === this.user.id);
+  }
+
+
 
   handleReplySubmit(replyText: string): void {
     const newReply = {
@@ -142,6 +154,12 @@ export class CommentSectionComponent {
     this.comments = this.comments.filter((c) => c.id !== comment.id);
     console.log(this.comments);
   }
-
+onReplyLikeChanged(event: { isLiked: boolean, comment: Comment }) {
+    const replyId = event.comment.id;
+    this.repliesLikedState[replyId] = event.isLiked;
+    this.repliesLikes[replyId] = event.isLiked
+      ? (this.repliesLikes[replyId] || 0) + 1
+      : (this.repliesLikes[replyId] || 1) - 1;
+  }
 
 }

@@ -21,7 +21,7 @@ export class CommentComponent {
   @Input() colLikeLg: number = 2;
   @Input() colLikeMd: number = 4;
   @Input() moreThanOne: boolean = false;
-  @Input() isLiked: boolean = false;
+  @Input() isLiked!: boolean;
   @Input() likesCount!: number;
   @Input() currentUser!:Partial<User>;
   @Output() liked = new EventEmitter<{ isLiked: boolean, comment:Comment }>();

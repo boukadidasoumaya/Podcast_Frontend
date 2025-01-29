@@ -41,7 +41,6 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe((user) => {
       this.user = user;
-      console.log('Utilisateur actuel:', this.user);
     });
     // Récupération des épisodes tendances
     this.episodeService.getAllEpisodesTrending().subscribe((data) => {
@@ -60,18 +59,12 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
     console.log('liked',this.likedEpisodes),
     // Gestion des likes en temps réel
     this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
-      data.totalLikes.forEach((likeData: any) => {
-        this.likes[likeData.episode] = likeData.numberOfLikes;
-        this.likedEpisodes[likeData.episode] = true;
-      });
+        this.likes[data.episode] = data.numberOfLikes;
     });
 
     // Gestion des unlikes en temps réel
     this.unlikeSubscription = this.likeEpisodeService.onUnlikeEpisode().subscribe((data) => {
-      data.totalLikes.forEach((likeData: any) => {
-        this.likes[likeData.episode] = likeData.numberOfLikes;
-        this.likedEpisodes[likeData.episode] = false;
-      });
+      this.likes[data.episode] = data.numberOfLikes;
     });
   }
 
@@ -83,7 +76,7 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
 
   onLikeChanged(event: { isLiked: boolean, episode: Episode }): void {
     const { isLiked, episode } = event;
-    this.likedEpisodes[episode.id] = isLiked;  
+    this.likedEpisodes[episode.id] = isLiked;
     if (isLiked) {
       this.likeEpisodeService.likeEpisode(this.user, episode);
     } else {

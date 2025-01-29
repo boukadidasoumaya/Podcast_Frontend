@@ -9,8 +9,8 @@ import { CommonModule } from '@angular/common'; // Importation de CommonModule
   imports: [CommonModule] // Ajout de CommonModule ici
 })
 export class HeartIconComponent {
-  @Input() isLiked: boolean=false;
-  @Input() numberOfLikes: number = 0;
+  @Input() isLiked!: boolean;
+  @Input() numberOfLikes!: number;
   @Output() liked = new EventEmitter<boolean>();
 
   toggleLike() {

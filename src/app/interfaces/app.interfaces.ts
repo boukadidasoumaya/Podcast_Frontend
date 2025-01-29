@@ -42,12 +42,13 @@ export interface Episode {
   coverImage: string;
   numberOfLikes: number;
   numberOfComments: number;
-  likes:Like;
-description :string;
+  description :string;
 }
 
-export interface Like {
-  id:number
+export interface LikeComment {
+  id:number;
+  user:Partial<User>;
+  comment:Comment;
 }
 export interface PodcastId{
   id:number
@@ -66,6 +67,7 @@ export interface Comment {
   replies?: Comment[];
   likesCount:number;
   isLiked?:boolean;
+  likesComment?:Partial<LikeComment>
 }
 
 export interface Owner {

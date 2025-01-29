@@ -9,7 +9,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './like-button.component.css'
 })
 export class LikeButtonComponent {
-  @Input() isLiked: boolean = false;
+  @Input() isLiked!: boolean;
   @Input() likesCount!: number;
   @Output() liked = new EventEmitter<boolean>();
 
