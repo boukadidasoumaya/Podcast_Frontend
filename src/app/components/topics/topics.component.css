@@ -2,14 +2,17 @@
   /*---------------------------------------
     CUSTOM BLOCK
   -----------------------------------------*/
-  .custom-block {
-    width: 100%; /* Ensures the custom block takes up the full width available */
-    padding: 15px;
-    box-sizing: border-box; /* To avoid padding from affecting the width */
-    border-radius: var(--border-radius-medium);
-    transition: all 0.3s ease;
-
-  }
+ 
+    .custom-block {
+      width: 100%; /* Ensures consistent width */
+      max-width: 400px; /* Adjust as needed */
+      height: 320px; /* Set a fixed height */
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden; /* Prevents content from overflowing */
+    }
+  
 
     .custom-block:hover,.custom-block {
       background: var(--white-color);
@@ -348,6 +351,13 @@
     display: inline-block;
     color: var(--primary-color);
     text-decoration: none;
+    
+      white-space: nowrap; /* Prevents title from breaking lines */
+      overflow: hidden; /* Hides overflow text */
+      text-overflow: ellipsis; /* Adds '...' for truncated text */
+      max-width: 100%; /* Ensures title doesn't overflow */
+    
+    
   }
 
   a:hover {
@@ -391,3 +401,6 @@
   .carousel-control-prev, .carousel-control-next {
     background-color: transparent; /* Optional */
   }
+  
+  
+
