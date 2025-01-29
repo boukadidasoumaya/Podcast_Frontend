@@ -73,3 +73,4 @@ export interface Owner {
   photo: string;
   interests: string[];
 }
+
