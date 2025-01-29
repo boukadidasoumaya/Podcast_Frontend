@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-import { Comment } from '../interfaces/app.interfaces';
+import { Comment, User } from '../interfaces/app.interfaces';
 import { APP_API } from "../config/app-api.config";
 
 @Injectable({
@@ -29,10 +29,20 @@ export class CommentService {
     });
   }
 
-  addComment(commentData: any): void {
-    console.log('hello');
-    this.socket.emit('comment', commentData);
+  addComment(commentData: any): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('comment', commentData);
+
+      this.socket.once('comment', (data) => {
+        resolve(data);
+      });
+
+      this.socket.once('errorMessage', (error) => {
+        reject(new Error(error));
+      });
+    });
   }
+
 
   onNewComment(): Observable<any> {
     return new Observable((subscriber) => {
@@ -41,4 +51,24 @@ export class CommentService {
       });
     });
   }
+  deleteComment(comment: Comment, user: Partial<User>): Observable<void> {
+    return new Observable((subscriber) => {
+      console.log('Deleting comment with ID:', comment.id);
+      this.socket.emit('deleteComment', { comment, user });
+    });
+  }
+
+
+  onCommentDeleted(): Observable<string> {
+    return new Observable((subscriber) => {
+      this.socket.on('commentDeleted', (deletedCommentId: string) => {
+        subscriber.next(deletedCommentId);
+      });
+
+      return () => {
+        this.socket.off('commentDeleted');
+      };
+    });
+  }
+
 }

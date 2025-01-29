@@ -1,0 +1,28 @@
+<div class="owl-carousel-info-wrap item">
+  <img [src]="imagesrc" class="owl-carousel-image img-fluid" alt="">
+
+  <div class="owl-carousel-info">
+    <h4 class="mb-2 verified-wrapper">
+      {{ nom }}
+      <!-- <img src="../../../assets/images/verified.png" class="verified-image"> -->
+    </h4>
+
+    <span *ngFor="let badge of badges" class="badge">{{ badge }}</span>
+
+
+  </div>
+
+  <div class="social-share">
+    <ul class="social-icon">
+      <li class="social-icon-item">
+        <a href="#" class="social-icon-link bi-twitter"></a>
+      </li>
+      <li class="social-icon-item">
+        <a href="#" class="social-icon-link bi-facebook"></a>
+      </li>
+      <li class="social-icon-item">
+        <a href="#" class="social-icon-link bi-youtube"></a>
+      </li>
+    </ul>
+  </div>
+</div>

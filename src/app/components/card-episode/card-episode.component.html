@@ -28,7 +28,8 @@
       <!-- In card-episode.component.html -->
       <app-heart-icon
         [numberOfLikes]="numberOfLikes"
-        (liked)="onLikeChanged()">
+        [isLiked]="isLiked"
+        (liked)="onLikeChanged($event)">
       </app-heart-icon>
 
       <!-- Composant pour l'icône chat -->

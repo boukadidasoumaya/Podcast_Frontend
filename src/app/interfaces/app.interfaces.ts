@@ -61,7 +61,15 @@ export interface Comment {
   parent?: Comment | null;
   podcast?: PodcastId;
   episode?: EpisodeId;
-  user: User;
+  user: Partial<User>;
   createdAt: string;
   replies?: Comment[];
+  likesCount:number;
+  isLiked?:boolean;
+}
+
+export interface Owner {
+  firstName: string;
+  photo: string;
+  interests: string[];
 }

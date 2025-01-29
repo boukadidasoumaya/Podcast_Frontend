@@ -16,3 +16,9 @@
   width: 20px;
   height: auto;
 }
+.subscribe
+{
+  position: relative;
+  bottom: 80px;
+  margin-bottom: -40px ;
+}
