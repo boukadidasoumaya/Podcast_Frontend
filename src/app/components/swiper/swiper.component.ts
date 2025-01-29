@@ -10,7 +10,7 @@ import { ContentChild, ContentChildren, QueryList, TemplateRef } from '@angular/
 @Component({
   selector: 'app-swiper',
   standalone: true,
-  imports: [CommonModule,TopicsComponent, CarouselModule ,SectionCustomComponent],
+  imports: [CommonModule, CarouselModule ],
   templateUrl: './swiper.component.html',
   styleUrls: ['./swiper.component.css'],
   providers: [DecimalPipe] // Add DecimalPipe to providers

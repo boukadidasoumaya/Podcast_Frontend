@@ -2,7 +2,7 @@
   <div class="col-lg-3 col-12">
     <div class="custom-block-icon-wrap">
       <div class="custom-block-image-wrap custom-block-image-detail-page">
-        <img [src]="episode.coverImage" class="custom-block-image img-fluid" alt="{{ episode.title }}">
+        <img [src]="episode.coverImage" class="custom-block-image img-fluid" alt="{{ episode.name }}">
       </div>
     </div>
   </div>
@@ -11,7 +11,7 @@
     <div class="custom-block-info">
       <div class="custom-block-top d-flex mb-1">
         <small class="me-4">
-          <a href="#">
+          <a [routerLink]="['/episode', episode.id]" >
             <i class="bi-play"></i>
             Play now
           </a>
@@ -25,15 +25,15 @@
         <small class="ms-auto">Episode <span class="badge">{{ episode.podcast.nbre_episode }}</span></small>
       </div>
 
-      <h2 class="mb-2">{{ episode.title }}</h2>
+      <h2 class="mb-2">{{ episode.name }}</h2>
 
       <p>{{ episode.description }}</p>
 
       <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
         <div class="d-flex mb-3 mb-lg-0 mb-md-0">
-          <img [src]="episode.profileImage" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
+          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
           <p>
-            {{ episode.profileName }}
+            {{ episode.podcast.user.firstName + ' ' + episode.podcast.user.lastName }}
             <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
             <strong>{{ episode.podcast.user.profession }}</strong>
           </p>
@@ -44,10 +44,10 @@
             <a [href]="episode.podcast.user.intagramLink" class="social-icon-link bi-instagram"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.twitterLink" class="social-icon-link bi-twitter"></a>
+            <a [href]="episode.podcast.user.twitterLink" class="social-icon-link bi-twitter"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.facebookLink" class="social-icon-link bi-whatsapp"></a>
+            <a [href]="episode.podcast.user.facebookLink" class="social-icon-link bi-whatsapp"></a>
           </li>
         </ul>
       </div>

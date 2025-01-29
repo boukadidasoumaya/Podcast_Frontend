@@ -30,5 +30,5 @@ export const routes: Routes = [
   {path:'profil',component:ProfilComponent},
   {path: 'login', component: LoginComponent },
 
-    { path: 'podcast/:podcastId/episode/:id', component: VidPageComponent },
+{ path: 'episode/:id', component: VidPageComponent },
 ];
