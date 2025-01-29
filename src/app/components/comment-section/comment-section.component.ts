@@ -7,12 +7,12 @@ import { ReplyFormComponent } from "../comment/reply-form/reply-form.component";
 import { SectionCustomComponent } from "../section-custom/section-custom.component";
 import { UserService } from '../../services/user.service';
 import { LikeCommentService } from '../../services/likeComment.service';
-// import { LikeCommentServiceRest } from '../../services/likeComment-rest.service';
+import { CommentComponent } from '../comment/comment.component';// import { LikeCommentServiceRest } from '../../services/likeComment-rest.service';
 
 @Component({
   selector: 'app-comment-section',
   standalone: true,
-  imports: [CommonModule,  ReplyFormComponent, SectionCustomComponent],
+  imports: [CommonModule, CommentComponent, ReplyFormComponent, SectionCustomComponent],
   templateUrl: './comment-section.component.html',
   styleUrl: './comment-section.component.css'
 })
