@@ -1,5 +1,4 @@
 import { Component, Input } from '@angular/core';
-import { CommentComponent } from '../comment/comment.component';
 import { CommonModule } from '@angular/common';
 import { CommentService } from '../../services/comment.service';
 import { Comment, User } from '../../interfaces/app.interfaces';
@@ -8,7 +7,7 @@ import { ReplyFormComponent } from "../comment/reply-form/reply-form.component";
 import { SectionCustomComponent } from "../section-custom/section-custom.component";
 import { UserService } from '../../services/user.service';
 import { LikeCommentService } from '../../services/likeComment.service';
-// import { LikeCommentServiceRest } from '../../services/likeComment-rest.service';
+import { CommentComponent } from '../comment/comment.component';// import { LikeCommentServiceRest } from '../../services/likeComment-rest.service';
 
 @Component({
   selector: 'app-comment-section',

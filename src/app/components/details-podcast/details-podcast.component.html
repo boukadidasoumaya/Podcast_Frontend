@@ -3,31 +3,20 @@
   <div class="container">
     <div class="row justify-content-center">
       <div class="col-lg-10 col-12">
-        <app-section-custom
-          [title]="'Daily Talk'"
-          [sectionId]="''">
+        <app-section-custom *ngIf="episodeDetails"
+          [title]="episodeDetails.name"
+          [sectionId]="'2'">
         </app-section-custom>
 
         <app-card-episode-with-details [episode]="episodeDetails"></app-card-episode-with-details>
 
         <br>
-        <app-section-custom
-          [title]="'Episodes'"
-          [sectionId]="''">
-        </app-section-custom>
-        <app-swiper [cards]="displayedEpisodes" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'" [slideToShow]="4" [slideWidth]="300">
-          <ng-template let-episode>
-            <app-topics
-              [title]="episode.title"
-              [image]="episode.image"
-            ></app-topics>
-          </ng-template>
-        </app-swiper>
-        <app-section-custom
-          [title]="'Comments'"
-          [sectionId]="''">
-        </app-section-custom>
+       
+        <app-related-section 
+        [routerLink]="['/details-podcast',episodeId]"
 
+  (episodeSelected)="onEpisodeSelected($event)">
+</app-related-section>
         <app-comment-section
         *ngIf="episodeDetails"
         [episode]="episodeDetails"

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Episode } from '../models/episode.model';
+import { Episode } from '../interfaces/app.interfaces';
 @Injectable({
   providedIn: 'root',
 })
@@ -16,11 +16,11 @@ export class EpisodeService {
     return this.http.get<Episode>(`${this.apiUrl}/episodes/${id}`);
   }
   
-  getRelatedEpisodes(podcastId: string): Observable<any[]> {
+  getRelatedEpisodes(podcastId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/podcast/${podcastId}/episodes`);
   }
 
-  getComments(id: string): Observable<any[]> {
+  getComments(id: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/episodes/${id}/comments`);
   }
 }
