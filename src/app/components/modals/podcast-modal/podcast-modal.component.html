@@ -1,172 +1,85 @@
-<div
-  class="modal"
-  id="uploadPodcastModal"
-  tabindex="-1"
-  aria-labelledby="uploadPodcastModalLabel"
-  aria-hidden="true"
->
+<div class="modal" id="uploadPodcastModal" tabindex="-1" aria-labelledby="uploadPodcastModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
         <h2 *ngIf="step === 2">Upload Episodes</h2>
         <h2 *ngIf="step === 3">Finish Upload</h2>
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="modal"
-          aria-label="Close"
-        ></button>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body scrollable-content">
-        <!-- Étape 1 : Informations sur le podcast et nombre d'épisodes -->
-        <form *ngIf="step === 1" [formGroup]="podcastForm" class="form-step">
+        <!-- Step 1: Podcast details -->
+        <form *ngIf="step === 1" #podcastForm="ngForm">
           <label for="title">Podcast Name</label>
-          <input
-            id="title"
-            formControlName="title"
-            type="text"
-            placeholder="Enter podcast name"
-          />
+          <input id="title" [(ngModel)]="data.podcast.name" name="title" type="text" required placeholder="Enter podcast name" />
 
           <label for="topic">Topic</label>
-          <select id="topic" formControlName="topic" class="form-control">
+          <select id="topic" [(ngModel)]="data.podcast.topic" name="topic" required class="form-control">
             <option value="" disabled selected>Select a topic</option>
-            <option *ngFor="let topic of topics" [value]="topic">
-              {{ topic }}
-            </option>
+            <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
           </select>
 
           <label for="description">Description</label>
-          <textarea
-            id="description"
-            formControlName="description"
-            placeholder="Enter description"
-          ></textarea>
+          <textarea id="description" [(ngModel)]="data.podcast.description" name="description" required placeholder="Enter description"></textarea>
 
           <label for="episodesCount">Number of Episodes</label>
-          <input
-            id="episodesCount"
-            formControlName="episodesCount"
-            type="number"
-            placeholder="Enter number of episodes"
-            [max]="2"
-            (input)="setEpisodesCount(podcastForm.get('episodesCount')?.value)"
-          />
+          <input id="episodesCount" [(ngModel)]="data.podcast.nbre_episode" name="episodesCount" type="number" [max]="5" required (input)="setEpisodesCount(data.podcast.nbre_episode)" placeholder="Enter number of episodes" />
 
           <label for="image">Image</label>
-
           <div>
-            <input
-              id="image"
-              type="file"
-              (change)="onFileSelect($event, 'image')"
-              style="display: none"
-              #fileInput
-            />
-            <button
-              class="button"
-              type="button"
-              (click)="triggerFileInput(fileInput)"
-            >
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
+            <input id="image" type="file" (change)="onFileSelect($event, 'podcast')" style="display: none" #fileInput />
+            <button class="button" type="button" (click)="triggerFileInput(fileInput)">
               <span class="btn__text">Upload</span>
             </button>
           </div>
         </form>
 
-        <!-- Étape 2 : Téléchargement des épisodes -->
-        <div *ngIf="step === 2" class="form-step">
-          <div
-            *ngFor="let form of episodeForm; let i = index"
-            class="episode-form"
-          >
-            <form [formGroup]="form">
-              <h3>Episode {{ i + 1 }}</h3>
-              <label for="name-{{ i }}">Episode Name</label>
-              <input
-                id="name-{{ i }}"
-                formControlName="name"
-                type="text"
-                placeholder="Enter episode name"
-              />
+        <!-- Step 2: Episode details -->
+        <div *ngIf="step === 2">
+          <div *ngFor="let episode of data.episodes; let i = index" class="episode-form">
+            <h3>Episode {{ i + 1 }}</h3>
+            
+            <!-- Episode Name -->
+            <label for="episode-name-{{ i }}">Episode Name</label>
+            <input id="episode-name-{{ i }}" [(ngModel)]="episode.name" name="episode-name-{{ i }}" type="text" required placeholder="Enter episode name" />
+        
+            <!-- Episode Description -->
+            <label for="episode-description-{{ i }}">Description</label>
+            <textarea id="episode-description-{{ i }}" [(ngModel)]="episode.description" name="episode-description-{{ i }}" required placeholder="Enter episode description"></textarea>
+        
+            <!-- Episode Duration -->
+            <label for="episode-duration-{{ i }}">Duration (in seconds)</label>
+            <input id="episode-duration-{{ i }}" [(ngModel)]="episode.duration" name="episode-duration-{{ i }}" type="number" required placeholder="Enter episode duration in seconds" />
+        
+            <!-- Episode File -->
+            <label for="episode-file-{{ i }}">Attach Episode File</label>
+            <div>
+              <input #fileInput id="episode-file-{{ i }}" type="file" (change)="onFileSelect($event, 'episode', i)" style="display: none" />
+              <button type="button" class="button" (click)="triggerFileInput(fileInput)">
+                <span class="btn__text">Upload</span>
+              </button>
+            </div>
+        
+            <!-- Episode Cover Image -->
+            <label for="episode-cover-image-{{ i }}">Cover Image</label>
+            <div>
+              <input #coverImageInput id="episode-cover-image-{{ i }}" type="file" (change)="onFileSelect($event, 'episode-cover', i)" style="display: none" />
+              <button type="button" class="button" (click)="triggerFileInput(coverImageInput)">
+                <span class="btn__text">Upload Cover Image</span>
+              </button>
+            </div>
 
-              <label for="description-{{ i }}">Description</label>
-              <textarea
-                id="description-{{ i }}"
-                formControlName="description"
-                placeholder="Enter episode description"
-              ></textarea>
-              <label for="file-{{ i }}">Attach Episode File</label>
-              <div>
-                <input
-                  #fileInput
-                  id="file-{{ i }}"
-                  type="file"
-                  (change)="onFileSelect($event, i)"
-                  style="display: none"
-                />
-                <button
-                  type="button"
-                  class="button"
-                  (click)="triggerFileInput(fileInput)"
-                >
-                  <span class="btn__icon">
-                    <svg
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      viewBox="0 0 24 24"
-                      height="24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                      <path
-                        d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                      ></path>
-                      <path d="M9 15l3 -3l3 3"></path>
-                      <path d="M12 12l0 9"></path>
-                    </svg>
-                  </span>
-                  <span class="btn__text">Upload</span>
-                </button>
-              </div>
-            </form>
+            <!-- Episode Upload Button -->
+            <button type="button" class="btn-upload" (click)="uploadEpisode(episode, i)">Upload Episode {{ i + 1 }}</button>
           </div>
         </div>
+
       </div>
+
       <div class="modal-footer">
-        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
-          ←
-        </button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
-          →
-        </button>
-        <button *ngIf="step === 3" class="btn-finish"  (click)="finishUpload()">
-          Finish
-        </button>
+        <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">←</button>
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">→</button>
+        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">Finish</button>
       </div>
     </div>
   </div>

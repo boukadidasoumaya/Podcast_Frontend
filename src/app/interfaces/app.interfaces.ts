@@ -4,12 +4,25 @@ export interface User{
   username: string;
   role : string;
 }
-export interface Podcast{
-  id:number
+
+export interface Episode {
+  id:string;
+  name: string;
+  description: string;
+  file: File | null; 
 }
-export interface Episode{
-  id:number
+
+export interface Podcast {
+  id:string;
+  name: string;
+  topic: string;
+  description: string;
+  episodesCount: number;
+  image: File | null;
+  episodes: Episode[];
 }
+
+
 export interface Comment {
   id: number;
   content: string;
