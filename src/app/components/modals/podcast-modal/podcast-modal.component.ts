@@ -5,13 +5,14 @@ import { PodcastService } from '../../../services/podcast.service';
 import { EpisodeService } from '../../../services/episode.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   imports: [CommonModule, FormsModule],
   standalone: true,
   selector: 'app-podcast-modal',
   templateUrl: './podcast-modal.component.html',
-  styleUrls: ['./podcast-modal.component.css']
+  styleUrls: ['./podcast-modal.component.css'],
 })
 export class PodcastModalComponent {
   step: number = 1;
@@ -42,7 +43,8 @@ export class PodcastModalComponent {
   constructor(
     private cloudinaryService: CloudinaryService,
     private podcastService: PodcastService,
-    private episodeService: EpisodeService
+    private episodeService: EpisodeService,
+    private toastr: ToastrService
   ) {}
 
   setEpisodesCount(count: number) {
@@ -76,41 +78,43 @@ export class PodcastModalComponent {
 
   async finishUpload() {
     try {
-      // Step 1: Upload Podcast Image (only if it's a File object)
+      if (!this.data.podcast.name || !this.data.podcast.topic || !this.data.podcast.description || !this.data.podcast.image) {
+        this.toastr.error('Please fill in all required fields!', 'Error');
+        return;
+      }
+
+      this.toastr.info('Upload in progress...', 'Info');
+      
       if (this.data.podcast.image instanceof File) {
         const imageUrl = await this.cloudinaryService.uploadToCloudinary(this.data.podcast.image);
         this.data.podcast.image = imageUrl;
       }
 
-      // Save podcast data in backend
       const createdPodcast = await this.podcastService.createPodcast(this.data.podcast).toPromise();
-
       if (!createdPodcast) {
         throw new Error('Podcast creation failed');
       }
 
-      // Step 2: Upload and create episodes
       for (const episode of this.data.episodes) {
-        // Upload episode file to Cloudinary
         if (episode.filepath instanceof File) {
           const episodeFileUrl = await this.cloudinaryService.uploadToCloudinary(episode.filepath);
           episode.filepath = episodeFileUrl;
         }
 
-        // Upload episode cover image if it's a File object
         if (episode.coverImage instanceof File) {
           const coverImageUrl = await this.cloudinaryService.uploadToCloudinary(episode.coverImage);
           episode.coverImage = coverImageUrl;
         }
 
-        // Link episode to the created podcast
         episode.podcast = createdPodcast;
         await this.episodeService.createEpisode(episode).toPromise();
       }
 
       console.log('Podcast and episodes uploaded successfully');
+      this.toastr.success('Podcast and episodes added successfully!', 'Success');
     } catch (error) {
       console.error('Error during upload:', error);
+      this.toastr.error('Error during upload.', 'Error');
     }
   }
 
@@ -118,7 +122,6 @@ export class PodcastModalComponent {
     const input = event.target as HTMLInputElement;
     if (input && input.files && input.files[0]) {
       const file = input.files[0];
-
       this.uploadFileToCloudinary(file, type, index);
     }
   }
@@ -126,23 +129,44 @@ export class PodcastModalComponent {
   async uploadFileToCloudinary(file: File, type: 'podcast' | 'episode' | 'episode-cover', index?: number) {
     try {
       const fileUrl = await this.cloudinaryService.uploadToCloudinary(file);
-      console.log(this.data)
+
       if (type === 'podcast') {
         this.data.podcast.image = fileUrl;
+        this.toastr.success('Podcast image uploaded successfully!', 'Success');
       } else if (type === 'episode' && index !== undefined) {
         this.data.episodes[index].filepath = fileUrl;
+        this.toastr.success(`Episode ${index + 1} file uploaded successfully!`, 'Success');
       } else if (type === 'episode-cover' && index !== undefined) {
         this.data.episodes[index].coverImage = fileUrl;
+        this.toastr.success(`Episode ${index + 1} cover image uploaded successfully!`, 'Success');
       }
     } catch (error) {
       console.error('Error uploading to Cloudinary:', error);
+      this.toastr.error('Error uploading file.', 'Error');
     }
   }
 
-  
-  
-
   triggerFileInput(fileInput: HTMLInputElement) {
     fileInput.click();
+  }
+
+
+  removeFile(type: 'podcast' | 'episode' | 'episode-cover', index?: number) {
+    if (type === 'podcast') {
+      this.data.podcast.image = '';
+    } else if (type === 'episode' && index !== undefined) {
+      this.data.episodes[index].filepath = '';
+    } else if (type === 'episode-cover' && index !== undefined) {
+      this.data.episodes[index].coverImage = '';
+    }
+    this.toastr.info('File removed successfully!', 'Info');
+  }
+
+  checkRequiredFields() {
+    if (!this.data.podcast.name || !this.data.podcast.topic || !this.data.podcast.description || !this.data.podcast.image) {
+      this.toastr.error('Please fill in all required fields!', 'Error');
+      return false;
+    }
+    return true;
   }
 }

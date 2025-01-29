@@ -204,3 +204,15 @@ textarea {
   outline: none; 
   box-shadow: 0 0 5px rgba(0, 128, 0, 0.6); 
 }
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.btn-remove {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}
