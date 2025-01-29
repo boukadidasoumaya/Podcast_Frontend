@@ -1,4 +1,4 @@
 <div class="input-group">
     <i [class]="icon"></i>
-    <input [type]="type" [name]="name" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="onInput($event)" required>
+    <input [type]="type" [name]="name" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="onInput($event)" minlength="4"  required>
 </div>

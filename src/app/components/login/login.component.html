@@ -10,21 +10,14 @@
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastName" ></app-input-field>
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
                         <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 2">
-                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
                         <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country"></app-input-field>
                         <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.profession" ></app-input-field>
-                        <div class="form-group">
-                            <select id="role" class="form-control" [(ngModel)]="Data.role" name="role">
-                              <option value="" selected>Select Role</option>
-                              <option value="User">User</option>
-                              <option value="Admin">Admin</option>
-                              <option value="SuperAdmin">SuperAdmin</option>
-                            </select>
-                          </div>
                         <app-input-field icon="bx bxl-whatsapp" type="url" placeholder="WhatsApp username" name="whatsapp_user" [(ngModel)]="Data.whatsappUser"></app-input-field>
                         <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="instagram_user" [(ngModel)]="Data.instagramLink"></app-input-field>
+                        <app-input-field icon="bx bxl-instgram" type="url" placeholder="Twitter username" name="twitter_user" [(ngModel)]="Data.twitterUser"></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 3">
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
@@ -119,7 +112,7 @@
             <div class="img sign-up"></div>
             <div class="text sign-up">
                 <h2>
-                    Join with us
+                    Join us
                 </h2>
             </div>
         </div>

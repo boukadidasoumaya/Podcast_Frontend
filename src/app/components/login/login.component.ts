@@ -23,9 +23,10 @@ export class LoginComponent {
     birthday: '',
     country: '',
     profession: '',
-    role: '',
     whatsappUser: '',
+    role:'',
     instagramLink: '',
+    twitterUser:'',
     password: '',
     confirmPassword: '',
     selectedInterests: [] as string[]
@@ -40,12 +41,11 @@ export class LoginComponent {
                  this.Data.lastName && 
                  this.Data.username && 
                  this.Data.email &&
+                 this.Data.birthday && 
                  this.isValidEmail(this.Data.email));
       case 2:
-        return !!(this.Data.birthday && 
-                 this.Data.country && 
-                 this.Data.profession && 
-                 this.Data.role);
+        return !!(this.Data.country && 
+                 this.Data.profession);
       case 3:
         return !!(this.Data.password && 
                  this.Data.confirmPassword&&

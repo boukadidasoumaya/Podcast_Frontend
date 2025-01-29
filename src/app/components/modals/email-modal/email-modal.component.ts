@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-email-modal',
@@ -17,7 +18,7 @@ export class EmailModalComponent {
     newEmail: '',
     confirmEmail: ''
   };
-  constructor(private userService: UserService) {}  
+  constructor(private userService: UserService, private router: Router) {}  
   onEmailUpdate(form: NgForm) {
     if (form.valid) {
       if (this.emailData.newEmail !== this.emailData.confirmEmail) {
@@ -26,19 +27,15 @@ export class EmailModalComponent {
       }
 
       const emailUpdateData = {
-        currentEmail: this.emailData.currentEmail,
+        oldEmail: this.emailData.currentEmail,
         newEmail: this.emailData.newEmail
       };
 
       this.userService.updateEmail(emailUpdateData).subscribe({
         next: (response) => {
           console.log('Email updated successfully:', response);
-          this.emailData = {
-            currentEmail: '',
-            newEmail: '',
-            confirmEmail: ''
-          };
           alert('Email updated successfully!');
+          this.router.navigate(['/profil']); 
         },
         error: (error) => {
           console.error('Error updating Email:', error);

@@ -27,7 +27,7 @@ export class UserService {
       `${this.apiUrl}/user/change-password`, passwordData
     );
   }
-  updateEmail(emailData: any): Observable<any> {
+  updateEmail(emailData: { oldEmail: string; newEmail: string }): Observable<any> {
     return this.http.put(`${this.apiUrl}/user/update-email`, emailData);
   }
 }
