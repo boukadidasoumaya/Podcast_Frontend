@@ -4,11 +4,12 @@ import { CommentIconComponent } from '../comment-icon/comment-icon.component';
 import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
 import { Episode, User } from '../../interfaces/app.interfaces';
 import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-episode',
   standalone: true,
-  imports: [RouterModule, HeartIconComponent, CommentIconComponent, HeadphonesIconComponent],
+  imports: [RouterModule, CommonModule,HeartIconComponent, CommentIconComponent, HeadphonesIconComponent],
   templateUrl: './card-episode.component.html',
   styleUrls: ['./card-episode.component.css']
 })

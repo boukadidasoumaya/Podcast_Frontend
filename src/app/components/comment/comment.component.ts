@@ -77,8 +77,9 @@ export class CommentComponent {
       };
 
       // Send to service and wait for the response
-      this.commentService.addComment(newReply);
+      const reply:Comment = await this.commentService.addComment(newReply);
 
+      // this.comment.replies?.push(reply);
       // Show replies and hide reply form
       this.viewReplies = true;
       this.showReplyForm = false;
