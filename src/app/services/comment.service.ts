@@ -29,10 +29,20 @@ export class CommentService {
     });
   }
 
-  addComment(commentData: any): void {
-    console.log('hello');
-    this.socket.emit('comment', commentData);
+  addComment(commentData: any): Promise<Comment> {
+    return new Promise((resolve, reject) => {
+      this.socket.emit('comment', commentData);
+
+      this.socket.once('comment', (data) => {
+        resolve(data);
+      });
+
+      this.socket.once('errorMessage', (error) => {
+        reject(new Error(error));
+      });
+    });
   }
+
 
   onNewComment(): Observable<any> {
     return new Observable((subscriber) => {

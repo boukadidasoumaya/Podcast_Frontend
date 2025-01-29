@@ -1,4 +1,9 @@
 <div class="row">
+  <div class="col-12 subscribe d-flex justify-content-end">
+    <app-subscribe-button></app-subscribe-button>
+  </div>
+</div>
+<div class="row">
   <div class="col-lg-3 col-12">
     <div class="custom-block-icon-wrap">
       <div class="custom-block-image-wrap custom-block-image-detail-page">
@@ -22,7 +27,8 @@
           {{ episode.duration }}
         </small>
 
-        <small class="ms-auto">Episode <span class="badge">{{ episode.podcast.nbre_episode }}</span></small>
+
+        <small class="ms-auto">Episode <span class="badge">{{ episode.number}}</span></small>
       </div>
 
       <h2 class="mb-2">{{ episode.name }}</h2>

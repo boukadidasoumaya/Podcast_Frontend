@@ -5,8 +5,12 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './subscribe-button.component.html',
-  styleUrl: './subscribe-button.component.css'
+  styleUrls: ['./subscribe-button.component.css']
 })
 export class SubscribeButtonComponent {
+  isSubscribed = false;
 
+  toggleSubscribe(): void {
+    this.isSubscribed = !this.isSubscribed; 
+  }
 }
