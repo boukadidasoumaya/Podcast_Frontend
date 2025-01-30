@@ -7,7 +7,7 @@ export interface Podcast {
     image: any;
   }
   
-  export interface Episode {
+  export interface CreateEpisode {
     id?: string;  
     name: string;
     number: number;

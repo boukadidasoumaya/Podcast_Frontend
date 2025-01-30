@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CloudinaryService } from '../../../services/cloudinary.service';
 import { PodcastService } from '../../../services/podcast.service';
 import { EpisodeService } from '../../../services/episode.service';
-import { Podcast, Episode } from '../../models/podcast.model';
+import { Podcast,CreateEpisode } from '../../../models/podcast.model';
 import { TrashComponent } from "../../trash/trash.component";
 
 @Component({
@@ -22,8 +22,8 @@ export class PodcastModalComponent {
 
   step: number = 1;
   data: {
-    podcast: PodcastS;
-    episodes: EpisodeS[];
+    podcast: Podcast;
+    episodes: CreateEpisode[];
   } = {
     podcast: {
       name: '',
