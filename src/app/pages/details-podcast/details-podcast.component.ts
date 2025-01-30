@@ -25,7 +25,7 @@ import { RelatedSectionComponent } from '../../related-section/related-section.c
 })
 export class DetailsPodcastComponent implements OnInit,OnDestroy {
   comments: Comment[] = [];
-  episodeDetails: Episode | null = null;
+  episodeDetails!: Episode ;
   episodeId: number | null = null;
   podcastDetails: Podcast | null = null;
 

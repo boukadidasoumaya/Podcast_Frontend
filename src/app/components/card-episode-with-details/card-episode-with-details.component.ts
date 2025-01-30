@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { SubscribeButtonComponent } from '../shared/buttons/subscribe-button/subscribe-button.component';
 import { RouterLink } from '@angular/router';
-import { User } from '../../interfaces/app.interfaces';
+import { Episode, User } from '../../interfaces/app.interfaces';
 import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,7 +16,7 @@ import { UpdateModalComponent } from '../modals/update-modal/update-modal.compon
   styleUrl: './card-episode-with-details.component.css'
 })
 export class CardEpisodeWithDetailsComponent implements OnInit {
-  @Input() episode: any;
+  @Input() episode!: Episode;
   user: Partial<User> | null = null;
   isEditModalOpen: boolean = false;
 
@@ -37,10 +37,18 @@ export class CardEpisodeWithDetailsComponent implements OnInit {
     this.isEditModalOpen = !this.isEditModalOpen;
   }
 
-  updateEpisode(updatedEpisode: any) {
-    this.episode = { ...updatedEpisode };
-    this.toggleEditModal();
+  updateEpisode(updatedEpisode: Partial<Episode>) {
+    this.episode = {
+      ...this.episode,
+      name: updatedEpisode.name ?? this.episode.name,
+      description: updatedEpisode.description ?? this.episode.description,
+      duration: updatedEpisode.duration ?? this.episode.duration,
+      coverImage: updatedEpisode.coverImage ?? this.episode.coverImage,
+      filepath: updatedEpisode.filepath ?? this.episode.filepath,
+    };
 
+    console.log("updated episode", this.episode);
+    this.toggleEditModal();
   }
   openEditModal(): void {
   this.toggleEditModal();

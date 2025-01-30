@@ -11,21 +11,19 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./upload-progress.component.css'],
 })
 export class UploadProgressComponent {
-  @Input() accept!: string ;
-  @Input() buttonText: string = 'Upload File';
+  @Input() accept!: string;
+  @Input() buttonText!: string;
   @Input() showRemoveButton: boolean = true;
   @Output() fileUploaded = new EventEmitter<string>();
   @Output() fileRemoved = new EventEmitter<void>();
+  @Output() uploadStatusChanged = new EventEmitter<boolean>();
 
   progress: number = 0;
   statusMessage: string = '';
   isUploading: boolean = false;
   uploadedFileUrl: string = '';
 
-  constructor(
-    private cloudinaryService: CloudinaryService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private cloudinaryService: CloudinaryService) {}
 
   triggerFileInput(fileInput: HTMLInputElement): void {
     if (!this.isUploading) {
@@ -43,17 +41,25 @@ export class UploadProgressComponent {
       this.statusMessage = 'Starting upload...';
       this.isUploading = true;
 
+      // Inform the parent that the upload has started
+      this.uploadStatusChanged.emit(true);
+
       try {
-        this.uploadedFileUrl = await this.cloudinaryService.uploadToCloudinary(file);
+        // Upload with progress tracking
+        this.uploadedFileUrl = await this.cloudinaryService.uploadToCloudinaryWithProgress(file, (progress: number) => {
+          this.progress = progress; // Update progress
+          this.statusMessage = `Uploading: ${progress}%`; // Update the status message
+        });
+
         this.statusMessage = 'Upload complete!';
-        this.toastr.success('File uploaded successfully!');
         this.fileUploaded.emit(this.uploadedFileUrl);
       } catch (error) {
         this.statusMessage = 'Upload failed. Please try again.';
-        this.toastr.error('Upload failed. Please try again.');
         console.error('Upload error:', error);
       } finally {
         this.isUploading = false;
+        // Inform the parent that the upload is done
+        this.uploadStatusChanged.emit(false);
       }
     }
   }
@@ -63,5 +69,7 @@ export class UploadProgressComponent {
     this.progress = 0;
     this.statusMessage = '';
     this.fileRemoved.emit();
+    // Inform the parent that the file has been removed
+    this.uploadStatusChanged.emit(false);
   }
 }

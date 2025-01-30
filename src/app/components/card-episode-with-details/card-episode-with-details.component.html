@@ -47,7 +47,7 @@
 
       <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
         <div class="d-flex mb-3 mb-lg-0 mb-md-0">
-          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
+          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" >
           <p>
             {{ episode.podcast.user.firstName + ' ' + episode.podcast.user.lastName }}
             <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
@@ -57,13 +57,13 @@
 
         <ul class="social-icon ms-lg-auto ms-md-auto">
           <li class="social-icon-item">
-            <a [href]="episode.podcast.user.intagramLink" class="social-icon-link bi-instagram"></a>
+            <a [href]="episode.podcast.user.instagramLink" class="social-icon-link bi-instagram"></a>
           </li>
           <li class="social-icon-item">
             <a [href]="episode.podcast.user.twitterLink" class="social-icon-link bi-twitter"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.podcast.user.facebookLink" class="social-icon-link bi-whatsapp"></a>
+            <a [href]="episode.podcast.user.whatsappUser" class="social-icon-link bi-whatsapp"></a>
           </li>
         </ul>
       </div>
@@ -75,7 +75,7 @@
 
 <app-update-modal
   *ngIf="isEditModalOpen"
-  [isPodcast]="false"
+  [type]="'episode'"
   [entityData]="episode"
   (onSave)="updateEpisode($event)"
   (onClose)="closeEditModal()">
