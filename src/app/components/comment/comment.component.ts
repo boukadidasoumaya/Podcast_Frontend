@@ -1,13 +1,13 @@
 // comment.component.ts
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LikeButtonComponent } from './like-button/like-button.component';
+import { LikeButtonComponent } from '../shared/buttons/like-button/like-button.component';
 import { ReplyFormComponent } from './reply-form/reply-form.component';
 import { CommentService } from '../../services/comment.service';
 
 import {User,Comment} from '../../interfaces/app.interfaces'
 import { LikeCommentService } from '../../services/likeComment.service';
-import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { DeleteButtonComponent } from '../shared/buttons/delete-button/delete-button.component';
 @Component({
   selector: 'app-comment',
   standalone: true,

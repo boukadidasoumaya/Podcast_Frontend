@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { SectionCustomComponent } from "../components/section-custom/section-custom.component";
-import { LatestEpisodesComponent } from "../components/latest-episodes/latest-episodes.component";
-import { SwiperComponent } from '../components/swiper/swiper.component';
-import { TopicsComponent } from '../components/topics/topics.component';
-import { TrendingEpisodesComponent } from "../components/trending-episodes/trending-episodes.component";
-import { FooterComponent } from "../components/footer/footer.component";
-import { NavbarComponent } from "../components/navbar/navbar.component";
-import { HeroSectionComponent } from "../components/hero-section/hero-section.component";
+import { SectionCustomComponent } from "../../components/section-custom/section-custom.component";
+import { LatestEpisodesComponent } from "../../components/latest-episodes/latest-episodes.component";
+import { SwiperComponent } from '../../components/swiper/swiper.component';
+import { TopicsComponent } from '../../components/topics/topics.component';
+import { TrendingEpisodesComponent } from "../../components/trending-episodes/trending-episodes.component";
+import { FooterComponent } from "../../components/footer/footer.component";
+import { NavbarComponent } from "../../components/navbar/navbar.component";
+import { HeroSectionComponent } from "../../components/hero-section/hero-section.component";
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,7 +15,7 @@ import { HeroSectionComponent } from "../components/hero-section/hero-section.co
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  
+
   // Add more items here
 displayedTopics = [
 

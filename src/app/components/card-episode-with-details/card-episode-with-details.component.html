@@ -1,8 +1,18 @@
 <div class="row">
   <div class="col-12 subscribe d-flex justify-content-end">
-    <app-subscribe-button></app-subscribe-button>
+    <ng-container *ngIf="user; else noUser">
+      <ng-container *ngIf="user?.id === episode?.podcast?.user?.id; else subscribeButton">
+        <!-- Bouton Modifier -->
+        <button class="btn btn-primary" (click)="openEditModal()">Modifier</button>
+      </ng-container>
+      <ng-template #subscribeButton>
+        <app-subscribe-button></app-subscribe-button>
+      </ng-template>
+    </ng-container>
+    <ng-template #noUser></ng-template>
   </div>
 </div>
+
 <div class="row">
   <div class="col-lg-3 col-12">
     <div class="custom-block-icon-wrap">
@@ -60,3 +70,12 @@
     </div>
   </div>
 </div>
+
+<!-- Edit Modal  -->
+
+<app-edit-episode-modal
+  *ngIf="isEditModalOpen"
+  [episode]="episode"
+  (episodeUpdated)="updateEpisode($event)"
+  >
+</app-edit-episode-modal>

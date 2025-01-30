@@ -11,12 +11,12 @@
         <app-card-episode-with-details [episode]="episodeDetails"></app-card-episode-with-details>
 
         <br>
-       
-        <app-related-section 
+
+        <app-related-section
         [routerLink]="['/details-podcast',episodeId]"
 
-  (episodeSelected)="onEpisodeSelected($event)">
-</app-related-section>
+        (episodeSelected)="onEpisodeSelected($event)">
+        </app-related-section>
         <app-comment-section
         *ngIf="episodeDetails"
         [episode]="episodeDetails"

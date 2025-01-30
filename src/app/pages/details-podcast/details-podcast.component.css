@@ -2,7 +2,7 @@
 @import "../../../assets/css/section.css";
 @import "../../../assets/css/profil-block.css";
 @import "../../../assets/css/social-icon.css";
-@import "../comment/comment.component.css";
+@import "../../components/comment/comment.component.css";
 
 
 .badge {

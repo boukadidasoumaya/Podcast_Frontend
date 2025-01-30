@@ -34,11 +34,11 @@ export interface Episode {
   deletedAt?: string | null;
   id: number;
   name: string;
-  number: number; // Episode number
-  duration: number; // Duration in seconds
-  filepath: string; // URL to the video/audio file
-  views: number; // Number of views
-  podcast: Podcast; // Nested podcast object
+  number: number;
+  duration: number;
+  filepath: string;
+  views: number;
+  podcast: Podcast;
   coverImage: string;
   numberOfLikes: number;
   numberOfComments: number;

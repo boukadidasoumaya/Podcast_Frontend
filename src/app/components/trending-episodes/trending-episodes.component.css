@@ -1,6 +1,6 @@
 @import "../../../assets/css/link.css";
 .custom-btn {
-  background-color: #0056b3; 
+  background-color: #0056b3;
   color: #fff;
   border: none;
   border-radius: 25px;
@@ -13,3 +13,4 @@
   background-color: #40e0d0;
   transform: scale(1.05);
   color: #fff;
+}

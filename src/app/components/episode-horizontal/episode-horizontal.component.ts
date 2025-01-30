@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { HeartIconComponent } from '../heart-icon/heart-icon.component';
-import { CommentIconComponent } from '../comment-icon/comment-icon.component';
-import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
+import { HeartIconComponent } from '../shared/icons/heart-icon/heart-icon.component';
+import { CommentIconComponent } from '../shared/icons/comment-icon/comment-icon.component';
+import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headphones-icon.component';
 import { Episode } from '../../interfaces/app.interfaces';
-import { SubscribeButtonComponent } from '../subscribe-button/subscribe-button.component';
+import { SubscribeButtonComponent } from '../shared/buttons/subscribe-button/subscribe-button.component';
 import { RouterModule } from '@angular/router';
 @Component({
   selector: 'app-episode-horizontal',

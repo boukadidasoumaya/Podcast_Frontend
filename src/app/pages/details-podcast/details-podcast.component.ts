@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SectionCustomComponent } from '../section-custom/section-custom.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/card-episode-with-details.component';
-import { CommentSectionComponent } from '../comment-section/comment-section.component';
+import { SectionCustomComponent } from '../../components/section-custom/section-custom.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { CardEpisodeWithDetailsComponent } from '../../components/card-episode-with-details/card-episode-with-details.component';
+import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../interfaces/app.interfaces';
 import { EpisodeService } from '../../services/episode.service';
 import { RelatedSectionComponent } from '../../related-section/related-section.component';
@@ -39,7 +39,7 @@ export class DetailsPodcastComponent implements OnInit,OnDestroy {
     private episodeService: EpisodeService
   ) {}
   ngOnDestroy(): void {
-   
+
   }
 
   ngOnInit(): void {
@@ -67,7 +67,7 @@ export class DetailsPodcastComponent implements OnInit,OnDestroy {
     }}
     onEpisodeSelected(episodeId: number) {
       this.episodeId = episodeId;
-    
+
       console.log('Episode selected:', episodeId);}
-  
+
     }

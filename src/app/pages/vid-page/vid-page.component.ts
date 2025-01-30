@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { SwiperComponent } from '../components/swiper/swiper.component';
-import { TopicsComponent } from '../components/topics/topics.component';
-import { SectionCustomComponent } from '../components/section-custom/section-custom.component';
-import { VidPlayerComponent } from '../components/vid-player/vid-player.component';
-import { CommentComponent } from '../components/comment/comment.component';
+import { SwiperComponent } from '../../components/swiper/swiper.component';
+import { TopicsComponent } from '../../components/topics/topics.component';
+import { SectionCustomComponent } from '../../components/section-custom/section-custom.component';
+import { VidPlayerComponent } from '../../components/vid-player/vid-player.component';
+import { CommentComponent } from '../../components/comment/comment.component';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { EpisodeService } from '../services/vid-page.service';
-import { Episode } from '../interfaces/app.interfaces';
-import { RelatedSectionComponent } from '../related-section/related-section.component';
+import { EpisodeService } from '../../services/vid-page.service';
+import { Episode } from '../../interfaces/app.interfaces';
+import { RelatedSectionComponent } from '../../related-section/related-section.component';
 @Component({
   selector: 'app-vid-page',
   standalone: true,
@@ -51,7 +51,7 @@ episodeId: number | null = null;
       this.loadRelatedEpisodes();
     });
   }
-  
+
 
   loadRelatedEpisodes() {
     this.episodeService.getRelatedEpisodes(this.podcastId).subscribe(
@@ -67,7 +67,7 @@ episodeId: number | null = null;
 // Method to handle the episode selection
 onEpisodeSelected(episodeId: number) {
   this.episodeId = episodeId;
-   this.loadEpisode(episodeId) 
+   this.loadEpisode(episodeId)
 
 }
 
