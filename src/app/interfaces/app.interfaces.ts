@@ -19,11 +19,17 @@ export interface Podcast {
   id: number;
   name: string;
   views: number;
-  duration: string; // Format: "50m"
+  duration: number; // Format: "50m"
   description: string;
   image: string; // URL to the podcast's image
   rating: number; // Average rating
   download_Count: number;
   nbre_episode: number; // Total number of episodes
   user: User;
+}
+
+export interface Topic {
+  id: number;
+  name: string;
+  description: string;
 }

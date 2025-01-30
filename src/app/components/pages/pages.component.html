@@ -4,24 +4,19 @@
   <!-- Sidebar -->
   <div class="sidebar">
     <h3>Filtre</h3>
-    <app-filtre></app-filtre>
+    <app-filtre (filteredpodcasts)="handleFilteredPodcasts($event)"></app-filtre>
 
   </div>
 
   <!-- Cards Grid -->
   <div class="content">
-    <div class="card" *ngFor="let podcast of podcasts | filterBy:['title']:[''] ">
-      <app-card-episode
-        [imagePath]="podcast.imagePath"
-        [title]="podcast.title"
-        [description]="podcast.description"
-        [profileImage]="podcast.profileImage"
-        [profileName]="podcast.profileName"
-        [profileRole]="podcast.profileRole"
-        [listensCount]="podcast.listensCount"
-        [likesCount]="podcast.likesCount"
-        [commentsCount]="podcast.commentsCount"
-      ></app-card-episode>
-    </div>
+      <app-card-podcast class="card" *ngFor="let podcast of podcasts"
+        [podname]="podcast.name"
+        [podimage]="podcast.image"
+        [duration]="podcast.duration"
+        [nbre_episodes]="podcast.nbre_episode"
+        [username]="podcast.user?.username"
+        [userimage]="podcast.user?.photo"
+        ></app-card-podcast>
   </div>
 </div>

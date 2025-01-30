@@ -19,8 +19,8 @@
       <div class="filter-group">
         <label>Duration</label>
         <div class="range-input">
-          <input type="number" placeholder="De" min="30" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
-          <input type="number" placeholder="À" min="30" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
+          <input type="number" placeholder="De" min="1" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
+          <input type="number" placeholder="À" min="1" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
         </div>
       </div>
 
@@ -36,11 +36,8 @@
     </div>
 
     <label>Presentor</label>
-    <div class="category-select">
-
-      <select name="presentor" [(ngModel)]="filtres.user">
-        <option *ngFor="let user of users" value="user">{{ user }}</option>
-      </select>
+    <div class="search-input">
+      <input type="text" placeholder="Presentor" name="presentor" [(ngModel)]="filtres.user">
     </div>
   </section>
 

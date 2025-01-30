@@ -8,6 +8,7 @@ import { NavbarComponent } from '../navbar/navbar.component';
 import { NgArrayPipesModule } from 'ngx-pipes';
 import { CardPodcastComponent } from '../card-podcast/card-podcast.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { Podcast } from '../../interfaces/app.interfaces';
 
 
 @Component({
@@ -19,60 +20,12 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 })
 export class PagesComponent {
 
-  podcasts=[{
-    imagePath: 'assets/images/podcast/27376480_7326766.jpg',
-    title: 'Vintage Show',
-    description: 'Lorem Ipsum dolor sit amet consectetur',
-    profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-    profileName: 'Elsa',
-    profileRole: 'Influencer',
-    listensCount: '120k',
-    likesCount: '2.3k',
-    commentsCount: '500'
-  },
-  {
-    imagePath: 'assets/images/podcast/27670664_7369753.jpg',
-    title: 'Vintage Show',
-    description: 'Lorem Ipsum dolor sit amet consectetur',
-    profileImage: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-    profileName: 'Taylor',
-    profileRole: 'Creator',
-    listensCount: '200k',
-    likesCount: '5k',
-    commentsCount: '2k'
-  },
-  {
-    imagePath: 'assets/images/podcast/12577967_02.jpg',
-    title: 'Daily Talk',
-    description: 'Lorem Ipsum dolor sit amet consectetur',
-    profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-    profileName: 'William',
-    profileRole: 'Vlogger',
-    listensCount: '500k',
-    likesCount: '15k',
-    commentsCount: '10k'
-  },
-  {
-    imagePath: 'assets/images/podcast/27670664_7369753.jpg',
-    title: 'Vintage Show',
-    description: 'Lorem Ipsum dolor sit amet consectetur',
-    profileImage: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-    profileName: 'Taylor',
-    profileRole: 'Creator',
-    listensCount: '200k',
-    likesCount: '5k',
-    commentsCount: '2k'
-  },
-  {
-    imagePath: 'assets/images/podcast/12577967_02.jpg',
-    title: 'Daily Talk',
-    description: 'Lorem Ipsum dolor sit amet consectetur',
-    profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-    profileName: 'William',
-    profileRole: 'Vlogger',
-    listensCount: '500k',
-    likesCount: '15k',
-    commentsCount: '10k'
-  }];
+  constructor(private http: HttpClient) { }
+
+  podcasts:any[]=[];
+  async handleFilteredPodcasts(event: { podcasts: Podcast[] }) {
+    this.podcasts = event.podcasts;
+    console.log('Podcasts filtrés reçus dans PagesComponent:', this.podcasts);
+  }
 
 }

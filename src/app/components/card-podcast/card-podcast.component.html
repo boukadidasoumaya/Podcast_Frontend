@@ -1,28 +1,27 @@
 <article class="podcast-card">
   <div class="cover-container">
-      <img class="cover-image" src="../../../assets/images/podcast/12577967_02.jpg" alt="Cover Image" />
-      <div class="episode-container">
-        <div class="episode-badge">35</div>
-        <span class="episode-name" >Episodes</span>
-      </div>
-
+    <img class="cover-image" [src]="podimage" alt="Cover Image" />
+    <div class="episode-container">
+      <div class="episode-badge">{{ nbre_episodes }}</div>
+      <span class="episode-name">Episodes</span>
     </div>
+  </div>
 
   <div class="content-container">
-      <h2 class="podcast-title">Le Podcast des Arts</h2>
+    <h2 class="podcast-title">{{ podname }}</h2>
 
-      <div class="presenters">
-          <div class="presenter">
-              <img class="presenter-image" src="../../../assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg" alt="Presenter 1" />
-              <span class="presenter-name">Luc Wintsch</span>
-          </div>
-          <div class="presenter">
-              <img class="presenter-image" src="../../../assets/images/profile/man-portrait.jpg" alt="Presenter 2" />
-              <span class="presenter-name" >Marie Durand</span>
-          </div>
+    <div class="presenters">
+      <div class="presenter">
+        <img class="presenter-image" [src]="userimage" alt="Presenter" />
+        <span class="presenter-name">{{ username }}</span>
       </div>
-      <p class="topic">Creations</p>
+    </div>
+
+    <p class="topic">{{ topic }}</p>
 
 
+    <div class="duration">
+      ⏳ {{ duration }} heures
+    </div>
   </div>
 </article>
