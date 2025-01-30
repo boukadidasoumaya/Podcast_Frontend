@@ -2,19 +2,20 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
+import { UploadProgressComponent } from '../../upload-progress/upload-progress.component';
 
 @Component({
   selector: 'app-update-modal',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule,UploadProgressComponent],
   templateUrl: './update-modal.component.html',
   styleUrls: ['./update-modal.component.css'],
 })
 export class UpdateModalComponent implements OnInit {
-  @Input() isPodcast: boolean = true; 
-  @Input() entityData: any; 
-  @Output() onSave = new EventEmitter<any>(); 
-  @Output() onClose = new EventEmitter<void>(); 
+  @Input() isPodcast: boolean = true;
+  @Input() entityData: any;
+  @Output() onSave = new EventEmitter<any>();
+  @Output() onClose = new EventEmitter<void>();
 
   updateForm!: FormGroup;
 
@@ -25,7 +26,7 @@ export class UpdateModalComponent implements OnInit {
 
   ngOnInit(): void {
     this.updateForm = this.fb.group({
-      title: [this.entityData?.title || '', Validators.required],
+      name: [this.entityData?.name || '', Validators.required],
       description: [this.entityData?.description || '', Validators.required],
       file: [null], // Champs spécifique aux épisodes
       image: [null], // Champs spécifique aux podcasts
@@ -47,5 +48,9 @@ export class UpdateModalComponent implements OnInit {
 
   closeModal(): void {
     this.onClose.emit(); // Émet l'événement de fermeture
+  }
+  handleFileUploaded(fileUrl: string): void {
+    console.log('File uploaded successfully:', fileUrl);
+    // You can save the uploaded URL or do further actions
   }
 }

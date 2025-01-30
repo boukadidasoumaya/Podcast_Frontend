@@ -6,11 +6,12 @@ import { UserService } from '../../services/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditEpisodeModalComponent } from '../modals/edit-episode-modal/edit-episode-modal.component';
+import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
 
 @Component({
   selector: 'app-card-episode-with-details',
   standalone: true,
-  imports: [CommonModule, RouterLink,FormsModule,SubscribeButtonComponent,EditEpisodeModalComponent],
+  imports: [CommonModule, RouterLink,FormsModule,SubscribeButtonComponent,UpdateModalComponent],
   templateUrl: './card-episode-with-details.component.html',
   styleUrl: './card-episode-with-details.component.css'
 })

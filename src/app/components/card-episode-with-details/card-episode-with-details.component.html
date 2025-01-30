@@ -73,9 +73,10 @@
 
 <!-- Edit Modal  -->
 
-<app-edit-episode-modal
+<app-update-modal
   *ngIf="isEditModalOpen"
-  [episode]="episode"
-  (episodeUpdated)="updateEpisode($event)"
-  >
-</app-edit-episode-modal>
+  [isPodcast]="false"
+  [entityData]="episode"
+  (onSave)="updateEpisode($event)"
+  (onClose)="closeEditModal()">
+</app-update-modal>
