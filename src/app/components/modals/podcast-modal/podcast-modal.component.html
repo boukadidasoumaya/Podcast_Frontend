@@ -177,10 +177,10 @@
               >
                 <span class="btn__text">Upload</span>
               </button>
-              <div *ngIf="episode.coverImage">
-                <span>Uploaded: {{ episode.coverImage }}</span>
+              <div *ngIf="episode.filepath">
+                <span>Uploaded: {{ episode.filepath }}</span>
                 <
-                <button type="button" (click)="removeFile('episode-cover', i)">
+                <button type="button" (click)="removeFile('episode', i)">
                   <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
               </div>
 
@@ -202,6 +202,12 @@
               >
                 <span class="btn__text">Upload Cover Image</span>
               </button>
+              <div *ngIf="episode.coverImage">
+                <span>Uploaded: {{ episode.coverImage }}</span>
+                <
+                <button type="button" (click)="removeFile('episode-cover', i)">
+                  <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+              </div>
             </div>
           </div>
         </div>
