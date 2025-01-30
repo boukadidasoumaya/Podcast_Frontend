@@ -7,10 +7,11 @@ import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.comp
 import { Episode } from '../../interfaces/app.interfaces';
 import { SubscribeButtonComponent } from '../subscribe-button/subscribe-button.component';
 import { RouterModule } from '@angular/router';
+import { SaveIconComponent } from "../save-icon/save-icon.component";
 @Component({
   selector: 'app-episode-horizontal',
   standalone: true,
-  imports: [RouterModule,CommonModule,HeartIconComponent,CommentIconComponent,HeadphonesIconComponent,SubscribeButtonComponent],
+  imports: [RouterModule, CommonModule, HeartIconComponent, CommentIconComponent, HeadphonesIconComponent, SubscribeButtonComponent, SaveIconComponent],
   templateUrl: './episode-horizontal.component.html',
   styleUrl: './episode-horizontal.component.css'
 })

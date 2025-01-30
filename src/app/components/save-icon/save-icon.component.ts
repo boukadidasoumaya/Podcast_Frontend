@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-
+import { Component, OnInit } from '@angular/core';
+import { Input } from '@angular/core'
+import { BookmarkService } from './bookmark.service';
 @Component({
   selector: 'app-save-icon',
   standalone: true,
@@ -8,10 +9,35 @@ import { Component } from '@angular/core';
   templateUrl: './save-icon.component.html',
   styleUrl: './save-icon.component.css'
 })
-export class SaveIconComponent {
+export class SaveIconComponent implements OnInit{
+  @Input() userId!: number;
+  @Input() episodeId!: number;
   isBookmarked: boolean = false;
 
+  constructor(private bookmarkService: BookmarkService) {}
+
+  ngOnInit(): void {
+    this.bookmarkService.isBookmarked(this.userId, this.episodeId).subscribe(
+      (isBookmarked) => {
+        console.log(isBookmarked)
+        this.isBookmarked = isBookmarked;
+      },
+      (error) => {
+        console.error('Error checking bookmark:', error);
+      }
+    );
+  }
+
   toggleBookmark(): void {
-    this.isBookmarked = !this.isBookmarked;
+    if (this.isBookmarked) {
+      this.bookmarkService.removeBookmark(this.userId, this.episodeId).subscribe(() => {
+        this.isBookmarked = false;
+      });
+    } else {
+      console.log('ddddddddddddddddddddfrefzf')
+      this.bookmarkService.addBookmark(this.userId, this.episodeId).subscribe(() => {
+        this.isBookmarked = true;
+      });
+    }
   }
 }
