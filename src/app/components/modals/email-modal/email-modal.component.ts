@@ -25,25 +25,44 @@ export class EmailModalComponent {
         alert('New Emails do not match!');
         return;
       }
-
+  
       const emailUpdateData = {
         oldEmail: this.emailData.currentEmail,
-        newEmail: this.emailData.newEmail
+        newEmail: this.emailData.newEmail,
       };
-
-      this.userService.updateEmail(emailUpdateData).subscribe({
-        next: (response) => {
-          console.log('Email updated successfully:', response);
-          alert('Email updated successfully!');
-          this.router.navigate(['/profil']); 
-        },
-        error: (error) => {
-          console.error('Error updating Email:', error);
-          alert(error.error.message || 'Error updating Email');
-        },
-      });
+  
+      this.userService.updateEmail(emailUpdateData)
+        .subscribe({
+          next: (response) => {
+            console.log('Email updated successfully:', response);
+            
+            localStorage.removeItem('authToken');
+            
+            this.userService.updateToken(emailUpdateData.newEmail)
+              .subscribe({
+                next: (response) => {
+                  if (response.accessToken) {
+                    localStorage.setItem('authToken', response.accessToken);
+                    alert('Email and Token updated successfully!');
+                    this.router.navigate(['/profil']);
+                  } else {
+                    console.error('Token not found in the response.');
+                  }
+                },
+                error: (error) => {
+                  console.error('Error updating token:', error);
+                  alert(error.error.message || 'Error updating Token');
+                }
+              });
+          },
+          error: (error) => {
+            console.error('Error during update process:', error);
+            alert(error.error.message || 'Error updating Email');
+          }
+        });
     } else {
       alert('Please fill all required fields correctly');
     }
   }
+  
 }

@@ -30,4 +30,8 @@ export class UserService {
   updateEmail(emailData: { oldEmail: string; newEmail: string }): Observable<any> {
     return this.http.put(`${this.apiUrl}/user/update-email`, emailData);
   }
+
+  updateToken(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/update-token`, { email });
+  }
 }
