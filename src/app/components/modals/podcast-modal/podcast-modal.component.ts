@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
@@ -15,6 +15,10 @@ import { Podcast, Episode } from '../../models/podcast.model';
   styleUrls: ['./podcast-modal.component.css'],
 })
 export class PodcastModalComponent {
+  @ViewChild('closeBtn', { static: false }) closeBtn!: ElementRef<HTMLButtonElement>;
+
+  isUploading = false; 
+
   step: number = 1;
   data: {
     podcast: Podcast;
@@ -46,7 +50,7 @@ export class PodcastModalComponent {
       duration: 0,
       filepath: '',
       coverImage: '',
-      number: i + 1,  // Automatically set the episode number
+      number: i + 1,  
       podcast: this.data.podcast,
     }));
   }
@@ -78,13 +82,13 @@ export class PodcastModalComponent {
 
       this.toastr.info('Upload in progress...', 'Info');
       
-      // Upload the podcast image to Cloudinary
+    
       if (this.data.podcast.image instanceof File) {
         const imageUrl = await this.cloudinaryService.uploadToCloudinary(this.data.podcast.image);
         this.data.podcast.image = imageUrl;
       }
 
-      // Create the podcast
+    
       const createdPodcast = await this.podcastService.createPodcast(this.data.podcast).toPromise();
       console.log(createdPodcast)
 
@@ -92,7 +96,7 @@ export class PodcastModalComponent {
         throw new Error('Podcast creation failed');
       }
 
-      // Upload episodes and associate them with the created podcast
+      
       for (const episode of this.data.episodes) {
         if (episode.filepath instanceof File) {
           const episodeFileUrl = await this.cloudinaryService.uploadToCloudinary(episode.filepath);
@@ -104,19 +108,25 @@ export class PodcastModalComponent {
           episode.coverImage = coverImageUrl;
         }
 
-        // Only send the podcast ID, not the entire object
+       
         episode.podcast =  createdPodcast;
 
-        // Create each episode
+        
         await this.episodeService.createEpisode(episode).toPromise();
       }
 
-      console.log('Podcast and episodes uploaded successfully');
+     
       this.toastr.success('Podcast and episodes added successfully!', 'Success');
+      this.resetForm();
+      setTimeout(() => {
+        this.closeBtn.nativeElement.click();
+      }, 500);
     } catch (error) {
       console.error('Error during upload:', error);
       this.toastr.error('Error during upload.', 'Error');
-      console.log(this.data);
+     
+    }finally {
+      this.isUploading = false; 
     }
   }
 
@@ -173,5 +183,13 @@ export class PodcastModalComponent {
       return false;
     }
     return true;
+  }
+  resetForm() {
+    this.data = {
+      podcast: { name: '', topic: '', description: '', nbre_episode: 0, image: '' },
+      episodes: [],
+    };
+    this.step = 1;
+
   }
 }

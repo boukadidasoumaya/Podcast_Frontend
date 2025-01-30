@@ -16,6 +16,7 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          #closeBtn
         ></button>
       </div>
       <div class="modal-body scrollable-content">
@@ -220,8 +221,8 @@
         <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
           → 
         </button>
-        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
-          Finish
+        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload() " [disabled]="isUploading">
+          {{ isUploading ? 'Uploading...' : 'Finish Upload' }}
         </button>
       </div>
     </div>
