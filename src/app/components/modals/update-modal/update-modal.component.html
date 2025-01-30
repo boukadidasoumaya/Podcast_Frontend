@@ -7,12 +7,12 @@
       <div class="modal-body">
         <form [formGroup]="updateForm">
           <div class="form-group">
-            <label for="title">Title</label>
+            <label for="name">Name</label>
             <input
-              id="title"
-              formControlName="title"
+              id="name"
+              formControlName="name"
               type="text"
-              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} title"
+              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} name"
             />
           </div>
           <div class="form-group">
@@ -23,72 +23,20 @@
               placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} description"
             ></textarea>
           </div>
-          <div *ngIf="!isPodcast" class="form-group">
-            <label>MP4 File</label>
-            <input
-              id="file"
-              type="file"
-              #fileInput
-              style="display: none;"
-              (change)="onFileSelect($event)"
-            />
-            <button class="button" type="button" (click)="triggerFileInput(fileInput)">
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
-              <span class="btn__text">Upload MP4</span>
-            </button>
-          </div>
-          <div *ngIf="isPodcast" class="form-group">
-            <label>Podcast Image</label>
-            <input
-              id="image"
-              type="file"
-              #imageInput
-              style="display: none;"
-              (change)="onFileSelect($event, 'image')"
-            />
-            <button class="button" type="button" (click)="triggerFileInput(imageInput)">
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
-              <span class="btn__text">Upload Image</span>
-            </button>
-          </div>
+          <app-upload-progress
+              accept="'.png, .jpeg, .jpg, .svg'"
+              [buttonText]="isPodcast ? 'Podcast Cover Image' : 'Episode Cover Image'"
+              (fileUploaded)="handleFileUploaded($event)">
+            </app-upload-progress>
+
+        <app-upload-progress
+            *ngIf="!isPodcast"
+            accept="'.mp3,.mp4'"
+            buttonText="Upload Episode File"
+            (fileUploaded)="handleFileUploaded($event)"
+          ></app-upload-progress>
+
+
         </form>
       </div>
       <div class="modal-footer">
@@ -96,4 +44,3 @@
       </div>
     </div>
   </div>
-  

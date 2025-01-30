@@ -22,8 +22,8 @@ export class PodcastModalComponent {
 
   step: number = 1;
   data: {
-    podcast: Podcast;
-    episodes: Episode[];
+    podcast: PodcastS;
+    episodes: EpisodeS[];
   } = {
     podcast: {
       name: '',

@@ -13,7 +13,6 @@ import { CommentService } from '../../../services/comment.service';
   styleUrl: './reply-form.component.css'
 })
 export class ReplyFormComponent  {
-  @Input() comment!: Comment;
   @Output() onDataReceived = new EventEmitter<string>();
 
   replyText: string = '';

@@ -30,26 +30,26 @@ export class LoginComponent {
     confirmPassword: '',
     selectedInterests: [] as string[]
     };
- 
+
     interests: string[] = [];
 
     isStepValid(step: number): boolean {
     switch (step) {
       case 1:
-        return !!(this.Data.firstName && 
-                 this.Data.lastName && 
-                 this.Data.username && 
+        return !!(this.Data.firstName &&
+                 this.Data.lastName &&
+                 this.Data.username &&
                  this.Data.email &&
                  this.isValidEmail(this.Data.email));
       case 2:
-        return !!(this.Data.birthday && 
-                 this.Data.country && 
-                 this.Data.profession && 
+        return !!(this.Data.birthday &&
+                 this.Data.country &&
+                 this.Data.profession &&
                  this.Data.role);
       case 3:
-        return !!(this.Data.password && 
+        return !!(this.Data.password &&
                  this.Data.confirmPassword&&
-                 this.Data.password === this.Data.confirmPassword 
+                 this.Data.password === this.Data.confirmPassword
                 );
       default:
         return false;
@@ -74,7 +74,7 @@ export class LoginComponent {
   }
 
   currentStep = 1;
-  
+
   nextStep() {
     if (this.isStepValid(this.currentStep)) {
       if (this.currentStep < 4) {
@@ -107,11 +107,11 @@ export class LoginComponent {
     this.authService.login(this.Data).subscribe({
       next: (response) => {
         console.log('Login successful', response);
-  
+
         if (response.accessToken) {
           localStorage.setItem('authToken', response.accessToken);
-  
-          this.router.navigate(['/profil']); 
+
+          this.router.navigate(['/']);
         } else {
           console.error('Token not found in the response.');
         }
@@ -121,7 +121,7 @@ export class LoginComponent {
       },
     });
   }
-  
+
   ngOnInit() {
     this.loadInterests();
   }
@@ -129,7 +129,7 @@ export class LoginComponent {
   loadInterests() {
     this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({
       next: (data) => {
-        this.interests = data; 
+        this.interests = data;
       },
       error: (err) => {
         console.error('Failed to load interests:', err);

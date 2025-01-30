@@ -1,8 +1,23 @@
 <div class="row">
+  <div class="col-12 subscribe d-flex justify-content-end">
+    <ng-container *ngIf="user; else noUser">
+      <ng-container *ngIf="user?.id === episode?.podcast?.user?.id; else subscribeButton">
+        <!-- Bouton Modifier -->
+        <button class="btn btn-primary" (click)="openEditModal()">Modifier</button>
+      </ng-container>
+      <ng-template #subscribeButton>
+        <app-subscribe-button></app-subscribe-button>
+      </ng-template>
+    </ng-container>
+    <ng-template #noUser></ng-template>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-lg-3 col-12">
     <div class="custom-block-icon-wrap">
       <div class="custom-block-image-wrap custom-block-image-detail-page">
-        <img [src]="episode.imagePath" class="custom-block-image img-fluid" alt="{{ episode.title }}">
+        <img [src]="episode.coverImage" class="custom-block-image img-fluid" alt="{{ episode.name }}">
       </div>
     </div>
   </div>
@@ -11,7 +26,7 @@
     <div class="custom-block-info">
       <div class="custom-block-top d-flex mb-1">
         <small class="me-4">
-          <a href="#">
+          <a [routerLink]="['/episode', episode.id]" >
             <i class="bi-play"></i>
             Play now
           </a>
@@ -22,35 +37,46 @@
           {{ episode.duration }}
         </small>
 
-        <small class="ms-auto">Episode <span class="badge">{{ episode.episodeNumber }}</span></small>
+
+        <small class="ms-auto">Episode <span class="badge">{{ episode.number}}</span></small>
       </div>
 
-      <h2 class="mb-2">{{ episode.title }}</h2>
+      <h2 class="mb-2">{{ episode.name }}</h2>
 
       <p>{{ episode.description }}</p>
 
       <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
         <div class="d-flex mb-3 mb-lg-0 mb-md-0">
-          <img [src]="episode.profileImage" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
+          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
           <p>
-            {{ episode.profileName }}
+            {{ episode.podcast.user.firstName + ' ' + episode.podcast.user.lastName }}
             <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
-            <strong>{{ episode.profileRole }}</strong>
+            <strong>{{ episode.podcast.user.profession }}</strong>
           </p>
         </div>
 
         <ul class="social-icon ms-lg-auto ms-md-auto">
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.instagram" class="social-icon-link bi-instagram"></a>
+            <a [href]="episode.podcast.user.intagramLink" class="social-icon-link bi-instagram"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.twitter" class="social-icon-link bi-twitter"></a>
+            <a [href]="episode.podcast.user.twitterLink" class="social-icon-link bi-twitter"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.socialLinks.whatsapp" class="social-icon-link bi-whatsapp"></a>
+            <a [href]="episode.podcast.user.facebookLink" class="social-icon-link bi-whatsapp"></a>
           </li>
         </ul>
       </div>
     </div>
   </div>
 </div>
+
+<!-- Edit Modal  -->
+
+<app-update-modal
+  *ngIf="isEditModalOpen"
+  [isPodcast]="false"
+  [entityData]="episode"
+  (onSave)="updateEpisode($event)"
+  (onClose)="closeEditModal()">
+</app-update-modal>

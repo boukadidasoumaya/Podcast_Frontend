@@ -1,5 +1,5 @@
-  <div class="custom-block custom-block-overlay">
-    <a [routerLink]="['/podcast', podcastId, 'episode', episodeId]" class="custom-block-image-wrap">      <img [src]="image" class="custom-block-image img-fluid" alt="">
+  <div class="custom-block custom-block-overlay owner-card">
+    <a  class="custom-block-image-wrap">      <img [src]="image" class="custom-block-image img-fluid" alt="">
     </a>
 
     <div class="custom-block-info custom-block-overlay-info">
@@ -10,4 +10,7 @@
       </h5>
       <p class="badge mb-0">{{ episodes }} {{customtext }}</p>
     </div>
+
+    <app-delete-button class="delete-btn"></app-delete-button>
+
   </div>

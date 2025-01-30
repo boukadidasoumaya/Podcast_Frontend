@@ -1,39 +1,86 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
-import { CommonModule } from '@angular/common';  // Importation nécessaire
+import { CommonModule } from '@angular/common';
+import { Episode, User } from '../../interfaces/app.interfaces';
+import { EpisodeService } from '../../services/episode.service';
+import { Subscription } from 'rxjs';
+import { LikeEpisodeService } from '../../services/likeEpisode-websocket.service';
+import { LikeEpisodeServiceRest } from '../../services/likeEpisode-rest.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-trending-episodes',
   standalone: true,
-  imports: [CardEpisodeComponent, CommonModule],  // Ajoute CommonModule ici
+  imports: [CardEpisodeComponent, CommonModule, RouterLink],
   templateUrl: './trending-episodes.component.html',
   styleUrls: ['./trending-episodes.component.css']
 })
-export class TrendingEpisodesComponent {
-  episodes = [
-    {
-      imagePath: 'assets/images/podcast/27376480_7326766.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/woman-posing-black-dress-medium-shot.jpg',
-      profileName: 'Elsa',
-      profileRole: 'Influencer'
-    },
-    {
-      imagePath: 'assets/images/podcast/27670664_7369753.jpg',
-      title: 'Vintage Show',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      profileName: 'Taylor',
-      profileRole: 'Creator'
-    },
-    {
-      imagePath: 'assets/images/podcast/12577967_02.jpg',
-      title: 'Daily Talk',
-      description: 'Lorem Ipsum dolor sit amet consectetur',
-      profileImage: 'assets/images/profile/handsome-asian-man-listening-music-through-headphones.jpg',
-      profileName: 'William',
-      profileRole: 'Vlogger'
+export class TrendingEpisodesComponent implements OnInit, OnDestroy {
+  episodes: Episode[] = [];
+  private likeSubscription: any;
+  private unlikeSubscription: any;
+
+  // Nombre de likes pour chaque épisode
+  likes: { [episodeId: number]: number } = {};
+
+  // Track liked state for each episode
+  likedEpisodes: { [episodeId: number]: boolean } = {};
+
+  user: Partial<User> = {};
+
+
+  constructor(
+    private episodeService: EpisodeService,
+    private likeEpisodeService: LikeEpisodeService,
+    private likeEpisodeServiceRest:LikeEpisodeServiceRest,
+    private userService:UserService
+
+  ) {}
+
+  ngOnInit(): void {
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.user = user;
+    });
+    // Récupération des épisodes tendances
+    this.episodeService.getAllEpisodesTrending().subscribe((data) => {
+      this.episodes = data;
+      this.episodes.forEach((episode) => {
+        this.likes[episode.id] = episode.numberOfLikes;
+      });
+    });
+
+    // Récupération des épisodes likés par l'utilisateur
+    this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
+      likedEpisodes.forEach((episode) => {
+        this.likedEpisodes[episode.id] = true;
+      });
+    });
+    console.log('liked',this.likedEpisodes),
+    // Gestion des likes en temps réel
+    this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
+        this.likes[data.episode] = data.numberOfLikes;
+    });
+
+    // Gestion des unlikes en temps réel
+    this.unlikeSubscription = this.likeEpisodeService.onUnlikeEpisode().subscribe((data) => {
+      this.likes[data.episode] = data.numberOfLikes;
+    });
+  }
+
+
+  ngOnDestroy(): void {
+    this.likeSubscription?.unsubscribe();
+    this.unlikeSubscription?.unsubscribe();
+  }
+
+  onLikeChanged(event: { isLiked: boolean, episode: Episode }): void {
+    const { isLiked, episode } = event;
+    this.likedEpisodes[episode.id] = isLiked;
+    if (isLiked) {
+      this.likeEpisodeService.likeEpisode(this.user, episode);
+    } else {
+      this.likeEpisodeService.unlikeEpisode(this.user, episode);
     }
-  ];
+  }
 }

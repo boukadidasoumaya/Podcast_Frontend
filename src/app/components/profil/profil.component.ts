@@ -31,7 +31,7 @@ export class ProfilComponent  implements OnInit {
     this.loadUserProfile();
   }
 
-  
+
   loadUserProfile() {
     this.isLoading = true;
     this.userService.getUserProfile().subscribe({
