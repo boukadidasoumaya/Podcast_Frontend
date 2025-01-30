@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { SwiperComponent } from '../components/swiper/swiper.component';
-import { TopicsComponent } from '../components/topics/topics.component';
-import { SectionCustomComponent } from '../components/section-custom/section-custom.component';
+import { SwiperComponent } from '../swiper/swiper.component';
+import { TopicsComponent } from '../topics/topics.component';
+import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { Input,Output } from '@angular/core';
-import { Episode } from '../interfaces/app.interfaces';
-import { EpisodeService } from '../services/vid-page.service';
+import { Episode } from '../../interfaces/app.interfaces';
+import { EpisodeService } from '../../services/vid-page.service';
 import { takeUntil } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';

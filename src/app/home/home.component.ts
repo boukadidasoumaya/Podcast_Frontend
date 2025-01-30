@@ -7,6 +7,8 @@ import { TrendingEpisodesComponent } from "../components/trending-episodes/trend
 import { FooterComponent } from "../components/footer/footer.component";
 import { NavbarComponent } from "../components/navbar/navbar.component";
 import { HeroSectionComponent } from "../components/hero-section/hero-section.component";
+import { TopicService } from '../services/topics.service';
+import { Topic } from '../interfaces/app.interfaces';
 @Component({
   selector: 'app-home',
   standalone: true,
@@ -15,43 +17,17 @@ import { HeroSectionComponent } from "../components/hero-section/hero-section.co
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-  
-  // Add more items here
-displayedTopics = [
+  displayedTopics: Topic[] = [];  // Type is Topic[] to match the interface
 
-  {
-    title: 'Mindfulness',
-    image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
-    episodes: 35
-  },
-  {
-    title: 'Cooking',
-    image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg',
-    episodes: 12
-  },
-  {
-    title: 'Mindfulness',
-    image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
-    episodes: 35
-  },
-  {
-    title: 'Cooking',
-    image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg',
-    episodes: 12
-  },
-  {
-    title: 'Mindfulness',
-    image: 'images/topics/woman-practicing-yoga-mat-home.jpg',
-    episodes: 35
-  },
-  {
-    title: 'Cooking',
-    image: 'images/topics/delicious-meal-with-sambal-arrangement.jpg',
-    episodes: 12
-  },
+  constructor(private topicService: TopicService) {}
 
-
-];
+  ngOnInit(): void {
+    this.topicService.getTopicsWithPodcastCount().subscribe((data) => {
+      this.displayedTopics= data;
+    console.log('tttttttttttttttttttttttttttttt')
+    console.log(this.displayedTopics)
+    console.log(this.displayedTopics)
+  })}
 podcasters = [
   {
     name: 'Taylor',

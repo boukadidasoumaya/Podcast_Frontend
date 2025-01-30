@@ -15,7 +15,7 @@ export class TopicsComponent {
   @Input() image: string = ''; // Input for image source
   @Input() title: string = ''; // Input for title
   @Input() customtext: string = ''; // Input for title
-  @Input() episodes: number = 0; // Input for episodes (optional)
+  @Input() numbers: number = 0; // Input for episodes (optional)
   @Input() podcastId: number=0;
 @Input() episodeId: number=0;
 

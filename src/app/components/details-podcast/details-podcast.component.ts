@@ -7,7 +7,7 @@ import { CardEpisodeWithDetailsComponent } from '../card-episode-with-details/ca
 import { CommentSectionComponent } from '../comment-section/comment-section.component';
 import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../interfaces/app.interfaces';
 import { EpisodeService } from '../../services/episode.service';
-import { RelatedSectionComponent } from '../../related-section/related-section.component';
+import { RelatedSectionComponent } from '../related-section/related-section.component';
 
 @Component({
   selector: 'app-details-podcast',

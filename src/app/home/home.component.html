@@ -12,7 +12,8 @@
     <ng-template let-topic>
       <app-topics
         [title]="topic.title"
-        [customtext]="topic.episodes + ' Episodes'"
+        [customtext]="'Episodes'"
+        [numbers]="topic.podcastCount"
         [image]="topic.image"
       ></app-topics>
     </ng-template>

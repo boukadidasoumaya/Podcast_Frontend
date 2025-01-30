@@ -9,7 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { EpisodeService } from '../services/vid-page.service';
 import { Episode } from '../interfaces/app.interfaces';
-import { RelatedSectionComponent } from '../related-section/related-section.component';
+import { RelatedSectionComponent } from '../components/related-section/related-section.component';
 @Component({
   selector: 'app-vid-page',
   standalone: true,

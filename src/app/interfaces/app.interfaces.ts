@@ -74,3 +74,9 @@ export interface Owner {
   interests: string[];
 }
 
+export interface Topic {
+  id: number;
+  title: string;
+  image: string;
+  podcastCount: string;
+}

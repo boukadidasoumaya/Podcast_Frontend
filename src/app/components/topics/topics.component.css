@@ -1,7 +1,17 @@
-@import '../../../assets/css/custom-block.css';
-@import '../../../assets/css/social-icon.css';
+@import "../../../assets/css/custom-block.css";
+@import "../../../assets/css/section.css";
+@import "../../../assets/css/profil-block.css";
+@import "../../../assets/css/social-icon.css";
+@import "../../../assets/css/templatemo-pod-talk.css";
 
 
+.badge {
+  background-color: rgb(26, 123, 202);
+  font-family: var(--title-font-family);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  padding-bottom: 5px;
+}
 .custom-block {
   width: 100%; /* Ensures consistent width */
   max-width: 400px; /* Adjust as needed */
@@ -23,3 +33,4 @@ a {
   
   
 }
+
