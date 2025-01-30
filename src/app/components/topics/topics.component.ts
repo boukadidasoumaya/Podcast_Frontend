@@ -12,7 +12,6 @@ import { DeleteButtonComponent } from '../shared/buttons/delete-button/delete-bu
   styleUrl: './topics.component.css'
 })
 export class TopicsComponent {
-
   @Input() image: string = ''; // Input for image source
   @Input() title: string = ''; // Input for title
   @Input() customtext: string = ''; // Input for title

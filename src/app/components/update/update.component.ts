@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-update',
   standalone: true,
-  imports: [UpdateModalComponent,CommonModule],
+  imports: [UpdateModalComponent, CommonModule, ],
   templateUrl: './update.component.html',
   styleUrl: './update.component.css'
 })

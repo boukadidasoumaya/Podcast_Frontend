@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,TopicsComponent
+  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent
   ],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']

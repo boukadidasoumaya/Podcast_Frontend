@@ -13,8 +13,8 @@ export class EpisodeService {
   constructor(private http: HttpClient) {}
 
   // Appel pour créer un nouvel épisode
-  createEpisode(createEpisodeDto: any): Observable<Episode> {
-    return this.http.post<Episode>(`${this.apiUrl}`, createEpisodeDto);
+  createEpisode(episode: Partial<Episode>): Observable<Partial<Episode>> {
+    return this.http.post<Episode>(this.apiUrl, episode);
   }
 
   // Récupérer tous les épisodes
@@ -52,4 +52,5 @@ export class EpisodeService {
       {}
     );
   }
+
 }

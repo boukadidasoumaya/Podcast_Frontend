@@ -5,9 +5,10 @@ export interface Podcast {
     id: number;
     name: string;
     views: number;
+    topic:string;
     duration: string; // Format: "50m"
     description: string;
-    image: string; // URL to the podcast's image
+    image: any; // URL to the podcast's image
     rating: number; // Average rating
     download_Count: number;
     nbre_episode: number; 
@@ -21,8 +22,10 @@ export interface Podcast {
     id: number;
     name: string;
     number: number; // Episode number
+    description:string;
     duration: number; // Duration in seconds
-    filepath: string; // URL to the video/audio file
+    filepath: any;
+    coverImage:any; // URL to the video/audio file
     views: number; // Number of views
     podcast: Podcast; // Nested podcast object
   }

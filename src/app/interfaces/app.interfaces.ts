@@ -13,25 +13,20 @@ export interface User {
 }
 
 export interface Podcast {
-  createdAt: string;
-  updatedAt: string;
-  deletedAt?: string | null;
   id: number;
   name: string;
   views: number;
-  duration: string; // Format: "50m"
+  duration: string;
+  topic:string;
   description: string;
-  image: string; // URL to the podcast's image
-  rating: number; // Average rating
+  image: string;
+  rating: number;
   download_Count: number;
-  nbre_episode: number; // Total number of episodes
-  user: User;
+  nbre_episode: number;
+  user: Partial<User>;
 }
 
 export interface Episode {
-  createdAt: string;
-  updatedAt: string;
-  deletedAt?: string | null;
   id: number;
   name: string;
   number: number;
@@ -56,6 +51,8 @@ export interface PodcastId{
 export interface EpisodeId{
   id:number
 }
+
+
 export interface Comment {
   id: number;
   content: string;
