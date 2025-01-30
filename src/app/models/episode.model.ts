@@ -1,4 +1,4 @@
-export interface Podcast {
+export interface PodcastS {
     createdAt: string;
     updatedAt: string;
     deletedAt?: string | null;
@@ -11,11 +11,11 @@ export interface Podcast {
     image: any; // URL to the podcast's image
     rating: number; // Average rating
     download_Count: number;
-    nbre_episode: number; 
+    nbre_episode: number;
     // Total number of episodes
   }
-  
-  export interface Episode {
+
+  export interface EpisodeS {
     createdAt: string;
     updatedAt: string;
     deletedAt?: string | null;
@@ -27,6 +27,5 @@ export interface Podcast {
     filepath: any;
     coverImage:any; // URL to the video/audio file
     views: number; // Number of views
-    podcast: Podcast; // Nested podcast object
+    podcast: PodcastS; // Nested podcast object
   }
-  

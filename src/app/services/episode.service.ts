@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode } from '../interfaces/app.interfaces'; // Assure-toi que tu as un modèle Episode
 import { APP_API } from '../config/app-api.config';
-
+import { EpisodeS } from '../models/episode.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -13,8 +13,8 @@ export class EpisodeService {
   constructor(private http: HttpClient) {}
 
   // Appel pour créer un nouvel épisode
-  createEpisode(episode: Partial<Episode>): Observable<Partial<Episode>> {
-    return this.http.post<Episode>(this.apiUrl, episode);
+  createEpisode(episode: Partial<EpisodeS>): Observable<Partial<EpisodeS>> {
+    return this.http.post<EpisodeS>(this.apiUrl, episode);
   }
 
   // Récupérer tous les épisodes

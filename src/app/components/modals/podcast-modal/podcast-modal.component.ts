@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Podcast, Episode } from '../../models/episode.model';
+import { PodcastS, EpisodeS } from '../../../models/episode.model';
 import { CloudinaryService } from '../../../services/cloudinary.service';
 import { PodcastService } from '../../../services/podcast.service';
 import { EpisodeService } from '../../../services/episode.service';
@@ -17,8 +17,8 @@ import { ToastrService } from 'ngx-toastr';
 export class PodcastModalComponent {
   step: number = 1;
   data: {
-    podcast: Podcast;
-    episodes: Episode[];
+    podcast: PodcastS;
+    episodes: EpisodeS[];
   } = {
     podcast: {
       createdAt: '',
@@ -84,7 +84,7 @@ export class PodcastModalComponent {
       }
 
       this.toastr.info('Upload in progress...', 'Info');
-      
+
       if (this.data.podcast.image instanceof File) {
         const imageUrl = await this.cloudinaryService.uploadToCloudinary(this.data.podcast.image);
         this.data.podcast.image = imageUrl;
