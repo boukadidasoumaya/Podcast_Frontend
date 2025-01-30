@@ -102,10 +102,8 @@
               <span class="btn__text">Upload</span>
             </button>
             <div *ngIf="data.podcast.image">
-              <span>Uploaded: {{ data.podcast.image }}</span>
-          
-              <button type="button" (click)="removeFile('podcast')">
-                <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+              <span>Uploaded: {{ data.podcast.image }}</span>          
+              <app-trash (delete)="removeFile('podcast')"></app-trash>
             </div>
           </div>
         </form>
@@ -180,9 +178,9 @@
               </button>
               <div *ngIf="episode.filepath">
                 <span>Uploaded: {{ episode.filepath }}</span>
-                <
-                <button type="button" (click)="removeFile('episode', i)">
-                  <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+                
+                <app-trash (delete)="removeFile('episode', i)"></app-trash>
+
               </div>
 
             </div>
@@ -205,9 +203,7 @@
               </button>
               <div *ngIf="episode.coverImage">
                 <span>Uploaded: {{ episode.coverImage }}</span>
-                <
-                <button type="button" (click)="removeFile('episode-cover', i)">
-                  <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+                <app-trash (delete)="removeFile('episode-cover', i)"></app-trash>
               </div>
             </div>
           </div>

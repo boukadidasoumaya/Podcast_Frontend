@@ -6,9 +6,10 @@ import { CloudinaryService } from '../../../services/cloudinary.service';
 import { PodcastService } from '../../../services/podcast.service';
 import { EpisodeService } from '../../../services/episode.service';
 import { Podcast, Episode } from '../../models/podcast.model';
+import { TrashComponent } from "../../trash/trash.component";
 
 @Component({
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, TrashComponent],
   standalone: true,
   selector: 'app-podcast-modal',
   templateUrl: './podcast-modal.component.html',
