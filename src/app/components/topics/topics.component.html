@@ -8,9 +8,12 @@
           {{ title }}
         </a>
       </h5>
-      <p class="badge mb-0">{{ episodes }} {{customtext }}</p>
+      <p class="badge mb-0">{{ subtitle }} {{customtext }}</p>
     </div>
 
-    <app-delete-button class="delete-btn"></app-delete-button>
-
+    <app-delete-button
+    *ngIf="isOwner"
+    class="delete-btn"
+    (deleteConfirmed)="onDelete()">
+  </app-delete-button>
   </div>

@@ -42,5 +42,15 @@ a {
 }
 
 .owner-card:hover .delete-btn {
-  opacity: 1; /* S'affiche au hover */
+  opacity: 1;
+}
+.badge {
+  background-color: var(--custom-btn-bg-color);
+  font-family: var(--title-font-family);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  padding-bottom: 5px;
+}
+.delete-btn .btn .trash-button{
+  color: red !important;
 }

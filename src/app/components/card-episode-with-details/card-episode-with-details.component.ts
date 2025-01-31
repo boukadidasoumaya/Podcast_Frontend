@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { EditEpisodeModalComponent } from '../modals/edit-episode-modal/edit-episode-modal.component';
 import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
+import { EpisodeService } from '../../services/episode.service';
 
 @Component({
   selector: 'app-card-episode-with-details',
@@ -15,26 +16,24 @@ import { UpdateModalComponent } from '../modals/update-modal/update-modal.compon
   templateUrl: './card-episode-with-details.component.html',
   styleUrl: './card-episode-with-details.component.css'
 })
-export class CardEpisodeWithDetailsComponent implements OnInit {
+export class CardEpisodeWithDetailsComponent {
   @Input() episode!: Episode;
-  user: Partial<User> | null = null;
+  @Input() episodeId!:number;
+  @Input() currentUser!: Partial<User> ;
   isEditModalOpen: boolean = false;
+  isAddModalOpen: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(private episodeService:EpisodeService) {
 
-  ngOnInit(): void {
-    this.userService.getCurrentUser().subscribe(
-      (user) => {
-        this.user = user;
-      },
-      () => {
-        this.user = null;
-      }
-    );
   }
+
+
 
   toggleEditModal() {
     this.isEditModalOpen = !this.isEditModalOpen;
+  }
+  toggleAddModal() {
+    this.isAddModalOpen = !this.isAddModalOpen;
   }
 
   updateEpisode(updatedEpisode: Partial<Episode>) {
@@ -47,11 +46,26 @@ export class CardEpisodeWithDetailsComponent implements OnInit {
       filepath: updatedEpisode.filepath ?? this.episode.filepath,
     };
 
-    console.log("updated episode", this.episode);
-    this.toggleEditModal();
+    this.episodeService.updateEpisode(this.episode.id, updatedEpisode).subscribe(
+      (response) => {
+        this.episode = {
+          ...this.episode,
+          ...response
+        };
+
+        console.log("Épisode mis à jour avec succès", this.episode);
+        this.toggleEditModal();
+      },
+      (error) => {
+        console.error("Erreur lors de la mise à jour de l'épisode", error);
+      }
+    );
   }
   openEditModal(): void {
   this.toggleEditModal();
+}
+openAddModal():void{
+  this.toggleAddModal();
 }
 
   closeEditModal(): void {

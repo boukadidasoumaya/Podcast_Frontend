@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-12 subscribe d-flex justify-content-end">
-    <ng-container *ngIf="user; else noUser">
-      <ng-container *ngIf="user?.id === episode?.podcast?.user?.id; else subscribeButton">
-        <!-- Bouton Modifier -->
-        <button class="btn btn-primary" (click)="openEditModal()">Modifier</button>
+    <ng-container *ngIf="currentUser; else noUser">
+      <ng-container *ngIf="currentUser?.id === episode?.podcast?.user?.id; else subscribeButton">
+        <button class="custom-btn me-2" (click)="openAddModal()">Add Episode</button>
+        <button class="custom-btn" (click)="openEditModal()">Edit Episode</button>
       </ng-container>
       <ng-template #subscribeButton>
         <app-subscribe-button></app-subscribe-button>
@@ -71,7 +71,6 @@
   </div>
 </div>
 
-<!-- Edit Modal  -->
 
 <app-update-modal
   *ngIf="isEditModalOpen"

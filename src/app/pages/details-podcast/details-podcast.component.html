@@ -8,13 +8,13 @@
           [sectionId]="'2'">
         </app-section-custom>
 
-        <app-card-episode-with-details [episode]="episodeDetails"></app-card-episode-with-details>
+        <app-card-episode-with-details [currentUser]="currentUser" [episode]="episodeDetails" [episodeId]="episodeId"></app-card-episode-with-details>
 
         <br>
 
         <app-related-section
         [routerLink]="['/details-podcast',episodeId]"
-
+        [isOwner]="isOwner"
         (episodeSelected)="onEpisodeSelected($event)">
         </app-related-section>
         <app-comment-section
