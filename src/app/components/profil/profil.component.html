@@ -129,7 +129,6 @@
           <img src="assets/icons/whatsapp-icon.png" class="whatapp-icon" alt="WhatsApp Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="whatsapp"> {{ user.socialMedia.whatsapp}}</p>
         </div>
       </div>
 
@@ -141,7 +140,6 @@
           <img src="assets/icons/instagram-icon.png" class="instagram-icon" alt="Instagram Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="instagram">{{ user.socialMedia.instagram}}</p>
         </div>
       </div>
 
@@ -153,7 +151,6 @@
         <img src="assets/icons/twitter-icon.png" class="twitter-icon" alt="Twitter Icon" width="24" height="24">
       </div>
       <div class="col-8 d-flex align-items-center">
-        <p class="twitter">{{ user.socialMedia.instagram}}</p>
       </div>
     </div>
 
@@ -168,26 +165,38 @@
     </div>
 
 <!-- My List Section -->
-<app-section-custom [title]='"Favorites"' [id]='"section_2"'>
-
-  <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
-    <ng-template let-card>
-        <app-episode-horizontal
-        [title]="card.title"
-        [episode]="card"
-      ></app-episode-horizontal>
-
-    </ng-template>
-  </app-swiper>     
-  </app-section-custom>
+   
 </div>
+
 
           </div>
         </div>
       </div>
 
       
+<!-- My List Section -->
+
+
+ 
     </div>
+    <div class="row g-4">
+    <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
+
+      <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="500">
+        <ng-template let-card>
+          <app-episode-horizontal
+          class="episode-horizontal"
+    
+          [episode]="card.episode"
+          [numberOfLikes]="100"
+          [isLiked]="false">
+        </app-episode-horizontal>
+        
+    
+        </ng-template>
+      </app-swiper>     
+      </app-section-custom>
+    
   </div>
 </div>
 <app-user-info-modal [updateUserPersonnalInfo]="updateUserPersonnalInfo"></app-user-info-modal>

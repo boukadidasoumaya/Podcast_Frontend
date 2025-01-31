@@ -30,7 +30,6 @@ export class ProfilComponent  implements OnInit {
   constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
-    this.loadUserProfile();
     this.fetchBookmarkedEpisodes(1); // Assuming user ID is 1
   }
 
@@ -45,6 +44,10 @@ export class ProfilComponent  implements OnInit {
       }
     );
   }
+  handleLike(event: { isLiked: boolean, episode: Episode }) {
+    console.log('Liked:', event.isLiked, 'Episode:', event.episode);
+  }
+  
 
   loadUserProfile() {
     this.isLoading = true;

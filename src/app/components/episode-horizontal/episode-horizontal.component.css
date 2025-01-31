@@ -24,6 +24,7 @@
 /* Reduce overall card height */
 .custom-block {
   height: 220px; /* Adjust this value as needed */
+  width:400px;
   display: flex;
   align-items: stretch;
   overflow: hidden;
