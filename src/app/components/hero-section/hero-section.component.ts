@@ -3,6 +3,8 @@ import { HeroCardComponent } from '../hero-card/hero-card.component';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 import { CommonModule } from '@angular/common';
 import { OwlOptions } from 'ngx-owl-carousel-o';
+import { OwnersDetailsService } from '../../services/owners-details.service';
+import { Owner } from '../../interfaces/app.interfaces';
 declare var $: any;
 
 @Component({
@@ -13,17 +15,32 @@ declare var $: any;
   styleUrl: './hero-section.component.css'
 })
 export class HeroSectionComponent {
-  // ngOnInit(): void {
-  //   $(document).ready(function(){
-  //     $(".owl-carousel").owlCarousel({
-  //       items: 1,  // Affiche un item à la fois
-  //       loop: true, // Le carousel fait une boucle
-  //       margin: 10, // Marge entre les éléments
-  //       nav: true, // Affiche la navigation (flèches)
-  //       dots: true  // Affiche les points en bas du carousel
-  //     });
-  //   });
-  // }
+  constructor(private ownerService : OwnersDetailsService){}
+  
+
+  slides: { nom: string, badges: string[], imagesrc: string }[] = [];
+ 
+  ngOnInit(): void {
+    this.loadPersons();
+  }
+  
+  private async loadPersons(): Promise<void> {
+    try {
+      const persons = await this.ownerService.getUsers();
+  
+      // Map the normalized array to the slides
+      this.slides = persons.map((person) => ({
+        nom: person.firstName,
+        badges: person.interests,
+        imagesrc: person.photo,
+      }));
+    } catch (error) {
+      console.error('Error loading persons:', error);
+    }
+  }
+  
+  
+
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,

@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
+import { User } from '../interfaces/app.interfaces';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:3000'; 
+  private apiUrl = 'http://localhost:3000';
 
   constructor(
     private http: HttpClient,
@@ -33,5 +34,8 @@ export class UserService {
 
   updateToken(email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/auth/update-token`, { email });
+  }
+  getCurrentUser(): Observable<Partial<User>> {
+    return this.http.get(`${this.apiUrl}/user/current-user`);
   }
 }

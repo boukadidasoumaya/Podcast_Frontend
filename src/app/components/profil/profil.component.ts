@@ -13,7 +13,7 @@ import { UserService } from '../../services/user.service';
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,TopicsComponent
+  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent
   ],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
@@ -31,7 +31,7 @@ export class ProfilComponent  implements OnInit {
     this.loadUserProfile();
   }
 
-  
+
   loadUserProfile() {
     this.isLoading = true;
     this.userService.getUserProfile().subscribe({

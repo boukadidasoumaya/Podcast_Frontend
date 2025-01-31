@@ -1,65 +1,53 @@
-<div class="custom-block d-flex align-items-stretch">
-    <!-- Left Column: Image and Subscribe -->
-    <div class="custom-block-left">
-      <div class="custom-block-icon-wrap">
-        <div class="section-overlay"></div>
-        <a href="detail-page.html" class="custom-block-image-wrap">
-          <img [src]="imageUrl" class="custom-block-image img-fluid" alt="">
-          <a href="#" class="custom-block-icon">
-            <i class="bi-play-fill"></i>
-          </a>
+<div class="custom-block d-flex align-items-stretch fixed-card">
+  <!-- Left Column: Image and Subscribe -->
+  <div class="custom-block-left">
+    <div [routerLink]="['/details-podcast', episode.id]" class="custom-block-icon-wrap">
+      <div class="section-overlay"></div>
+      <a class="custom-block-image-wrap">
+        <img [src]="episode.coverImage" class="custom-block-image img-fluid fixed-image" alt="">
+        <a class="custom-block-icon">
+          <i class="bi-play-fill"></i>
         </a>
-      </div>
-      <div class="mt-2">
-        <a href="#" class="btn custom-btn">Subscribe</a>
-      </div>
+      </a>
     </div>
-  
-    <!-- Right Column: Podcast Info -->
-    <div class="custom-block-info">
+    <app-subscribe-button></app-subscribe-button>
+  </div>
+
+  <!-- Right Column: Podcast Info -->
+  <div class="custom-block-info d-flex flex-column">
+    <div [routerLink]="['/details-podcast', episode.id]" class="text-truncate">
       <div class="custom-block-top d-flex mb-1">
         <small class="me-4">
           <i class="bi-clock-fill custom-icon"></i>
-          {{ episodeDuration }}
+          {{ episode.duration }}
         </small>
-        <small>Episode <span class="badge">{{ episodeNumber }}</span></small>
+        <small>Episode <span class="badge">{{ episode.number }}</span></small>
       </div>
-  
-      <h5 class="mb-2">
-        <a href="detail-page.html">{{ title }}</a>
+
+      <h5 class="mb-2 title-truncate">
+        <a>{{ episode.name }}</a>
       </h5>
-  
-      <div class="profile-block d-flex">
-        <img [src]="hostImage" class="profile-block-image img-fluid" alt="">
-        <p>
-          {{ hostName }}
-          <img src="images/verified.png" class="verified-image img-fluid" alt="">
-          <strong>{{ hostRole }}</strong>
+
+      <div class="profile-block d-flex align-items-center">
+        <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid rounded-circle" alt="">
+        <p class="profile-text">
+          {{ episode.podcast.user.firstName }} {{ episode.podcast.user.lastName }}
+          <strong>{{ episode.podcast.user.profession }}</strong>
         </p>
       </div>
-  
-      <p class="mb-0">{{ description }}</p>
-  
-      <div class="custom-block-bottom d-flex justify-content-between mt-3">
-        <a href="#" class="bi-headphones me-1">
-          <span>{{ stats.headphones | number }}</span>
-        </a>
-        <a href="#" class="bi-heart me-1">
-          <span>{{ stats.heart | number }}</span>
-        </a>
-        <a href="#" class="bi-chat me-1">
-          <span>{{ stats.chat | number }}</span>
-        </a>
-        <a href="#" class="bi-download">
-          <span>{{ stats.download | number }}</span>
-        </a>
-      </div>
+
+      <p class="mb-0 description-truncate">{{ episode.description }}</p>
     </div>
-  
-    <!-- Right-most Column: Icons -->
-    <div class="d-flex flex-column ms-auto">
-      <a href="#" class="badge ms-auto"><i class="bi-heart"></i></a>
-      <a href="#" class="badge ms-auto"><i class="bi-bookmark"></i></a>
+
+    <div class="custom-block-bottom d-flex justify-content-between mt-3">
+      <app-headphones-icon [views]="episode.views"></app-headphones-icon>
+      <app-heart-icon [numberOfLikes]="numberOfLikes" [isLiked]="isLiked" (liked)="onLikeChanged()"></app-heart-icon>
+      <app-comment-icon [numberOfComments]="episode.numberOfComments" (commented)="onCommentChanged($event)"></app-comment-icon>
     </div>
   </div>
-  
+
+  <!-- Right-most Column: Icons -->
+  <div class="d-flex flex-column ms-auto">
+    <a href="#" class="badge ms-auto"><i class="bi-bookmark"></i></a>
+  </div>
+</div>

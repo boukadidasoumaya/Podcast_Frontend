@@ -35,7 +35,7 @@ export class LoginComponent {
     photo: null as File | null,
     selectedInterests: [] as string[]
     };
- 
+
     interests: string[] = [];
 
     isStepValid(step: number): boolean {
@@ -51,9 +51,9 @@ export class LoginComponent {
         return !!(this.Data.country && 
                  this.Data.profession);
       case 3:
-        return !!(this.Data.password && 
+        return !!(this.Data.password &&
                  this.Data.confirmPassword&&
-                 this.Data.password === this.Data.confirmPassword 
+                 this.Data.password === this.Data.confirmPassword
                 );
       default:
         return false;
@@ -78,7 +78,7 @@ export class LoginComponent {
   }
 
   currentStep = 1;
-  
+
   nextStep() {
     if (this.isStepValid(this.currentStep)) {
       if (this.currentStep < 4) {
@@ -158,11 +158,11 @@ export class LoginComponent {
     this.authService.login(this.Data).subscribe({
       next: (response) => {
         console.log('Login successful', response);
-  
+
         if (response.accessToken) {
           localStorage.setItem('authToken', response.accessToken);
-  
-          this.router.navigate(['/profil']); 
+
+          this.router.navigate(['/']);
         } else {
           console.error('Token not found in the response.');
         }
@@ -172,7 +172,7 @@ export class LoginComponent {
       },
     });
   }
-  
+
   ngOnInit() {
     this.loadInterests();
   }
@@ -180,7 +180,7 @@ export class LoginComponent {
   loadInterests() {
     this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({
       next: (data) => {
-        this.interests = data; 
+        this.interests = data;
       },
       error: (err) => {
         console.error('Failed to load interests:', err);

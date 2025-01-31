@@ -1,23 +1,22 @@
 
   <div class="row">
     <div [ngClass]="'col-lg-' + 1 + ' col-md-' + colWidthIm + ' col-sm-2'" class="d-flex justify-content-end">
-      <img class="photo" [src]="comment.user_image || 'assets/avatar.png'" alt="" />
+      <img class="photo" [src]="comment.user.photo || 'assets/avatar.png'" alt="" />
     </div>
     <div [ngClass]="'col-lg-' + (11) + ' col-md-' + (12 - colWidthIm) + ' col-sm-10'">
       <div class="one-comment">
-        <div class="writer fw-bold">{{ comment.username }}</div>
-        <div class="date">{{ formatCreatedAt(comment.created_at) }}</div>
+        <div class="writer fw-bold">{{ comment.user.username }}</div>
+        <div class="date">{{ formatCreatedAt(comment.createdAt) }}</div>
         <div class="d-flex justify-content-between align-items-end">
-          <div class="content mt-2">{{ comment.text }}</div>
-          <button class="btn">
-            <i class="fa-solid fa-trash"></i>
-          </button>
+          <div class="content mt-2">{{ comment.content}}</div>
+          <app-delete-button *ngIf="isCurrentUserCommentOwner()" (deleteConfirmed)="deleteMessage()"></app-delete-button>
         </div>
 
         <div class="container">
           <div class="row mt-2">
             <div [ngClass]="'col-lg-' + colLikeLg + ' col-md-' + colLikeMd + ' col-sm-6'">
-              <app-like-button [iconClass]="'bi-heart'" [label]="'Like'"></app-like-button>
+              <app-like-button  [likesCount]="likesCount"  [isLiked]="isLiked"
+              (liked)="onLikeChanged($event)" ></app-like-button>
             </div>
             <div [ngClass]="'col-lg-' + (colLikeLg) + ' col-md-' + colLikeMd + ' col-sm-6'" (click)="toggleReplyForm()">
               <div class="row" style="cursor: pointer">
@@ -35,8 +34,8 @@
           </div>
           <div *ngIf="showReplyForm">
             <app-reply-form
-              [parentCommentId]="comment.id"
-              (onSubmit)="handleReplySubmit($event)"
+
+              (onDataReceived)="handleReplySubmit($event)"
             ></app-reply-form>
           </div>
 
@@ -56,18 +55,27 @@
             </div>
           </div>
 
+          <!-- Dans la section des replies du template comment.component.html -->
           <div class="mt-3" *ngIf="viewReplies && comment.replies && comment.replies.length > 0">
             <app-comment
               *ngFor="let reply of comment.replies; trackBy: trackById"
               [comment]="reply"
+              [currentUser]="currentUser"
+              [isLiked]="isReplyLiked(reply.id)"
+              [likesCount]="getReplyLikesCount(reply.id)"
+              (liked)="onReplyLikeChanged($event)"
+              (replyAdded)="replyAdded.emit($event)"
               [colWidthIm]="2"
               [colLikeLg]="3"
               [colLikeMd]="4"
               [moreThanOne]="reply !== comment.replies[comment.replies.length - 1]">
             </app-comment>
           </div>
+
         </div>
+
         <hr *ngIf="moreThanOne" />
+
       </div>
     </div>
   </div>

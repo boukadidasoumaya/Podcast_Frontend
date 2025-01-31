@@ -4,20 +4,22 @@
   </div>
 
   <div class="col-lg-11 col-md-10 col-sm">
-    <form class="reply-box">
+    <form #replyForm="ngForm" class="reply-box" (ngSubmit)="handleSubmit($event) ">
       <div class="container box-container">
         <div class="row">
           <div class="col-lg-11 col-md-10 col-sm-10">
             <textarea
+            [(ngModel)]="replyText"
               id="reply"
-              name="reply"
+              name="replyData"
               rows="1"
+
               placeholder="Write a comment ..."
 
             ></textarea>
           </div>
           <div class="col-lg-1 col-md-2 col-sm-2 formatting">
-            <button type="submit" class="send" title="Send">
+            <button type="submit" class="send" title="Send" >
               <svg
                 fill="none"
                 viewBox="0 0 24 24"
