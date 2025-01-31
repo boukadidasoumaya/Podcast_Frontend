@@ -167,33 +167,26 @@
       </span>
     </div>
 
+<!-- My List Section -->
+<app-section-custom [title]='"Favorites"' [id]='"section_2"'>
 
+  <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+    <ng-template let-card>
+        <app-episode-horizontal
+        [title]="card.title"
+        [episode]="card"
+      ></app-episode-horizontal>
+
+    </ng-template>
+  </app-swiper>     
+  </app-section-custom>
 </div>
 
           </div>
         </div>
       </div>
 
-      <!-- My List Section -->
-      <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
-
-      <!-- <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
-        <ng-template let-card>
-            <app-episode-horizontal
-            [title]="card.title"
-            [episodeDuration]="card.episodeDuration"
-            [episodeNumber]="card.episodeNumber"
-            [imageUrl]="card.imageUrl"
-            [hostImage]="card.hostImage"
-            [hostName]="card.hostName"
-            [hostRole]="card.hostRole"
-            [description]="card.description"
-            [stats]="card.stats"
-          ></app-episode-horizontal>
-
-        </ng-template>
-      </app-swiper>     -->
-      </app-section-custom>
+      
     </div>
   </div>
 </div>

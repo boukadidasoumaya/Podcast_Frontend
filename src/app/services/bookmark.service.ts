@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-
+import { Episode } from '../interfaces/app.interfaces';
 @Injectable({
   providedIn: 'root'
 })
@@ -23,5 +23,8 @@ export class BookmarkService {
   removeBookmark(userId: number, episodeId: number): Observable<any> {
     console.log('no');
     return this.http.delete(`${this.baseUrl}/${userId}/${episodeId}`);
+  }
+  getBookmarkedEpisodes(userId: number): Observable<Episode[]> {
+    return this.http.get<Episode[]>(`${this.baseUrl}/user/${userId}`);
   }
 }

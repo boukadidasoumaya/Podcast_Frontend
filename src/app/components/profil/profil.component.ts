@@ -9,7 +9,8 @@ import { TopicsComponent } from '../topics/topics.component';
 import { EpisodeHorizontalComponent } from '../episode-horizontal/episode-horizontal.component';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { UserService } from '../../services/user.service';
-
+import { Episode } from '../../interfaces/app.interfaces';
+import { BookmarkService } from '../../services/bookmark.service';
 @Component({
   selector: 'app-profil',
   standalone: true,
@@ -24,13 +25,26 @@ export class ProfilComponent  implements OnInit {
   podcastData: any[] = [];
   isLoading = true;
   error: string | null = null;
+  bookmarkedEpisodes: Episode[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
     this.loadUserProfile();
+    this.fetchBookmarkedEpisodes(1); // Assuming user ID is 1
   }
 
+  fetchBookmarkedEpisodes(userId: number) {
+    this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
+      (episodes: Episode[]) => {
+        this.bookmarkedEpisodes = episodes;
+        console.log(episodes)
+      },
+      (error: any) => { // Explicitly typing the 'error' parameter as 'any'
+        console.error('Error fetching bookmarked episodes:', error);
+      }
+    );
+  }
 
   loadUserProfile() {
     this.isLoading = true;
@@ -48,16 +62,16 @@ export class ProfilComponent  implements OnInit {
           socialMedia: {
             whatsapp: data.whatsappUser,
             instagram: data.instagramLink,
-            twitter: data.twitterLink || 'Not provided'
-          }
+            twitter: data.twitterLink || 'Not provided',
+          },
         };
         this.isLoading = false;
       },
-      error: (error) => {
+      error: (error: any) => { // Explicitly typing the 'error' parameter as 'any'
         this.error = 'Failed to load user profile';
         this.isLoading = false;
         console.error('Error loading profile:', error);
-      }
+      },
     });
   }
 
@@ -74,13 +88,13 @@ export class ProfilComponent  implements OnInit {
           socialMedia: {
             whatsapp: updatedUser.whatsappUser,
             instagram: updatedUser.instagramLink,
-            twitter: updatedUser.twitterLink || 'Not provided'
-          }
+            twitter: updatedUser.twitterLink || 'Not provided',
+          },
         };
       },
-      error: (error) => {
+      error: (error: any) => {
         console.error('Error updating profile:', error);
-      }
+      },
     });
-  }
+  };
 }
