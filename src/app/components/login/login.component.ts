@@ -6,6 +6,7 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
+import { catchError, of } from 'rxjs';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -15,6 +16,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LoginComponent {
   isSignIn: boolean = true;
+  usernameTaken: boolean = false;
+  usernameChecked: boolean = false;
   Data = {
     firstName: '',
     lastName: '',
@@ -29,6 +32,7 @@ export class LoginComponent {
     twitterUser:'',
     password: '',
     confirmPassword: '',
+    photo: null as File | null,
     selectedInterests: [] as string[]
     };
  
@@ -39,7 +43,7 @@ export class LoginComponent {
       case 1:
         return !!(this.Data.firstName && 
                  this.Data.lastName && 
-                 this.Data.username && 
+                 this.Data.username &&
                  this.Data.email &&
                  this.Data.birthday && 
                  this.isValidEmail(this.Data.email));
@@ -89,19 +93,66 @@ export class LoginComponent {
     }
   }
 
+  onFileSelected(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      this.Data.photo = file;
+      console.log(file)
+    }
+  }
   constructor(private http: HttpClient,private authService: AuthService, private router: Router) {}
 
-  signUp(): void {
-    this.authService.register(this.Data).subscribe({
-      next: (response) => {
-        this.currentStep++;
-        console.log('Registration successful', response);
-      },
-      error: (error) => {
-        console.error('Registration failed', error);
-      },
-    });
+  checkUsername(): void {
+      this.authService.checkUsernameUnique(this.Data.username)
+        .pipe(
+          catchError((err) => {
+            console.error('Error checking username:', err);
+            return of(false); 
+          })
+        )
+        .subscribe({
+          next: (isTaken) => {
+            this.usernameTaken = isTaken;
+            this.usernameChecked = true;
+          
+          }
+        });
+    
   }
+
+  signUp(): void {
+  const formData = new FormData();
+
+  formData.append('firstName', this.Data.firstName);
+  formData.append('lastName', this.Data.lastName);
+  formData.append('username', this.Data.username);
+  formData.append('email', this.Data.email);
+  formData.append('birthday', this.Data.birthday);
+  formData.append('country', this.Data.country);
+  formData.append('profession', this.Data.profession);
+  formData.append('whatsappUser', this.Data.whatsappUser);
+  formData.append('instagramLink', this.Data.instagramLink);
+  formData.append('twitterUser', this.Data.twitterUser);
+  formData.append('password', this.Data.password);
+  formData.append('confirmPassword', this.Data.confirmPassword);
+
+  if (this.Data.photo) {
+    formData.append('photo', this.Data.photo, this.Data.photo.name);
+  }
+
+  formData.append('selectedInterests', JSON.stringify(this.Data.selectedInterests));
+
+
+  this.authService.register(formData).subscribe({
+    next: (response) => {
+      this.currentStep++;
+      console.log('Registration successful', response);
+    },
+    error: (error) => {
+      console.error('Registration failed', error);
+    },
+  });
+}
 
   signIn() {
     this.authService.login(this.Data).subscribe({

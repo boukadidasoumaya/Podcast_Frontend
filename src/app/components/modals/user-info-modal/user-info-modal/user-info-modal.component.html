@@ -9,23 +9,22 @@
         <form #userForm="ngForm" (ngSubmit)="onUserSubmit(userForm)">
           <div class="mb-3">
             <label for="photo" class="form-label">Photo</label>
-            <input type="file" class="form-control" id="photo" name="photo"
-                   (change)="onFileChange($event)" required>
+            <input type="file" class="form-control" id="photo" name="photo">
           </div>
           <div class="mb-3">
             <label for="username" class="form-label">Nom d'utilisateur</label>
             <input type="text" class="form-control" id="username" name="username"
-                   [(ngModel)]="updateUserPersonnalInfo.username" required>
+                   [(ngModel)]="formData.username" required>
           </div>
           <div class="mb-3">
             <label for="birthday" class="form-label">Date de naissance</label>
             <input type="date" class="form-control" id="birthday" name="birthday"
-                   [(ngModel)]="updateUserPersonnalInfo.birthday" required>
+                   [(ngModel)]="formData.birthday" required>
           </div>
           <div class="mb-3">
             <label for="country" class="form-label">Pays</label>
             <select class="form-select" id="country" name="country"
-                    [(ngModel)]="updateUserPersonnalInfo.country" required>
+                    [(ngModel)]="formData.country" required>
               <option value="" disabled>Sélectionnez un pays</option>
               <option value="France">France</option>
               <option value="Tunisie">Tunisie</option>

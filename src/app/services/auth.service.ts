@@ -3,20 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TOKEN_KEY } from '../../config/storage.config';
-interface RegisterData {
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    birthday: string;
-    country: string;
-    profession: string;
-    role: string;
-    whatsappUser: string;
-    instagramLink: string;
-    password: string;
-    interests: string[];
-  }
+
   
   interface LoginData {
     email: string;
@@ -37,22 +24,7 @@ export class AuthService {
   }
 
    register(data: any): Observable<any> {
-    const transformedData: RegisterData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      username: data.username,
-      email: data.email,
-      birthday: data.birthday,
-      country: data.country,
-      profession: data.profession,
-      role: data.role,
-      whatsappUser: data.whatsappUser,
-      instagramLink: data.instagramLink,
-      password: data.password,
-      interests: data.selectedInterests,
-    };
-    console.log('Register data:', transformedData);
-    return this.http.post(`${this.apiUrl}/auth/register`, transformedData);
+    return this.http.post(`${this.apiUrl}/auth/register`, data);
   }
 
   login(data: any): Observable<any> {
@@ -64,6 +36,9 @@ export class AuthService {
     return this.http.post(`${this.apiUrl}/auth/login`, loginData);
   }
   
+  checkUsernameUnique(username: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/auth/check-username?username=${username}`);
+  }
   private parseJwt(token: string) {
     try {
       const base64Url = token.split('.')[1];

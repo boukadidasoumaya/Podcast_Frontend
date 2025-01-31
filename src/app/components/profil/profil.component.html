@@ -11,7 +11,7 @@
           <div class="cadre d-flex flex-column align-items-center justify-content-center">
             <!-- Profile Image -->
             <div class="row d-flex justify-content-center">
-              <img class="profileImage p-0 m-2" src="{{ user.profilImage}}" alt="Profile">
+              <img class="profileImage p-0 m-2" [src]="user.profilImage" alt="Profile">
               <div class="d-flex justify-content-end p-0">
                 <label for="file">
                   <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" data-bs-toggle="modal"
@@ -197,7 +197,7 @@
     </div>
   </div>
 </div>
-<app-user-info-modal [updateUserPersonnalInfo]="updateUserPersonnalInfo"></app-user-info-modal>
+<app-user-info-modal></app-user-info-modal>
 <app-email-modal></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>

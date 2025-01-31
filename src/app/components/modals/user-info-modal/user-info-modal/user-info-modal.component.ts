@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
@@ -13,11 +13,12 @@ import { Router } from '@angular/router';
 })
 export class UserInfoModalComponent {
   @Output() InfoUpdated = new EventEmitter<string>();
-    updateUserPersonnalInfo = {
-      username: '',
-      birthday: '',
-      country: ''
-    };
+  
+  formData = {
+    username: '',
+    birthday: '',
+    country: ''
+  };
   
  /* onFileChange(event: any): void {
     const file = event.target.files[0];
@@ -30,12 +31,13 @@ export class UserInfoModalComponent {
   constructor(private userService: UserService, private router: Router) {}  
   onUserSubmit(form: NgForm) {
     if (form.valid) {
-      this.userService.updateUserProfile(this.updateUserPersonnalInfo)
+      this.userService.updateUserProfile(this.formData)
         .subscribe({
           next: (response) => {
-            console.log('info updated successfully:', response);     
+            console.log('info updated successfully:', response);
+            // Call the parent's update function
           }
-          });
+        });
     } else {
       console.error('Le formulaire est invalide.');
     }
