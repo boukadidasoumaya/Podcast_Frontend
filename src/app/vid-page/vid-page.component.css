@@ -1,0 +1,7 @@
+app-section-custom {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 20px; /* Spacing between sections */
+    width: 100%;
+  }

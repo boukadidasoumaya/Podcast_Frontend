@@ -1,36 +1,35 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { HeartIconComponent } from '../heart-icon/heart-icon.component';
 import { CommentIconComponent } from '../comment-icon/comment-icon.component';
 import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
+import { Episode, User } from '../../interfaces/app.interfaces';
+import { RouterModule } from '@angular/router';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-card-episode',
   standalone: true,
-  imports: [HeartIconComponent, CommentIconComponent, HeadphonesIconComponent], // Importation des composants
+  imports: [RouterModule, CommonModule,HeartIconComponent, CommentIconComponent, HeadphonesIconComponent],
   templateUrl: './card-episode.component.html',
   styleUrls: ['./card-episode.component.css']
 })
 export class CardEpisodeComponent {
-  @Input() imagePath: string = '';
-  @Input() title: string = '';
-  @Input() description: string = '';
-  @Input() profileImage: string = '';
-  @Input() profileName: string = '';
-  @Input() profileRole: string = '';
-
-  // Déclarez ces variables comme des @Input() pour pouvoir les passer depuis le parent
-  @Input() listensCount: string = '100k';  // Nombre de lectures
-  @Input() likesCount: string = '2.5k';   // Nombre de likes
-  @Input() commentsCount: string = '924k'; // Nombre de commentaires
-
-  // Événements lorsque l'utilisateur interagit avec les icônes
+  @Input() episode!: Episode;
+  @Input() numberOfLikes!: number;
+  @Input() isLiked!: boolean;
+  @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+  constructor(){
+    console.log('islikes',this.isLiked);
+  }
   onListenChanged(isListened: boolean) {
     console.log('Lecture modifiée:', isListened);
   }
 
-  onLikeChanged(isLiked: boolean) {
-    console.log('Like modifié:', isLiked);
+  // Modified method to emit the liked event
+  onLikeChanged(liked: boolean) {
+    this.liked.emit({ isLiked: liked, episode: this.episode });
   }
+
 
   onCommentChanged(isCommented: boolean) {
     console.log('Commentaire modifié:', isCommented);

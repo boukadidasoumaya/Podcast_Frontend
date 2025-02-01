@@ -1,0 +1,22 @@
+@import '../../../assets/css/custom-block.css';
+@import '../../../assets/css/section.css';
+@import "../../../assets/css/link.css";
+@import "../../../assets/css/profil-block.css";
+
+
+.custom-block-top .badge {
+  background-color: var(--secondary-color);
+  color: var(--white-color);
+  display: inline-block;
+  vertical-align: middle;
+  height: 26.64px;
+  line-height: 20px;
+}
+
+.badge {
+  background-color: var(--custom-btn-bg-color);
+  font-family: var(--title-font-family);
+  border-radius: var(--border-radius-large);
+  color: var(--white-color);
+  padding-bottom: 5px;
+}

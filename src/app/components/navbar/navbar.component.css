@@ -195,7 +195,7 @@
     top: 8px;
   }
   .site-header {
-    background-image: url("../../../assets/images/templatemo-wave-header.jpg"), linear-gradient(#348CD2, #FFFFFF);;
+    background-image: url("/assets/images/templatemo-wave-header.jpg"), linear-gradient(#348CD2, #FFFFFF);;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -244,6 +244,7 @@
 
 
   .navbar-nav .dropdown-menu {
+    display: none;
     position: relative;
     left: 10px;
     opacity: 1;
@@ -251,4 +252,10 @@
     max-width: 155px;
     margin-top: 10px;
     margin-bottom: 15px;
+  }
+  .navbar .dropdown.show .dropdown-menu {
+    display: block;
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }

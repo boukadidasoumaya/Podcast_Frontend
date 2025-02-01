@@ -1,0 +1,23 @@
+<app-section-custom [title]="currentEpisode.name" [id]="'section_2'">
+  <app-vid-player [episodeId]="currentEpisode.id" [filepath]="currentEpisode.filepath"></app-vid-player>
+</app-section-custom>
+<app-related-section 
+[routerLink]="['/episode', currentEpisode.id]"
+  (episodeSelected)="onEpisodeSelected($event)">
+</app-related-section>
+
+
+<app-section-custom [title]='"Comments"' [id]='"section_2"'>
+  <div class="container comments p-4">
+    <div class="row all-comments custom-scrollbar">
+      <app-comment
+        *ngFor="let comment of comments"
+        [comment]="comment"
+        [colWidthIm]="2"
+        [colLikeLg]="3"
+        [colLikeMd]="4"
+        [moreThanOne]="true"
+      ></app-comment>
+    </div>
+  </div>
+</app-section-custom>

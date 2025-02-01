@@ -1,9 +1,9 @@
-:root {
+/* :root {
   --cadreglobal:  #87b3c6;
   --text:         #21252F;
   --insideCercle: #ffffff;
   --outsideCercle:#d9ffdf;
-}
+} */
 /*---------------------------------------
   SITE HEADER
 -----------------------------------------*/
@@ -22,6 +22,8 @@ p,ul li{
 
 .profil{
   background-color: var(--section-bg-color);
+  position: relative;
+  margin-top: -330px;
 }
 .profil-content {
 
@@ -84,7 +86,7 @@ p,ul li{
   position: relative;
   top: -10%;
 }
-.profil-content .address {
+.profil-content .address, .job {
   margin-left: 10px;
   position: relative;
 }
@@ -194,7 +196,7 @@ background-color: #87b3c6;
   outline: none;
 }
 
-.social-media .whatsapp {
+.social-media .whatsapp , .instagram , .twitter{
   position: relative;
   top: 5px;
 }

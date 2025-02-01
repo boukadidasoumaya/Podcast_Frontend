@@ -1,38 +1,40 @@
 
 <div class="custom-block custom-block-full">
-  <div class="custom-block-image-wrap">
+  <div [routerLink]="['/details-podcast', episode.id]" class="custom-block-image-wrap">
     <a>
-      <img [src]="imagePath" class="custom-block-image img-fluid" alt="">
+      <img [src]="episode.coverImage" class="custom-block-image img-fluid" alt="">
     </a>
   </div>
 
   <div class="custom-block-info">
     <h5 class="mb-2">
-      <a href="">{{ title }}</a>
+      <a>{{ episode.name }}</a>
     </h5>
 
-    <div class="profile-block d-flex">
-      <img [src]="profileImage" class="profile-block-image img-fluid" alt="">
-      <p>{{ profileName }} <strong>{{ profileRole }}</strong></p>
+    <div [routerLink]="['/details-podcast', episode.id]" class="profile-block d-flex">
+      <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="">
+      <p>{{ episode.podcast.user.username }} <strong>{{ episode.podcast.user.profession }}</strong></p>
     </div>
 
-    <p class="mb-0">{{ description }}</p>
+    <p [routerLink]="['/details-podcast', episode.id]" class="mb-0">{{ episode.description }}</p>
 
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
       <!-- Composant pour l'icône écouteur -->
       <app-headphones-icon
-        [listensCount]="listensCount">
+        [views]="episode.views">
       </app-headphones-icon>
 
       <!-- Composant pour l'icône cœur -->
+      <!-- In card-episode.component.html -->
       <app-heart-icon
-        [likesCount]="likesCount"
+        [numberOfLikes]="numberOfLikes"
+        [isLiked]="isLiked"
         (liked)="onLikeChanged($event)">
       </app-heart-icon>
 
       <!-- Composant pour l'icône chat -->
       <app-comment-icon
-        [commentsCount]="commentsCount"
+        [numberOfComments]="episode.numberOfComments"
         (commented)="onCommentChanged($event)">
       </app-comment-icon>
     </div>
@@ -41,11 +43,8 @@
 
   </div>
   <div class="social-share d-flex flex-column ms-auto">
-    <a href="#" class="badge ms-auto">
-        <i class="bi-heart"></i>
-    </a>
 
-    <a href="#" class="badge ms-auto">
+    <a  class="badge ms-auto">
         <i class="bi-bookmark"></i>
     </a>
 </div>

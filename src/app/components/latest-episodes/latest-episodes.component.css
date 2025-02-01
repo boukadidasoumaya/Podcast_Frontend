@@ -1,0 +1,57 @@
+.section-title-wrap {
+    position: relative;
+  }
+  .custom-btn {
+    background-color: #0056b3; /* Slightly darker blue */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 8px 20px; /* Adjust padding for better appearance */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+  
+  .custom-btn:hover {
+    background-color: #40e0d0; /* Turquoise color on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+    color: #fff; /* Ensure text remains white */
+  }
+  
+  /* Adjust horizontal spacing between the cards (inside .row) */
+.latest-podcast-section .row {
+  display: flex;
+  flex-wrap: wrap; /* Make sure the items wrap when needed */
+row-gap: 15px ;}
+
+/* Adjust vertical spacing for each card */
+.latest-podcast-section .col-lg-6 {
+  margin-bottom: 30px; /* Add vertical space between the cards */
+}
+
+/* Optional: You can add padding to the cards to increase the inner space */
+.latest-podcast-section .col-lg-6 .app-episode-horizontal {
+  padding: 10px; /* Adjust the inner spacing of the cards */
+}
+
+  .section-title-wrap::after {
+    content: "";
+    background: var(--section-bg-color);
+    width: 100%;
+    height: 2px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  
+  .section-title {
+    background: var(--section-bg-color);
+    border-radius: var(--border-radius-large);
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0;
+    padding: 10px 25px;
+  }

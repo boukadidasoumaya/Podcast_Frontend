@@ -9,13 +9,12 @@ import { CommonModule } from '@angular/common'; // Importation de CommonModule
   imports: [CommonModule] // Ajout de CommonModule ici
 })
 export class HeartIconComponent {
-  isLiked: boolean = false;
-  @Input() likesCount: string = '0';
+  @Input() isLiked: boolean=false;
+  @Input() numberOfLikes: number = 0;
   @Output() liked = new EventEmitter<boolean>();
 
   toggleLike() {
     this.isLiked = !this.isLiked;
     this.liked.emit(this.isLiked);
-    this.likesCount = this.isLiked ? (parseInt(this.likesCount.replace('k', '')) + 1) + 'k' : (parseInt(this.likesCount.replace('k', '')) - 1) + 'k';
   }
 }
