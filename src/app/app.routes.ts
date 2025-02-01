@@ -16,6 +16,7 @@ import { VidPlayerComponent } from './components/vid-player/vid-player.component
 import { HomeComponent } from './pages/home/home.component';
 
 import { VidPageComponent } from './pages/vid-page/vid-page.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
@@ -28,6 +29,7 @@ export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path: 'login', component: LoginComponent },
+  {path: 'episode/:id', component: VidPageComponent },
+  {path:'forgot-password', component: ForgotPasswordComponent}
 
-{ path: 'episode/:id', component: VidPageComponent },
 ];
