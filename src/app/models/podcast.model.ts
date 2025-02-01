@@ -1,5 +1,5 @@
 export interface Podcast {
-    id?: string; 
+    id?: number; 
     name: string;
     topic: string;
     description: string;
@@ -8,7 +8,7 @@ export interface Podcast {
   }
   
   export interface CreateEpisode {
-    id?: string;  
+    id?: number;  
     name: string;
     number: number;
     description: string;

@@ -1,0 +1,102 @@
+<div class="modal-overlay" (click)="closeModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <div class="modal-header">
+        <h2>Create Episode</h2>
+        <button class="btn-close" (click)="closeModal()">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="createForm">
+          <!-- Name Field -->
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input
+              id="name"
+              formControlName="name"
+              type="text"
+              placeholder="Enter episode name"
+              [ngClass]="{'error-input': createForm.get('name')?.touched && createForm.get('name')?.invalid}"
+            />
+            <div *ngIf="createForm.get('name')?.touched && createForm.get('name')?.invalid" class="error-message">
+              <small *ngIf="createForm.get('name')?.hasError('required')">Name is required.</small>
+            </div>
+          </div>
+  
+          <!-- Description Field -->
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea
+              id="description"
+              formControlName="description"
+              placeholder="Enter episode description"
+              [ngClass]="{'error-input': createForm.get('description')?.touched && createForm.get('description')?.invalid}"
+            ></textarea>
+            <div *ngIf="createForm.get('description')?.touched && createForm.get('description')?.invalid" class="error-message">
+              <small *ngIf="createForm.get('description')?.hasError('required')">Description is required.</small>
+            </div>
+          </div>
+  
+          <!-- Duration Field -->
+          <div class="form-group">
+            <label for="duration">Duration (minutes)</label>
+            <input
+              id="duration"
+              formControlName="duration"
+              type="number"
+              placeholder="Enter duration"
+              min="0"
+              [ngClass]="{'error-input': createForm.get('duration')?.touched && createForm.get('duration')?.invalid}"
+            />
+            <div *ngIf="createForm.get('duration')?.touched && createForm.get('duration')?.invalid" class="error-message">
+              <small *ngIf="createForm.get('duration')?.hasError('required')">Duration is required.</small>
+              <small *ngIf="createForm.get('duration')?.hasError('min')">Duration must be a positive number.</small>
+            </div>
+          </div>
+  
+          <!-- Episode Number Field -->
+          <div class="form-group">
+            <label for="number">Episode Number</label>
+            <input
+              id="number"
+              formControlName="number"
+              type="number"
+              placeholder="Enter episode number"
+              min="1"
+              [ngClass]="{'error-input': createForm.get('number')?.touched && createForm.get('number')?.invalid}"
+            />
+            <div *ngIf="createForm.get('number')?.touched && createForm.get('number')?.invalid" class="error-message">
+              <small *ngIf="createForm.get('number')?.hasError('required')">Episode number is required.</small>
+              <small *ngIf="createForm.get('number')?.hasError('min')">Episode number must be greater than 0.</small>
+            </div>
+          </div>
+  
+          <!-- Upload Cover Image -->
+          <app-upload-progress
+            accept="image/png,image/jpeg,image/jpg,image/svg"
+            buttonText="Upload Cover Image"
+            (uploadStatusChanged)="handleUploadStatusChanged($event)"
+            (fileUploaded)="handleFileUploaded($event, 'coverImage')"
+            (fileRemoved)="handleFileRemoved('coverImage')">
+          </app-upload-progress>
+  
+          <!-- Upload File for Episode -->
+          <app-upload-progress
+            accept="audio/mp3,video/mp4"
+            buttonText="Upload Episode File"
+            (uploadStatusChanged)="handleUploadStatusChanged($event)"
+            (fileUploaded)="handleFileUploaded($event, 'filepath')"
+            (fileRemoved)="handleFileRemoved('filepath')">
+          </app-upload-progress>
+        </form>
+      </div>
+  
+      <div class="modal-footer">
+        <button
+          class="btn-save"
+          (click)="createEntity()"
+          [disabled]="!isFormValid()">
+          Create
+        </button>
+      </div>
+    </div>
+  </div>
+  
