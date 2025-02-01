@@ -6,7 +6,8 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { catchError, of } from 'rxjs';
+import { catchError, from, of, switchMap } from 'rxjs';
+import { CloudinaryService } from '../../services/cloudinary.service';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -17,7 +18,6 @@ import { catchError, of } from 'rxjs';
 export class LoginComponent {
   isSignIn: boolean = true;
   usernameTaken: boolean = false;
-  usernameChecked: boolean = false;
   Data = {
     firstName: '',
     lastName: '',
@@ -32,7 +32,7 @@ export class LoginComponent {
     twitterUser:'',
     password: '',
     confirmPassword: '',
-    photo: null as File | null,
+    photo: null as string | null,
     selectedInterests: [] as string[]
     };
 
@@ -45,6 +45,7 @@ export class LoginComponent {
                  this.Data.lastName && 
                  this.Data.username &&
                  this.Data.email &&
+                 !this.usernameTaken &&
                  this.Data.birthday && 
                  this.isValidEmail(this.Data.email));
       case 2:
@@ -92,67 +93,59 @@ export class LoginComponent {
       this.currentStep--;
     }
   }
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService,
+    private router: Router,
+    private cloudinaryService: CloudinaryService
+  ) {}
 
-  onFileSelected(event: any): void {
-    const file = event.target.files[0];
+  async onFileSelect(event: Event): Promise<void>  {
+    const input = event.target as HTMLInputElement;
+  if (input.files && input.files[0]) {
+    const file = input.files[0];
     if (file) {
-      this.Data.photo = file;
-      console.log(file)
-    }
+      try {
+        const photoUrl = await this.cloudinaryService.uploadToCloudinary(file);
+        this.Data.photo = photoUrl;
+        console.log('File uploaded successfully:', this.Data.photo );
+      } catch (error) {
+        console.error('Upload failed:', error);
+      }    }
   }
-  constructor(private http: HttpClient,private authService: AuthService, private router: Router) {}
+  }
 
   checkUsername(): void {
-      this.authService.checkUsernameUnique(this.Data.username)
-        .pipe(
-          catchError((err) => {
-            console.error('Error checking username:', err);
-            return of(false); 
-          })
-        )
-        .subscribe({
-          next: (isTaken) => {
-            this.usernameTaken = isTaken;
-            this.usernameChecked = true;
-          
-          }
-        });
-    
-  }
+    this.usernameTaken=false;
+    if (this.Data.username) { 
+        console.log(this.Data.username);
+        this.authService.checkUsernameUnique(this.Data.username)
+            .pipe(
+                catchError((err) => {
+                    console.error('Error checking username:', err);
+                    return of(false); 
+                })
+            )
+            .subscribe({
+                next: (isTaken) => {
+                    this.usernameTaken = isTaken; 
+                    console.log(this.usernameTaken)
+                }
+            });
+    }
+}
 
   signUp(): void {
-  const formData = new FormData();
-
-  formData.append('firstName', this.Data.firstName);
-  formData.append('lastName', this.Data.lastName);
-  formData.append('username', this.Data.username);
-  formData.append('email', this.Data.email);
-  formData.append('birthday', this.Data.birthday);
-  formData.append('country', this.Data.country);
-  formData.append('profession', this.Data.profession);
-  formData.append('whatsappUser', this.Data.whatsappUser);
-  formData.append('instagramLink', this.Data.instagramLink);
-  formData.append('twitterUser', this.Data.twitterUser);
-  formData.append('password', this.Data.password);
-  formData.append('confirmPassword', this.Data.confirmPassword);
-
-  if (this.Data.photo) {
-    formData.append('photo', this.Data.photo, this.Data.photo.name);
+    this.authService.register(this.Data).subscribe({
+      next: (response) => {
+        this.currentStep++;
+        console.log('Registration successful', response);
+      },
+      error: (error) => {
+        console.error('Registration failed', error);
+      },
+    });
   }
-
-  formData.append('selectedInterests', JSON.stringify(this.Data.selectedInterests));
-
-
-  this.authService.register(formData).subscribe({
-    next: (response) => {
-      this.currentStep++;
-      console.log('Registration successful', response);
-    },
-    error: (error) => {
-      console.error('Registration failed', error);
-    },
-  });
-}
 
   signIn() {
     this.authService.login(this.Data).subscribe({
@@ -162,7 +155,7 @@ export class LoginComponent {
         if (response.accessToken) {
           localStorage.setItem('authToken', response.accessToken);
 
-          this.router.navigate(['/']);
+          this.router.navigate(['/profil']);
         } else {
           console.error('Token not found in the response.');
         }

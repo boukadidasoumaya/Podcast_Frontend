@@ -38,7 +38,7 @@ export class ProfilComponent  implements OnInit {
       next: (data) => {
         this.user = {
           ...data,
-          profilImage: data.photo ? `http://localhost:3000/${data.photo}` : 'assets/images/default-profile.png',
+          profilImage: data.photo || 'assets/images/default-profile.png',
           name: `${data.firstName} ${data.lastName}`,
           password: data.password,
           birthDate: new Date(data.birthday).toLocaleDateString(),

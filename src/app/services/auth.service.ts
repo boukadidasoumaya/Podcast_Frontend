@@ -39,6 +39,7 @@ export class AuthService {
   checkUsernameUnique(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/auth/check-username?username=${username}`);
   }
+
   private parseJwt(token: string) {
     try {
       const base64Url = token.split('.')[1];

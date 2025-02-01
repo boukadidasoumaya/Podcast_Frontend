@@ -8,10 +8,10 @@
                     <div class="step" *ngIf="currentStep === 1">
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstName" ></app-input-field>
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastName"   ></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username" (ngModelChange)="checkUsername()"></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username" (blur)="checkUsername()"></app-input-field>
                         <div *ngIf="usernameTaken" class="error">
-                            Username is already taken. Please choose another.
-                          </div>
+                            Username is already taken. 
+                        </div>
                         <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
                         <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
                     </div>
@@ -25,7 +25,7 @@
                     <div class="step" *ngIf="currentStep === 3">
                         <div class="mb-3">
                             <label for="photo" class="form-label">Photo</label>
-                            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelected($event)">
+                            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelect($event)">
                           </div>
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" ></app-input-field>
