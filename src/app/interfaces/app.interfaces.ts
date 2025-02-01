@@ -6,8 +6,8 @@ export interface User {
   username: string;
   photo: string | null;
   profession: string | null;
-  facebookLink: string | null;
-  linkedinLink: string | null;
+  whatsappUser: string | null;
+  twitterLink: string | null;
   instagramLink: string | null;
 
 }
@@ -16,7 +16,7 @@ export interface Podcast {
   id: number;
   name: string;
   views: number;
-  duration: string;
+  duration: number;
   topic:string;
   description: string;
   image: string;

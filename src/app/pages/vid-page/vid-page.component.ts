@@ -71,9 +71,5 @@ onEpisodeSelected(episodeId: number) {
 
 }
 
-  loadComments(episodeId: number) {
-    this.episodeService.getComments(episodeId).subscribe((comments: any[]) => {
-      this.comments = comments;
-    });
-  }
+ 
 }

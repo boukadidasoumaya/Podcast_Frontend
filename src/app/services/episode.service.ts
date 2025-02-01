@@ -2,14 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode } from '../interfaces/app.interfaces'; // Assure-toi que tu as un modèle Episode
-import { APP_API } from '../config/app-api.config';
+import { APP_API, baseUrl } from '../config/app-api.config';
 import { EpisodeS } from '../models/episode.model';
 import { CreateEpisode } from '../models/podcast.model';
 @Injectable({
   providedIn: 'root'
 })
 export class EpisodeService {
-  private apiUrl = APP_API.episode; // URL de ton API backend
+  private apiUrl = APP_API.episode;
 
   constructor(private http: HttpClient) {}
 
@@ -31,13 +31,10 @@ export class EpisodeService {
   getAllEpisodesLatest(): Observable<Episode[]> {
   return this.http.get<Episode[]>(`${this.apiUrl}/latest`);
   }
-  // Récupérer un épisode par son ID
-  getEpisodeById(id: number): Observable<Episode> {
-    return this.http.get<Episode>(`${this.apiUrl}/${id}`);
-  }
+
 
   // Mettre à jour un épisode
-  updateEpisode(id: number, updateEpisodeDto: any): Observable<Episode> {
+  updateEpisode(id: number, updateEpisodeDto: Partial<Episode>): Observable<Partial<Episode>> {
     return this.http.put<Episode>(`${this.apiUrl}/${id}`, updateEpisodeDto);
   }
 
@@ -53,5 +50,13 @@ export class EpisodeService {
       {}
     );
   }
+  getEpisodeById(id: number): Observable<Episode> {
+    console.log('hhhjj')
+    console.log(this.http.get<Episode>(`${this.apiUrl}/${id}`))
+    return this.http.get<Episode>(`${this.apiUrl}/${id}`);
+  }
 
+  getRelatedEpisodes(podcastId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${baseUrl}podcast/${podcastId}/episodes`);
+  }
 }

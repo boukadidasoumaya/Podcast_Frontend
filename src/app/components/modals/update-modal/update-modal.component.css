@@ -163,4 +163,19 @@
     }
   }
 
-  
+  /* Appliquer un contour rouge à l'input invalide */
+.error-input {
+  border: 1px solid red;
+}
+
+/* Style des messages d'erreur */
+.error-message {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+/* Vous pouvez ajouter d'autres styles pour améliorer la lisibilité */
+.error-input:focus {
+  border: 1px solid darkred;
+}
