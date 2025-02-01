@@ -28,6 +28,5 @@ export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path: 'login', component: LoginComponent },
-
 { path: 'episode/:id', component: VidPageComponent },
 ];

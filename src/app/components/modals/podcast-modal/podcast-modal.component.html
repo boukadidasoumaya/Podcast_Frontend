@@ -4,6 +4,7 @@
   tabindex="-1"
   aria-labelledby="uploadPodcastModalLabel"
   aria-hidden="true"
+  
 >
   <div class="modal-dialog modal-dialog-centered modal-lg">
     <div class="modal-content">
@@ -90,6 +91,7 @@
             <input
               id="image"
               type="file"
+               accept="image/jpeg, image/png"
               (change)="onFileSelect($event, 'podcast')"
               style="display: none"
               #fileInput
@@ -102,7 +104,6 @@
               <span class="btn__text">Upload</span>
             </button>
             <div *ngIf="data.podcast.image">
-              <span>Uploaded: {{ data.podcast.image }}</span>          
               <app-trash (delete)="removeFile('podcast')"></app-trash>
             </div>
           </div>
@@ -166,6 +167,7 @@
                 #fileInput
                 id="episode-file-{{ i }}"
                 type="file"
+                accept="audio/mp3, video/mp4" 
                 (change)="onFileSelect($event, 'episode', i)"
                 style="display: none"
               />
@@ -177,7 +179,7 @@
                 <span class="btn__text">Upload</span>
               </button>
               <div *ngIf="episode.filepath">
-                <span>Uploaded: {{ episode.filepath }}</span>
+              
                 
                 <app-trash (delete)="removeFile('episode', i)"></app-trash>
 
@@ -191,6 +193,7 @@
                 #coverImageInput
                 id="episode-cover-image-{{ i }}"
                 type="file"
+                accept="image/jpeg, image/png"
                 (change)="onFileSelect($event, 'episode-cover', i)"
                 style="display: none"
               />
@@ -202,7 +205,7 @@
                 <span class="btn__text">Upload Cover Image</span>
               </button>
               <div *ngIf="episode.coverImage">
-                <span>Uploaded: {{ episode.coverImage }}</span>
+
                 <app-trash (delete)="removeFile('episode-cover', i)"></app-trash>
               </div>
             </div>

@@ -1,4 +1,21 @@
-<div class="user-profile">
-    <img [src]="user.avatarUrl" alt="User Avatar" class="user-avatar" />
-    <span>{{ user.name }}</span>
+<div class="user-profile" *ngIf="user?.firstName">
+  <div mat-icon-button [matMenuTriggerFor]="menu">
+    <img [src]="user.photo ? user.photo : 'assets/images/avatar.png'" class="user-avatar" />
+
   </div>
+  <span>{{ user.username }} </span> 
+</div>
+
+<!-- Menu déroulant -->
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="viewProfile()" >
+    <mat-icon>account_circle</mat-icon> Profile
+  </button>
+  <button mat-menu-item (click)="logout()" >
+    <mat-icon [routerLink]="['*']">exit_to_app</mat-icon> logout
+  </button>
+</mat-menu>
+
+<div *ngIf="!user?.firstName">
+  <button mat-raised-button color="primary" [routerLink]="['/login']">Sign in</button>
+</div>

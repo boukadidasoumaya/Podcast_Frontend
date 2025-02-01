@@ -8,8 +8,9 @@ import { EpisodeService } from '../../../services/episode.service';
 import { Podcast,CreateEpisode } from '../../../models/podcast.model';
 import { TrashComponent } from "../../trash/trash.component";
 
+import { RouterModule } from '@angular/router';
 @Component({
-  imports: [CommonModule, FormsModule, TrashComponent],
+  imports: [CommonModule, FormsModule, TrashComponent,RouterModule],
   standalone: true,
   selector: 'app-podcast-modal',
   templateUrl: './podcast-modal.component.html',
@@ -17,7 +18,7 @@ import { TrashComponent } from "../../trash/trash.component";
 })
 export class PodcastModalComponent {
   @ViewChild('closeBtn', { static: false }) closeBtn!: ElementRef<HTMLButtonElement>;
-
+  
   isUploading = false; 
 
   step: number = 1;
@@ -41,8 +42,11 @@ export class PodcastModalComponent {
     private cloudinaryService: CloudinaryService,
     private podcastService: PodcastService,
     private episodeService: EpisodeService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    
   ) {}
+
+ 
 
   setEpisodesCount(count: number) {
     this.data.episodes = Array.from({ length: count }, (_, i) => ({
