@@ -19,7 +19,7 @@ export class EpisodeHorizontalComponent {
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
-
+    @Input() authorisedToLike!:boolean
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
@@ -32,9 +32,6 @@ export class EpisodeHorizontalComponent {
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
 
-    onCommentChanged(isCommented: boolean) {
-      console.log('Commentaire modifié:', isCommented);
-    }
 
 }
 

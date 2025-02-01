@@ -54,3 +54,22 @@ a {
 .delete-btn .btn .trash-button{
   color: red !important;
 }
+
+.edit-btn {
+  position: absolute;
+  top: 10px;
+  left: 5px;
+  color: blue; 
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  opacity: 0; /* Caché par défaut */
+  transition: opacity 0.3s ease-in-out;
+}
+
+.owner-card:hover .edit-btn {
+  opacity: 1; /* S'affiche au survol */
+}
+

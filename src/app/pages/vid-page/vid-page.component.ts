@@ -10,15 +10,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { EpisodeService } from '../../services/vid-page.service';
 import { Episode } from '../../interfaces/app.interfaces';
 import { RelatedSectionComponent } from '../../related-section/related-section.component';
+import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 @Component({
   selector: 'app-vid-page',
   standalone: true,
   imports: [RelatedSectionComponent,
     HttpClientModule,
     CommonModule,
-    CommentComponent,
     SectionCustomComponent,
     VidPlayerComponent,
+    CommentSectionComponent
   ],
   providers: [EpisodeService], // Ensure EpisodeService is provided here
   templateUrl: './vid-page.component.html',
@@ -71,5 +72,5 @@ onEpisodeSelected(episodeId: number) {
 
 }
 
- 
+
 }

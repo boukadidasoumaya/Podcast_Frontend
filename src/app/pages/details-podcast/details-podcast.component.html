@@ -17,9 +17,12 @@
         [isOwner]="isOwner"
         (episodeSelected)="onEpisodeSelected($event)">
         </app-related-section>
+
+
         <app-comment-section
         *ngIf="episodeDetails"
         [episode]="episodeDetails"
+        [selectedEpisode]="episodeId"
         >
       </app-comment-section>
             </div>

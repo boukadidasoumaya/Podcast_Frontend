@@ -16,4 +16,6 @@
     class="delete-btn"
     (deleteConfirmed)="onDelete()">
   </app-delete-button>
+
+  <app-edit-button *ngIf="isOwner && isPodcast" class="edit-btn" (editClicked)="onEditClick()"></app-edit-button>
   </div>

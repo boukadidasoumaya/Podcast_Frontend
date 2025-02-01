@@ -29,13 +29,14 @@
       <app-heart-icon
         [numberOfLikes]="numberOfLikes"
         [isLiked]="isLiked"
+        [authorisedToLike]="authorisedToLike"
         (liked)="onLikeChanged($event)">
       </app-heart-icon>
 
       <!-- Composant pour l'icône chat -->
       <app-comment-icon
         [numberOfComments]="episode.numberOfComments"
-        (commented)="onCommentChanged($event)">
+       >
       </app-comment-icon>
     </div>
 

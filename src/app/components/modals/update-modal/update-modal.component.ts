@@ -92,15 +92,37 @@ export class UpdateModalComponent implements OnInit {
   }
 
   handleFileRemoved(field: 'coverImage' | 'filepath'): void {
-    this.updateForm.patchValue({ [field]: null });
+    const initialValue =
+      this.type === 'podcast'
+        ? (this.entityData as Partial<Podcast>)?.image
+        : (this.entityData as Partial<Episode>)?.[field];
+
+    this.updateForm.patchValue({ [field]: initialValue || null });
     this.isFileUploaded[field] = false;
-    this.isUploading[field] = false;  // Réinitialisation de l'état de téléchargement
+    this.isUploading[field] = false;
   }
+
 
   resetFileUploads(): void {
     this.isFileUploaded = { coverImage: false, filepath: false };
     this.isUploading = { coverImage: false, filepath: false };
-    this.updateForm.setErrors(null); // Réinitialise les erreurs du formulaire si nécessaire
+
+    // Restore the initial values of coverImage and filepath
+    const initialCoverImage = this.type === 'podcast'
+      ? (this.entityData as Partial<Podcast>)?.image
+      : (this.entityData as Partial<Episode>)?.coverImage;
+
+    const initialFilepath = this.type === 'episode'
+      ? (this.entityData as Partial<Episode>)?.filepath
+      : null;
+
+    this.updateForm.patchValue({
+      coverImage: initialCoverImage || null,
+      filepath: initialFilepath || null,
+    });
+
+    this.updateForm.setErrors(null); // Reset form errors if necessary
   }
+
 }
 

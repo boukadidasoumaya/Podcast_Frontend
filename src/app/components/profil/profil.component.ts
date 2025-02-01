@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { EmailModalComponent } from '../modals/email-modal/email-modal.component';
 import { PasswordModalComponent } from '../modals/password-modal/password-modal.component';
 import { SocialMediaModalComponent } from '../modals/social-media-modal/social-media-modal.component';
@@ -9,11 +9,16 @@ import { TopicsComponent } from '../topics/topics.component';
 import { EpisodeHorizontalComponent } from '../episode-horizontal/episode-horizontal.component';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { UserService } from '../../services/user.service';
+import { Podcast } from '../../interfaces/app.interfaces';
+import { PodcastService } from '../../services/podcast.service';
+import { UpdateComponent } from '../update/update.component';
+import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent
+  imports: [CommonModule,NavbarComponent,SectionCustomComponent,TopicsComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,UpdateModalComponent
   ],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
@@ -21,14 +26,17 @@ import { UserService } from '../../services/user.service';
 })
 export class ProfilComponent  implements OnInit {
   user: any = {};
-  podcastData: any[] = [];
+  podcastData: Podcast[] = [];
   isLoading = true;
   error: string | null = null;
-
-  constructor(private userService: UserService) {}
+  isEditModalOpen:boolean=true;
+  constructor(private userService: UserService,private podcastService: PodcastService) {}
+  selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
     this.loadUserProfile();
+    console.log('user',this.user);
+    this.loadUserPodcasts();
   }
 
 
@@ -47,7 +55,7 @@ export class ProfilComponent  implements OnInit {
           email: data.email,
           socialMedia: {
             whatsapp: data.whatsappUser,
-            instagram: data.instagramLink,
+            instagram: data.instagramLink ,
             twitter: data.twitterLink || 'Not provided'
           }
         };
@@ -57,6 +65,19 @@ export class ProfilComponent  implements OnInit {
         this.error = 'Failed to load user profile';
         this.isLoading = false;
         console.error('Error loading profile:', error);
+      }
+    });
+  }
+  loadUserPodcasts() {
+    this.podcastService.getPodcastsByUser().subscribe({
+      next: (podcasts) => {
+        this.podcastData = podcasts;
+        console.log('my podcast',this.podcastData)
+
+      },
+      error: (error) => {
+        console.error('Error fetching user podcasts:', error);
+        this.error = 'Failed to load podcasts';
       }
     });
   }
@@ -82,5 +103,27 @@ export class ProfilComponent  implements OnInit {
         console.error('Error updating profile:', error);
       }
     });
+  }
+  toggleEditModal(){
+    this.isEditModalOpen=!this.isEditModalOpen;
+  }
+  editPodcast(podcast:Podcast){
+    this.isEditModalOpen=true;
+    console.log('here from profile',this.isEditModalOpen);
+
+    // this.toggleEditModal;
+  }
+  deletePodcast(podcast:Podcast){
+
+  }
+  onPodcastSelect(podcast: Podcast) {
+    this.selectedPodcast = podcast;
+    console.log('Selected podcast:', this.selectedPodcast);
+  }
+  updatePodcast(podcast:Podcast){
+
+  }
+  closeEditModal(){
+    this.toggleEditModal();
   }
 }

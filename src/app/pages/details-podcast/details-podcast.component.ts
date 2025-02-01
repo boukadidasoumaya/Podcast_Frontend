@@ -25,7 +25,6 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./details-podcast.component.css']
 })
 export class DetailsPodcastComponent implements OnInit {
-  comments: Comment[] = [];
   episodeDetails!: Episode ;
   episodeId!: number ;
   podcastDetails: Podcast | null = null;
@@ -73,9 +72,12 @@ export class DetailsPodcastComponent implements OnInit {
         }
       });
     }}
-    onEpisodeSelected(episodeId: number) {
+    onEpisodeSelected(episodeId: number): void {
       this.episodeId = episodeId;
+      console.log('Episode selected:', episodeId);
 
-      console.log('Episode selected:', episodeId);}
+    }
+
+
 
     }

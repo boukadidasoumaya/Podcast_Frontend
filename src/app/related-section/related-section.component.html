@@ -14,7 +14,7 @@
           [isOwner]="isOwner"
           [routerLink]="routerLink"
           [image]="episode.coverImage"
-          (delete)="deleteEpisode($event)"
+          (deleteEpisode)="deleteEpisode($event)"
           (click)="loadEpisode(episode.id)">
         </app-topics>
       </ng-template>

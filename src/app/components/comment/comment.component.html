@@ -15,10 +15,10 @@
         <div class="container">
           <div class="row mt-2">
             <div [ngClass]="'col-lg-' + colLikeLg + ' col-md-' + colLikeMd + ' col-sm-6'">
-              <app-like-button  [likesCount]="likesCount"  [isLiked]="isLiked"
+              <app-like-button  [likesCount]="likesCount" [authorisedToLike]="authorisedToComment" [isLiked]="isLiked"
               (liked)="onLikeChanged($event)" ></app-like-button>
             </div>
-            <div [ngClass]="'col-lg-' + (colLikeLg) + ' col-md-' + colLikeMd + ' col-sm-6'" (click)="toggleReplyForm()">
+            <div [ngClass]="'col-lg-' + (colLikeLg) + ' col-md-' + colLikeMd + ' col-sm-6'" (click)="canComment()">
               <div class="row" style="cursor: pointer">
                 <div class="col-4 d-flex justify-content-end">
                   <div class="container p-0 reply-button d-flex align-items-center justify-content-end">
@@ -64,6 +64,7 @@
               [isLiked]="isReplyLiked(reply.id)"
               [likesCount]="getReplyLikesCount(reply.id)"
               (liked)="onReplyLikeChanged($event)"
+              (deletedComment)="deleteReplyMessage(reply)"
               (replyAdded)="replyAdded.emit($event)"
               [colWidthIm]="2"
               [colLikeLg]="3"
