@@ -73,6 +73,7 @@ export class CardEpisodeWithDetailsComponent {
       },
       (error) => {
         console.error("Erreur lors de l'ajout de l'épisode", error);
+        console.log(newEpisode)
       }
     );
   }

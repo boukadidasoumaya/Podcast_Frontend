@@ -3,7 +3,6 @@ export interface Podcast {
     name: string;
     topic: string;
     description: string;
-    nbre_episode: number;
     image: any;
   }
   
