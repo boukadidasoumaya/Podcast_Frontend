@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
 import { HeartIconComponent } from '../heart-icon/heart-icon.component';
@@ -15,13 +15,15 @@ import { SaveIconComponent } from "../save-icon/save-icon.component";
   templateUrl: './episode-horizontal.component.html',
   styleUrl: './episode-horizontal.component.css'
 })
-export class EpisodeHorizontalComponent {
+export class EpisodeHorizontalComponent implements OnInit{
     @Input() episode!:Episode;
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
 
-
+ngOnInit(): void {
+    console.log('kdnfdnf',this.episode)
+}
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);

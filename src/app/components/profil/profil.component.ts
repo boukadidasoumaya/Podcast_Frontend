@@ -27,6 +27,7 @@ export class ProfilComponent  implements OnInit {
   isLoading = true;
   error: string | null = null;
   bookmarkedEpisodes: Episode[] = [];
+  likes: { [episodeId: number]: number } = {};
 
   constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
 
@@ -39,7 +40,7 @@ export class ProfilComponent  implements OnInit {
       (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
         console.log('nhhhhhhhhhhhhh')
-        console.log(this.bookmarkedEpisodes)
+        console.log(this.bookmarkedEpisodes.length)
 
       },
       (error: any) => { // Explicitly typing the 'error' parameter as 'any'
@@ -104,4 +105,5 @@ export class ProfilComponent  implements OnInit {
       },
     });
   };
+  
 }

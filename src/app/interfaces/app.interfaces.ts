@@ -50,7 +50,8 @@ export interface Episode {
   coverImage: string;
   numberOfLikes: number;
   numberOfComments: number;
-  likes:Like;
+  likes:Like[];
+  comments:Comment[];
 description :string;
 }
 
