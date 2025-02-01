@@ -185,8 +185,6 @@
       <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="500">
         <ng-template let-card>
           <app-episode-horizontal
-          class="episode-horizontal"
-    
           [episode]="card.episode"
           [numberOfLikes]="100"
           [isLiked]="false">
@@ -196,6 +194,16 @@
         </ng-template>
       </app-swiper>     
       </app-section-custom>
+      <div class="row">
+        <div class="col-12" *ngFor="let episode of bookmarkedEpisodes">
+          <app-episode-horizontal
+            [episode]="episode"
+            [numberOfLikes]="100"
+            [isLiked]="false">
+          </app-episode-horizontal>
+        </div>
+      </div>
+      
     
   </div>
 </div>

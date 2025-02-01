@@ -11,10 +11,11 @@ import { SectionCustomComponent } from '../section-custom/section-custom.compone
 import { UserService } from '../../services/user.service';
 import { Episode } from '../../interfaces/app.interfaces';
 import { BookmarkService } from '../../services/bookmark.service';
+import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [NavbarComponent,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,TopicsComponent
+  imports: [NavbarComponent,CommonModule,SectionCustomComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,TopicsComponent
   ],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
@@ -37,12 +38,15 @@ export class ProfilComponent  implements OnInit {
     this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
       (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
-        console.log(episodes)
+        console.log('nhhhhhhhhhhhhh')
+        console.log(this.bookmarkedEpisodes)
+
       },
       (error: any) => { // Explicitly typing the 'error' parameter as 'any'
         console.error('Error fetching bookmarked episodes:', error);
       }
     );
+
   }
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);

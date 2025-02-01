@@ -1,4 +1,7 @@
 export interface User {
+  createdAt: string;              // e.g. "2025-01-31 21:55:21.000000"
+  updatedAt: string;              // e.g. "2025-01-31 21:55:21.000000"
+  deletedAt: string | null;       // Can be NULL if not deleted
   id: number;
   email: string;
   firstName: string;
@@ -9,8 +12,13 @@ export interface User {
   facebookLink: string | null;
   linkedinLink: string | null;
   instagramLink: string | null;
-
+  password: string;
+  salt: string;
+  role: string;
+  resetCode: string | null;
+  resetCodeExpiration: string | null;
 }
+
 
 export interface Podcast {
   createdAt: string;
