@@ -188,23 +188,21 @@
               [podcast]="card"
               [isPodcast]="true"
               [isOwner]="true"
-              (edit)="editPodcast($event)"
+              (edit)="editPodcastModalOpen($event)"
               (deletePodcast)="deletePodcast($event)"
               (click)="onPodcastSelect(card)"
-
+              (checkDetails)="onCheckDetails($event)"
             ></app-topics>
 
           </ng-template>
 
         </app-swiper>
-        <app-update-modal
+
+      <app-update-podcast-modal
         *ngIf="isEditModalOpen"
-        [type]="'podcast'"
-        [entityData]="selectedPodcast"
+        [podcastData]="selectedPodcast"
         (onSave)="updatePodcast($event)"
-        (onClose)="closeEditModal()"
-        >
-      </app-update-modal>
+        (onClose)="closeEditModal()" ></app-update-podcast-modal>
       </app-section-custom>
     </div>
   </div>

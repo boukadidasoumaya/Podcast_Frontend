@@ -14,11 +14,13 @@ import { PodcastService } from '../../services/podcast.service';
 import { UpdateComponent } from '../update/update.component';
 import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
 import { CommonModule } from '@angular/common';
+import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,SectionCustomComponent,TopicsComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,UpdateModalComponent
+  imports: [CommonModule,NavbarComponent,SectionCustomComponent,TopicsComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,UpdatePodcastModalComponent
   ],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
@@ -29,8 +31,8 @@ export class ProfilComponent  implements OnInit {
   podcastData: Podcast[] = [];
   isLoading = true;
   error: string | null = null;
-  isEditModalOpen:boolean=true;
-  constructor(private userService: UserService,private podcastService: PodcastService) {}
+  isEditModalOpen:boolean=false;
+  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router) {}
   selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
@@ -107,23 +109,76 @@ export class ProfilComponent  implements OnInit {
   toggleEditModal(){
     this.isEditModalOpen=!this.isEditModalOpen;
   }
-  editPodcast(podcast:Podcast){
+  editPodcastModalOpen(podcast:Podcast){
     this.isEditModalOpen=true;
     console.log('here from profile',this.isEditModalOpen);
-
-    // this.toggleEditModal;
   }
-  deletePodcast(podcast:Podcast){
 
+  deletePodcast(podcast: Podcast) {
+    if (!podcast.id) {
+      console.error("Impossible de supprimer : ID du podcast manquant.");
+      return;
+    }
+
+    this.podcastService.deletePodcast(podcast.id).subscribe({
+      next: () => {
+        console.log("Podcast supprimé avec succès :", podcast.id);
+
+        // Supprimer le podcast de la liste locale
+        this.podcastData = this.podcastData.filter(p => p.id !== podcast.id);
+      },
+      error: (error) => {
+        console.error("Erreur lors de la suppression du podcast :", error);
+      }
+    });
   }
+
   onPodcastSelect(podcast: Podcast) {
     this.selectedPodcast = podcast;
     console.log('Selected podcast:', this.selectedPodcast);
   }
-  updatePodcast(podcast:Podcast){
+  updatePodcast(updatedPodcast: Partial<Podcast>) {
+    if (!this.selectedPodcast.id) {
+      console.error("Aucun podcast sélectionné pour la mise à jour.");
+      return;
+    }
 
+    this.podcastService.updatePodcast(this.selectedPodcast.id, updatedPodcast).subscribe({
+      next: (response) => {
+        console.log("Podcast mis à jour avec succès :", response);
+
+        // Mettre à jour la liste locale des podcasts pour refléter les changements
+        this.podcastData = this.podcastData.map(podcast =>
+          podcast.id === this.selectedPodcast.id ? { ...podcast, ...updatedPodcast } : podcast
+        );
+
+        // Fermer le modal après mise à jour
+        this.closeEditModal();
+      },
+      error: (error) => {
+        console.error("Erreur lors de la mise à jour du podcast :", error);
+      }
+    });
   }
+
   closeEditModal(){
     this.toggleEditModal();
   }
+  goToDetails(podcastId: number) {
+    this.podcastService.getFirstEpisode(podcastId).subscribe({
+      next: (episode) => {
+        if (episode) {
+          this.router.navigate([`/details-podcast/${episode.id}`]);
+        } else {
+          console.error("Aucun épisode trouvé.");
+        }
+      },
+      error: (err) => console.error("Erreur lors de la récupération de l'épisode :", err),
+    });
+  }
+  onCheckDetails(podcast:Podcast) {
+    this.goToDetails(podcast.id);
+  }
+
+
 }

@@ -18,4 +18,11 @@
   </app-delete-button>
 
   <app-edit-button *ngIf="isOwner && isPodcast" class="edit-btn" (editClicked)="onEditClick()"></app-edit-button>
+
+  <div class="details row " *ngIf="isOwner && isPodcast">
+    <div class="col-12 d-flex justify-content-end">
+      <div class="check-details-text" (click)="onCheckDetailsClick()">Check Details</div>
+    </div>
+  </div>
+
   </div>

@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UploadProgressComponent } from '../../upload-progress/upload-progress.component';
-import { Episode, Podcast } from '../../../interfaces/app.interfaces';
+import { Episode } from '../../../interfaces/app.interfaces';
 
 @Component({
   selector: 'app-update-modal',
@@ -13,15 +13,15 @@ import { Episode, Podcast } from '../../../interfaces/app.interfaces';
   styleUrls: ['./update-modal.component.css'],
 })
 export class UpdateModalComponent implements OnInit {
-  @Input() type: 'podcast' | 'episode' = 'podcast';
-  @Input() entityData!: this['type'] extends 'podcast' ? Partial<Podcast> : Partial<Episode>;
+  @Input() type: 'episode' = 'episode'; // Only episode type
+  @Input() entityData!: Partial<Episode>;
   @Output() onSave = new EventEmitter<any>();
   @Output() onClose = new EventEmitter<void>();
 
   updateForm!: FormGroup;
-  isFileUploaded = { coverImage: false, filepath: false }; // Suivi du statut de téléchargement des fichiers
-  isUploading = { coverImage: false, filepath: false };  // Suivi des fichiers en cours de téléchargement
-  isUploadInProgress: boolean = false;  // Track the overall upload status
+  isFileUploaded = { filepath: false, coverImage: false }; // Tracking upload status for files
+  isUploading = { filepath: false, coverImage: false };  // Tracking upload progress
+  isUploadInProgress: boolean = false;  // Track overall upload progress
 
   constructor(private fb: FormBuilder) {}
 
@@ -30,12 +30,11 @@ export class UpdateModalComponent implements OnInit {
       name: [this.entityData?.name, Validators.required],
       description: [this.entityData?.description, Validators.required],
       duration: [this.entityData?.duration, [Validators.required, Validators.min(0)]],
-      filepath: [this.type === 'episode' && (this.entityData as Episode)?.filepath || null],
-      coverImage: [this.type === 'podcast' && (this.entityData as Podcast)?.image || (this.entityData as Episode)?.coverImage],
+      filepath: [this.entityData?.filepath || null],
+      coverImage: [this.entityData?.coverImage || null],
     });
   }
 
-  // Listen to upload status changes
   handleUploadStatusChanged(isUploading: boolean): void {
     this.isUploadInProgress = isUploading;
   }
@@ -45,13 +44,11 @@ export class UpdateModalComponent implements OnInit {
   }
 
   saveChanges(): void {
-    // Si un fichier est en cours de téléchargement, on bloque l'envoi
     if (this.isUploadInProgress) {
-      console.log('En attente de l\'upload...');
+      console.log('Waiting for upload to finish...');
       return;
     }
 
-    // Si le formulaire est valide, on émet l'événement de sauvegarde
     if (this.updateForm.valid) {
       this.onSave.emit(this.updateForm.value);
       this.onClose.emit();
@@ -66,63 +63,42 @@ export class UpdateModalComponent implements OnInit {
       name: this.entityData?.name || '',
       description: this.entityData?.description || '',
       duration: this.entityData?.duration || null,
-      filepath: this.type === 'episode' ? (this.entityData as Episode)?.filepath : null,
-      coverImage: this.type === 'podcast' ? (this.entityData as Podcast)?.image : (this.entityData as Episode)?.coverImage,
+      filepath: this.entityData?.filepath || null,
+      coverImage: this.entityData?.coverImage || null,
     });
   }
 
   handleFileUploaded(fileUrl: string, field: 'coverImage' | 'filepath'): void {
-    // Fichier téléchargé avec succès
-    this.isUploading[field] = false; // Marque l'upload comme terminé
+    this.isUploading[field] = false;
     this.isFileUploaded[field] = true;
     this.updateForm.patchValue({ [field]: fileUrl });
 
-    // Vérifie si tous les fichiers sont téléchargés et si le formulaire est valide
     if (!this.isUploading.coverImage && !this.isUploading.filepath && this.updateForm.valid) {
-      this.updateForm.markAsPristine(); // Réinitialise l'état du formulaire si nécessaire
+      this.updateForm.markAsPristine();
     }
   }
 
   handleFileUploading(field: 'coverImage' | 'filepath'): void {
-    // Marque le fichier comme étant en cours de téléchargement
     this.isUploading[field] = true;
-
-    // Désactive la validité du formulaire pendant l'upload
     this.updateForm.setErrors({ uploadInProgress: true });
   }
 
   handleFileRemoved(field: 'coverImage' | 'filepath'): void {
-    const initialValue =
-      this.type === 'podcast'
-        ? (this.entityData as Partial<Podcast>)?.image
-        : (this.entityData as Partial<Episode>)?.[field];
-
+    const initialValue = this.entityData?.[field];
     this.updateForm.patchValue({ [field]: initialValue || null });
     this.isFileUploaded[field] = false;
     this.isUploading[field] = false;
   }
 
-
   resetFileUploads(): void {
-    this.isFileUploaded = { coverImage: false, filepath: false };
-    this.isUploading = { coverImage: false, filepath: false };
-
-    // Restore the initial values of coverImage and filepath
-    const initialCoverImage = this.type === 'podcast'
-      ? (this.entityData as Partial<Podcast>)?.image
-      : (this.entityData as Partial<Episode>)?.coverImage;
-
-    const initialFilepath = this.type === 'episode'
-      ? (this.entityData as Partial<Episode>)?.filepath
-      : null;
+    this.isFileUploaded = { filepath: false, coverImage: false };
+    this.isUploading = { filepath: false, coverImage: false };
 
     this.updateForm.patchValue({
-      coverImage: initialCoverImage || null,
-      filepath: initialFilepath || null,
+      coverImage: this.entityData?.coverImage || null,
+      filepath: this.entityData?.filepath || null,
     });
 
-    this.updateForm.setErrors(null); // Reset form errors if necessary
+    this.updateForm.setErrors(null);
   }
-
 }
-

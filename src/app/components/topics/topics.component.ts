@@ -25,10 +25,11 @@ export class TopicsComponent {
   @Output() deletePodcast = new EventEmitter<Podcast>();
   @Output() deleteEpisode= new EventEmitter<number>();
   @Output() edit = new EventEmitter<Podcast>();
+  @Output() checkDetails = new EventEmitter<Podcast>();
 
   onDelete() {
     if(this.isPodcast && this.isOwner){
-      console.log("Suppression en cours podcast...", this.episodeId);
+      console.log("Suppression en cours podcast...", this.podcast);
 
       this.deletePodcast.emit(this.podcast);
     }
@@ -47,6 +48,9 @@ export class TopicsComponent {
       console.log("Bouton d'édition cliqué !");
     }
   }
-
+  onCheckDetailsClick() {
+    this.checkDetails.emit(this.podcast);
+    console.log("Check Details cliqué !");
+  }
 
 }
