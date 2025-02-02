@@ -79,3 +79,8 @@
   (onSave)="updateEpisode($event)"
   (onClose)="closeEditModal()">
 </app-update-modal>
+<app-create-modal
+  *ngIf="isAddModalOpen"
+  (onCreate)="addEpisode($event)"
+  (onClose)="closeAddModal()">
+</app-create-modal>

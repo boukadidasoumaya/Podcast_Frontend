@@ -1,19 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { PodcastS } from '..//models/episode.model';
 import { Episode, Podcast } from '../interfaces/app.interfaces';
 
+import { CreatePodcast } from '../models/podcast.model';
+import { APP_API } from '../config/app-api.config';
 @Injectable({
   providedIn: 'root',
 })
 export class PodcastService {
-  private apiUrl = 'http://localhost:3000/podcast';
+ private apiUrl = APP_API.podcast; 
 
   constructor(private http: HttpClient) {}
 
-  createPodcast(podcast: PodcastS): Observable<PodcastS> {
-    return this.http.post<PodcastS>(this.apiUrl, podcast);
+  createPodcast(podcast: CreatePodcast): Observable<CreatePodcast> {
+    return this.http.post<CreatePodcast>(this.apiUrl, podcast);
   }
   getPodcastsByUser():Observable<Podcast[]>{
     return this.http.get<Podcast[]>(`${this.apiUrl}/user`)

@@ -16,6 +16,7 @@
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          #closeBtn
         ></button>
       </div>
       <div class="modal-body scrollable-content">
@@ -30,7 +31,7 @@
             required
             placeholder="Enter podcast name"
             #title="ngModel"
-            [ngClass]="{'is-invalid': title.invalid && title.touched}"
+            [ngClass]="{ 'is-invalid': title.invalid && title.touched }"
           />
           <div *ngIf="title.invalid && title.touched" class="text-danger">
             Podcast name is required.
@@ -44,10 +45,12 @@
             required
             class="form-control"
             #topic="ngModel"
-            [ngClass]="{'is-invalid': topic.invalid && topic.touched}"
+            [ngClass]="{ 'is-invalid': topic.invalid && topic.touched }"
           >
             <option value="" disabled selected>Select a topic</option>
-            <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+            <option *ngFor="let topic of topics" [value]="topic">
+              {{ topic }}
+            </option>
           </select>
           <div *ngIf="topic.invalid && topic.touched" class="text-danger">
             Podcast topic is required.
@@ -61,27 +64,15 @@
             required
             placeholder="Enter description"
             #description="ngModel"
-            [ngClass]="{'is-invalid': description.invalid && description.touched}"
+            [ngClass]="{
+              'is-invalid': description.invalid && description.touched
+            }"
           ></textarea>
-          <div *ngIf="description.invalid && description.touched" class="text-danger">
+          <div
+            *ngIf="description.invalid && description.touched"
+            class="text-danger"
+          >
             Podcast description is required.
-          </div>
-
-          <label for="episodesCount">Number of Episodes</label>
-          <input
-            id="episodesCount"
-            [(ngModel)]="data.podcast.nbre_episode"
-            name="episodesCount"
-            type="number"
-            [max]="5"
-            required
-            (input)="setEpisodesCount(data.podcast.nbre_episode)"
-            placeholder="Enter number of episodes"
-            #episodesCount="ngModel"
-            [ngClass]="{'is-invalid': episodesCount.invalid && episodesCount.touched}"
-          />
-          <div *ngIf="episodesCount.invalid && episodesCount.touched" class="text-danger">
-            Number of episodes is required.
           </div>
 
           <label for="image">Image</label>
@@ -89,34 +80,37 @@
             <input
               id="image"
               type="file"
+              accept="image/jpeg, image/png"
               (change)="onFileSelect($event, 'podcast')"
               style="display: none"
               #fileInput
             />
-            <button
-              class="button"
-              type="button"
-              (click)="triggerFileInput(fileInput)"
-            >
-              <span class="btn__text">Upload</span>
-            </button>
-            <div *ngIf="data.podcast.image">
-              <span>Uploaded: {{ data.podcast.image }}</span>
-          
-              <button type="button" (click)="removeFile('podcast')">
-                <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+            <div class="upload-container">
+              <button
+                class="button"
+                type="button"
+                (click)="triggerFileInput(fileInput)"
+              >
+                <span class="btn__text">Upload</span>
+              </button>
+
+              <div *ngIf="data.podcast.image" class="trash-container">
+                <app-trash (delete)="removeFile('podcast')"></app-trash>
+              </div>
             </div>
           </div>
         </form>
 
         <!-- Step 2: Episode details -->
         <div *ngIf="step === 2">
+          <!-- Boucle sur les épisodes existants -->
           <div
             *ngFor="let episode of data.episodes; let i = index"
             class="episode-form"
           >
             <h3>Episode {{ i + 1 }}</h3>
 
+            <!-- Champs pour chaque épisode -->
             <label for="episode-name-{{ i }}">Episode Name</label>
             <input
               id="episode-name-{{ i }}"
@@ -126,9 +120,14 @@
               required
               placeholder="Enter episode name"
               #episodeName="ngModel"
-              [ngClass]="{'is-invalid': episodeName.invalid && episodeName.touched}"
+              [ngClass]="{
+                'is-invalid': episodeName.invalid && episodeName.touched
+              }"
             />
-            <div *ngIf="episodeName.invalid && episodeName.touched" class="text-danger">
+            <div
+              *ngIf="episodeName.invalid && episodeName.touched"
+              class="text-danger"
+            >
               Episode name is required.
             </div>
 
@@ -140,24 +139,35 @@
               required
               placeholder="Enter episode description"
               #episodeDescription="ngModel"
-              [ngClass]="{'is-invalid': episodeDescription.invalid && episodeDescription.touched}"
+              [ngClass]="{
+                'is-invalid':
+                  episodeDescription.invalid && episodeDescription.touched
+              }"
             ></textarea>
-            <div *ngIf="episodeDescription.invalid && episodeDescription.touched" class="text-danger">
+            <div
+              *ngIf="episodeDescription.invalid && episodeDescription.touched"
+              class="text-danger"
+            >
               Episode description is required.
             </div>
 
-            <label for="episode-duration-{{ i }}">Duration (in seconds)</label>
+            <label for="episode-duration-{{ i }}">Duration (in minutes)</label>
             <input
               id="episode-duration-{{ i }}"
               [(ngModel)]="episode.duration"
               name="episode-duration-{{ i }}"
               type="number"
               required
-              placeholder="Enter episode duration in seconds"
+              placeholder="Enter episode duration in minutes"
               #episodeDuration="ngModel"
-              [ngClass]="{'is-invalid': episodeDuration.invalid && episodeDuration.touched}"
+              [ngClass]="{
+                'is-invalid': episodeDuration.invalid && episodeDuration.touched
+              }"
             />
-            <div *ngIf="episodeDuration.invalid && episodeDuration.touched" class="text-danger">
+            <div
+              *ngIf="episodeDuration.invalid && episodeDuration.touched"
+              class="text-danger"
+            >
               Episode duration is required.
             </div>
 
@@ -167,23 +177,22 @@
                 #fileInput
                 id="episode-file-{{ i }}"
                 type="file"
+                accept="audio/mp3, video/mp4"
                 (change)="onFileSelect($event, 'episode', i)"
                 style="display: none"
               />
-              <button
-                type="button"
-                class="button"
-                (click)="triggerFileInput(fileInput)"
-              >
-                <span class="btn__text">Upload</span>
-              </button>
-              <div *ngIf="episode.coverImage">
-                <span>Uploaded: {{ episode.coverImage }}</span>
-                <
-                <button type="button" (click)="removeFile('episode-cover', i)">
-                  <i class="bi bi-trash-fill" style="font-size: 1.5rem; color: blue;"></i></button>
+              <div class="upload-container">
+                <button
+                  class="button"
+                  type="button"
+                  (click)="triggerFileInput(fileInput)"
+                >
+                  <span class="btn__text">Upload</span>
+                </button>
+                <div *ngIf="episode.filepath" class="trash-container">
+                  <app-trash (delete)="removeFile('episode', i)"></app-trash>
+                </div>
               </div>
-
             </div>
 
             <label for="episode-cover-image-{{ i }}">Cover Image</label>
@@ -192,17 +201,35 @@
                 #coverImageInput
                 id="episode-cover-image-{{ i }}"
                 type="file"
+                accept="image/jpeg, image/png"
                 (change)="onFileSelect($event, 'episode-cover', i)"
                 style="display: none"
               />
-              <button
-                type="button"
-                class="button"
-                (click)="triggerFileInput(coverImageInput)"
-              >
-                <span class="btn__text">Upload Cover Image</span>
-              </button>
+              <div class="upload-container">
+                <button
+                  class="button"
+                  type="button"
+                  (click)="triggerFileInput(coverImageInput)"
+                >
+                  <span class="btn__text">Upload Cover Image</span>
+                </button>
+                <div *ngIf="episode.coverImage" class="trash-container">
+                  <app-trash
+                    (delete)="removeFile('episode-cover', i)"
+                  ></app-trash>
+                </div>
+              </div>
             </div>
+          </div>
+
+          <!-- Bouton pour ajouter un nouvel épisode -->
+          <button type="button" class="btn-add-episode" (click)="addEpisode()">
+            +
+          </button>
+
+          <!-- Afficher le nombre d'épisodes -->
+          <div class="episode-count">
+            Number of Episodes: {{ data.episodes.length }}
           </div>
         </div>
       </div>
@@ -211,11 +238,17 @@
         <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
           ←
         </button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
-          → 
+
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()" [disabled]="isNextButtonDisabled()">
+          →
         </button>
-        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
-          Finish
+        <button
+          *ngIf="step === 3"
+          class="btn-finish"
+          (click)="finishUpload()"
+          [disabled]="isUploading"
+        >
+          {{ isUploading ? "Uploading..." : "Finish Upload" }}
         </button>
       </div>
     </div>

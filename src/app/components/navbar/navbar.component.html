@@ -27,9 +27,9 @@
             <a class="nav-link" routerLink="/about">Pages</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="/contact">Contact</a>
+            <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
           </li>
-          <li>
+          <li class="nav-item" *ngIf="user?.firstName">
             <div class="ms-4">
               <button
                 class="btn custom-btn custom-border-btn smoothscroll"
@@ -41,8 +41,8 @@
             </div>
           </li>
           <br>
-          <li>
-            <div class="ms-4">
+          <li class="nav-item">
+            <div class="ms-4 ">
               <app-user-profile ></app-user-profile>
             </div>
 
@@ -54,5 +54,5 @@
   </nav>
 
   <app-header></app-header>
-  <app-podcast-modal></app-podcast-modal>
+  <app-podcast-modal ></app-podcast-modal>
 </div>

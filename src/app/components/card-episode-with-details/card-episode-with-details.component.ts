@@ -8,11 +8,13 @@ import { FormsModule } from '@angular/forms';
 import { EditEpisodeModalComponent } from '../modals/edit-episode-modal/edit-episode-modal.component';
 import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
 import { EpisodeService } from '../../services/episode.service';
+import { CreateEpisode } from '../../models/podcast.model';
+import { CreateModalComponent } from "../modals/create-modal/create-modal.component";
 
 @Component({
   selector: 'app-card-episode-with-details',
   standalone: true,
-  imports: [CommonModule, RouterLink,FormsModule,SubscribeButtonComponent,UpdateModalComponent],
+  imports: [CommonModule, RouterLink, FormsModule, SubscribeButtonComponent, UpdateModalComponent, CreateModalComponent],
   templateUrl: './card-episode-with-details.component.html',
   styleUrl: './card-episode-with-details.component.css'
 })
@@ -61,6 +63,20 @@ export class CardEpisodeWithDetailsComponent {
       }
     );
   }
+
+  addEpisode(newEpisode: CreateEpisode) {
+    newEpisode.podcast=this.episode.podcast;
+    this.episodeService.createEpisode(newEpisode).subscribe(
+      (response) => {
+        console.log("Épisode ajouté avec succès", response);
+        this.toggleAddModal();
+      },
+      (error) => {
+        console.error("Erreur lors de l'ajout de l'épisode", error);
+        console.log(newEpisode)
+      }
+    );
+  }
   openEditModal(): void {
   this.toggleEditModal();
 }
@@ -70,5 +86,8 @@ openAddModal():void{
 
   closeEditModal(): void {
     this.toggleEditModal();
+  }
+  closeAddModal(): void {
+    this.toggleAddModal();
   }
 }
