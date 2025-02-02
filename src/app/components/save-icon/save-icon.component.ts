@@ -17,7 +17,7 @@ export class SaveIconComponent implements OnInit{
   constructor(private bookmarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    this.bookmarkService.isBookmarked(this.userId, this.episodeId).subscribe(
+    this.bookmarkService.isBookmarked( this.episodeId).subscribe(
       (isBookmarked) => {
         console.log(isBookmarked)
         this.isBookmarked = isBookmarked;
@@ -30,12 +30,12 @@ export class SaveIconComponent implements OnInit{
 
   toggleBookmark(): void {
     if (this.isBookmarked) {
-      this.bookmarkService.removeBookmark(this.userId, this.episodeId).subscribe(() => {
+      this.bookmarkService.removeBookmark( this.episodeId).subscribe(() => {
         this.isBookmarked = false;
       });
     } else {
       console.log('ddddddddddddddddddddfrefzf')
-      this.bookmarkService.addBookmark(this.userId, this.episodeId).subscribe(() => {
+      this.bookmarkService.addBookmark( this.episodeId).subscribe(() => {
         this.isBookmarked = true;
       });
     }

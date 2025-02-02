@@ -32,11 +32,11 @@ export class ProfilComponent  implements OnInit {
   constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
-    this.fetchBookmarkedEpisodes(1); // Assuming user ID is 1
+    this.fetchBookmarkedEpisodes(); 
   }
 
-  fetchBookmarkedEpisodes(userId: number) {
-    this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
+  fetchBookmarkedEpisodes() {
+    this.bookmarkService.getBookmarkedEpisodes().subscribe(
       (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
         console.log('nhhhhhhhhhhhhh')
