@@ -52,4 +52,18 @@ export class EpisodeService {
       {}
     );
   }
+
+  //subscription
+  subscription(idpod: number): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/subscription/subscribe/${idpod}`,
+      {}
+    );
+  }
+  unsubscription(idpod: number): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      `${this.apiUrl}/subscription/unsubscribe/${idpod}`,
+      {}
+    );
+  }
 }

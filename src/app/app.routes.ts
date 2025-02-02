@@ -18,6 +18,8 @@ import { VidPlayerComponent } from './components/vid-player/vid-player.component
 import { HomeComponent } from './home/home.component';
 
 import { VidPageComponent } from './vid-page/vid-page.component';
+import { HeroSectionComponent } from './components/hero-section/hero-section.component';
+import { HeroCardComponent } from './components/hero-card/hero-card.component';
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
@@ -35,6 +37,7 @@ export const routes: Routes = [
   {path:'search',component:SearchComponent},
   {path:'pages',component:PagesComponent},
   {path:'card-podcast',component:CardPodcastComponent},
+  { path: 'login', component: LoginComponent },
 
 
 { path: 'episode/:id', component: VidPageComponent },
