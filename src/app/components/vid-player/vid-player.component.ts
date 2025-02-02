@@ -1,13 +1,13 @@
-import { Component, AfterViewInit, OnDestroy, ElementRef, Input } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ElementRef, Input, OnInit } from '@angular/core';
 import Plyr from 'plyr';
-import { ViewCountService } from '../../services/views.service';
+import { SocketService } from '../../services/views.service';
 @Component({
   selector: 'app-vid-player',
   standalone: true,
   templateUrl: './vid-player.component.html',
   styleUrls: ['./vid-player.component.css'],
 })
-export class VidPlayerComponent implements AfterViewInit, OnDestroy {
+export class VidPlayerComponent implements OnInit,AfterViewInit, OnDestroy {
   private player: Plyr | undefined;
   private hasCountedView = false;
 
@@ -16,8 +16,12 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
 
   constructor(
     private elRef: ElementRef,
-    private viewCountService: ViewCountService // Inject the service
+    private viewCountService: SocketService // Inject the service
   ) {}
+  ngOnInit(): void {
+    this.incrementViewCount()
+
+  }
 
   ngAfterViewInit(): void {
     const videoElement = this.elRef.nativeElement.querySelector('#player');
@@ -33,6 +37,7 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
         this.trackProgress();
       });
     }
+
   }
 
   ngOnDestroy(): void {
@@ -51,12 +56,11 @@ export class VidPlayerComponent implements AfterViewInit, OnDestroy {
       }
     }
   }
+  
 
   private incrementViewCount(): void {
     // Use the ViewCountService to increment the view count
-    this.viewCountService.incrementView(this.episodeId).subscribe({
-      next: (response) => console.log('View counted:', response),
-      error: (error) => console.error('Error counting view:', error),
-    });
+    this.viewCountService.sendViewUpdate(this.episodeId);
+
   }
 }

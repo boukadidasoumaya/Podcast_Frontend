@@ -10,7 +10,6 @@ import { BookmarkService } from '../../services/bookmark.service';
   styleUrl: './save-icon.component.css'
 })
 export class SaveIconComponent implements OnInit{
-  @Input() userId!: number;
   @Input() episodeId!: number;
   isBookmarked: boolean = false;
 

@@ -46,10 +46,6 @@ export class EpisodeService {
   }
 
   // Incrémenter les vues d'un épisode
-  incrementViews(id: number): Observable<{ message: string; views: number }> {
-    return this.http.post<{ message: string; views: number }>(
-      `${this.apiUrl}/${id}/views`,
-      {}
-    );
-  }
+ 
+  
 }

@@ -21,7 +21,7 @@
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
       <!-- Composant pour l'icône écouteur -->
       <app-headphones-icon
-        [views]="episode.views">
+        [episodeId]="episode.id">
       </app-headphones-icon>
 
       <!-- Composant pour l'icône cœur -->
@@ -42,6 +42,6 @@
 
 
   </div>
-  <app-save-icon [episodeId]="episode.id" [userId]="1"></app-save-icon> 
+  <app-save-icon [episodeId]="episode.id" ></app-save-icon> 
 
 </div>
