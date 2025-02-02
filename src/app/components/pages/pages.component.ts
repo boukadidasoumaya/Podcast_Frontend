@@ -14,7 +14,7 @@ import { Podcast } from '../../interfaces/app.interfaces';
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [TrendingEpisodesComponent,CardEpisodeComponent, CommonModule,SearchComponent,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent,HttpClientModule],
+  imports: [ CommonModule,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent,HttpClientModule],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.css'
 })

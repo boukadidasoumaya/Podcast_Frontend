@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Input } from '@angular/core';
-import { Episode } from '../../interfaces/app.interfaces';
-import { EpisodeService } from '../../services/episode.service';
+import { Episode } from '../../../../interfaces/app.interfaces';
+import { EpisodeService } from '../../../../services/episode.service';
 
 @Component({
   selector: 'app-subscribe-button',
