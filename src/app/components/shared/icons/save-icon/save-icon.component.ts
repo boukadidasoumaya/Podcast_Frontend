@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core'
-import { BookmarkService } from '../../services/bookmark.service';
+import { BookmarkService } from '../../../../services/bookmark.service';
 @Component({
   selector: 'app-save-icon',
   standalone: true,

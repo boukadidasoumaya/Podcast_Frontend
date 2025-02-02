@@ -5,7 +5,7 @@ import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headpho
 import { Episode, User } from '../../interfaces/app.interfaces';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { SaveIconComponent } from "../save-icon/save-icon.component";
+import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component';
 
 @Component({
   selector: 'app-card-episode',
