@@ -20,6 +20,7 @@ export class CardEpisodeComponent {
   @Input() isLiked!: boolean;
   @Input() authorisedToLike!:boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+  @Output() episode_event= new EventEmitter<{ episode: Episode }>();
   constructor(){
     console.log('islikes',this.isLiked);
   }

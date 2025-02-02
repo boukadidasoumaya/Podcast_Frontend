@@ -1,0 +1,48 @@
+<div class="filter-container">
+  <!-- Search Section -->
+  <section class="search-section">
+    <label>Title</label>
+    <div class="search-input">
+      <input type="text" placeholder="Rechercher un podcast" name="title" [(ngModel)]="filtres.title">
+    </div>
+    <label>Topic</label>
+    <div class="category-select">
+
+      <select name="topic" [(ngModel)]="filtres.topic">
+        <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
+      </select>
+    </div>
+  </section>
+
+  <section class="advanced-filters">
+    <div class="vehicle-filters">
+      <div class="filter-group">
+        <label>Duration</label>
+        <div class="range-input">
+          <input type="number" placeholder="De" min="1" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
+          <input type="number" placeholder="À" min="1" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="price-location-filters">
+    <div class="price-filter">
+      <label>Nombre d'épisodes</label>
+      <div class="search-input">
+        <input type="text" placeholder="nombre d'épisodes" name="episodesCount" [(ngModel)]="filtres.nbre_episodes">
+      </div>
+    </div>
+
+    <label>Presentor</label>
+    <div class="search-input">
+      <input type="text" placeholder="Presentor" name="presentor" [(ngModel)]="filtres.user">
+    </div>
+  </section>
+
+  <section class="filter-actions">
+    <button class="btn-primary" (click)="filtrer()">Rechercher</button>
+    <button class="btn-secondary" (click)="reinitialiser()">Réinitialiser</button>
+  </section>
+</div>

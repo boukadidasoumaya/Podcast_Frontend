@@ -34,6 +34,25 @@ export interface Podcast {
   user: Partial<User>;
 }
 
+export interface Topic {
+  id: number;
+  name: string;
+  description: string;
+}
+export interface User {
+  id: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  username: string;
+  photo: string | null;
+  profession: string | null;
+  facebookLink: string | null;
+  linkedinLink: string | null;
+  instagramLink: string | null;
+
+}
+
 export interface Episode {
   id: number;
   name: string;

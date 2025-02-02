@@ -12,6 +12,8 @@ import { DetailsPodcastComponent } from './pages/details-podcast/details-podcast
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/navbar/search/search.component';
+import { PagesComponent } from './components/pages/pages.component';
+import { CardPodcastComponent } from './components/card-podcast/card-podcast.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
 import { HomeComponent } from './pages/home/home.component';
 
@@ -30,6 +32,7 @@ export const routes: Routes = [
   {path:'profil',component:ProfilComponent},
   {path: 'login', component: LoginComponent },
   {path: 'episode/:id', component: VidPageComponent },
-  {path:'forgot-password', component: ForgotPasswordComponent}
+  {path:'forgot-password', component: ForgotPasswordComponent},
+  {path:'pages',component:PagesComponent},
 
 ];
