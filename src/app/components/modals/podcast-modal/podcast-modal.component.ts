@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { CloudinaryService } from '../../../services/cloudinary.service';
 import { PodcastService } from '../../../services/podcast.service';
 import { EpisodeService } from '../../../services/episode.service';
-import { Podcast, CreateEpisode } from '../../../models/podcast.model';
+import { CreatePodcast, CreateEpisode } from '../../../models/podcast.model';
 import { TrashComponent } from "../../trash/trash.component";
 import { RouterModule } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class PodcastModalComponent {
   isUploading = false;
   step: number = 1;
   data: {
-    podcast: Podcast;
+    podcast: CreatePodcast;
     episodes: CreateEpisode[];
   } = {
     podcast: {

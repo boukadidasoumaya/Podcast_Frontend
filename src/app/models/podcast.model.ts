@@ -1,4 +1,4 @@
-export interface Podcast {
+export interface CreatePodcast {
     id?: number; 
     name: string;
     topic: string;
@@ -14,5 +14,5 @@ export interface Podcast {
     duration: number;
     filepath: any;
     coverImage: any;
-    podcast: Podcast;
+    podcast: CreatePodcast;
   }

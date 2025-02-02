@@ -1,14 +1,19 @@
+<div>
 <app-navbar></app-navbar>
+</div>
 <app-hero-section></app-hero-section>
-<body>
 
-    <main>
-<app-section-custom [title]='"Latest episodes"' [id]='"section_2"'>
-    <app-latest-episodes></app-latest-episodes>
+<app-section-custom [title]="'Latest episodes'" [id]="'section_2'">
+  <app-latest-episodes></app-latest-episodes>
 </app-section-custom>
 
-<app-section-custom [title]='"Topics"' [id]='"section_3"'>
-  <app-swiper [cards]="displayedTopics" [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'" [slideToShow]="5" [slideWidth]="300">
+<app-section-custom [title]="'Topics'" [id]="'section_3'">
+  <app-swiper
+    [cards]="displayedTopics"
+    [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"
+    [slideToShow]="5"
+    [slideWidth]="300"
+  >
     <ng-template let-topic>
       <app-topics
         [title]="topic.title"
@@ -18,13 +23,9 @@
       ></app-topics>
     </ng-template>
   </app-swiper>
-
 </app-section-custom>
-<app-section-custom [title]='"Trending episodes"' [id]='"section_2"'>
+<app-section-custom [title]="'Trending episodes'" [id]="'section_2'">
 </app-section-custom>
 
-<app-trending-episodes ></app-trending-episodes>
-
-        </main>
-    </body>
-    <app-footer></app-footer>
+<app-trending-episodes></app-trending-episodes>
+<app-footer></app-footer>
