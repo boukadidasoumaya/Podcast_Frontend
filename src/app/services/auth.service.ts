@@ -32,10 +32,13 @@ export class AuthService {
       email: data.email,
       password: data.password
     };
-    console.log('Sending login data:', loginData);
     return this.http.post(`${this.apiUrl}/auth/login`, loginData);
   }
   
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/auth/me`);
+  }
+
   checkUsernameUnique(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/auth/check-username?username=${username}`);
   }

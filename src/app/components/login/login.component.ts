@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { catchError, from, of, switchMap } from 'rxjs';
 import { CloudinaryService } from '../../services/cloudinary.service';
+import { Store } from '@ngrx/store';
+import { login } from '../../store/auth/auth.actions';
+import { register } from '../../store/auth/auth.actions';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -18,6 +22,17 @@ import { CloudinaryService } from '../../services/cloudinary.service';
 export class LoginComponent {
   isSignIn: boolean = true;
   usernameTaken: boolean = false;
+  validation={
+    firstName:true,
+    lastName: true,
+    username: true,
+    email: true,
+    birthday: true,
+    country: true,
+    profession: true,
+    password: true,
+    confirmPassword: true
+  }
   Data = {
     firstName: '',
     lastName: '',
@@ -33,10 +48,10 @@ export class LoginComponent {
     password: '',
     confirmPassword: '',
     photo: null as string | null,
-    selectedInterests: [] as string[]
+    interests: [] as string[]
     };
 
-    interests: string[] = [];
+    interestsList: string[] = [];
 
     isStepValid(step: number): boolean {
     switch (step) {
@@ -97,7 +112,8 @@ export class LoginComponent {
     private http: HttpClient,
     private authService: AuthService,
     private router: Router,
-    private cloudinaryService: CloudinaryService
+    private cloudinaryService: CloudinaryService,
+    private store: Store
   ) {}
 
   async onFileSelect(event: Event): Promise<void>  {
@@ -117,6 +133,13 @@ export class LoginComponent {
 
   checkUsername(): void {
     this.usernameTaken=false;
+    if(!this.Data.username || this.Data.username.trim().length <4)
+      {
+        this.validation.username=false;
+      }
+      else{
+        this.validation.username=true;
+      }
     if (this.Data.username) { 
         console.log(this.Data.username);
         this.authService.checkUsernameUnique(this.Data.username)
@@ -136,34 +159,13 @@ export class LoginComponent {
 }
 
   signUp(): void {
-    this.authService.register(this.Data).subscribe({
-      next: (response) => {
-        this.currentStep++;
-        console.log('Registration successful', response);
-      },
-      error: (error) => {
-        console.error('Registration failed', error);
-      },
-    });
+    this.store.dispatch(register({ userData: this.Data }));
+    this.currentStep++;
+    
   }
 
   signIn() {
-    this.authService.login(this.Data).subscribe({
-      next: (response) => {
-        console.log('Login successful', response);
-
-        if (response.accessToken) {
-          localStorage.setItem('authToken', response.accessToken);
-
-          this.router.navigate(['/profil']);
-        } else {
-          console.error('Token not found in the response.');
-        }
-      },
-      error: (error) => {
-        console.error('Login failed', error);
-      },
-    });
+    this.store.dispatch(login({ userData :this.Data }));
   }
 
   ngOnInit() {
@@ -173,7 +175,7 @@ export class LoginComponent {
   loadInterests() {
     this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({
       next: (data) => {
-        this.interests = data;
+        this.interestsList = data;
       },
       error: (err) => {
         console.error('Failed to load interests:', err);
@@ -182,15 +184,15 @@ export class LoginComponent {
   }
 
   isInterestSelected(interest: string): boolean {
-    return this.Data.selectedInterests.includes(interest);
+    return this.Data.interests.includes(interest);
   }
 
   toggleInterest(interest: string): void {
-    const index = this.Data.selectedInterests.indexOf(interest);
+    const index = this.Data.interests.indexOf(interest);
     if (index === -1) {
-        this.Data.selectedInterests.push(interest);
+        this.Data.interests.push(interest);
     } else {
-        this.Data.selectedInterests.splice(index, 1);
+        this.Data.interests.splice(index, 1);
     }
   }
 
@@ -199,4 +201,73 @@ export class LoginComponent {
       console.log("firstname :",this.Data.firstName);
     }
   }
+
+  validateFirstName(){
+    if(!this.Data.firstName || this.Data.firstName.trim().length <4)
+    {
+      this.validation.firstName=false;
+    }
+    else{
+      this.validation.firstName=true;
+    }
+  }
+
+  validateLastName(){
+    if(!this.Data.lastName || this.Data.lastName.trim().length <4)
+    {
+      this.validation.lastName=false;
+    }
+    else{
+      this.validation.lastName=true;
+    }
+  }
+  validateProfession(){
+    if(!this.Data.profession || this.Data.profession.trim().length <4)
+    {
+      this.validation.profession=false;
+    }
+    else{
+      this.validation.profession=true;
+    }
+  }
+  validateCountry(){
+    if(!this.Data.country || this.Data.profession.trim().length <4)
+    {
+      this.validation.country=false;
+    }
+    else{
+      this.validation.country=true;
+    }
+  }
+  validateEmail(){
+    if(!this.isValidEmail(this.Data.email))
+    {
+      this.validation.email=false;
+    }
+    else{
+      this.validation.email=true;
+    }
+  }
+
+  validatePwd(){
+    if(!this.Data.password || this.Data.password.trim().length <4)
+    {
+      this.validation.password=false;
+    }
+    else{
+      this.validation.password=true;
+    }
+  }
+
+  validateConPwd(){
+    if(this.Data.password != this.Data.confirmPassword)
+      {
+        this.validation.confirmPassword=false;
+      }
+      else{
+        this.validation.confirmPassword=true;
+      }
+  }
+  
+  
 }

@@ -1,10 +1,13 @@
 // email-modal.component.ts
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store'; 
+import * as AuthActions from '../../../store/auth/auth.actions'; 
 
+declare var bootstrap: any;
 @Component({
   selector: 'app-email-modal',
   standalone: true,
@@ -13,12 +16,13 @@ import { Router } from '@angular/router';
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
+  @ViewChild('emailModal') emailModal!: ElementRef;
   emailData = {
     currentEmail: '',
     newEmail: '',
     confirmEmail: ''
   };
-  constructor(private userService: UserService, private router: Router) {}  
+  constructor(private userService: UserService, private router: Router,private store: Store) {}  
   onEmailUpdate(form: NgForm) {
     if (form.valid) {
       if (this.emailData.newEmail !== this.emailData.confirmEmail) {
@@ -34,16 +38,16 @@ export class EmailModalComponent {
       this.userService.updateEmail(emailUpdateData)
         .subscribe({
           next: (response) => {
-            console.log('Email updated successfully:', response);
-            
             localStorage.removeItem('authToken');
-            
+
             this.userService.updateToken(emailUpdateData.newEmail)
               .subscribe({
                 next: (response) => {
                   if (response.accessToken) {
                     localStorage.setItem('authToken', response.accessToken);
-                    alert('Email and Token updated successfully!');
+
+                    this.store.dispatch(AuthActions.updateEmail({ newEmail: emailUpdateData.newEmail }));
+
                     this.router.navigate(['/profil']);
                   } else {
                     console.error('Token not found in the response.');
@@ -51,13 +55,11 @@ export class EmailModalComponent {
                 },
                 error: (error) => {
                   console.error('Error updating token:', error);
-                  alert(error.error.message || 'Error updating Token');
                 }
               });
           },
           error: (error) => {
             console.error('Error during update process:', error);
-            alert(error.error.message || 'Error updating Email');
           }
         });
     } else {

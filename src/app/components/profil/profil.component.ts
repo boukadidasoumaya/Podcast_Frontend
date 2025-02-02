@@ -9,6 +9,13 @@ import { TopicsComponent } from '../topics/topics.component';
 import { EpisodeHorizontalComponent } from '../episode-horizontal/episode-horizontal.component';
 import { SectionCustomComponent } from '../section-custom/section-custom.component';
 import { UserService } from '../../services/user.service';
+import { Store } from '@ngrx/store';
+import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
+import { AuthState } from '../../store/auth/auth.state';
+
+interface AppState {
+  auth: AuthState;
+}
 
 @Component({
   selector: 'app-profil',
@@ -25,41 +32,43 @@ export class ProfilComponent  implements OnInit {
   isLoading = true;
   error: string | null = null;
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService, private store: Store<AppState>) {}
 
   ngOnInit() {
     this.loadUserProfile();
   }
-
-
+  
   loadUserProfile() {
     this.isLoading = true;
-    this.userService.getUserProfile().subscribe({
-      next: (data) => {
+    this.store.select(selectUser).subscribe({
+
+    next: (user) => {
+      console.log(user);
+      if (user) {
         this.user = {
-          ...data,
-          profilImage: data.photo || 'assets/images/default-profile.png',
-          name: `${data.firstName} ${data.lastName}`,
-          password: data.password,
-          birthDate: new Date(data.birthday).toLocaleDateString(),
-          address: data.country,
-          profession: data.profession,
-          email: data.email,
+          ...user,
+          profilImage: user.photo || 'assets/images/default-profile.png',
+          name: `${user.firstName} ${user.lastName}`,
+          birthDate: new Date(user.birthday).toLocaleDateString(),
+          address: user.country,
+          profession: user.profession,
+          email: user.email,
           socialMedia: {
-            whatsapp: data.whatsappUser,
-            instagram: data.instagramLink,
-            twitter: data.twitterLink || 'Not provided'
+            whatsapp: user.whatsappUser,
+            instagram: user.instagramLink,
+            twitter: user.twitterUser || 'Not provided'
           }
         };
-        this.isLoading = false;
-      },
-      error: (error) => {
-        this.error = 'Failed to load user profile';
-        this.isLoading = false;
-        console.error('Error loading profile:', error);
       }
-    });
-  }
+      this.isLoading = false;
+    },
+    error: (error) => {
+      this.error = 'Failed to load user profile';
+      this.isLoading = false;
+      console.error('Error loading profile:', error);
+    }
+  });
+}
 
   updateUserPersonnalInfo = (userData: any) => {
     this.userService.updateUserProfile(userData).subscribe({
@@ -74,7 +83,7 @@ export class ProfilComponent  implements OnInit {
           socialMedia: {
             whatsapp: updatedUser.whatsappUser,
             instagram: updatedUser.instagramLink,
-            twitter: updatedUser.twitterLink || 'Not provided'
+            twitter: updatedUser.twitterUser || 'Not provided'
           }
         };
       },

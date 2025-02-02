@@ -20,6 +20,7 @@ export class UserService {
   }
 
   updateUserProfile(userData: any): Observable<any> {
+    console.log(userData);
     return this.http.put(`${this.apiUrl}/user/profile`, userData);
   }
 

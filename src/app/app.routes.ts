@@ -17,7 +17,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { VidPageComponent } from './pages/vid-page/vid-page.component';
 export const routes: Routes = [
-  {path:'',component:HomeComponent},
+  {path:'home',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
@@ -27,7 +27,7 @@ export const routes: Routes = [
   {path:'search',component:SearchComponent},
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
-  {path: 'login', component: LoginComponent },
+  {path: '', component: LoginComponent },
 
 { path: 'episode/:id', component: VidPageComponent },
 ];
