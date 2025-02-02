@@ -9,8 +9,8 @@ export interface User {
   username: string;
   photo: string | null;
   profession: string | null;
-  facebookLink: string | null;
-  linkedinLink: string | null;
+  whatsappUser: string | null;
+  twitterLink: string | null;
   instagramLink: string | null;
   password: string;
   salt: string;
@@ -21,42 +21,43 @@ export interface User {
 
 
 export interface Podcast {
-  createdAt: string;
-  updatedAt: string;
-  deletedAt?: string | null;
   id: number;
   name: string;
   views: number;
-  duration: string; // Format: "50m"
+  duration: number;
+  topic:string;
   description: string;
-  image: string; // URL to the podcast's image
-  rating: number; // Average rating
+  image: string;
+  rating: number;
   download_Count: number;
-  nbre_episode: number; // Total number of episodes
-  user: User;
+  nbre_episode: number;
+  user: Partial<User>;
 }
 
 export interface Episode {
-  createdAt: string;
-  updatedAt: string;
-  deletedAt?: string | null;
   id: number;
   name: string;
-  number: number; // Episode number
-  duration: number; // Duration in seconds
-  filepath: string; // URL to the video/audio file
-  views: number; // Number of views
-  podcast: Podcast; // Nested podcast object
+  number: number;
+  duration: number;
+  filepath: string;
+  views: number;
+  podcast: Podcast;
   coverImage: string;
   numberOfLikes: number;
   numberOfComments: number;
-  likes:Like[];
+  likes:LikeEpisode[];
   comments:Comment[];
-description :string;
+  description :string;
 }
-
-export interface Like {
-  id:number
+export interface LikeEpisode{
+  id:number;
+  user:Partial<User>;
+  episode:Partial<Episode>;
+}
+export interface LikeComment {
+  id:number;
+  user:Partial<User>;
+  comment:Comment;
 }
 export interface PodcastId{
   id:number
@@ -64,6 +65,8 @@ export interface PodcastId{
 export interface EpisodeId{
   id:number
 }
+
+
 export interface Comment {
   id: number;
   content: string;
@@ -75,6 +78,7 @@ export interface Comment {
   replies?: Comment[];
   likesCount:number;
   isLiked?:boolean;
+  likesComment?:Partial<LikeComment>
 }
 
 export interface Owner {

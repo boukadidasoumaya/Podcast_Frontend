@@ -1,0 +1,32 @@
+<app-navbar  style="background-image: url('/assets/images/templatemo-wave-header-for-profil.jpg'), linear-gradient(#348CD2, #FFFFFF);"></app-navbar>
+<section class="details-podcast-section section-padding pb-0" id="section_2">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-12">
+        <app-section-custom *ngIf="episodeDetails"
+          [title]="episodeDetails.name"
+          [sectionId]="'2'">
+        </app-section-custom>
+
+        <app-card-episode-with-details [currentUser]="currentUser" [episode]="episodeDetails" [episodeId]="episodeId"></app-card-episode-with-details>
+
+        <br>
+
+        <app-related-section
+        [routerLink]="['/details-podcast',episodeId]"
+        [isOwner]="isOwner"
+        (episodeSelected)="onEpisodeSelected($event)">
+        </app-related-section>
+
+
+        <app-comment-section
+        *ngIf="episodeDetails"
+        [episode]="episodeDetails"
+        [selectedEpisode]="episodeId"
+        >
+      </app-comment-section>
+            </div>
+
+      </div>
+    </div>
+</section>

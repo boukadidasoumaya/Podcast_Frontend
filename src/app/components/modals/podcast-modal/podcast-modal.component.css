@@ -183,3 +183,36 @@ textarea {
 .button:focus svg {
   transform: scale(1.1);
 }
+
+
+.btn-finish {
+  background-color: #4CAF50; 
+  color: white; 
+  padding: 10px 20px; 
+  border: none; 
+  border-radius: 5px; 
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-finish:hover {
+  background-color: #45a049; 
+}
+
+.btn-finish:focus {
+  outline: none; 
+  box-shadow: 0 0 5px rgba(0, 128, 0, 0.6); 
+}
+
+.is-invalid {
+  border: 1px solid red;
+}
+
+.btn-remove {
+  background-color: red;
+  color: white;
+  border: none;
+  padding: 0.5rem;
+  cursor: pointer;
+}

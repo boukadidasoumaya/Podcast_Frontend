@@ -6,16 +6,17 @@
       [slideToShow]="4"
       [slideWidth]="400">
       <ng-template let-episode>
-        <app-topics  
-          [customtext]="'min'"
+        <app-topics
+          [customtext]="''"
           [title]="episode.name"
-          [numbers]="episode.duration"
-      
+          [subtitle]="'Episode ' + episode.number"
+          [episodeId]="episode.id"
+          [isOwner]="isOwner"
           [routerLink]="routerLink"
           [image]="episode.coverImage"
+          (deleteEpisode)="deleteEpisode($event)"
           (click)="loadEpisode(episode.id)">
         </app-topics>
       </ng-template>
     </app-swiper>
   </app-section-custom>
-  

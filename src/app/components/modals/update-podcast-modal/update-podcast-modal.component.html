@@ -1,0 +1,67 @@
+<div class="modal modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Update Podcast</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="updateForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            placeholder="Enter podcast name"
+            [ngClass]="{'error-input': updateForm.get('name')?.touched && updateForm.get('name')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('name')?.touched && updateForm.get('name')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('name')?.hasError('required')">Name is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Enter podcast description"
+            [ngClass]="{'error-input': updateForm.get('description')?.touched && updateForm.get('description')?.invalid}"
+          ></textarea>
+          <div *ngIf="updateForm.get('description')?.touched && updateForm.get('description')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('description')?.hasError('required')">Description is required.</small>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="nbre_episode">Number of Episodes</label>
+          <input
+            id="nbre_episode"
+            formControlName="nbre_episode"
+            type="number"
+            placeholder="Enter number of episodes"
+            min="1"
+            [ngClass]="{'error-input': updateForm.get('nbre_episode')?.touched && updateForm.get('nbre_episode')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('nbre_episode')?.touched && updateForm.get('nbre_episode')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('nbre_episode')?.hasError('required')">Number of episodes is required.</small>
+            <small *ngIf="updateForm.get('nbre_episode')?.hasError('min')">Number of episodes must be at least 1.</small>
+          </div>
+        </div>
+
+        <!-- Upload Cover Image -->
+        <app-upload-progress
+          accept="image/png,image/jpeg,image/jpg,image/svg"
+          buttonText="Upload Cover Image"
+          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+          (fileUploaded)="handleFileUploaded($event)"
+          (fileRemoved)="handleFileRemoved()">
+        </app-upload-progress>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-save" (click)="saveChanges()" [disabled]="!isFormValid()">Save</button>
+    </div>
+  </div>
+</div>

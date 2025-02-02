@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { HeartIconComponent } from '../heart-icon/heart-icon.component';
-import { CommentIconComponent } from '../comment-icon/comment-icon.component';
-import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
+import { HeartIconComponent } from '../shared/icons/heart-icon/heart-icon.component';
+import { CommentIconComponent } from '../shared/icons/comment-icon/comment-icon.component';
+import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headphones-icon.component';
 import { Episode, User } from '../../interfaces/app.interfaces';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -18,6 +18,7 @@ export class CardEpisodeComponent {
   @Input() episode!: Episode;
   @Input() numberOfLikes!: number;
   @Input() isLiked!: boolean;
+  @Input() authorisedToLike!:boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
   constructor(){
     console.log('islikes',this.isLiked);

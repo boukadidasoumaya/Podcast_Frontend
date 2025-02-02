@@ -1,99 +1,76 @@
-<div class="modal-overlay" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>{{ isPodcast ? 'Update Podcast' : 'Update Episode' }}</h2>
-        <button class="btn-close" (click)="closeModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="updateForm">
-          <div class="form-group">
-            <label for="title">Title</label>
-            <input
-              id="title"
-              formControlName="title"
-              type="text"
-              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} title"
-            />
+<div class="modal modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Update Episode</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="updateForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            placeholder="Enter episode name"
+            [ngClass]="{'error-input': updateForm.get('name')?.touched && updateForm.get('name')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('name')?.touched && updateForm.get('name')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('name')?.hasError('required')">Name is required.</small>
           </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              formControlName="description"
-              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} description"
-            ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Enter episode description"
+            [ngClass]="{'error-input': updateForm.get('description')?.touched && updateForm.get('description')?.invalid}"
+          ></textarea>
+          <div *ngIf="updateForm.get('description')?.touched && updateForm.get('description')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('description')?.hasError('required')">Description is required.</small>
           </div>
-          <div *ngIf="!isPodcast" class="form-group">
-            <label>MP4 File</label>
-            <input
-              id="file"
-              type="file"
-              #fileInput
-              style="display: none;"
-              (change)="onFileSelect($event)"
-            />
-            <button class="button" type="button" (click)="triggerFileInput(fileInput)">
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
-              <span class="btn__text">Upload MP4</span>
-            </button>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration (seconds)</label>
+          <input
+            id="duration"
+            formControlName="duration"
+            type="number"
+            placeholder="Enter duration"
+            min="0"
+            [ngClass]="{'error-input': updateForm.get('duration')?.touched && updateForm.get('duration')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('duration')?.touched && updateForm.get('duration')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('duration')?.hasError('required')">Duration is required.</small>
+            <small *ngIf="updateForm.get('duration')?.hasError('min')">Duration must be a positive number.</small>
           </div>
-          <div *ngIf="isPodcast" class="form-group">
-            <label>Podcast Image</label>
-            <input
-              id="image"
-              type="file"
-              #imageInput
-              style="display: none;"
-              (change)="onFileSelect($event, 'image')"
-            />
-            <button class="button" type="button" (click)="triggerFileInput(imageInput)">
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
-              <span class="btn__text">Upload Image</span>
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-save" (click)="saveChanges()">Save</button>
-      </div>
+        </div>
+
+        <app-upload-progress
+          *ngIf="type === 'episode'"
+          accept="audio/mp3,video/mp4"
+          buttonText="Upload Episode File"
+          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+          (fileUploaded)="handleFileUploaded($event, 'filepath')"
+          (fileRemoved)="handleFileRemoved('filepath')">
+        </app-upload-progress>
+
+        <app-upload-progress
+          *ngIf="type === 'episode'"
+          accept="image/png,image/jpeg,image/jpg,image/svg"
+          buttonText="Upload Cover Image"
+          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+          (fileUploaded)="handleFileUploaded($event, 'coverImage')"
+          (fileRemoved)="handleFileRemoved('coverImage')">
+        </app-upload-progress>
+      </form>
+    </div>
+
+    <div class="modal-footer">
+      <button class="btn-save" (click)="saveChanges()" [disabled]="!isFormValid()">Save</button>
     </div>
   </div>
-  
+</div>

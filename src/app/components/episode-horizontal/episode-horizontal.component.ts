@@ -1,13 +1,13 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Input } from '@angular/core';
 import { CommonModule, DecimalPipe } from '@angular/common';
-import { HeartIconComponent } from '../heart-icon/heart-icon.component';
-import { CommentIconComponent } from '../comment-icon/comment-icon.component';
-import { HeadphonesIconComponent } from '../headphones-icon/headphones-icon.component';
+import { HeartIconComponent } from '../shared/icons/heart-icon/heart-icon.component';
+import { CommentIconComponent } from '../shared/icons/comment-icon/comment-icon.component';
+import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headphones-icon.component';
 import { Episode } from '../../interfaces/app.interfaces';
-import { SubscribeButtonComponent } from '../subscribe-button/subscribe-button.component';
+import { SubscribeButtonComponent } from '../shared/buttons/subscribe-button/subscribe-button.component';
 import { RouterModule } from '@angular/router';
-import { SaveIconComponent } from "../save-icon/save-icon.component";
+import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component'; 
 @Component({
   selector: 'app-episode-horizontal',
   standalone: true,
@@ -15,15 +15,13 @@ import { SaveIconComponent } from "../save-icon/save-icon.component";
   templateUrl: './episode-horizontal.component.html',
   styleUrl: './episode-horizontal.component.css'
 })
-export class EpisodeHorizontalComponent implements OnInit{
+export class EpisodeHorizontalComponent {
     @Input() episode!:Episode;
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+    @Input() authorisedToLike!:boolean
 
-ngOnInit(): void {
-    console.log('kdnfdnf',this.episode)
-}
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
@@ -35,9 +33,6 @@ ngOnInit(): void {
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
 
-    onCommentChanged(isCommented: boolean) {
-      console.log('Commentaire modifié:', isCommented);
-    }
 
 }
 

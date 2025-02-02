@@ -18,16 +18,17 @@ import { LikeEpisodeServiceRest } from '../../services/likeEpisode-rest.service'
   styleUrl: './latest-episodes.component.css'
 })
 export class LatestEpisodesComponent {
-  displayedEpisodesCount =2;
+  displayedEpisodesCount =4;
   episodes: Episode[] = [];
   private likeSubscription: any;
   private unlikeSubscription: any;
 
-  // Nombre de likes pour chaque épisode
   likes: { [episodeId: number]: number } = {};
 
-  // Track liked state for each episode
   likedEpisodes: { [episodeId: number]: boolean } = {};
+
+  authorisedToLike!:boolean;
+
 
   user: Partial<User> = {};
 
@@ -43,7 +44,18 @@ export class LatestEpisodesComponent {
     this.userService.getCurrentUser().subscribe((user) => {
       this.user = user;
       console.log('Utilisateur actuel:', this.user);
+
+      // Vérifier si l'utilisateur est connecté avant d'écouter les WebSockets
+      if (this.user && this.user.id) {
+        this.authorisedToLike=true;
+        this.subscribeToWebSockets();
+      }
+      else{
+        this.authorisedToLike=false;
+
+      }
     });
+
     this.episodeService.getAllEpisodesLatest().subscribe((data) => {
       this.episodes = data;
       console.log(this.episodes);
@@ -51,35 +63,31 @@ export class LatestEpisodesComponent {
         this.likes[episode.id] = episode.numberOfLikes;
       });
     });
-    // Récupération des épisodes likés par l'utilisateur
+
     this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
       likedEpisodes.forEach((episode) => {
         this.likedEpisodes[episode.id] = true;
       });
     });
 
-    // Listen for likes in real-time and update the likes count for each episode
+    console.log('liked', this.likedEpisodes);
+  }
+
+  // Séparer la gestion des WebSockets dans une méthode
+  private subscribeToWebSockets(): void {
+    console.log('Connexion aux WebSockets pour:', this.user);
+
+    // Gestion des likes en temps réel
     this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
-      data.totalLikes.forEach((likeData: any) => {
-        this.likes[likeData.episode] = likeData.numberOfLikes;
-        this.likedEpisodes[likeData.episode] = true;
-        console.log(this.likes);
-        console.log(this.likedEpisodes);
-      });
+      this.likes[data.episode] = data.numberOfLikes;
     });
 
-    // Listen for unlikes and update the likes count accordingly
+    // Gestion des unlikes en temps réel
     this.unlikeSubscription = this.likeEpisodeService.onUnlikeEpisode().subscribe((data) => {
-      data.totalLikes.forEach((likeData: any) => {
-        this.likes[likeData.episode] = likeData.numberOfLikes;
-        this.likedEpisodes[likeData.episode] = false;
-        console.log(this.likes);
-        console.log(this.likedEpisodes);
-
-
-      });
+      this.likes[data.episode] = data.numberOfLikes;
     });
   }
+
 
   ngOnDestroy(): void {
     this.likeSubscription?.unsubscribe();
