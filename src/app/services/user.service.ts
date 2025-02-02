@@ -20,6 +20,7 @@ export class UserService {
   }
 
   updateUserProfile(userData: any): Observable<any> {
+    console.log(userData);
     return this.http.put(`${this.apiUrl}/user/profile`, userData);
   }
 
@@ -28,8 +29,12 @@ export class UserService {
       `${this.apiUrl}/user/change-password`, passwordData
     );
   }
-  updateEmail(emailData: any): Observable<any> {
+  updateEmail(emailData: { oldEmail: string; newEmail: string }): Observable<any> {
     return this.http.put(`${this.apiUrl}/user/update-email`, emailData);
+  }
+
+  updateToken(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/update-token`, { email });
   }
   getCurrentUser(): Observable<Partial<User>> {
     return this.http.get(`${this.apiUrl}/user/current-user`);

@@ -6,34 +6,58 @@
             <div class="form-wrapper align-items-center">
                 <form class="form sign-up " #formulaire="ngForm"  >
                     <div class="step" *ngIf="currentStep === 1">
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstName" ></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastName" ></app-input-field>
-                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username"></app-input-field>
-                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" ></app-input-field>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Firstname" name="firstname" [(ngModel)]="Data.firstName" (blur)="validateFirstName()"></app-input-field>
+                        <div *ngIf="!validation.firstName" class="error">
+                            Firstname is invalid 
+                        </div>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="lastname" [(ngModel)]="Data.lastName" (blur)="validateLastName()" ></app-input-field>
+                        <div *ngIf="!validation.lastName" class="error">
+                            Lastname is invalid 
+                        </div>
+                        <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="username" [(ngModel)]="Data.username" (blur)="checkUsername()"></app-input-field>
+                        <div *ngIf="!validation.username" class="error">
+                            Username is invalid 
+                        </div>
+                        <div *ngIf="usernameTaken" class="error">
+                            Username is already taken. 
+                        </div>
+                        <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="email" [(ngModel)]="Data.email" (blur)="validateEmail()" ></app-input-field>
+                        <div *ngIf="!validation.email" class="error">
+                            Email is invalid. 
+                        </div>
+                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 2">
-                        <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="birthday" [(ngModel)]="Data.birthday" ></app-input-field>
-                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country"></app-input-field>
-                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.profession" ></app-input-field>
-                        <div class="form-group">
-                            <select id="role" class="form-control" [(ngModel)]="Data.role" name="role">
-                              <option value="" selected>Select Role</option>
-                              <option value="User">User</option>
-                              <option value="Admin">Admin</option>
-                              <option value="SuperAdmin">SuperAdmin</option>
-                            </select>
-                          </div>
+                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="country" [(ngModel)]="Data.country" (blur)="validateCountry()"></app-input-field>
+                        <div *ngIf="!validation.country" class="error">
+                            Country is invalid. 
+                        </div>
+                        <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="job" [(ngModel)]="Data.profession" (blur)="validateProfession()" ></app-input-field>
+                        <div *ngIf="!validation.profession" class="error">
+                            Profession is invalid. 
+                        </div>
                         <app-input-field icon="bx bxl-whatsapp" type="url" placeholder="WhatsApp username" name="whatsapp_user" [(ngModel)]="Data.whatsappUser"></app-input-field>
                         <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="instagram_user" [(ngModel)]="Data.instagramLink"></app-input-field>
+                        <app-input-field icon="bx bxl-instgram" type="url" placeholder="Twitter username" name="twitter_user" [(ngModel)]="Data.twitterUser"></app-input-field>
                     </div>
                     <div class="step" *ngIf="currentStep === 3">
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" ></app-input-field>
-                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" ></app-input-field>
+                        <div class="mb-3">
+                            <label for="photo" class="form-label">Photo</label>
+                            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelect($event)">
+                          </div>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password" (blur)="validatePwd()"></app-input-field>
+                        <div *ngIf="!validation.password" class="error">
+                            Password is invalid. 
+                        </div>
+                        <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="confirmPassword" [(ngModel)]="Data.confirmPassword" (blur)="validateConPwd()" ></app-input-field>
+                        <div *ngIf="!validation.confirmPassword" class="error">
+                            Password and confirmPassword not matched.
+                        </div>
                     </div>
                     <div class="step" *ngIf="currentStep === 4">
                         <h3>Select Your Interests</h3>
                         <div class="interests-container">
-                            <div *ngFor="let interest of interests"
+                            <div *ngFor="let interest of interestsList"
                                  class="interest-tag"
                                  [class.selected]="isInterestSelected(interest)"
                                  (click)="toggleInterest(interest)">
@@ -119,7 +143,7 @@
             <div class="img sign-up"></div>
             <div class="text sign-up">
                 <h2>
-                    Join with us
+                    Join us
                 </h2>
             </div>
         </div>

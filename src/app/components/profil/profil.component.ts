@@ -18,6 +18,13 @@ import { UpdateModalComponent } from '../modals/update-modal/update-modal.compon
 import { CommonModule } from '@angular/common';
 import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../store/auth/auth.state';
+import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
+
+interface AppState {
+  auth: AuthState;
+}
 
 @Component({
   selector: 'app-profil',
@@ -36,7 +43,7 @@ export class ProfilComponent  implements OnInit {
   bookmarkedEpisodes: Episode[] = [];
   likes: { [episodeId: number]: number } = {};
   isEditModalOpen:boolean=false;
-  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService) {}
+  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>) {}
   selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
@@ -68,32 +75,35 @@ export class ProfilComponent  implements OnInit {
 
   loadUserProfile() {
     this.isLoading = true;
-    this.userService.getUserProfile().subscribe({
-      next: (data) => {
+    this.store.select(selectUser).subscribe({
+
+    next: (user) => {
+      console.log(user);
+      if (user) {
         this.user = {
-          ...data,
-          profilImage: data.profileImage || 'assets/images/default-profile.png',
-          name: `${data.firstName} ${data.lastName}`,
-          password: data.password,
-          birthDate: new Date(data.birthday).toLocaleDateString(),
-          address: data.country,
-          profession: data.profession,
-          email: data.email,
+          ...user,
+          profilImage: user.photo || 'assets/images/default-profile.png',
+          name: `${user.firstName} ${user.lastName}`,
+          birthDate: new Date(user.birthday).toLocaleDateString(),
+          address: user.country,
+          profession: user.profession,
+          email: user.email,
           socialMedia: {
-            whatsapp: data.whatsappUser,
-            instagram: data.instagramLink ,
-            twitter: data.twitterLink || 'Not provided'
+            whatsapp: user.whatsappUser,
+            instagram: user.instagramLink,
+            twitter: user.twitterUser || 'Not provided'
           }
         };
-        this.isLoading = false;
-      },
-      error: (error: any) => { // Explicitly typing the 'error' parameter as 'any'
-        this.error = 'Failed to load user profile';
-        this.isLoading = false;
-        console.error('Error loading profile:', error);
-      },
-    });
-  }
+      }
+      this.isLoading = false;
+    },
+    error: (error) => {
+      this.error = 'Failed to load user profile';
+      this.isLoading = false;
+      console.error('Error loading profile:', error);
+    }
+  });
+}
   loadUserPodcasts() {
     this.podcastService.getPodcastsByUser().subscribe({
       next: (podcasts) => {
@@ -121,13 +131,13 @@ export class ProfilComponent  implements OnInit {
           socialMedia: {
             whatsapp: updatedUser.whatsappUser,
             instagram: updatedUser.instagramLink,
-            twitter: updatedUser.twitterLink || 'Not provided',
-          },
+            twitter: updatedUser.twitterUser || 'Not provided'
+          }
         };
       },
-      error: (error: any) => {
+      error: (error) => {
         console.error('Error updating profile:', error);
-      },
+      }
     });
   }
   toggleEditModal(){
