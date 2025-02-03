@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { EmailModalComponent } from '../modals/email-modal/email-modal.component';
 import { PasswordModalComponent } from '../modals/password-modal/password-modal.component';
 import { SocialMediaModalComponent } from '../modals/social-media-modal/social-media-modal.component';
@@ -29,28 +29,35 @@ export class ProfilComponent  implements OnInit {
   bookmarkedEpisodes: Episode[] = [];
   likes: { [episodeId: number]: number } = {};
 
-  constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
+  constructor(private userService: UserService, private bookmarkService: BookmarkService,    private cdr : ChangeDetectorRef) {}
 
   ngOnInit() {
     this.fetchBookmarkedEpisodes(); 
   }
-
+  onSwiperChange() {
+    console.log("Swiper changed");
+    this.cdr.detectChanges(); // Ensure Angular updates UI
+  }
   fetchBookmarkedEpisodes() {
     this.bookmarkService.getBookmarkedEpisodes().subscribe(
       (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
-        console.log('nhhhhhhhhhhhhh')
-        console.log(this.bookmarkedEpisodes.length)
-
+        console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
       },
-      (error: any) => { // Explicitly typing the 'error' parameter as 'any'
+      (error: any) => {
         console.error('Error fetching bookmarked episodes:', error);
       }
     );
-
   }
+
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
+  }
+
+  // Listen to the unfavorite event and remove the episode from the list
+
+  handleUnfavorite(episodeId: number) {
+    this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);
   }
   
 
@@ -75,7 +82,7 @@ export class ProfilComponent  implements OnInit {
         };
         this.isLoading = false;
       },
-      error: (error: any) => { // Explicitly typing the 'error' parameter as 'any'
+      error: (error: any) => {
         this.error = 'Failed to load user profile';
         this.isLoading = false;
         console.error('Error loading profile:', error);
@@ -105,5 +112,4 @@ export class ProfilComponent  implements OnInit {
       },
     });
   };
-  
 }

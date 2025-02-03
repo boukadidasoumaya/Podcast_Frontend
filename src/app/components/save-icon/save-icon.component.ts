@@ -2,6 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core'
 import { BookmarkService } from '../../services/bookmark.service';
+import { Output } from '@angular/core';
+import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-save-icon',
   standalone: true,
@@ -12,25 +14,29 @@ import { BookmarkService } from '../../services/bookmark.service';
 export class SaveIconComponent implements OnInit{
   @Input() episodeId!: number;
   isBookmarked: boolean = false;
+  @Output() unfavorite = new EventEmitter<number>();  // Emit the episode ID when unfavorite
 
   constructor(private bookmarkService: BookmarkService) {}
 
   ngOnInit(): void {
-    this.bookmarkService.isBookmarked( this.episodeId).subscribe(
-      (isBookmarked) => {
-        console.log(isBookmarked)
-        this.isBookmarked = isBookmarked;
+    this.bookmarkService.isBookmarked( this.episodeId).subscribe({
+      next:(res)=>{
+        console.log(res)
+        this.isBookmarked = res;
       },
-      (error) => {
-        console.error('Error checking bookmark:', error);
+      error:(err)=>{
+        console.log(err);
       }
-    );
+    }
+    )
   }
 
   toggleBookmark(): void {
     if (this.isBookmarked) {
       this.bookmarkService.removeBookmark( this.episodeId).subscribe(() => {
         this.isBookmarked = false;
+        this.unfavorite.emit(this.episodeId);  // Emit the episode ID to the parent component
+
       });
     } else {
       console.log('ddddddddddddddddddddfrefzf')

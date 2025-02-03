@@ -20,6 +20,7 @@ export class EpisodeHorizontalComponent implements OnInit{
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+    @Output() unfavorite = new EventEmitter<number>();  // Emit episode ID when unfavorite
 
 ngOnInit(): void {
     console.log('kdnfdnf',this.episode)
@@ -28,6 +29,7 @@ ngOnInit(): void {
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
     }
+    
 
     // Modified method to emit the liked event
     onLikeChanged() {
@@ -38,6 +40,9 @@ ngOnInit(): void {
     onCommentChanged(isCommented: boolean) {
       console.log('Commentaire modifié:', isCommented);
     }
-
+    unfavoriteEpisode() {
+      if (this.episode) {
+        this.unfavorite.emit(this.episode.id);  // Emit the episode ID to the parent component
+      }}
 }
 
