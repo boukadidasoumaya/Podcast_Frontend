@@ -20,7 +20,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { VidPageComponent } from './pages/vid-page/vid-page.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 export const routes: Routes = [
-  {path:'home',component:HomeComponent},
+  {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},

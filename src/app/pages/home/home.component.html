@@ -2,7 +2,8 @@
 <app-navbar></app-navbar>
 </div>
 <app-hero-section></app-hero-section>
-
+<body>
+  <main>
 <app-section-custom [title]="'Latest episodes'" [id]="'section_2'">
   <app-latest-episodes></app-latest-episodes>
 </app-section-custom>
@@ -25,7 +26,10 @@
   </app-swiper>
 </app-section-custom>
 <app-section-custom [title]="'Trending episodes'" [id]="'section_2'">
-</app-section-custom>
+
 
 <app-trending-episodes></app-trending-episodes>
+</app-section-custom>
+</main>
+</body>
 <app-footer></app-footer>
