@@ -3,7 +3,7 @@
 @import "../../../assets/css/profil-block.css";
 @import "../../../assets/css/social-icon.css";
 @import "../../../assets/css/templatemo-pod-talk.css";
-
+@import "../../../assets/css/link.css";
 
 .badge {
   background-color: rgb(26, 123, 202);
@@ -23,7 +23,7 @@
 }
 a {
   display: inline-block;
-  color: var(--primary-color);
+  color: var(--primary-color) !important;
   text-decoration: none;
 
     white-space: nowrap; /* Prevents title from breaking lines */
@@ -102,7 +102,7 @@ a {
 .owner-card:hover .details .check-details-text {
   display: inline-block;
   opacity: 1;
-  text-decoration: underline; 
+  text-decoration: underline;
 
 }
 

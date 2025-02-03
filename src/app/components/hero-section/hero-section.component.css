@@ -51,12 +51,12 @@ p {
 .hero-section {
   background-image: url('../../../assets/images/templatemo-wave-banner.jpg'), linear-gradient(#348CD2, #FFFFFF);
   background-repeat: no-repeat;
-  background-size: 108% 70%;
+  background-size: 108% 76%;
   background-position: top;
-  padding-top: 200px;
-  border-color: black;
+  padding-top: 100px;
+  position: relative;
+  top: -360px;
 }
-
 
 
 /* start listening btn */
@@ -100,3 +100,6 @@ p {
 }
 
 
+.swiper{
+    margin-bottom: -200px;
+}
