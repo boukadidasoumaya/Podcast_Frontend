@@ -27,9 +27,9 @@ export class CreateModalComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
       duration: [null, [Validators.required, Validators.min(0)]],
-      filepath: [null],
-      coverImage: [null],
-      number: [null, [Validators.required, Validators.min(1)]], 
+      filepath: [null, Validators.required], 
+      coverImage: [null, Validators.required],
+      number: [null, [Validators.required, Validators.min(1)]],
     });
   }
 

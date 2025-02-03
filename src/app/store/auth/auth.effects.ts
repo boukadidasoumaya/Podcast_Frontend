@@ -19,7 +19,7 @@ export class AuthEffects {
             if (response.accessToken) {
               localStorage.setItem('authToken', response.accessToken);
             }
-            this.router.navigate(['/profil']);
+            this.router.navigate(['']);
             console.log(response.user);
             return AuthActions.loginSuccess({ user: response.user, token: response.accessToken });
           }),
