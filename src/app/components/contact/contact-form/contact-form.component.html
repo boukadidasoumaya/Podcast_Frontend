@@ -1,34 +1,88 @@
-<form action="#" method="post" class="custom-form contact-form" role="form">
-    <div class="row">
-      <div class="col-lg-6 col-md-6 col-12">
-        <div class="form-floating">
-          <input type="text" name="full-name" id="full-name" class="form-control" placeholder="Full Name" required />
-          <label for="full-name">Full Name</label>
+<form (ngSubmit)="onSubmit()" #contactForm="ngForm" class="custom-form contact-form" role="form">
+  <div class="row">
+    <div class="col-lg-6 col-md-6 col-12">
+      <div class=" ">
+        <input
+          type="text"
+          name="fullName"
+          id="full-name"
+          class="form-control"
+          placeholder="Full Name"
+          [(ngModel)]="contactData.fullName"
+          required
+          #fullName="ngModel"
+        />
+        <label for="full-name"></label>
+        <div *ngIf="fullName.invalid && (fullName.dirty || fullName.touched)" class="text-danger">
+          <div *ngIf="fullName.errors?.['required']">Full Name is required.</div>
         </div>
-      </div>
-  
-      <div class="col-lg-6 col-md-6 col-12">
-        <div class="form-floating">
-          <input type="email" name="email" id="email" class="form-control" placeholder="Email address" required />
-          <label for="email">Email address</label>
-        </div>
-      </div>
-  
-      <div class="col-lg-12 col-12">
-        <div class="form-floating">
-          <input type="text" name="company" id="company" class="form-control" placeholder="Company" required />
-          <label for="company">Company</label>
-        </div>
-  
-        <div class="form-floating">
-          <textarea class="form-control" id="message" name="message" placeholder="Describe message here"></textarea>
-          <label for="message">Describe message here</label>
-        </div>
-      </div>
-  
-      <div class="col-lg-4 col-12 ms-auto">
-        <button type="submit" class="form-control">Submit</button>
       </div>
     </div>
-  </form>
-  
+
+    <div class="col-lg-6 col-md-6 col-12">
+      <div class=" ">
+        <input
+          type="email"
+          name="email"
+          id="email"
+          class="form-control"
+          placeholder="Email address"
+          [(ngModel)]="contactData.email"
+          required
+          email
+          #email="ngModel"
+        />
+        <label for="email"></label>
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger">
+          <div *ngIf="email.errors?.['required']">Email is required.</div>
+          <div *ngIf="email.errors?.['email']">Please enter a valid email address.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-12 col-12">
+      <div class=" ">
+        <input
+          type="text"
+          name="subject"
+          id="subject"
+          class="form-control"
+          placeholder="Subject"
+          [(ngModel)]="contactData.subject"
+          required
+          #subject="ngModel"
+        />
+        <label for="subject"></label>
+        <div *ngIf="subject.invalid && (subject.dirty || subject.touched)" class="text-danger">
+          <div  *ngIf="subject.errors?.['required']">Subject is required.</div>
+        </div>
+      </div>
+
+      <div class=" ">
+        <textarea
+          class="form-control"
+          id="message"
+          name="message"
+          placeholder="Describe message here"
+          [(ngModel)]="contactData.content"
+          required
+          #message="ngModel"
+        ></textarea>
+        <label for="message"></label>
+        <div *ngIf="message.invalid && (message.dirty || message.touched)" class="text-danger">
+          <div *ngIf="message.errors?.['required']">Message is required.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-4 col-12 ms-auto">
+      <button
+        type="submit"
+        class="form-control"
+        [disabled]="!contactForm.valid"
+      >
+        Submit
+      </button>
+    </div>
+  </div>
+</form>

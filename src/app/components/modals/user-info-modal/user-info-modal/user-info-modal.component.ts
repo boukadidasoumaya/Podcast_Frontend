@@ -1,55 +1,113 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, NgForm } from '@angular/forms';
 import { UserService } from '../../../../services/user.service';
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store'; 
-import * as AuthActions from '../../../../store/auth/auth.actions'; 
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../../store/auth/auth.actions';
 import { CloudinaryService } from '../../../../services/cloudinary.service';
+import { UploadProgressComponent } from "../../../upload-progress/upload-progress.component";
+import { CountryService } from '../../../../services/country.service';
 
 @Component({
   selector: 'app-user-info-modal',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, UploadProgressComponent],
   templateUrl: './user-info-modal.component.html',
   styleUrl: './user-info-modal.component.css'
 })
-export class UserInfoModalComponent {
-  @Output() InfoUpdated = new EventEmitter<string>();
-  
+export class UserInfoModalComponent implements OnInit{
+  @Input() user:any={}
+  @Output() updatedUser=new EventEmitter<any>();
+  @Output() onclose=new EventEmitter<void>();
   formData = {
-    username: '',
-    birthday: '',
-    country: '',
-    photo: '',
+    username: this.user.username,
+    birthday: this.user.birthDate,
+    country: this.user.country,
+    photo: null as string | null,
   };
-  constructor(private userService: UserService, private router: Router,private store: Store,private cloudinaryService: CloudinaryService ) {}  
 
-  async onFileSelect(event: Event): Promise<void>  {
-    const input = event.target as HTMLInputElement;
-  if (input.files && input.files[0]) {
-    const file = input.files[0];
-    if (file) {
-      try {
-        const photoUrl = await this.cloudinaryService.uploadToCloudinary(file);
-        this.formData.photo = photoUrl;
-        console.log('File uploaded successfully:', this.formData.photo );
-      } catch (error) {
-        console.error('Upload failed:', error);
-      }    }
+
+  updateForm!: FormGroup;
+  isFileUploaded = { image: false };
+  isUploading = { image: false };
+  isUploadInProgress: boolean = false;
+  countries: any[] = [];
+
+  constructor(private fb: FormBuilder,private countryService:CountryService) {}
+
+  ngOnInit(): void {
+    this.updateForm = this.fb.group({
+      username: [this.formData.username],
+      birthday: [this.formData.birthday],
+      country: [this.formData.country],
+      photo: [this.formData.photo],
+    });
+
+    this.countryService.getCountries().subscribe((data) => {
+      this.countries = data.map(country => country.name.common); // Extract country names
+    });
+    console.log("countries",this.countries);
   }
+
+  // Listen to upload status changes
+  handleUploadStatusChanged(isUploading: boolean): void {
+    this.isUploadInProgress = isUploading;
   }
-  onUserSubmit(form: NgForm) {
-    if (form.valid) {
-      this.userService.updateUserProfile(this.formData)
-        .subscribe({
-          next: (response) => {
-            this.store.dispatch(AuthActions.updateUser({ user: response }));
-            console.log('info updated successfully:', response);
-          }
-        });
-    } else {
-      console.error('Le formulaire est invalide.');
+
+  isFormValid(): boolean {
+    return this.updateForm.valid && !this.isUploadInProgress; // Disable save if upload is in progress
+  }
+
+  onUserSubmit(userForm: any): void {
+    if (this.isUploadInProgress) {
+      console.log('En attente de l\'upload...');
+      return;
     }
+
+    if (userForm.valid) {
+      const formDataToSave = { ...userForm.value, photo: this.formData.photo };
+      this.saveUserData(formDataToSave);
+    }
+  }
+
+  saveUserData(userData: any): void {
+    console.log('User data saved:', userData);
+    this.updatedUser.emit(userData);
+    this.onclose.emit();
+    this.resetForm();
+    this.closeModal();
+  }
+
+  closeModal(): void {
+    console.log('Modal closed');
+  }
+
+  handleFileUploaded(fileUrl: string): void {
+    this.isUploading.image = false; // Mark upload as finished
+    this.isFileUploaded.image = true;
+    this.formData.photo = fileUrl; // Store the uploaded file URL
+
+    if (!this.isUploading.image && this.updateForm.valid) {
+      this.updateForm.markAsPristine();
+    }
+  }
+
+  handleFileUploading(): void {
+    this.isUploading.image = true;
+    this.updateForm.setErrors({ uploadInProgress: true });
+  }
+
+  handleFileRemoved(): void {
+    this.formData.photo = null;
+    this.isFileUploaded.image = false;
+    this.isUploading.image = false;
+  }
+
+  resetForm(): void {
+    this.isFileUploaded = { image: false };
+    this.isUploading = { image: false };
+    this.formData = { username: '', birthday: '', country: '', photo: null };
+    this.updateForm.reset(this.formData);
   }
 }

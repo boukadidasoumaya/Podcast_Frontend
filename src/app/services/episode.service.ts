@@ -15,7 +15,7 @@ export class EpisodeService {
   createEpisode(episode: CreateEpisode): Observable<CreateEpisode> {
     return this.http.post<CreateEpisode>(this.apiUrl, episode);
   }
- 
+
 
   // Récupérer tous les épisodes
   getAllEpisodes(): Observable<Episode[]> {
@@ -69,6 +69,24 @@ export class EpisodeService {
     return this.http.post<{ message: string }>(
       `${this.apiUrl}/subscription/unsubscribe/${idpod}`,
       {}
+    );
+  }
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('coverImage', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/coverImage`,
+      formData
+    );
+  }
+  uploadVideo(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('filepath', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/filepath`,
+      formData
     );
   }
 }

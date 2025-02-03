@@ -15,12 +15,12 @@ import { authReducer } from './store/auth/auth.reducer';
 export const appConfig: ApplicationConfig = {
   providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideHttpClient() , provideHttpClient(withInterceptors(
     [authInterceptor,
-      imageInterceptor, 
+      imageInterceptor,
       mediaInterceptor,
     ]
 )),
   provideToastr({
-    positionClass: 'toast-top-right',
+    positionClass: 'toast-top-center',
   }),provideAnimations(), provideStore({auth:authReducer }),
   provideEffects([AuthEffects ]),
 ]

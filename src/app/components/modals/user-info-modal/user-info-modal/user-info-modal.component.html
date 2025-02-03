@@ -2,36 +2,38 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="userModalLabel">Editer vos donnees</h5>
+        <h5 class="modal-title" id="userModalLabel">Update your personnal info</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         <form #userForm="ngForm" (ngSubmit)="onUserSubmit(userForm)">
+          <label for="photo" class="form-label">Photo</label>
+            <app-upload-progress
+              accept="image/png,image/jpeg,image/jpg,image/svg"
+              buttonText="Upload Photo"
+              [fileCategory]="'coverImage'"
+              (uploadStatusChanged)="handleUploadStatusChanged($event)"
+              (fileUploaded)="handleFileUploaded($event)"
+              (fileRemoved)="handleFileRemoved()">
+            </app-upload-progress>
           <div class="mb-3">
-            <label for="photo" class="form-label">Photo</label>
-            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelect($event)">
-          </div>
-          <div class="mb-3">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
+            <label for="username" class="form-label">Username</label>
             <input type="text" class="form-control" id="username" name="username"
                    [(ngModel)]="formData.username" required>
           </div>
           <div class="mb-3">
-            <label for="birthday" class="form-label">Date de naissance</label>
+            <label for="birthday" class="form-label">Birthday</label>
             <input type="date" class="form-control" id="birthday" name="birthday"
                    [(ngModel)]="formData.birthday" required>
           </div>
           <div class="mb-3">
-            <label for="country" class="form-label">Pays</label>
-            <select class="form-select" id="country" name="country"
-                    [(ngModel)]="formData.country" required>
-              <option value="" disabled>Sélectionnez un pays</option>
-              <option value="France">France</option>
-              <option value="Tunisie">Tunisie</option>
-              <option value="États-Unis">États-Unis</option>
-              <option value="Canada">Canada</option>
+            <label for="country" class="form-label">Country</label>
+            <select class="form-select" id="country" name="country" [(ngModel)]="formData.country" required>
+              <option value="" disabled>Select a country</option>
+              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
             </select>
           </div>
+
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
             <button type="submit" class="btn btn-primary" [disabled]="!userForm.valid">Enregistrer</button>

@@ -168,7 +168,7 @@
     </div>
 
 <!-- My List Section -->
-   
+
 </div>
 
 
@@ -218,17 +218,17 @@
           [isLiked]="false"
           (liked)="null">
         </app-episode-horizontal>
-        
-    
+
+
         </ng-template>
-      </app-swiper>     
+      </app-swiper>
       </app-section-custom>
-     
-      
-    
+
+
+
   </div>
 </div>
-<app-user-info-modal></app-user-info-modal>
+<app-user-info-modal [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" ></app-user-info-modal>
 <app-email-modal></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>

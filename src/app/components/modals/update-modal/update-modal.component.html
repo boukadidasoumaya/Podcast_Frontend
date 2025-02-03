@@ -34,8 +34,8 @@
         </div>
 
         <div class="form-group">
-          <label for="duration">Duration (seconds)</label>
-          
+          <label for="duration">Duration (minutes)</label>
+
           <input
             id="duration"
             formControlName="duration"
@@ -53,7 +53,9 @@
         <app-upload-progress
           *ngIf="type === 'episode'"
           accept="audio/mp3,video/mp4"
+          type="episode"
           buttonText="Upload Episode File"
+          [fileCategory]="'filepath'"
           (uploadStatusChanged)="handleUploadStatusChanged($event)"
           (fileUploaded)="handleFileUploaded($event, 'filepath')"
           (fileRemoved)="handleFileRemoved('filepath')">
@@ -62,6 +64,8 @@
         <app-upload-progress
           *ngIf="type === 'episode'"
           accept="image/png,image/jpeg,image/jpg,image/svg"
+          type="episode"
+          [fileCategory]="'coverImage'"
           buttonText="Upload Cover Image"
           (uploadStatusChanged)="handleUploadStatusChanged($event)"
           (fileUploaded)="handleFileUploaded($event, 'coverImage')"
