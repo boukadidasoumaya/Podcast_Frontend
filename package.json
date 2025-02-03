@@ -28,6 +28,7 @@
     "@types/bootstrap": "^5.2.10",
     "angulat-tp": "file:",
     "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
     "cloudinary": "^2.5.1",
     "font-awesome": "^4.7.0",
     "ng-angular-popup": "^0.6.6",
