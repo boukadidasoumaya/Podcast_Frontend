@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Subscription } from 'rxjs';
-import { SocketService } from '../../services/views.service';
-import { EpisodeService } from '../../services/episode.service';
+import { SocketService } from '../../../../services/views.service';
+import { EpisodeService } from '../../../../services/episode.service';
 import { ChangeDetectorRef } from '@angular/core';
 @Component({
   selector: 'app-headphones-icon',

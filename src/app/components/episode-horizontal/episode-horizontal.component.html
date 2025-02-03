@@ -43,7 +43,7 @@
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
       <app-headphones-icon [episodeId]="episode.id"></app-headphones-icon>
       <app-heart-icon [numberOfLikes]="episode.likes.length" [isLiked]="isLiked" (liked)="onLikeChanged()"></app-heart-icon>
-      <app-comment-icon [numberOfComments]="episode.comments.length" (commented)="onCommentChanged($event)"></app-comment-icon>
+      <app-comment-icon [numberOfComments]="episode.comments.length" (commented)="null"></app-comment-icon>
     </div>
   </div>
 

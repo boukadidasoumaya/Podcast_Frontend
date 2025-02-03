@@ -7,7 +7,6 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SocketService {
   private socket: Socket;
-private apiUrl='http://localhost:3000'
   constructor(private http: HttpClient) {
     this.socket = io('http://localhost:8001' , {
       path: '',  // Ensure this matches your backend

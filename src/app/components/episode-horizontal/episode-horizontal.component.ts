@@ -35,9 +35,7 @@ export class EpisodeHorizontalComponent {
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
 
-    onCommentChanged(isCommented: boolean) {
-      console.log('Commentaire modifié:', isCommented);
-    }
+   
     unfavoriteEpisode() {
       if (this.episode) {
         this.unfavorite.emit(this.episode.id);  // Emit the episode ID to the parent component
