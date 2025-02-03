@@ -9,6 +9,7 @@ import { takeUntil } from 'rxjs';
 import { EventEmitter } from '@angular/core';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-related-section',
   standalone: true,
@@ -29,6 +30,8 @@ export class RelatedSectionComponent {
     ngOnInit(): void {
       this.route.params.pipe(takeUntil(this.destroy$)).subscribe((params) => {
         const episodeId = +params['id'];
+        console.log('inside related')
+    console.log(this.currentEpisode)
         this.loadEpisodeinit(episodeId);
         this.loadRelatedEpisodes();
       });
@@ -62,9 +65,8 @@ export class RelatedSectionComponent {
       }
     }
     loadEpisode(episodeId: number) {
-      this.episodeSelected.emit(episodeId); // Emit the episode ID to the parent component
+      this.episodeSelected.emit(episodeId);
     }
-
     ngOnDestroy(): void {
       this.destroy$.next();
       this.destroy$.complete();

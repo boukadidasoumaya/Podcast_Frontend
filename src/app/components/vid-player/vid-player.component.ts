@@ -1,30 +1,35 @@
-import { Component, AfterViewInit, OnDestroy, ElementRef, Input, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy, ElementRef, Input, OnChanges, SimpleChanges } from '@angular/core';
 import Plyr from 'plyr';
 import { SocketService } from '../../services/views.service';
+
 @Component({
   selector: 'app-vid-player',
   standalone: true,
   templateUrl: './vid-player.component.html',
   styleUrls: ['./vid-player.component.css'],
 })
-export class VidPlayerComponent implements OnInit,AfterViewInit, OnDestroy {
-  private player: Plyr | undefined;
+export class VidPlayerComponent implements AfterViewInit, OnDestroy, OnChanges {
+  private player!: Plyr;
   private hasCountedView = false;
 
-  @Input() filepath!: string; // Episode file path
-  @Input() episodeId!: number; // Episode ID from the backend
+  @Input() filepath!: string; // Video file path
+  @Input() episodeId!: number; // Episode ID
 
-  constructor(
-    private elRef: ElementRef,
-    private viewCountService: SocketService // Inject the service
-  ) {}
-  ngOnInit(): void {
-    this.incrementViewCount()
-
-  }
+  constructor(private elRef: ElementRef, private viewCountService: SocketService) {}
 
   ngAfterViewInit(): void {
-    const videoElement = this.elRef.nativeElement.querySelector('#player');
+    this.initializePlayer();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['filepath'] && !changes['filepath'].firstChange) {
+      console.log('Filepath changed, updating video player:', this.filepath);
+      this.updateVideoSource();
+    }
+  }
+
+  private initializePlayer(): void {
+    const videoElement = this.elRef.nativeElement.querySelector('#player') as HTMLVideoElement;
     if (videoElement) {
       this.player = new Plyr(videoElement, {
         controls: ['play', 'progress', 'current-time', 'mute', 'volume', 'settings', 'fullscreen'],
@@ -32,12 +37,19 @@ export class VidPlayerComponent implements OnInit,AfterViewInit, OnDestroy {
         settings: ['quality', 'speed', 'loop'],
       });
 
-      // Listen for the 'timeupdate' event to track progress
-      this.player.on('timeupdate', () => {
-        this.trackProgress();
-      });
+      this.player.on('timeupdate', () => this.trackProgress());
     }
+  }
 
+  private updateVideoSource(): void {
+    if (this.player) {
+      this.player.stop(); // Stop the current video
+      this.player.source = {
+        type: 'video',
+        sources: [{ src: this.filepath, type: 'video/mp4' }]
+      };
+      this.player.play(); // Auto-play new video (optional)
+    }
   }
 
   ngOnDestroy(): void {
@@ -50,17 +62,14 @@ export class VidPlayerComponent implements OnInit,AfterViewInit, OnDestroy {
     if (this.player && !this.hasCountedView) {
       const watchedPercentage = (this.player.currentTime / this.player.duration) * 100;
 
-      if (watchedPercentage >= 0) {
+      if (watchedPercentage >= 10) { // Example: Track after 10% watched
         this.incrementViewCount();
-        this.hasCountedView = true; // Ensure view is counted only once
+        this.hasCountedView = true;
       }
     }
   }
-  
 
   private incrementViewCount(): void {
-    // Use the ViewCountService to increment the view count
     this.viewCountService.sendViewUpdate(this.episodeId);
-
   }
 }

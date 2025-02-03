@@ -11,6 +11,7 @@ import { EpisodeService } from '../../services/vid-page.service';
 import { Episode } from '../../interfaces/app.interfaces';
 import { RelatedSectionComponent } from '../../components/related-section/related-section.component';
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-vid-page',
   standalone: true,
@@ -34,7 +35,7 @@ podcastId!: number; // No changes here
 episodeId: number | null = null;
 
 
-  constructor(private route: ActivatedRoute, private episodeService: EpisodeService) {}
+  constructor(private router: Router,private route: ActivatedRoute, private episodeService: EpisodeService) {}
 
   ngOnInit() {
     this.route.params.subscribe((params) => {
@@ -45,7 +46,6 @@ episodeId: number | null = null;
 
   loadEpisode(episodeId: number) {
     this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
-      console.log(episodeId)
       this.currentEpisode = episode;
       this.podcastId =this.currentEpisode.podcast.id  // Fetch podcastId from route params
       // TypeScript will ensure it matches the Episode interface
@@ -67,8 +67,8 @@ episodeId: number | null = null;
   }
 // Method to handle the episode selection
 onEpisodeSelected(episodeId: number) {
-  this.episodeId = episodeId;
-   this.loadEpisode(episodeId)
+  console.log('selection')
+this.loadEpisode(episodeId)
 
 }
 
