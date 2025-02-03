@@ -1,7 +1,6 @@
 <app-section-custom [title]="currentEpisode.name" [id]="'section_2'">
   <app-vid-player [episodeId]="currentEpisode.id" [filepath]="currentEpisode.filepath"></app-vid-player>
 </app-section-custom>
-{{currentEpisode.id }}
 <app-related-section
 [routerLink]="['/episode', currentEpisode.id]"
 
