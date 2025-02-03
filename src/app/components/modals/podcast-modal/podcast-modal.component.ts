@@ -34,7 +34,6 @@ export class PodcastModalComponent {
     episodes: [],
   };
 
-  topics: string[] = ['Technology', 'Health', 'Science', 'Education'];
 
   constructor(
     private cloudinaryService: CloudinaryService,
@@ -58,11 +57,43 @@ export class PodcastModalComponent {
 
   // Passer à l'étape suivante
   nextStep() {
+    if (this.step === 1 && !this.isStep1Valid()) {
+      this.showInvalidFieldsToast('Step 1');
+      return;
+    }
+  
+    if (this.step === 2 && !this.isStep2Valid()) {
+      this.showInvalidFieldsToast('Step 2');
+      return;
+    }
+  
     if (this.step < 3) {
       this.step++;
     }
   }
-
+  showInvalidFieldsToast(step: string) {
+    let invalidFields: string[] = [];
+  
+    if (step === 'Step 1') {
+      if (!this.data.podcast.name) invalidFields.push('Podcast Name');
+      if (!this.data.podcast.topic) invalidFields.push('Topic');
+      if (!this.data.podcast.description) invalidFields.push('Description');
+      if (!this.data.podcast.image) invalidFields.push('Image');
+    }
+  
+    if (step === 'Step 2') {
+      this.data.episodes.forEach((episode, index) => {
+        if (!episode.name) invalidFields.push(`Episode ${index + 1} Name`);
+        if (!episode.description) invalidFields.push(`Episode ${index + 1} Description`);
+        if (!episode.duration) invalidFields.push(`Episode ${index + 1} Duration`);
+        if (!episode.filepath) invalidFields.push(`Episode ${index + 1} File`);
+      });
+    }
+  
+    if (invalidFields.length > 0) {
+      this.toastr.error(`Invalid fields: ${invalidFields.join(', ')}`, 'Error');
+    }
+  }
   // Revenir à l'étape précédente
   previousStep() {
     if (this.step > 1) {
@@ -93,7 +124,6 @@ export class PodcastModalComponent {
     );
   }
 
-  // Désactiver le bouton "Next" si l'étape actuelle n'est pas valide
   isNextButtonDisabled(): boolean {
     if (this.step === 1) {
       return !this.isStep1Valid();

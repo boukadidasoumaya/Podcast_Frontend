@@ -38,20 +38,16 @@
           </div>
 
           <label for="topic">Topic</label>
-          <select
+          <input
             id="topic"
             [(ngModel)]="data.podcast.topic"
             name="topic"
+            type="text"
             required
-            class="form-control"
+            placeholder="Enter podcast topic"
             #topic="ngModel"
             [ngClass]="{ 'is-invalid': topic.invalid && topic.touched }"
-          >
-            <option value="" disabled selected>Select a topic</option>
-            <option *ngFor="let topic of topics" [value]="topic">
-              {{ topic }}
-            </option>
-          </select>
+          />
           <div *ngIf="topic.invalid && topic.touched" class="text-danger">
             Podcast topic is required.
           </div>
@@ -239,9 +235,14 @@
           ←
         </button>
 
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()" [disabled]="isNextButtonDisabled()">
-          →
-        </button>
+        <button
+        *ngIf="step < 3"
+        class="btn-arrow"
+        (click)="nextStep()"
+        [disabled]="isNextButtonDisabled()"
+      >
+        →
+      </button>
         <button
           *ngIf="step === 3"
           class="btn-finish"
