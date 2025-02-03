@@ -23,8 +23,10 @@ export class AuthEffects {
             console.log(response.user);
             return AuthActions.loginSuccess({ user: response.user, token: response.accessToken });
           }),
-          catchError((error) =>
-            of(AuthActions.loginFailure({ error: error.message }))
+          catchError((error) =>{
+            return of(AuthActions.loginFailure({ error: error }));
+          }
+            
           )
         )
       )

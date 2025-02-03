@@ -6,12 +6,13 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { catchError, from, of, switchMap } from 'rxjs';
+import { catchError, from, Observable, of, switchMap } from 'rxjs';
 import { CloudinaryService } from '../../services/cloudinary.service';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
 import { register } from '../../store/auth/auth.actions';
-
+import { selectAuthError } from '../../store/auth/auth.selectors';
+import { AppState } from '../../store/auth/app.state';
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -22,17 +23,10 @@ import { register } from '../../store/auth/auth.actions';
 export class LoginComponent {
   isSignIn: boolean = true;
   usernameTaken: boolean = false;
-  validation={
-    firstName:true,
-    lastName: true,
-    username: true,
-    email: true,
-    birthday: true,
-    country: true,
-    profession: true,
-    password: true,
-    confirmPassword: true
-  }
+  emailTaken: boolean = false;
+  emailFormat : boolean =true;
+  PasswordValid: boolean = true;
+  error$: Observable<string | null>;
   Data = {
     firstName: '',
     lastName: '',
@@ -61,6 +55,7 @@ export class LoginComponent {
                  this.Data.username &&
                  this.Data.email &&
                  !this.usernameTaken &&
+                 !this.emailTaken &&
                  this.Data.birthday && 
                  this.isValidEmail(this.Data.email));
       case 2:
@@ -69,7 +64,7 @@ export class LoginComponent {
       case 3:
         return !!(this.Data.password &&
                  this.Data.confirmPassword&&
-                 this.Data.password === this.Data.confirmPassword
+                 this.PasswordValid
                 );
       default:
         return false;
@@ -89,8 +84,9 @@ export class LoginComponent {
   }
 
   isValidEmail(email: string): boolean {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      this.emailFormat=emailRegex.test(email);
+      return this.emailFormat;
   }
 
   currentStep = 1;
@@ -113,8 +109,10 @@ export class LoginComponent {
     private authService: AuthService,
     private router: Router,
     private cloudinaryService: CloudinaryService,
-    private store: Store
-  ) {}
+    private store: Store<AppState>
+  ) {
+    this.error$ = this.store.select(selectAuthError)
+  }
 
   async onFileSelect(event: Event): Promise<void>  {
     const input = event.target as HTMLInputElement;
@@ -133,35 +131,48 @@ export class LoginComponent {
 
   checkUsername(): void {
     this.usernameTaken=false;
-    if(!this.Data.username || this.Data.username.trim().length <4)
-      {
-        this.validation.username=false;
-      }
-      else{
-        this.validation.username=true;
-      }
     if (this.Data.username) { 
-        console.log(this.Data.username);
         this.authService.checkUsernameUnique(this.Data.username)
             .pipe(
                 catchError((err) => {
-                    console.error('Error checking username:', err);
                     return of(false); 
                 })
             )
             .subscribe({
                 next: (isTaken) => {
                     this.usernameTaken = isTaken; 
-                    console.log(this.usernameTaken)
                 }
             });
     }
 }
 
+  checkEmail(): void {
+    this.emailTaken=false;
+    if (this.Data.email) { 
+      this.isValidEmail(this.Data.email);
+      this.authService.checkEmailUnique(this.Data.email)
+          .pipe(
+              catchError((err) => {
+                  console.error('Error checking username:', err);
+                  return of(false); 
+              })
+          )
+          .subscribe({
+              next: (isTaken) => {
+                  this.emailTaken = isTaken; 
+                  console.log(this.emailTaken)
+              }
+          });
+    }
+  }
+
+  checkEmailinLogin(){
+    this.isValidEmail(this.Data.email);
+  }
   signUp(): void {
     this.store.dispatch(register({ userData: this.Data }));
     this.currentStep++;
-    
+    this.resetData();
   }
 
   signIn() {
@@ -201,73 +212,37 @@ export class LoginComponent {
       console.log("firstname :",this.Data.firstName);
     }
   }
-
-  validateFirstName(){
-    if(!this.Data.firstName || this.Data.firstName.trim().length <4)
-    {
-      this.validation.firstName=false;
-    }
-    else{
-      this.validation.firstName=true;
-    }
-  }
-
-  validateLastName(){
-    if(!this.Data.lastName || this.Data.lastName.trim().length <4)
-    {
-      this.validation.lastName=false;
-    }
-    else{
-      this.validation.lastName=true;
-    }
-  }
-  validateProfession(){
-    if(!this.Data.profession || this.Data.profession.trim().length <4)
-    {
-      this.validation.profession=false;
-    }
-    else{
-      this.validation.profession=true;
-    }
-  }
-  validateCountry(){
-    if(!this.Data.country || this.Data.profession.trim().length <4)
-    {
-      this.validation.country=false;
-    }
-    else{
-      this.validation.country=true;
-    }
-  }
-  validateEmail(){
-    if(!this.isValidEmail(this.Data.email))
-    {
-      this.validation.email=false;
-    }
-    else{
-      this.validation.email=true;
-    }
-  }
-
-  validatePwd(){
-    if(!this.Data.password || this.Data.password.trim().length <4)
-    {
-      this.validation.password=false;
-    }
-    else{
-      this.validation.password=true;
-    }
-  }
-
-  validateConPwd(){
-    if(this.Data.password != this.Data.confirmPassword)
+  
+  passwordmatch(){
+    if( this.Data.password != this.Data.confirmPassword)
       {
-        this.validation.confirmPassword=false;
+         this.PasswordValid=false;
       }
       else{
-        this.validation.confirmPassword=true;
+        this.PasswordValid=true;
       }
-  }
-  
+    }
+
+
+
+    resetData(): void {
+      this.Data = {
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        birthday: '',
+        country: '',
+        profession: '',
+        whatsappUser: '',
+        role: '',
+        instagramLink: '',
+        twitterUser: '',
+        password: '',
+        confirmPassword: '',
+        photo: null,
+        interests: []
+      };
+ }
   
 }
