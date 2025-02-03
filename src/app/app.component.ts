@@ -24,7 +24,7 @@ export class AppComponent {
     if (token) {
       this.store.dispatch(AuthActions.loadCurrentUser());
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
     }
   }
 }
