@@ -37,7 +37,10 @@ body {
     width: 100%;
     max-width: 100%;
 }
-
+.error {
+    color: red;
+    font-size: 12px;
+  }
 .interests-container {
     display: flex;
     flex-wrap: wrap;

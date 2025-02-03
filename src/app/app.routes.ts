@@ -8,14 +8,17 @@ import { LoginComponent } from './components/login/login.component';
 import { LatestEpisodesComponent } from './components/latest-episodes/latest-episodes.component';
 import { ContactComponent } from './components/contact/contact.component';
 import { FooterComponent } from './components/footer/footer.component';
-import { DetailsPodcastComponent } from './components/details-podcast/details-podcast.component';
+import { DetailsPodcastComponent } from './pages/details-podcast/details-podcast.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/navbar/search/search.component';
+import { PagesComponent } from './components/pages/pages.component';
+import { CardPodcastComponent } from './components/card-podcast/card-podcast.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
-import { HomeComponent } from './home/home.component';
+import { HomeComponent } from './pages/home/home.component';
 
-import { VidPageComponent } from './vid-page/vid-page.component';
+import { VidPageComponent } from './pages/vid-page/vid-page.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
@@ -28,6 +31,8 @@ export const routes: Routes = [
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
   {path: 'login', component: LoginComponent },
+  {path: 'episode/:id', component: VidPageComponent },
+  {path:'forgot-password', component: ForgotPasswordComponent},
+  {path:'pages',component:PagesComponent},
 
-{ path: 'episode/:id', component: VidPageComponent },
 ];

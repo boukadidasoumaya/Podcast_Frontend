@@ -3,20 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { TOKEN_KEY } from '../../config/storage.config';
-interface RegisterData {
-    firstName: string;
-    lastName: string;
-    username: string;
-    email: string;
-    birthday: string;
-    country: string;
-    profession: string;
-    role: string;
-    whatsappUser: string;
-    instagramLink: string;
-    password: string;
-    interests: string[];
-  }
+
   
   interface LoginData {
     email: string;
@@ -27,7 +14,7 @@ interface RegisterData {
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; 
+  private apiUrl = 'http://localhost:3000';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
@@ -37,22 +24,7 @@ export class AuthService {
   }
 
    register(data: any): Observable<any> {
-    const transformedData: RegisterData = {
-      firstName: data.firstName,
-      lastName: data.lastName,
-      username: data.username,
-      email: data.email,
-      birthday: data.birthday,
-      country: data.country,
-      profession: data.profession,
-      role: data.role,
-      whatsappUser: data.whatsappUser,
-      instagramLink: data.instagramLink,
-      password: data.password,
-      interests: data.selectedInterests,
-    };
-    console.log('Register data:', transformedData);
-    return this.http.post(`${this.apiUrl}/auth/register`, transformedData);
+    return this.http.post(`${this.apiUrl}/auth/register`, data);
   }
 
   login(data: any): Observable<any> {
@@ -60,10 +32,17 @@ export class AuthService {
       email: data.email,
       password: data.password
     };
-    console.log('Sending login data:', loginData);
     return this.http.post(`${this.apiUrl}/auth/login`, loginData);
   }
   
+  getCurrentUser(): Observable<any> {
+    return this.http.get<any>(`${this.apiUrl}/auth/me`);
+  }
+
+  checkUsernameUnique(username: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/auth/check-username?username=${username}`);
+  }
+
   private parseJwt(token: string) {
     try {
       const base64Url = token.split('.')[1];
@@ -91,11 +70,29 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  
+
 
   logout() {
     localStorage.removeItem(TOKEN_KEY);
     this.currentUserSubject.next(null);
+  }
+  // Forgot Password - Initiate password reset
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/forgot-password`, { email });
+  }
+
+  // Verify Reset Code - Check if the code is valid
+  verifyResetCode(email: string, code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/verify-reset-code`, { email, code }).pipe(
+      tap(response => {
+        console.log('Réponse du backend (Verify Code) :', response);
+      })
+    );
+  }
+
+  // Reset Password - Reset the user's password
+  resetPassword(email: string, newPassword: string, code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/reset-password`, { email, newPassword, code });
   }
 
 }

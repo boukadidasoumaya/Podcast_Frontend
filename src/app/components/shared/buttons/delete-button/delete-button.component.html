@@ -1,0 +1,10 @@
+<button class="btn trash-button" (click)="openModal()">
+  <i class="bi bi-trash3"></i>
+</button>
+
+<!-- Afficher le modal seulement si isModalOpen est true -->
+<app-delete-confirmation-modal
+  *ngIf="isModalOpen"
+  (confirmDelete)="confirmDelete()"
+  (closeModal)="closeModal()">
+</app-delete-confirmation-modal>

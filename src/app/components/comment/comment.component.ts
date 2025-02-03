@@ -1,13 +1,13 @@
 // comment.component.ts
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LikeButtonComponent } from './like-button/like-button.component';
+import { LikeButtonComponent } from '../shared/buttons/like-button/like-button.component';
 import { ReplyFormComponent } from './reply-form/reply-form.component';
 import { CommentService } from '../../services/comment.service';
 
 import {User,Comment} from '../../interfaces/app.interfaces'
 import { LikeCommentService } from '../../services/likeComment.service';
-import { DeleteButtonComponent } from './delete-button/delete-button.component';
+import { DeleteButtonComponent } from '../shared/buttons/delete-button/delete-button.component';
 @Component({
   selector: 'app-comment',
   standalone: true,
@@ -21,9 +21,10 @@ export class CommentComponent {
   @Input() colLikeLg: number = 2;
   @Input() colLikeMd: number = 4;
   @Input() moreThanOne: boolean = false;
-  @Input() isLiked: boolean = false;
+  @Input() isLiked!: boolean;
   @Input() likesCount!: number;
   @Input() currentUser!:Partial<User>;
+  @Input() authorisedToComment!:boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, comment:Comment }>();
   @Output() deletedComment=new EventEmitter<Comment>
   @Output() replyAdded = new EventEmitter<Comment>(); // New event emitter for replies
@@ -63,6 +64,14 @@ export class CommentComponent {
   toggleReplyForm() {
     console.log(this.showReplyForm);
     this.showReplyForm = !this.showReplyForm; // Bascule l'affichage du formulaire de réponse
+  }
+  canComment(){
+    if (this.authorisedToComment){
+      this.toggleReplyForm()
+    }
+    else{
+      return
+    }
   }
 
   async handleReplySubmit(replyText: string) {
@@ -113,6 +122,12 @@ export class CommentComponent {
   deleteMessage() {
     console.log('Le message a été supprimé');
     this.deletedComment.emit(this.comment);
+  }
+  deleteReplyMessage(comment:Comment){
+    console.log('Le message reply a été supprimé');
+
+    this.deletedComment.emit(comment);
+
   }
   isCurrentUserCommentOwner(): boolean {
     return this.currentUser?.id === this.comment.user.id;

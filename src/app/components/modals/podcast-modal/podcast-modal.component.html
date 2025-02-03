@@ -9,175 +9,246 @@
     <div class="modal-content">
       <div class="modal-header">
         <h2 *ngIf="step === 1" id="uploadPodcastModalLabel">Add a Podcast</h2>
-        <h2 *ngIf="step === 2">Configure Episodes</h2>
-        <h2 *ngIf="step === 3">Upload Episodes</h2>
+        <h2 *ngIf="step === 2">Upload Episodes</h2>
+        <h2 *ngIf="step === 3">Finish Upload</h2>
         <button
           type="button"
           class="btn-close"
           data-bs-dismiss="modal"
           aria-label="Close"
+          #closeBtn
         ></button>
       </div>
       <div class="modal-body scrollable-content">
-        <!-- Étape 1 : Informations sur le podcast -->
-        <form *ngIf="step === 1" [formGroup]="podcastForm" class="form-step">
+        <!-- Step 1: Podcast details -->
+        <form *ngIf="step === 1" #podcastForm="ngForm">
           <label for="title">Podcast Name</label>
           <input
             id="title"
-            formControlName="title"
+            [(ngModel)]="data.podcast.name"
+            name="title"
             type="text"
+            required
             placeholder="Enter podcast name"
+            #title="ngModel"
+            [ngClass]="{ 'is-invalid': title.invalid && title.touched }"
           />
+          <div *ngIf="title.invalid && title.touched" class="text-danger">
+            Podcast name is required.
+          </div>
 
           <label for="topic">Topic</label>
-          <select id="topic" formControlName="topic" class="form-control">
+          <select
+            id="topic"
+            [(ngModel)]="data.podcast.topic"
+            name="topic"
+            required
+            class="form-control"
+            #topic="ngModel"
+            [ngClass]="{ 'is-invalid': topic.invalid && topic.touched }"
+          >
             <option value="" disabled selected>Select a topic</option>
             <option *ngFor="let topic of topics" [value]="topic">
               {{ topic }}
             </option>
           </select>
+          <div *ngIf="topic.invalid && topic.touched" class="text-danger">
+            Podcast topic is required.
+          </div>
 
           <label for="description">Description</label>
           <textarea
             id="description"
-            formControlName="description"
+            [(ngModel)]="data.podcast.description"
+            name="description"
+            required
             placeholder="Enter description"
+            #description="ngModel"
+            [ngClass]="{
+              'is-invalid': description.invalid && description.touched
+            }"
           ></textarea>
+          <div
+            *ngIf="description.invalid && description.touched"
+            class="text-danger"
+          >
+            Podcast description is required.
+          </div>
 
           <label for="image">Image</label>
-
           <div>
-            <!-- Hidden file input -->
             <input
               id="image"
               type="file"
-              (change)="onFileSelect($event, 'image')"
+              accept="image/jpeg, image/png"
+              (change)="onFileSelect($event, 'podcast')"
               style="display: none"
               #fileInput
             />
+            <div class="upload-container">
+              <button
+                class="button"
+                type="button"
+                (click)="triggerFileInput(fileInput)"
+              >
+                <span class="btn__text">Upload</span>
+              </button>
 
-            <!-- Custom button -->
-            <button
-              class="button"
-              type="button"
-              (click)="triggerFileInput(fileInput)"
-            >
-              <span class="btn__icon">
-                <svg
-                  stroke-linejoin="round"
-                  stroke-linecap="round"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="1.5"
-                  viewBox="0 0 24 24"
-                  height="24"
-                  width="24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                  <path
-                    d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                  ></path>
-                  <path d="M9 15l3 -3l3 3"></path>
-                  <path d="M12 12l0 9"></path>
-                </svg>
-              </span>
-              <span class="btn__text">Upload</span>
-            </button>
+              <div *ngIf="data.podcast.image" class="trash-container">
+                <app-trash (delete)="removeFile('podcast')"></app-trash>
+              </div>
+            </div>
           </div>
         </form>
 
-        <!-- Étape 2 : Nombre d'épisodes -->
-        <div *ngIf="step === 2" class="form-step">
-          <label for="episodesCount">Number of Episodes</label>
-          <input
-            id="episodesCount"
-            type="number"
-            [(ngModel)]="episodesCount"
-            placeholder="Enter number of episodes"
-          />
-          <button
-            class="btn-configure"
-            (click)="setEpisodesCount(episodesCount)"
-          >
-            Configure
-          </button>
-        </div>
-
-        <!-- Étape 3 : Téléchargement des épisodes -->
-        <div *ngIf="step === 3" class="form-step">
+        <!-- Step 2: Episode details -->
+        <div *ngIf="step === 2">
+          <!-- Boucle sur les épisodes existants -->
           <div
-            *ngFor="let form of episodeForm; let i = index"
+            *ngFor="let episode of data.episodes; let i = index"
             class="episode-form"
           >
-            <form [formGroup]="form">
-              <h3>Episode {{ i + 1 }}</h3>
-              <label for="name-{{ i }}">Episode Name</label>
-              <input
-                id="name-{{ i }}"
-                formControlName="name"
-                type="text"
-                placeholder="Enter episode name"
-              />
+            <h3>Episode {{ i + 1 }}</h3>
 
-              <label for="description-{{ i }}">Description</label>
-              <textarea
-                id="description-{{ i }}"
-                formControlName="description"
-                placeholder="Enter episode description"
-              ></textarea>
-              <label for="file-{{ i }}">Attach Episode File</label>
-              <div>
-                <!-- Hidden file input -->
-                <input
-                  #fileInput
-                  id="file-{{ i }}"
-                  type="file"
-                  (change)="onFileSelect($event, i)"
-                  style="display: none"
-                />
-                <!-- Custom button -->
+            <!-- Champs pour chaque épisode -->
+            <label for="episode-name-{{ i }}">Episode Name</label>
+            <input
+              id="episode-name-{{ i }}"
+              [(ngModel)]="episode.name"
+              name="episode-name-{{ i }}"
+              type="text"
+              required
+              placeholder="Enter episode name"
+              #episodeName="ngModel"
+              [ngClass]="{
+                'is-invalid': episodeName.invalid && episodeName.touched
+              }"
+            />
+            <div
+              *ngIf="episodeName.invalid && episodeName.touched"
+              class="text-danger"
+            >
+              Episode name is required.
+            </div>
+
+            <label for="episode-description-{{ i }}">Description</label>
+            <textarea
+              id="episode-description-{{ i }}"
+              [(ngModel)]="episode.description"
+              name="episode-description-{{ i }}"
+              required
+              placeholder="Enter episode description"
+              #episodeDescription="ngModel"
+              [ngClass]="{
+                'is-invalid':
+                  episodeDescription.invalid && episodeDescription.touched
+              }"
+            ></textarea>
+            <div
+              *ngIf="episodeDescription.invalid && episodeDescription.touched"
+              class="text-danger"
+            >
+              Episode description is required.
+            </div>
+
+            <label for="episode-duration-{{ i }}">Duration (in minutes)</label>
+            <input
+              id="episode-duration-{{ i }}"
+              [(ngModel)]="episode.duration"
+              name="episode-duration-{{ i }}"
+              type="number"
+              required
+              placeholder="Enter episode duration in minutes"
+              #episodeDuration="ngModel"
+              [ngClass]="{
+                'is-invalid': episodeDuration.invalid && episodeDuration.touched
+              }"
+            />
+            <div
+              *ngIf="episodeDuration.invalid && episodeDuration.touched"
+              class="text-danger"
+            >
+              Episode duration is required.
+            </div>
+
+            <label for="episode-file-{{ i }}">Attach Episode File</label>
+            <div>
+              <input
+                #fileInput
+                id="episode-file-{{ i }}"
+                type="file"
+                accept="audio/mp3, video/mp4"
+                (change)="onFileSelect($event, 'episode', i)"
+                style="display: none"
+              />
+              <div class="upload-container">
                 <button
-                  type="button"
                   class="button"
+                  type="button"
                   (click)="triggerFileInput(fileInput)"
                 >
-                  <span class="btn__icon">
-                    <svg
-                      stroke-linejoin="round"
-                      stroke-linecap="round"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="1.5"
-                      viewBox="0 0 24 24"
-                      height="24"
-                      width="24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path fill="none" d="M0 0h24v24H0z" stroke="none"></path>
-                      <path
-                        d="M7 18a4.6 4.4 0 0 1 0 -9a5 4.5 0 0 1 11 2h1a3.5 3.5 0 0 1 0 7h-1"
-                      ></path>
-                      <path d="M9 15l3 -3l3 3"></path>
-                      <path d="M12 12l0 9"></path>
-                    </svg>
-                  </span>
                   <span class="btn__text">Upload</span>
                 </button>
+                <div *ngIf="episode.filepath" class="trash-container">
+                  <app-trash (delete)="removeFile('episode', i)"></app-trash>
+                </div>
               </div>
-            </form>
+            </div>
+
+            <label for="episode-cover-image-{{ i }}">Cover Image</label>
+            <div>
+              <input
+                #coverImageInput
+                id="episode-cover-image-{{ i }}"
+                type="file"
+                accept="image/jpeg, image/png"
+                (change)="onFileSelect($event, 'episode-cover', i)"
+                style="display: none"
+              />
+              <div class="upload-container">
+                <button
+                  class="button"
+                  type="button"
+                  (click)="triggerFileInput(coverImageInput)"
+                >
+                  <span class="btn__text">Upload Cover Image</span>
+                </button>
+                <div *ngIf="episode.coverImage" class="trash-container">
+                  <app-trash
+                    (delete)="removeFile('episode-cover', i)"
+                  ></app-trash>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bouton pour ajouter un nouvel épisode -->
+          <button type="button" class="btn-add-episode" (click)="addEpisode()">
+            +
+          </button>
+
+          <!-- Afficher le nombre d'épisodes -->
+          <div class="episode-count">
+            Number of Episodes: {{ data.episodes.length }}
           </div>
         </div>
       </div>
+
       <div class="modal-footer">
         <button *ngIf="step > 1" class="btn-arrow" (click)="previousStep()">
           ←
         </button>
-        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
+
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()" [disabled]="isNextButtonDisabled()">
           →
         </button>
-        <button *ngIf="step === 3" class="btn-finish" (click)="finishUpload()">
-          Finish
+        <button
+          *ngIf="step === 3"
+          class="btn-finish"
+          (click)="finishUpload()"
+          [disabled]="isUploading"
+        >
+          {{ isUploading ? "Uploading..." : "Finish Upload" }}
         </button>
       </div>
     </div>

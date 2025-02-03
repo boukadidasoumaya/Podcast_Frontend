@@ -1,4 +1,4 @@
-import { Component, forwardRef, Input  } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, Output  } from '@angular/core';
 import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -20,7 +20,8 @@ export class InputFieldComponent {
   @Input() placeholder: string = '';
   @Input() name: string = '';
   @Input() required: boolean = false;
-
+  @Output() blur = new EventEmitter<void>();
+  
   value: any = ' ';
   disabled: boolean = false;
   touched: boolean = false;
@@ -50,5 +51,8 @@ export class InputFieldComponent {
     this.onTouched();
   }
 
+  onBlur(): void {
+    this.blur.emit(); 
+  }
  
 }

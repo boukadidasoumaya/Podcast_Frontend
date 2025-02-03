@@ -11,7 +11,7 @@
           <div class="cadre d-flex flex-column align-items-center justify-content-center">
             <!-- Profile Image -->
             <div class="row d-flex justify-content-center">
-              <img class="profileImage p-0 m-2" src="{{ user.profilImage}}" alt="Profile">
+              <img class="profileImage p-0 m-2" [src]="user.profilImage" alt="Profile">
               <div class="d-flex justify-content-end p-0">
                 <label for="file">
                   <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" data-bs-toggle="modal"
@@ -129,6 +129,7 @@
           <img src="assets/icons/whatsapp-icon.png" class="whatapp-icon" alt="WhatsApp Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
+          <p class="whatsapp"> </p>
         </div>
       </div>
 
@@ -140,6 +141,7 @@
           <img src="assets/icons/instagram-icon.png" class="instagram-icon" alt="Instagram Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
+          <p class="instagram"></p>
         </div>
       </div>
 
@@ -151,6 +153,7 @@
         <img src="assets/icons/twitter-icon.png" class="twitter-icon" alt="Twitter Icon" width="24" height="24">
       </div>
       <div class="col-8 d-flex align-items-center">
+        <p class="twitter">{{ user.socialMedia.twitter}}</p>
       </div>
     </div>
 
@@ -172,12 +175,37 @@
           </div>
         </div>
       </div>
+      <div class="row">
+      </div>
 
-      
-<!-- My List Section -->
 
+      <app-section-custom [title]='"My Channel"' [id]='"section_2"'>
+        <app-swiper [cards]="podcastData"  [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
+          <ng-template let-card>
+              <app-topics
+              [title]="card.name"
+              [subtitle]="card.nbre_episode"
+              [customtext]="'Episodes'"
+              [image]="card.image"
+              [podcast]="card"
+              [isPodcast]="true"
+              [isOwner]="true"
+              (edit)="editPodcastModalOpen($event)"
+              (deletePodcast)="deletePodcast($event)"
+              (click)="onPodcastSelect(card)"
+              (checkDetails)="onCheckDetails($event)"
+            ></app-topics>
 
- 
+          </ng-template>
+
+        </app-swiper>
+
+      <app-update-podcast-modal
+        *ngIf="isEditModalOpen"
+        [podcastData]="selectedPodcast"
+        (onSave)="updatePodcast($event)"
+        (onClose)="closeEditModal()" ></app-update-podcast-modal>
+      </app-section-custom>
     </div>
     <div class="row g-4">
     <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
@@ -201,9 +229,13 @@
       
     
   </div>
-
-<app-user-info-modal [updateUserPersonnalInfo]="updateUserPersonnalInfo"></app-user-info-modal>
+</div>
+<app-user-info-modal></app-user-info-modal>
 <app-email-modal></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>
+
+
 </div>
+
+
