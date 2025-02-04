@@ -27,13 +27,18 @@
         </div>
       </div>
       
-      <div class="col-lg-4 col-md-6 col-12" *ngFor="let teamMem of team">
+      <app-swiper
+      [cards]="team"
+      [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"
+     >
+      <ng-template let-teamMem>
         <app-hero-card
-          [nom]="teamMem.nom"
-          [badges]="teamMem.badges"
-          [imagesrc]="teamMem.imagesrc"
-        ></app-hero-card>
-      </div>
+        [nom]="teamMem.nom"
+        [badges]="teamMem.badges"
+        [imagesrc]="teamMem.imagesrc"
+      ></app-hero-card>
+      </ng-template>
+    </app-swiper>
       
     </div>
   </div>

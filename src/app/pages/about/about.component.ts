@@ -5,10 +5,12 @@ import { CommonModule } from '@angular/common';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { projectDescription } from '../../../assets/shared/project-description';
 import { team } from '../../../assets/shared/team';
+import { SwiperComponent } from "../../components/swiper/swiper.component";
+
 @Component({
   selector: 'app-about',
   standalone: true,
-  imports: [NavbarComponent, HeroCardComponent, CommonModule, FooterComponent],
+  imports: [NavbarComponent, HeroCardComponent, CommonModule, FooterComponent, SwiperComponent],
   templateUrl: './about.component.html',
   styleUrl: './about.component.css',
 })

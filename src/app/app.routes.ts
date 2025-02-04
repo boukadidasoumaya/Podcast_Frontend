@@ -36,5 +36,6 @@ export const routes: Routes = [
   {path: 'episode/:id', component: VidPageComponent },
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'pages',component:PagesComponent},
+  {path:'about',component:AboutComponent},
 
 ];
