@@ -80,14 +80,13 @@ export class ProfilComponent  implements OnInit {
     this.store.select(selectUser).subscribe({
 
     next: (user) => {
-      console.log(user);
       if (user) {
         this.user = {
           ...user,
           profilImage: user.photo || 'assets/images/default-profile.png',
           name: `${user.firstName} ${user.lastName}`,
           birthDate: new Date(user.birthday).toLocaleDateString(),
-          address: user.country,
+          country: user.country,
           profession: user.profession,
           email: user.email,
           socialMedia: {
@@ -106,6 +105,8 @@ export class ProfilComponent  implements OnInit {
     }
   });
 }
+
+
   loadUserPodcasts() {
     this.podcastService.getPodcastsByUser().subscribe({
       next: (podcasts) => {
@@ -121,26 +122,8 @@ export class ProfilComponent  implements OnInit {
   }
 
   updateUserPersonnalInfo = (userData: any) => {
-    this.userService.updateUserProfile(userData).subscribe({
-      next: (updatedUser) => {
-        this.user = {
-          ...updatedUser,
-          profilImage: updatedUser.profileImage || 'assets/images/default-profile.png',
-          name: `${updatedUser.firstName} ${updatedUser.lastName}`,
-          birthDate: new Date(updatedUser.birthday).toLocaleDateString(),
-          address: updatedUser.country,
-          job: updatedUser.profession,
-          socialMedia: {
-            whatsapp: updatedUser.whatsappUser,
-            instagram: updatedUser.instagramLink,
-            twitter: updatedUser.twitterUser || 'Not provided'
-          }
-        };
-      },
-      error: (error) => {
-        console.error('Error updating profile:', error);
-      }
-    });
+    this.userService.updateUserProfile(userData).subscribe();
+    this.isEditUserPersonnalInfo=true;
   }
   toggleEditModal(){
     this.isEditModalOpen=!this.isEditModalOpen;
