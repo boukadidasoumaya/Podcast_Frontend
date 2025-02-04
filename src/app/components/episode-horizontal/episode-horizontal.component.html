@@ -41,12 +41,14 @@
     </div>
 
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
-      <app-headphones-icon [views]="episode.views"></app-headphones-icon>
+      <app-headphones-icon [episodeId]="episode.id"></app-headphones-icon>
       <app-heart-icon [numberOfLikes]="numberOfLikes" [isLiked]="isLiked" (liked)="onLikeChanged()" [authorisedToLike]="authorisedToLike"></app-heart-icon>
-      <app-comment-icon [numberOfComments]="episode.numberOfComments" ></app-comment-icon>
+      <app-comment-icon [numberOfComments]="episode.comments.length" (commented)="null"></app-comment-icon>
     </div>
   </div>
 
   <!-- Right-most Column: Icons -->
-    <app-save-icon [episodeId]="episode.id" [userId]="1"></app-save-icon></div>
+  <div class="d-flex flex-column">
+    <app-save-icon [episodeId]="episode.id"           (unfavorite)="unfavoriteEpisode()"      ></app-save-icon>  </div>
 
+</div>
