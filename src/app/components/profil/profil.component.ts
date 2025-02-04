@@ -32,11 +32,22 @@ export class ProfilComponent  implements OnInit {
   podcastData: any[] = [];
   isLoading = true;
   error: string | null = null;
-
+  isEditModalOpen:boolean=false;
   constructor(private userService: UserService, private store: Store<AppState>) {}
+
 
   ngOnInit() {
     this.loadUserProfile();
+  }
+
+
+  toggleEditModal(){
+    this.isEditModalOpen=!this.isEditModalOpen;
+  }
+  
+  closeEmailModal(){
+    this.isEditModalOpen=false;
+
   }
   
   loadUserProfile() {

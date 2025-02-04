@@ -116,7 +116,7 @@
                 <li>
                   <div class="row">
                     <span class="col-10" style="word-break: break-all">{{ user.email}}</span>
-                    <span class="col-2 p-0 edit d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#emailModal">Update Email</span>
+                    <span class="col-2 p-0 edit d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#emailModal" (click)="toggleEditModal()">Update Email</span>
                   </div>
 
                 </li>
@@ -214,7 +214,7 @@
   </div>
 </div>
 <app-user-info-modal></app-user-info-modal>
-<app-email-modal [currentUserEmail]="user.email"></app-email-modal>
+<app-email-modal *ngIf="isEditModalOpen" [currentUserEmail]="user.email" (onclose)="closeEmailModal()"></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>
 </div>
