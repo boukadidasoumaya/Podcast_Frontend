@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/auth/auth.state';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
+import { updateUserFailure } from '../../store/auth/auth.actions';
 
 interface AppState {
   auth: AuthState;
