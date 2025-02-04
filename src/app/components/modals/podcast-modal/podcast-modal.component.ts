@@ -30,6 +30,8 @@ export class PodcastModalComponent {
 
   uploading = false;
   isValidFile: boolean = false;
+  showCancelModal: boolean = false;
+
 
   step: number = 1;
   data: {
@@ -66,6 +68,12 @@ export class PodcastModalComponent {
 
   nextStep() {
     if (this.step === 1 && !this.isStep1Valid()) {
+      this.toastr.error('Please fill in all required fields for the podcast!', 'Error');
+
+      return;
+    }
+    if (this.step === 1 && !this.isStep2Valid()) {
+      this.toastr.error('Please fill in all required fields for the episode!', 'Error');
 
       return;
     }
@@ -87,23 +95,15 @@ export class PodcastModalComponent {
   }
 
   isStep1Valid(): boolean {
-    return !!this.data.podcast.name && !!this.data.podcast.topic && !!this.data.podcast.description;
+    return !!this.data.podcast.name && !!this.data.podcast.topic && !!this.data.podcast.description&& !!this.data.podcast.image;
   }
 
   isStep2Valid(): boolean {
     return this.data.episodes.every(
-      (episode) => !!episode.name && !!episode.description && !!episode.duration && !!episode.filepath
+      (episode) => !!episode.name && !!episode.description && !!episode.duration && !!episode.filepath && !!episode.coverImage
     );
   }
 
-  isNextButtonDisabled(): boolean {
-    if (this.step === 1) {
-      return !this.isStep1Valid();
-    } else if (this.step === 2) {
-      return !this.isStep2Valid();
-    }
-    return false;
-  }
 
   async finishUpload() {
     try {
@@ -142,14 +142,44 @@ export class PodcastModalComponent {
     fileInput.click();
   }
 
-  resetForm() {
+  openCancelModal() {
+    this.showCancelModal = true; 
+  }
+
+  confirmCancel() {
+    this.showCancelModal = false;
+    this.cancelUpload(); 
+  }
+
+  cancelCancel() {
+    this.showCancelModal = false; 
+  }
+
+  cancelUpload() {
+    this.step = 1; 
+    this.resetForm();
+    this.closeBtn.nativeElement.click(); 
+  }
+  
+  resetForm(): void {
     this.data = {
-      podcast: { name: '', topic: '', description: '', image: '' },
+      podcast: {
+        name: '',
+        topic: '',
+        description: '',
+        image: '',
+      },
       episodes: [],
     };
     this.step = 1;
+    this.isFileUploadedPodcast = { image: false };
+    this.isUploadingPodcast = { image: false };
+    this.isUploadInProgressPodcast = false;
+    this.isFileUploaded = { filepath: false, coverImage: false };
+    this.isUploading = { filepath: false, coverImage: false };
+    this.isUploadInProgress = false;
   }
-
+  
   get nbre_episode(): number {
     return this.data.episodes.length;
   }
