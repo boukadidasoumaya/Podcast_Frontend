@@ -89,7 +89,7 @@ textarea {
 
 .btn-finish {
   padding: 0.5rem 1rem;
-  background-color: #ffc107;
+  background-color: #0a747a;
   color: #212529;
   border: none;
   border-radius: 4px;
@@ -98,7 +98,7 @@ textarea {
 }
 
 .btn-finish:hover {
-  background-color: #e0a800;
+  background-color: #7081bd;
 }
 
 .scrollable-content {

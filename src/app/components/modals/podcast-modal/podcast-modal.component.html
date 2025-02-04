@@ -77,23 +77,22 @@
               id="image"
               type="file"
               accept="image/jpeg, image/png"
-              (change)="onFileSelect($event, 'podcast')"
               style="display: none"
               #fileInput
             />
-            <div class="upload-container">
-              <button
-                class="button"
-                type="button"
-                (click)="triggerFileInput(fileInput)"
-              >
-                <span class="btn__text">Upload</span>
-              </button>
+          
 
-              <div *ngIf="data.podcast.image" class="trash-container">
-                <app-trash (delete)="removeFile('podcast')"></app-trash>
-              </div>
-            </div>
+
+            <app-upload-progress
+            accept="image/png,image/jpeg,image/jpg,image/svg"
+            buttonText="Upload Cover Image"
+            type="podcast"
+            [fileCategory]="'coverImage'"
+            (uploadStatusChanged)="handleUploadStatusChangedPodcastPodcast($event)"
+            (fileUploaded)=" handleFileUploadedPodcast($event)"
+            (fileRemoved)="handleFileRemovedPodcast()">
+          </app-upload-progress>
+            
           </div>
         </form>
 
@@ -175,20 +174,19 @@
                 id="episode-file-{{ i }}"
                 type="file"
                 accept="audio/mp3, video/mp4"
-                (change)="onFileSelect($event, 'episode', i)"
                 style="display: none"
               />
               <div class="upload-container">
-                <button
-                  class="button"
-                  type="button"
-                  (click)="triggerFileInput(fileInput)"
-                >
-                  <span class="btn__text">Upload</span>
-                </button>
-                <div *ngIf="episode.filepath" class="trash-container">
-                  <app-trash (delete)="removeFile('episode', i)"></app-trash>
-                </div>
+                <app-upload-progress
+                type = 'episode'
+                accept="audio/mp3,video/mp4"
+                type="episode"
+                buttonText="Upload Episode File"
+                [fileCategory]="'filepath'"
+                (uploadStatusChanged)="handleUploadStatusChanged($event)"
+                (fileUploaded)="handleFileUploaded($event, 'filepath',i)"
+                (fileRemoved)="handleFileRemoved('filepath',i)">
+              </app-upload-progress>
               </div>
             </div>
 
@@ -199,23 +197,18 @@
                 id="episode-cover-image-{{ i }}"
                 type="file"
                 accept="image/jpeg, image/png"
-                (change)="onFileSelect($event, 'episode-cover', i)"
                 style="display: none"
               />
-              <div class="upload-container">
-                <button
-                  class="button"
-                  type="button"
-                  (click)="triggerFileInput(coverImageInput)"
-                >
-                  <span class="btn__text">Upload Cover Image</span>
-                </button>
-                <div *ngIf="episode.coverImage" class="trash-container">
-                  <app-trash
-                    (delete)="removeFile('episode-cover', i)"
-                  ></app-trash>
-                </div>
-              </div>
+              <app-upload-progress
+              type = 'episode'
+              accept="image/png,image/jpeg,image/jpg,image/svg"
+              type="episode"
+              [fileCategory]="'coverImage'"
+              buttonText="Upload Cover Image"
+              (uploadStatusChanged)="handleUploadStatusChanged($event)"
+              (fileUploaded)="handleFileUploaded($event, 'coverImage',i)"
+              (fileRemoved)="handleFileRemoved('coverImage',i)">
+            </app-upload-progress>
             </div>
           </div>
 
@@ -248,9 +241,9 @@
           *ngIf="step === 3"
           class="btn-finish"
           (click)="finishUpload()"
-          [disabled]="isUploading"
+          
         >
-          {{ isUploading ? "Uploading..." : "Finish Upload" }}
+         upload
         </button>
       </div>
     </div>

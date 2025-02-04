@@ -16,6 +16,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
+  
 }
 
 .section-title {
@@ -26,6 +27,7 @@
   z-index: 2;
   margin-bottom: 0;
   padding: 10px 25px;
+  font-weight: bold;
 }
 
 .section-padding {
