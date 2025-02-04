@@ -9,7 +9,7 @@ import { APP_API } from '../config/app-api.config';
   providedIn: 'root',
 })
 export class PodcastService {
- private apiUrl = APP_API.podcast; 
+ private apiUrl = APP_API.podcast;
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +27,14 @@ export class PodcastService {
   }
   deletePodcast(id:number){
     return this.http.delete<Number>(`${this.apiUrl}/${id}`)
+  }
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/image`,
+      formData
+    );
   }
 }

@@ -43,6 +43,7 @@ export class ProfilComponent  implements OnInit {
   bookmarkedEpisodes: Episode[] = [];
   likes: { [episodeId: number]: number } = {};
   isEditModalOpen:boolean=false;
+  isEditUserPersonnalInfo:boolean=false;
   constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>) {}
   selectedPodcast:Partial<Podcast>={};
 
@@ -51,8 +52,9 @@ export class ProfilComponent  implements OnInit {
     this.loadUserProfile();
     console.log('user',this.user);
     this.loadUserPodcasts();
-   } // Assuming user ID is 1
- 
+
+   }
+
 
   fetchBookmarkedEpisodes(userId: number) {
     this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
@@ -71,7 +73,7 @@ export class ProfilComponent  implements OnInit {
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
   }
-  
+
 
   loadUserProfile() {
     this.isLoading = true;
@@ -213,6 +215,12 @@ export class ProfilComponent  implements OnInit {
   onCheckDetails(podcast:Podcast) {
     this.goToDetails(podcast.id);
   }
+  editPersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=true;
+  }
+  closePersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=false;
 
+  }
 
 }
