@@ -1,26 +1,18 @@
 import { Component } from '@angular/core';
-import { NavbarComponent } from "../../components/navbar/navbar.component";
-import { HeroCardComponent } from "../../components/hero-card/hero-card.component";
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { HeroCardComponent } from '../../components/hero-card/hero-card.component';
 import { CommonModule } from '@angular/common';
-import { FooterComponent } from "../../components/footer/footer.component";
+import { FooterComponent } from '../../components/footer/footer.component';
+import { projectDescription } from '../../../assets/shared/project-description';
+import { team } from '../../../assets/shared/team';
 @Component({
   selector: 'app-about',
   standalone: true,
   imports: [NavbarComponent, HeroCardComponent, CommonModule, FooterComponent],
   templateUrl: './about.component.html',
-  styleUrl: './about.component.css'
+  styleUrl: './about.component.css',
 })
 export class AboutComponent {
-  podcaters: any[] = [
-    {
-      nom: 'Taylor',
-      imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      badges: ['Modeling', 'Fashion'],
-    },
-    {
-      nom: 'Taylor',
-      imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
-      badges: ['Modeling', 'Fashion'],
-    },]
-
+  description = projectDescription;
+  team = team;
 }
