@@ -78,35 +78,32 @@
               type="file"
               accept="image/jpeg, image/png"
               style="display: none"
+              required
               #fileInput
             />
-          
-
-
             <app-upload-progress
-            accept="image/png,image/jpeg,image/jpg,image/svg"
-            buttonText="Upload Cover Image"
-            type="podcast"
-            [fileCategory]="'coverImage'"
-            (uploadStatusChanged)="handleUploadStatusChangedPodcastPodcast($event)"
-            (fileUploaded)=" handleFileUploadedPodcast($event)"
-            (fileRemoved)="handleFileRemovedPodcast()">
-          </app-upload-progress>
-            
+              accept="image/png,image/jpeg,image/jpg,image/svg"
+              buttonText="Upload Cover Image"
+              type="podcast"
+              [fileCategory]="'coverImage'"
+              (uploadStatusChanged)="
+                handleUploadStatusChangedPodcastPodcast($event)
+              "
+              (fileUploaded)="handleFileUploadedPodcast($event)"
+              (fileRemoved)="handleFileRemovedPodcast()"
+            >
+            </app-upload-progress>
           </div>
         </form>
 
         <!-- Step 2: Episode details -->
-        <!-- Step 2: Episode details -->
         <div *ngIf="step === 2">
-          <!-- Boucle sur les épisodes existants -->
           <div
             *ngFor="let episode of data.episodes; let i = index"
             class="episode-form"
           >
             <h3>Episode {{ i + 1 }}</h3>
 
-            <!-- Champs pour chaque épisode -->
             <label for="episode-name-{{ i }}">Episode Name</label>
             <input
               id="episode-name-{{ i }}"
@@ -170,54 +167,50 @@
             <label for="episode-file-{{ i }}">Attach Episode File</label>
             <div>
               <input
-                #fileInput
                 id="episode-file-{{ i }}"
                 type="file"
                 accept="audio/mp3, video/mp4"
+                required
                 style="display: none"
               />
               <div class="upload-container">
                 <app-upload-progress
-                type = 'episode'
-                accept="audio/mp3,video/mp4"
-                type="episode"
-                buttonText="Upload Episode File"
-                [fileCategory]="'filepath'"
-                (uploadStatusChanged)="handleUploadStatusChanged($event)"
-                (fileUploaded)="handleFileUploaded($event, 'filepath',i)"
-                (fileRemoved)="handleFileRemoved('filepath',i)">
-              </app-upload-progress>
+                  type="episode"
+                  accept="audio/mp3,video/mp4"
+                  buttonText="Upload Episode File"
+                  [fileCategory]="'filepath'"
+                  (uploadStatusChanged)="handleUploadStatusChanged($event)"
+                  (fileUploaded)="handleFileUploaded($event, 'filepath', i)"
+                  (fileRemoved)="handleFileRemoved('filepath', i)"
+                >
+                </app-upload-progress>
               </div>
             </div>
 
             <label for="episode-cover-image-{{ i }}">Cover Image</label>
             <div>
               <input
-                #coverImageInput
                 id="episode-cover-image-{{ i }}"
                 type="file"
                 accept="image/jpeg, image/png"
+                required
                 style="display: none"
               />
               <app-upload-progress
-              type = 'episode'
-              accept="image/png,image/jpeg,image/jpg,image/svg"
-              type="episode"
-              [fileCategory]="'coverImage'"
-              buttonText="Upload Cover Image"
-              (uploadStatusChanged)="handleUploadStatusChanged($event)"
-              (fileUploaded)="handleFileUploaded($event, 'coverImage',i)"
-              (fileRemoved)="handleFileRemoved('coverImage',i)">
-            </app-upload-progress>
+                type="episode"
+                accept="image/png,image/jpeg,image/jpg,image/svg"
+                [fileCategory]="'coverImage'"
+                buttonText="Upload Cover Image"
+                (uploadStatusChanged)="handleUploadStatusChanged($event)"
+                (fileUploaded)="handleFileUploaded($event, 'coverImage', i)"
+                (fileRemoved)="handleFileRemoved('coverImage', i)"
+              >
+              </app-upload-progress>
             </div>
           </div>
-
-          <!-- Bouton pour ajouter un nouvel épisode -->
           <button type="button" class="btn-add-episode" (click)="addEpisode()">
             +
           </button>
-
-          <!-- Afficher le nombre d'épisodes -->
           <div class="episode-count">
             Number of Episodes: {{ data.episodes.length }}
           </div>
@@ -229,22 +222,44 @@
           ←
         </button>
 
-        <button
-          *ngIf="step < 3"
-          class="btn-arrow"
-          (click)="nextStep()"
-          [disabled]="isNextButtonDisabled()"
-        >
+        <button *ngIf="step < 3" class="btn-arrow" (click)="nextStep()">
           →
         </button>
-        <button
-          *ngIf="step === 3"
-          class="btn-finish"
-          (click)="finishUpload()"
-          
-        >
-         upload
-        </button>
+        <div class="buttons-container">
+          <button
+            type="button"
+            class="btn-cancel"
+            (click)="openCancelModal()"
+            *ngIf="step === 3"
+          >
+            Cancel
+          </button>
+          <button
+            *ngIf="step === 3"
+            class="btn-finish"
+            (click)="finishUpload()"
+          >
+            Upload
+          </button>
+        </div>
+
+        <div *ngIf="showCancelModal" class="cancel-modal-overlay">
+          <div class="cancel-modal">
+            <h3>Cancel Upload?</h3>
+            <p>
+              Are you sure you want to cancel the upload? All progress will be
+              lost.
+            </p>
+            <div class="modal-buttons">
+              <button class="btn-cancel-confirm" (click)="confirmCancel()">
+                Yes, Cancel
+              </button>
+              <button class="btn-cancel-deny" (click)="cancelCancel()">
+                No, Continue
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
