@@ -52,7 +52,7 @@ export class ProfilComponent  implements OnInit {
     console.log('user',this.user);
     this.loadUserPodcasts();
    } // Assuming user ID is 1
- 
+
 
   fetchBookmarkedEpisodes(userId: number) {
     this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
@@ -71,13 +71,13 @@ export class ProfilComponent  implements OnInit {
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
   }
-  
+
 
   loadUserProfile() {
     this.isLoading = true;
     this.store.select(selectUser).subscribe({
 
-    next: (user) => {
+    next: (user: { photo: any; firstName: any; lastName: any; birthday: string | number | Date; country: any; profession: any; email: any; whatsappUser: any; instagramLink: any; twitterUser: any; }) => {
       console.log(user);
       if (user) {
         this.user = {

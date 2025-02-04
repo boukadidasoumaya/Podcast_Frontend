@@ -9,12 +9,13 @@ import { NgArrayPipesModule } from 'ngx-pipes';
 import { CardPodcastComponent } from '../card-podcast/card-podcast.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Podcast } from '../../interfaces/app.interfaces';
+import { FooterComponent } from '../footer/footer.component';
 
 
 @Component({
   selector: 'app-pages',
   standalone: true,
-  imports: [ CommonModule,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent,HttpClientModule],
+  imports: [ CommonModule,FiltreComponent,NavbarComponent,NgArrayPipesModule,CardPodcastComponent,HttpClientModule,FooterComponent],
   templateUrl: './pages.component.html',
   styleUrl: './pages.component.css'
 })
@@ -23,9 +24,16 @@ export class PagesComponent {
   constructor(private http: HttpClient) { }
 
   podcasts:any[]=[];
+  async ngOnInit() {}
   async handleFilteredPodcasts(event: { podcasts: Podcast[] }) {
     this.podcasts = event.podcasts;
-    console.log('Podcasts filtrés reçus dans PagesComponent:', this.podcasts);
+    console.log('filtreeeeeesss', this.podcasts);
+  }
+
+  reset(event: { podcasts: Podcast[] }) {
+    this.podcasts = event.podcasts;
+    console.log('reseeeeeeeeeeeeeeet ', this.podcasts);
+
   }
 
 }

@@ -17,6 +17,7 @@ import { User } from '../../interfaces/app.interfaces';
 })
 export class NavbarComponent {
   user: Partial<User> = {};
+  
 
   constructor(private userService:UserService){}
   ngOnInit(): void {

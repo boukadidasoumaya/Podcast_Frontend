@@ -10,7 +10,7 @@ export class FiltreService {
 
   private url='http://localhost:3000/podcast/filter';
   private url1='http://localhost:3000/user/users';
-  private url3='http://localhost:3000/podcast';
+  private url3='http://localhost:3000/podcast/reset';
   // private url2='http://localhost:3000/topic/topics';
 
 
@@ -27,16 +27,11 @@ export class FiltreService {
         params = params.set(key, filters[key]);
       }
     });
-    return this.http.get<any>(this.url, { params });
+    return this.http.get<Podcast[]>(this.url, { params });
   }
 
   getAllusers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.url1}`);
   }
-
-  // getAlltopics(): Observable<Topic[]> {
-  //   return this.http.get<Topic[]>(`${this.url2}`);
-  // }
-
 }
 

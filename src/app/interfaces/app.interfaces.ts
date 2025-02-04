@@ -112,3 +112,10 @@ export interface Topic {
   image: string;
   podcastCount: string;
 }
+
+
+export interface subscriptionPodcast{
+  id:number;
+  name:string;
+
+}

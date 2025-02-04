@@ -7,7 +7,7 @@ import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headpho
 import { Episode } from '../../interfaces/app.interfaces';
 import { SubscribeButtonComponent } from '../shared/buttons/subscribe-button/subscribe-button.component';
 import { RouterModule } from '@angular/router';
-import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component'; 
+import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component';
 @Component({
   selector: 'app-episode-horizontal',
   standalone: true,
@@ -21,6 +21,13 @@ export class EpisodeHorizontalComponent {
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
     @Input() authorisedToLike!:boolean
+    @Input() isSubscribed :boolean= false;
+    @Output() subscribed = new EventEmitter<{ isSubscribed: boolean, episode:Episode}>
+    @Input() subscribedEpisodes:{ [episodeId: number]: boolean } = {};
+
+
+    subscribedEpisodess:{ [episodeId: number]: boolean } = this.subscribedEpisodes;
+    @Output() subchange= new EventEmitter<void>();
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
@@ -31,6 +38,10 @@ export class EpisodeHorizontalComponent {
     onLikeChanged() {
       this.isLiked = !this.isLiked;
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
+    }
+
+    reload(){
+      this.subchange.emit();
     }
 
 
