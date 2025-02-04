@@ -36,7 +36,7 @@ export const routes: Routes = [
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'pages',component:PagesComponent},
   { path: '404', component: NotFoundComponent },
-  { path: '**', redirectTo: '/404' }, // Wildcard route to catch all unknown paths
+  { path: '**', component: NotFoundComponent }, // Wildcard route to catch all unknown paths
 
 
 ];
