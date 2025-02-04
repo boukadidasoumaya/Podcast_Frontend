@@ -51,8 +51,8 @@ export class EpisodeService {
     return this.http.get<Episode>(`${this.apiUrl}/${id}`);
   }
 
-  getRelatedEpisodes(podcastId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${baseUrl}podcast/${podcastId}/episodes`);
+  getRelatedEpisodes(podcastId: number): Observable<Episode[]> {
+    return this.http.get<Episode[]>(`${baseUrl}podcast/${podcastId}/episodes`);
   }
   //subscription
   subscription(idpod: number): Observable<{ message: string }> {

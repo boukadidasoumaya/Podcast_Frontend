@@ -58,15 +58,17 @@ export class ProfilComponent  implements OnInit {
    } // Ensure Angular updates UI
  
   fetchBookmarkedEpisodes() {
-    this.bookmarkService.getBookmarkedEpisodes().subscribe(
-      (episodes: Episode[]) => {
+    this.bookmarkService.getBookmarkedEpisodes().subscribe({
+      next: (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
         console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
+    
       },
-      (error: any) => {
+      error: (error: any) => {
         console.error('Error fetching bookmarked episodes:', error);
       }
-    );
+    });
+    
   }
 
   handleLike(event: { isLiked: boolean, episode: Episode }) {

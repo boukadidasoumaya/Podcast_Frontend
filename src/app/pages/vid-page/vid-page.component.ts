@@ -7,7 +7,7 @@ import { CommentComponent } from '../../components/comment/comment.component';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { EpisodeService } from '../../services/vid-page.service';
+import { EpisodeService } from '../../services/episode.service';
 import { Episode } from '../../interfaces/app.interfaces';
 import { RelatedSectionComponent } from '../../components/related-section/related-section.component';
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
@@ -43,15 +43,26 @@ episodeId: number | null = null;
       this.loadEpisode(episodeId);
     });
   }
-
   loadEpisode(episodeId: number) {
-    this.episodeService.getEpisodeById(episodeId).subscribe((episode: Episode) => {
-      this.currentEpisode = episode;
-      this.podcastId =this.currentEpisode.podcast.id  // Fetch podcastId from route params
-      // TypeScript will ensure it matches the Episode interface
-      this.loadRelatedEpisodes();
+    this.episodeService.getEpisodeById(episodeId).subscribe({
+      next: (episode: Episode) => {
+        if (!episode) {
+          this.router.navigate(['/404']); // Redirect to 404 page
+          return;
+        }
+        this.currentEpisode = episode;
+        this.podcastId = this.currentEpisode.podcast.id;
+        this.loadRelatedEpisodes();
+      },
+      error: (error) => {
+        console.error('Error fetching episode:', error);
+        if (error.status === 404) {
+          this.router.navigate(['/404']); // Redirect if episode not found
+        }
+      },
     });
   }
+  
 
 
   loadRelatedEpisodes() {

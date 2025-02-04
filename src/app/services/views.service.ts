@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SocketService {
   private socket: Socket;
-  constructor(private http: HttpClient) {
+  constructor() {
     this.socket = io('http://localhost:8001' , {
       path: '',  // Ensure this matches your backend
     });
@@ -33,7 +33,6 @@ export class SocketService {
     });
   }
   sendViewUpdate(episodeId: number) {
-    console.log('kkkkkkkkkkkkkkkkkkkkk')
     this.socket.emit('viewUpdate', { id: episodeId });
   }
   // Emit an event if needed
