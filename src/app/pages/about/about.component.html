@@ -9,16 +9,8 @@
             <h4 class="section-title">Our story</h4>
           </div>
 
-          <p>
-            Pod Talk HTML CSS Template is made by Bootstrap v5.2.2 framework.
-            You are allowed to modify and use this template for your business
-            websites.
-          </p>
-
-          <p>
-            You are not allowed to redistribute the downloadable template ZIP
-            file on any other website without a permission. Please contact
-            TemplateMo website for further information. Thank you.
+          <p *ngFor="let paragraph of description">
+            {{ paragraph }}
           </p>
           <img
             src="assets/images/medium-shot-young-people-recording-podcast.jpg"
@@ -31,17 +23,22 @@
       <!-- Meet Podcaters Section -->
       <div class="col-lg-12 col-12">
         <div class="section-title-wrap mb-5">
-          <h4 class="section-title">Meet podcaters</h4>
+          <h4 class="section-title">Meet the Team</h4>
         </div>
       </div>
       
-      <div class="col-lg-4 col-md-6 col-12" *ngFor="let podcater of podcaters">
+      <app-swiper
+      [cards]="team"
+      [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"
+     >
+      <ng-template let-teamMem>
         <app-hero-card
-          [nom]="podcater.nom"
-          [badges]="podcater.badges"
-          [imagesrc]="podcater.imagesrc"
-        ></app-hero-card>
-      </div>
+        [nom]="teamMem.nom"
+        [badges]="teamMem.badges"
+        [imagesrc]="teamMem.imagesrc"
+      ></app-hero-card>
+      </ng-template>
+    </app-swiper>
       
     </div>
   </div>

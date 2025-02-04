@@ -21,6 +21,7 @@ import { VidPageComponent } from './pages/vid-page/vid-page.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 import { AboutComponent } from './pages/about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
