@@ -20,6 +20,8 @@ export class PodcastModalComponent {
   @ViewChild('closeBtn', { static: false }) closeBtn!: ElementRef<HTMLButtonElement>;
 
   isUploading = false;
+  isValidFile: boolean = false;
+
   step: number = 1;
   data: {
     podcast: CreatePodcast;
@@ -42,6 +44,20 @@ export class PodcastModalComponent {
     private toastr: ToastrService,
   ) {}
 
+  validateFile(event: any): void {
+    const file = event.target.files[0];
+    const allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg'];
+  
+    if (file && allowedImageTypes.includes(file.type)) {
+      this.isValidFile = true;
+    } else {
+      this.isValidFile = false;
+      alert('❌ Type d\'image non autorisé');
+      event.target.value = ''; // Réinitialiser le champ de fichier
+    }
+  }
+  
+
   // Ajouter un nouvel épisode
   addEpisode(): void {
     this.data.episodes.push({
@@ -61,13 +77,15 @@ export class PodcastModalComponent {
       this.showInvalidFieldsToast('Step 1');
       return;
     }
-  
-    if (this.step === 2 && !this.isStep2Valid()) {
+
+    // Si on passe à l'étape 2, ajouter un épisode par défaut
+    if (this.step === 1 && this.isStep1Valid() && this.step < 3) {
+      this.step++;
+      this.addEpisode(); // Ajouter un épisode par défaut
+    } else if (this.step === 2 && !this.isStep2Valid()) {
       this.showInvalidFieldsToast('Step 2');
       return;
-    }
-  
-    if (this.step < 3) {
+    } else if (this.step < 3) {
       this.step++;
     }
   }
@@ -108,8 +126,7 @@ export class PodcastModalComponent {
     return (
       !!this.data.podcast.name &&
       !!this.data.podcast.topic &&
-      !!this.data.podcast.description &&
-      !!this.data.podcast.image
+      !!this.data.podcast.description 
     );
   }
 
@@ -197,6 +214,7 @@ export class PodcastModalComponent {
     }
   }
 
+  
   // Uploader un fichier vers Cloudinary
   async uploadFileToCloudinary(file: File, type: 'podcast' | 'episode' | 'episode-cover', index?: number) {
     try {

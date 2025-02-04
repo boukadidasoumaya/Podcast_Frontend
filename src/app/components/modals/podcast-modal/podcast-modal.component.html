@@ -98,6 +98,7 @@
         </form>
 
         <!-- Step 2: Episode details -->
+        <!-- Step 2: Episode details -->
         <div *ngIf="step === 2">
           <!-- Boucle sur les épisodes existants -->
           <div
@@ -236,13 +237,13 @@
         </button>
 
         <button
-        *ngIf="step < 3"
-        class="btn-arrow"
-        (click)="nextStep()"
-        [disabled]="isNextButtonDisabled()"
-      >
-        →
-      </button>
+          *ngIf="step < 3"
+          class="btn-arrow"
+          (click)="nextStep()"
+          [disabled]="isNextButtonDisabled()"
+        >
+          →
+        </button>
         <button
           *ngIf="step === 3"
           class="btn-finish"
