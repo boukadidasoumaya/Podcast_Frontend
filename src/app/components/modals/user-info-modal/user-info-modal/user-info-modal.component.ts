@@ -18,7 +18,8 @@ export class UserInfoModalComponent {
   @Output() InfoUpdated = new EventEmitter<string>();
   
   formData = {
-    username: '',
+    firstName: '',
+    lastName: '',
     birthday: '',
     country: '',
     photo: '',

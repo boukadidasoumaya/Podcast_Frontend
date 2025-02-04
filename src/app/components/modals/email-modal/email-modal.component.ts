@@ -1,5 +1,5 @@
 // email-modal.component.ts
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
@@ -16,12 +16,18 @@ declare var bootstrap: any;
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
+  @Input() currentUserEmail: string = '';
   @ViewChild('emailModal') emailModal!: ElementRef;
   emailData = {
     currentEmail: '',
     newEmail: '',
     confirmEmail: ''
   };
+  
+  ngOnInit() {
+    this.emailData.currentEmail = this.currentUserEmail;
+  }
+
   constructor(private userService: UserService, private router: Router,private store: Store) {}  
   onEmailUpdate(form: NgForm) {
     if (form.valid) {

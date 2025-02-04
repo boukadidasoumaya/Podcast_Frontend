@@ -30,7 +30,7 @@
 
                   <div class="d-flex flex-column" style="width: 100%">
                     <p class="username" type="text">
-                      {{ user.username }}
+                      {{ user.firstName }}
                       </p>
                   </div>
                 </div>
@@ -38,7 +38,23 @@
 
               </div>
             </div>
+            
+            <div class="row">
+              <div class="col-12 d-flex details pe-0">
+                <div class="d-flex" style="width: 100%">
+                  <!-- Charger l'icône depuis assets/icons -->
+                  <img src="assets/icons/user-icon.png" class="user-icon" alt="User Icon" width="24" height="24">
 
+                  <div class="d-flex flex-column" style="width: 100%">
+                    <p class="username" type="text">
+                      {{ user.firstName }}
+                      </p>
+                  </div>
+                </div>
+
+
+              </div>
+            </div>
             <!-- Birthday -->
             <div class="row">
               <div class="col-12 d-flex details pe-0">
@@ -60,7 +76,7 @@
                 <div class="d-flex" style="width: 100%">
                   <img src="assets/icons/map-icon.png" class="map-icon" alt="Map Icon" width="24" height="24">
 
-                  <p class="address">{{ user.address}}</p>
+                  <p class="country">{{ user.country}}</p>
                 </div>
 
               </div>
@@ -198,7 +214,7 @@
   </div>
 </div>
 <app-user-info-modal></app-user-info-modal>
-<app-email-modal></app-email-modal>
+<app-email-modal [currentUserEmail]="user.email"></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>
 </div>

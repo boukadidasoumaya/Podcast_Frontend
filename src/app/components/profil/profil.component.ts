@@ -12,6 +12,7 @@ import { UserService } from '../../services/user.service';
 import { Store } from '@ngrx/store';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
 import { AuthState } from '../../store/auth/auth.state';
+import { updateUserFailure } from '../../store/auth/auth.actions';
 
 interface AppState {
   auth: AuthState;
@@ -43,14 +44,13 @@ export class ProfilComponent  implements OnInit {
     this.store.select(selectUser).subscribe({
 
     next: (user) => {
-      console.log(user);
       if (user) {
         this.user = {
           ...user,
           profilImage: user.photo || 'assets/images/default-profile.png',
           name: `${user.firstName} ${user.lastName}`,
           birthDate: new Date(user.birthday).toLocaleDateString(),
-          address: user.country,
+          country: user.country,
           profession: user.profession,
           email: user.email,
           socialMedia: {

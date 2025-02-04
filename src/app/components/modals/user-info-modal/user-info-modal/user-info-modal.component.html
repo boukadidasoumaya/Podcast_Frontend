@@ -9,12 +9,17 @@
         <form #userForm="ngForm" (ngSubmit)="onUserSubmit(userForm)">
           <div class="mb-3">
             <label for="photo" class="form-label">Photo</label>
-            <input type="file" class="form-control" id="photo" name="photo" (change)="onFileSelect($event)">
+            <input type="file" class="form-control" id="photo" name="photo">
           </div>
           <div class="mb-3">
-            <label for="username" class="form-label">Nom d'utilisateur</label>
-            <input type="text" class="form-control" id="username" name="username"
-                   [(ngModel)]="formData.username" required>
+            <label for="username" class="form-label">Firstname</label>
+            <input type="text" class="form-control" id="Firstname" name="Firstname"
+                   [(ngModel)]="formData.firstName" required>
+          </div>
+          <div class="mb-3">
+            <label for="username" class="form-label">Lastname</label>
+            <input type="text" class="form-control" id="lastname" name="lastname"
+                   [(ngModel)]="formData.lastName" required>
           </div>
           <div class="mb-3">
             <label for="birthday" class="form-label">Date de naissance</label>
