@@ -195,7 +195,7 @@
       </div>
 
 
-      <app-section-custom [title]='"My Channel"' [id]='"section_2"'>
+      <app-section-custom *ngIf="podcastData.length>0" [title]='"My Channel"' [id]='"section_2"'>
         <app-swiper [cards]="podcastData"  [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
           <ng-template let-card>
               <app-topics

@@ -13,10 +13,12 @@ import { login } from '../../store/auth/auth.actions';
 import { register } from '../../store/auth/auth.actions';
 import { selectAuthError } from '../../store/auth/auth.selectors';
 import { AppState } from '../../store/auth/app.state';
+import { CountryService } from '../../services/country.service';
+import { UploadProgressComponent } from "../upload-progress/upload-progress.component";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [InputFieldComponent, ActionButtonComponent, CommonModule, FormsModule],
+  imports: [InputFieldComponent, ActionButtonComponent, CommonModule, FormsModule, UploadProgressComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -47,6 +49,42 @@ export class LoginComponent {
     };
 
     interestsList: string[] = [];
+    countries: any[] = [];
+    isFileUploaded = { image: false };
+    isUploading = { image: false };
+    isUploadInProgress: boolean = false;
+
+    constructor(
+      private http: HttpClient,
+      private authService: AuthService,
+      private router: Router,
+      private cloudinaryService: CloudinaryService,
+      private countryService: CountryService,
+
+      private store: Store<AppState>
+    ) {
+      this.error$ = this.store.select(selectAuthError);
+
+    }
+    ngOnInit() {
+      this.loadInterests();
+      this.loadCountries();
+    }
+    loadCountries(): void {
+      this.countryService.getCountries().subscribe(
+        (data: any[]) => {
+          this.countries = data.map(country => country.name.common);
+          this.countries.sort();
+          console.log('Countries loaded:', this.countries);
+        },
+        (error) => {
+          console.error('Error fetching countries:', error);
+        }
+      );
+    }
+    handleUploadStatusChanged(isUploading: boolean): void {
+    this.isUploadInProgress = isUploading;
+    }
 
     isStepValid(step: number): boolean {
       switch (step) {
@@ -58,7 +96,9 @@ export class LoginComponent {
                               !this.usernameTaken &&
                               !this.emailTaken &&
                               this.Data.birthday &&
-                              this.emailFormat);
+                              this.emailFormat &&
+                              !this.isUploadInProgress
+                            );
           break;
         case 2:
           this.stepValid = !!(this.Data.country &&
@@ -107,19 +147,11 @@ export class LoginComponent {
     }
   }
 
+
   previousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
     }
-  }
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private router: Router,
-    private cloudinaryService: CloudinaryService,
-    private store: Store<AppState>
-  ) {
-    this.error$ = this.store.select(selectAuthError)
   }
 
   triggerFileInput() {
@@ -142,7 +174,17 @@ export class LoginComponent {
       }    }
   }
   }
+  handleFileUploaded(fileUrl: string): void {
+    this.isUploading.image = false;
+    this.isFileUploaded.image = true;
+    this.Data.photo = fileUrl;
+  }
 
+  handleFileRemoved(): void {
+    this.Data.photo = null;
+    this.isFileUploaded.image = false;
+    this.isUploading.image = false;
+  }
   checkUsername(): void {
     this.usernameTaken=false;
     if (this.Data.username) {
@@ -197,9 +239,7 @@ export class LoginComponent {
     this.store.dispatch(login({ userData :this.Data }));
   }
 
-  ngOnInit() {
-    this.loadInterests();
-  }
+
 
   loadInterests() {
     this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({

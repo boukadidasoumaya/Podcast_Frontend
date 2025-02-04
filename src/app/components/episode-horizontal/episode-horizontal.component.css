@@ -88,3 +88,9 @@ h5 {
   margin-top: auto;
   padding-bottom: 3px; /* Reduce bottom padding */
 }
+.social-share {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: 20px;
+}
