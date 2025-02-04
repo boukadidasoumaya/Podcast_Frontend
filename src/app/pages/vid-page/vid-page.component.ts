@@ -12,6 +12,8 @@ import { Episode } from '../../interfaces/app.interfaces';
 import { RelatedSectionComponent } from '../../components/related-section/related-section.component';
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 import { Router } from '@angular/router';
+import { FooterComponent } from "../../components/footer/footer.component";
+import { NavbarComponent } from "../../components/navbar/navbar.component";
 @Component({
   selector: 'app-vid-page',
   standalone: true,
@@ -20,8 +22,7 @@ import { Router } from '@angular/router';
     CommonModule,
     SectionCustomComponent,
     VidPlayerComponent,
-    CommentSectionComponent
-  ],
+    CommentSectionComponent, FooterComponent, NavbarComponent],
   providers: [EpisodeService], // Ensure EpisodeService is provided here
   templateUrl: './vid-page.component.html',
   styleUrls: ['./vid-page.component.css'],
@@ -62,7 +63,7 @@ episodeId: number | null = null;
       },
     });
   }
-  
+
 
 
   loadRelatedEpisodes() {

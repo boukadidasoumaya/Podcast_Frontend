@@ -26,5 +26,7 @@ export class SwiperComponent {
   @Input() cards: any[] = [];
   @Input() colClass: string = ''; // Input for column classes
   @ContentChild(TemplateRef) contentTemplate!: TemplateRef<any>;
-  
+  @Input() slidesPerView: number = 4; // Valeur par défaut
+
+
 }

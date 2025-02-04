@@ -20,9 +20,8 @@
                             Email Format is not valid.
                         </div>
                         <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="Birthday" [(ngModel)]="Data.birthday" [required]="true" ></app-input-field>
-                        
-                        <label for="photo" class="form-label">Photo</label>
-                        <app-upload-progress
+
+                        <app-upload-progress class="d-flex justify-content-center"
                           accept="image/png,image/jpeg,image/jpg,image/svg"
                           buttonText="Upload Photo"
                           [fileCategory]="'coverImage'"

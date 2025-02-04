@@ -9,6 +9,7 @@ import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../int
 import { EpisodeService } from '../../services/episode.service';
 import { RelatedSectionComponent } from '../../components/related-section/related-section.component';
 import { UserService } from '../../services/user.service';
+import { FooterComponent } from "../../components/footer/footer.component";
 
 @Component({
   selector: 'app-details-podcast',
@@ -19,8 +20,9 @@ import { UserService } from '../../services/user.service';
     SectionCustomComponent,
     NavbarComponent,
     CardEpisodeWithDetailsComponent,
-    CommentSectionComponent
-  ],
+    CommentSectionComponent,
+    FooterComponent
+],
   templateUrl: './details-podcast.component.html',
   styleUrls: ['./details-podcast.component.css']
 })

@@ -18,6 +18,6 @@
         </app-comment>
       </div>
     </div>
-    <app-reply-form *ngIf="authorisedToComment" (onDataReceived)="handleReplySubmit($event)"></app-reply-form>
+    <app-reply-form *ngIf="authorisedToComment" [currentUser]="this.user" (onDataReceived)="handleReplySubmit($event)"></app-reply-form>
   </div>
 </app-section-custom>
