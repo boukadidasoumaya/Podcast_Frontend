@@ -20,7 +20,6 @@ export class AuthEffects {
               localStorage.setItem('authToken', response.accessToken);
             }
             this.router.navigate(['/profil']);
-            console.log(response.user);
             return AuthActions.loginSuccess({ user: response.user, token: response.accessToken });
           }),
           catchError((error) =>{
@@ -57,7 +56,6 @@ export class AuthEffects {
       mergeMap(() =>
         this.authService.getCurrentUser().pipe(
           map((user) => {
-            console.log("Current user loaded:", user); 
             return AuthActions.loadCurrentUserSuccess({ user });
           }),
           catchError((error) => {

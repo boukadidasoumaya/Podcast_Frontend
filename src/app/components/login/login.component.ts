@@ -25,6 +25,7 @@ export class LoginComponent {
   usernameTaken: boolean = false;
   emailTaken: boolean = false;
   emailFormat : boolean =true;
+  stepValid : boolean =true;
   PasswordValid: boolean = true;
   error$: Observable<string | null>;
   Data = {
@@ -48,31 +49,36 @@ export class LoginComponent {
     interestsList: string[] = [];
 
     isStepValid(step: number): boolean {
-    switch (step) {
-      case 1:
-        return !!(this.Data.firstName && 
-                 this.Data.lastName && 
-                 this.Data.username &&
-                 this.Data.email &&
-                 !this.usernameTaken &&
-                 !this.emailTaken &&
-                 this.Data.birthday && 
-                 this.isValidEmail(this.Data.email));
-      case 2:
-        return !!(this.Data.country && 
-                 this.Data.profession);
-      case 3:
-        return !!(this.Data.password &&
-                 this.Data.confirmPassword&&
-                 this.PasswordValid
-                );
-      default:
-        return false;
+      switch (step) {
+        case 1:
+          this.stepValid = !!(this.Data.firstName &&
+                              this.Data.lastName &&
+                              this.Data.username &&
+                              this.Data.email &&
+                              !this.usernameTaken &&
+                              !this.emailTaken &&
+                              this.Data.birthday &&
+                              this.emailFormat);
+          break;
+        case 2:
+          this.stepValid = !!(this.Data.country &&
+                              this.Data.profession);
+          break;
+        case 3:
+          this.stepValid = !!(this.Data.password &&
+                              this.Data.confirmPassword &&
+                              this.PasswordValid);
+          break;
+        default:
+          this.stepValid = false;
+      }
+    
+      return this.stepValid;
     }
-  }
 
   toggle(): void {
     this.isSignIn = !this.isSignIn;
+    this.resetData();
     const container = document.getElementById('container');
     if (this.isSignIn) {
       container?.classList.add('sign-in');
@@ -83,15 +89,17 @@ export class LoginComponent {
     }
   }
 
-  isValidEmail(email: string): boolean {
+  isValidEmail(email: string) {
       const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
       this.emailFormat=emailRegex.test(email);
-      return this.emailFormat;
   }
 
   currentStep = 1;
 
   nextStep() {
+    console.log("1",this.isStepValid(this.currentStep));
+    console.log("2",this.stepValid);
+
     if (this.isStepValid(this.currentStep)) {
       if (this.currentStep < 4) {
         this.currentStep++;
@@ -113,6 +121,12 @@ export class LoginComponent {
   ) {
     this.error$ = this.store.select(selectAuthError)
   }
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('photo') as HTMLInputElement;
+    fileInput.click(); // Programmatically click the hidden file input
+  }
+
 
   async onFileSelect(event: Event): Promise<void>  {
     const input = event.target as HTMLInputElement;
@@ -147,6 +161,7 @@ export class LoginComponent {
 }
 
   checkEmail(): void {
+    this.emailFormat=true;
     this.emailTaken=false;
     if (this.Data.email) { 
       this.isValidEmail(this.Data.email);
@@ -160,19 +175,21 @@ export class LoginComponent {
           .subscribe({
               next: (isTaken) => {
                   this.emailTaken = isTaken; 
-                  console.log(this.emailTaken)
               }
           });
     }
   }
 
   checkEmailinLogin(){
+    if(this.Data.email){
     this.isValidEmail(this.Data.email);
+  }
   }
   signUp(): void {
     this.store.dispatch(register({ userData: this.Data }));
     this.currentStep++;
     this.resetData();
+    this.toggle();
   }
 
   signIn() {
