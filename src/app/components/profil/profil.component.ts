@@ -13,8 +13,7 @@ import { Episode } from '../../interfaces/app.interfaces';
 import { BookmarkService } from '../../services/bookmark.service';
 import { Podcast } from '../../interfaces/app.interfaces';
 import { PodcastService } from '../../services/podcast.service';
-import { UpdateComponent } from '../update/update.component';
-import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
+
 import { CommonModule } from '@angular/common';
 import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
 import { Router } from '@angular/router';

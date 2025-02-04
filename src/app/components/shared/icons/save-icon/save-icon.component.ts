@@ -39,6 +39,7 @@ export class SaveIconComponent implements OnInit{
           .pipe(
             catchError((error: HttpErrorResponse) => {
               if (error.status === 401) {
+                console.log('kkkkkkkkkkkkkkllllllllllllll')
                 this.toastr.error('You are not authorized!', 'Unauthorized');
               } else {
                 this.toastr.error('Failed to update bookmark.', 'Error');
