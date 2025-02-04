@@ -19,9 +19,7 @@ export const appConfig: ApplicationConfig = {
       mediaInterceptor,
     ]
 )),
-  provideToastr({
-    positionClass: 'toast-center-right',
-  }),provideAnimations(), provideStore({auth:authReducer }),
+  provideToastr(),provideAnimations(), provideStore({auth:authReducer }),
   provideEffects([AuthEffects ]),
 ]
 };

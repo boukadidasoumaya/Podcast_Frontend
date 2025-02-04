@@ -14,8 +14,7 @@
               <img class="profileImage p-0 m-2" [src]="user.profilImage" alt="Profile">
               <div class="d-flex justify-content-end p-0">
                 <label for="file">
-                  <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" data-bs-toggle="modal"
-                  data-bs-target="#UserInfoModal">
+                  <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" (click)="editPersonnalInfoUserModal()">
                 </label>
               </div>
               <hr class="mt-4 mb-4">
@@ -228,7 +227,7 @@
 
   </div>
 </div>
-<app-user-info-modal [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" ></app-user-info-modal>
+<app-user-info-modal *ngIf="isEditUserPersonnalInfo" [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" (onclose)="closePersonnalInfoUserModal()"></app-user-info-modal>
 <app-email-modal></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>

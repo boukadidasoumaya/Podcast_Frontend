@@ -47,7 +47,8 @@ export class UploadProgressComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files[0]) {
       const file = input.files[0];
-      // Vérification backend avant l'upload
+      this.toastr.error('Erreur');
+
       const isValid = await this.validateFile(file);
       if (!isValid) return; // Arrête le processus en cas d'erreur
 

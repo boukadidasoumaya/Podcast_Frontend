@@ -20,13 +20,13 @@ export class UserInfoModalComponent implements OnInit{
   @Input() user:any={}
   @Output() updatedUser=new EventEmitter<any>();
   @Output() onclose=new EventEmitter<void>();
-  formData = {
-    username: this.user.username,
-    birthday: this.user.birthDate,
-    country: this.user.country,
-    profession:this.user.profession,
-    photo: this.user.photo,
-  };
+  formData: {
+    username?: string;
+    birthday?: string;
+    country?: string;
+    profession?: string;
+    photo?: string;
+  } = {};
 
 
   updateForm!: FormGroup;
@@ -39,16 +39,28 @@ export class UserInfoModalComponent implements OnInit{
   constructor(private fb: FormBuilder,private countryService:CountryService) {}
 
   ngOnInit(): void {
+    // Initialiser formData avec les infos de l'utilisateur passé en @Input()
+    this.formData = {
+      username: this.user?.username || '',
+      birthday: this.user?.birthday ? this.formatDate(this.user.birthday) : '', 
+      country: this.user?.country || '',
+      profession: this.user?.profession || '',
+      photo: this.user?.photo || ''
+    };
+
+    // Initialiser le formulaire avec les valeurs de formData
     this.updateForm = this.fb.group({
       username: [this.formData.username],
       birthday: [this.formData.birthday],
       country: [this.formData.country],
-      profession:[this.formData.profession],
-      photo: [this.formData.photo],
+      profession: [this.formData.profession],
+      photo: [this.formData.photo]
     });
+
     this.loadCountries();
-    console.log(this.user);
+    console.log("user from update", this.formData);
   }
+
   loadCountries(): void {
     this.countryService.getCountries().subscribe(
       (data: any[]) => {
@@ -112,7 +124,7 @@ export class UserInfoModalComponent implements OnInit{
   }
 
   handleFileRemoved(): void {
-    this.formData.photo = null;
+    this.formData.photo = this.user.photo;
     this.isFileUploaded.image = false;
     this.isUploading.image = false;
   }
@@ -120,7 +132,12 @@ export class UserInfoModalComponent implements OnInit{
   resetForm(): void {
     this.isFileUploaded = { image: false };
     this.isUploading = { image: false };
-    this.formData = { username: '', birthday: '', country: '',profession:'', photo: null };
+    this.formData = { username: '', birthday: '', country: '',profession:'', photo: '' };
     this.updateForm.reset(this.formData);
   }
+  formatDate(dateString: string): string {
+    if (!dateString) return '';
+    return dateString.split('T')[0];
+  }
+
 }

@@ -215,6 +215,12 @@ export class ProfilComponent  implements OnInit {
   onCheckDetails(podcast:Podcast) {
     this.goToDetails(podcast.id);
   }
+  editPersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=true;
+  }
+  closePersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=false;
 
- 
+  }
+
 }
