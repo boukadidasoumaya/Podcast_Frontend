@@ -5,11 +5,12 @@ import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headpho
 import { Episode, User } from '../../interfaces/app.interfaces';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component';
 
 @Component({
   selector: 'app-card-episode',
   standalone: true,
-  imports: [RouterModule, CommonModule,HeartIconComponent, CommentIconComponent, HeadphonesIconComponent],
+  imports: [RouterModule, CommonModule, HeartIconComponent, CommentIconComponent, HeadphonesIconComponent, SaveIconComponent],
   templateUrl: './card-episode.component.html',
   styleUrls: ['./card-episode.component.css']
 })
@@ -17,7 +18,9 @@ export class CardEpisodeComponent {
   @Input() episode!: Episode;
   @Input() numberOfLikes!: number;
   @Input() isLiked!: boolean;
+  @Input() authorisedToLike!:boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+  @Output() episode_event= new EventEmitter<{ episode: Episode }>();
   constructor(){
     console.log('islikes',this.isLiked);
   }

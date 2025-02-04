@@ -11,11 +11,20 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class LikeButtonComponent {
   @Input() isLiked!: boolean;
   @Input() likesCount!: number;
+  @Input() authorisedToLike!:boolean;
   @Output() liked = new EventEmitter<boolean>();
 
   toggleLike() {
     this.isLiked = !this.isLiked;
     this.liked.emit(this.isLiked);
+  }
+  canLike(){
+    if(this.authorisedToLike){
+      this.toggleLike()
+    }
+    else{
+      return
+    }
   }
 
 }

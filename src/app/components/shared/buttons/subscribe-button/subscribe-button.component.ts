@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, Input } from '@angular/core';
+import { Episode } from '../../../../interfaces/app.interfaces';
+import { EpisodeService } from '../../../../services/episode.service';
 
 @Component({
   selector: 'app-subscribe-button',
@@ -9,8 +12,16 @@ import { Component } from '@angular/core';
 })
 export class SubscribeButtonComponent {
   isSubscribed = false;
+  constructor(private httpclient: HttpClient,private episodeservice :EpisodeService){}
 
-  toggleSubscribe(): void {
-    this.isSubscribed = !this.isSubscribed; 
+  @Input() episode!:Episode;
+
+  toggleSubscribe(episode : Episode): void {
+    const url="http://localhost:3000/subscribe/:podcastid";
+    const sub=this.episodeservice.subscription(episode.podcast.id);
+    if(!sub){
+      this.episodeservice.unsubscription(episode.podcast.id);
+    }
+    this.isSubscribed = !this.isSubscribed;
   }
 }

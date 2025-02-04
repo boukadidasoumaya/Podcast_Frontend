@@ -3,19 +3,19 @@
     <app-swiper
       [cards]="relatedEpisodes"
       [colClass]="'col-lg-3 col-md-6 col-12 mb-4 mb-lg-0'"
-      [slideToShow]="4"
-      [slideWidth]="400">
+     >
       <ng-template let-episode>
-        <app-topics  
-          [customtext]="'min'"
+        <app-topics
+          [customtext]="''"
           [title]="episode.name"
-          [episodes]="episode.duration"
-      
+          [subtitle]="'Episode ' + episode.number"
+          [episodeId]="episode.id"
+          [isOwner]="isOwner"
           [routerLink]="routerLink"
           [image]="episode.coverImage"
+          (deleteEpisode)="deleteEpisode($event)"
           (click)="loadEpisode(episode.id)">
         </app-topics>
       </ng-template>
     </app-swiper>
   </app-section-custom>
-  

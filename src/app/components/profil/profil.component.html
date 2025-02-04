@@ -11,11 +11,10 @@
           <div class="cadre d-flex flex-column align-items-center justify-content-center">
             <!-- Profile Image -->
             <div class="row d-flex justify-content-center">
-              <img class="profileImage p-0 m-2" [src]="user.profilImage" alt="Profile">
+              <img class="profileImage p-0 m-2" [src]="user.photo" alt="Profile">
               <div class="d-flex justify-content-end p-0">
                 <label for="file">
-                  <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" data-bs-toggle="modal"
-                  data-bs-target="#UserInfoModal">
+                  <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" (click)="editPersonnalInfoUserModal()">
                 </label>
               </div>
               <hr class="mt-4 mb-4">
@@ -30,7 +29,7 @@
 
                   <div class="d-flex flex-column" style="width: 100%">
                     <p class="username" type="text">
-                      {{ user.firstName }}
+                      {{ user.firstName }} {{user.lastName}}
                       </p>
                   </div>
                 </div>
@@ -38,7 +37,7 @@
 
               </div>
             </div>
-            
+
             <div class="row">
               <div class="col-12 d-flex details pe-0">
                 <div class="d-flex" style="width: 100%">
@@ -145,7 +144,7 @@
           <img src="assets/icons/whatsapp-icon.png" class="whatapp-icon" alt="WhatsApp Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="whatsapp"> {{ user.socialMedia.whatsapp}}</p>
+          <p class="whatsapp">{{user.whatsappUser}} </p>
         </div>
       </div>
 
@@ -157,7 +156,8 @@
           <img src="assets/icons/instagram-icon.png" class="instagram-icon" alt="Instagram Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="instagram">{{ user.socialMedia.instagram}}</p>
+          <p class="instagram">{{user.instagramLink}}
+          </p>
         </div>
       </div>
 
@@ -169,7 +169,7 @@
         <img src="assets/icons/twitter-icon.png" class="twitter-icon" alt="Twitter Icon" width="24" height="24">
       </div>
       <div class="col-8 d-flex align-items-center">
-        <p class="twitter">{{ user.socialMedia.twitter}}</p>
+        <p class="twitter">{{ user.twitterUser}}</p>
       </div>
     </div>
 
@@ -183,38 +183,75 @@
       </span>
     </div>
 
+<!-- My List Section -->
 
 </div>
+
 
           </div>
         </div>
       </div>
+      <div class="row">
+      </div>
 
-      <!-- My List Section -->
-      <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
 
-      <!-- <app-swiper [cards]="podcastData" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  [slideToShow]="2" [slideWidth]="300">
-        <ng-template let-card>
-            <app-episode-horizontal
-            [title]="card.title"
-            [episodeDuration]="card.episodeDuration"
-            [episodeNumber]="card.episodeNumber"
-            [imageUrl]="card.imageUrl"
-            [hostImage]="card.hostImage"
-            [hostName]="card.hostName"
-            [hostRole]="card.hostRole"
-            [description]="card.description"
-            [stats]="card.stats"
-          ></app-episode-horizontal>
+      <app-section-custom [title]='"My Channel"' [id]='"section_2"'>
+        <app-swiper [cards]="podcastData"  [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  >
+          <ng-template let-card>
+              <app-topics
+              [title]="card.name"
+              [subtitle]="card.nbre_episode"
+              [customtext]="'Episodes'"
+              [image]="card.image"
+              [podcast]="card"
+              [isPodcast]="true"
+              [isOwner]="true"
+              (edit)="editPodcastModalOpen($event)"
+              (deletePodcast)="deletePodcast($event)"
+              (click)="onPodcastSelect(card)"
+              (checkDetails)="onCheckDetails($event)"
+            ></app-topics>
 
-        </ng-template>
-      </app-swiper>     -->
+          </ng-template>
+
+        </app-swiper>
+
+      <app-update-podcast-modal
+        *ngIf="isEditModalOpen"
+        [podcastData]="selectedPodcast"
+        (onSave)="updatePodcast($event)"
+        (onClose)="closeEditModal()" ></app-update-podcast-modal>
       </app-section-custom>
     </div>
+    <div class="row g-4">
+    <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
+
+      <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"    (slideChange)="onSwiperChange()">
+        <ng-template let-card>
+          <app-episode-horizontal
+          [episode]="card.episode"
+          [numberOfLikes]="0"
+          [isLiked]="false"
+          (liked)="null"
+          (unfavorite)="handleUnfavorite(card.id)">
+          >
+        </app-episode-horizontal>
+
+
+        </ng-template>
+      </app-swiper>
+      </app-section-custom>
+
+
+
   </div>
 </div>
-<app-user-info-modal></app-user-info-modal>
-<app-email-modal *ngIf="isEditModalOpen" [currentUserEmail]="user.email" (onclose)="closeEmailModal()"></app-email-modal>
+<app-user-info-modal *ngIf="isEditUserPersonnalInfo" [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" (onclose)="closePersonnalInfoUserModal()"></app-user-info-modal>
+<app-email-modal [currentUserEmail]="user.email"></app-email-modal>
 <app-password-modal></app-password-modal>
 <app-social-media-modal></app-social-media-modal>
+
+
 </div>
+
+

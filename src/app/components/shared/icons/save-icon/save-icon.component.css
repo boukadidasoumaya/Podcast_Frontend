@@ -1,4 +1,4 @@
-@import '../../../assets/css/link.css';
+@import '../../../../../assets/css/link.css';
 
 .social-share {
   position: absolute;
@@ -20,5 +20,5 @@
   height: 40px;
   line-height: 30px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 5px;
 }

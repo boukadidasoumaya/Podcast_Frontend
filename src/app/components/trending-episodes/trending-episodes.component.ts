@@ -29,6 +29,7 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
 
   user: Partial<User> = {};
 
+  authorisedToLike!:boolean;
 
   constructor(
     private episodeService: EpisodeService,
@@ -41,7 +42,26 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.userService.getCurrentUser().subscribe((user) => {
       this.user = user;
+
+      // Si l'utilisateur est connecté, on active les WebSockets
+      if (this.user?.id) {
+        this.authorisedToLike=true;
+        this.subscribeToWebSockets();
+
+        // Récupération des épisodes likés uniquement pour un utilisateur connecté
+        this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
+          likedEpisodes.forEach((episode) => {
+            this.likedEpisodes[episode.id] = true;
+          });
+        });
+      }
+      else{
+        this.authorisedToLike=false;
+      }
+      console.log(this.authorisedToLike)
+
     });
+
     // Récupération des épisodes tendances
     this.episodeService.getAllEpisodesTrending().subscribe((data) => {
       this.episodes = data;
@@ -49,20 +69,13 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
         this.likes[episode.id] = episode.numberOfLikes;
       });
     });
+  }
 
-    // Récupération des épisodes likés par l'utilisateur
-    this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
-      likedEpisodes.forEach((episode) => {
-        this.likedEpisodes[episode.id] = true;
-      });
-    });
-    console.log('liked',this.likedEpisodes),
-    // Gestion des likes en temps réel
+  private subscribeToWebSockets(): void {
     this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
-        this.likes[data.episode] = data.numberOfLikes;
+      this.likes[data.episode] = data.numberOfLikes;
     });
 
-    // Gestion des unlikes en temps réel
     this.unlikeSubscription = this.likeEpisodeService.onUnlikeEpisode().subscribe((data) => {
       this.likes[data.episode] = data.numberOfLikes;
     });
@@ -75,12 +88,19 @@ export class TrendingEpisodesComponent implements OnInit, OnDestroy {
   }
 
   onLikeChanged(event: { isLiked: boolean, episode: Episode }): void {
+    if (!this.user?.id) {
+      console.warn("Vous devez être connecté pour liker un épisode.");
+      return;
+    }
+
     const { isLiked, episode } = event;
     this.likedEpisodes[episode.id] = isLiked;
+
     if (isLiked) {
       this.likeEpisodeService.likeEpisode(this.user, episode);
     } else {
       this.likeEpisodeService.unlikeEpisode(this.user, episode);
     }
   }
+
 }

@@ -1,9 +1,9 @@
 <div class="row">
   <div class="col-12 subscribe d-flex justify-content-end">
-    <ng-container *ngIf="user; else noUser">
-      <ng-container *ngIf="user?.id === episode?.podcast?.user?.id; else subscribeButton">
-        <!-- Bouton Modifier -->
-        <button class="btn btn-primary" (click)="openEditModal()">Modifier</button>
+    <ng-container *ngIf="currentUser; else noUser">
+      <ng-container *ngIf="currentUser?.id === episode?.podcast?.user?.id; else subscribeButton">
+        <button class="custom-btn me-2" (click)="openAddModal()">Add Episode</button>
+        <button class="custom-btn" (click)="openEditModal()">Edit Episode</button>
       </ng-container>
       <ng-template #subscribeButton>
         <app-subscribe-button></app-subscribe-button>
@@ -47,7 +47,7 @@
 
       <div class="profile-block profile-detail-block d-flex flex-wrap align-items-center mt-5">
         <div class="d-flex mb-3 mb-lg-0 mb-md-0">
-          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" alt="{{ episode.profileName }}">
+          <img [src]="episode.podcast.user.photo" class="profile-block-image img-fluid" >
           <p>
             {{ episode.podcast.user.firstName + ' ' + episode.podcast.user.lastName }}
             <img src="assets/images/verified.png" class="verified-image img-fluid" alt="Verified">
@@ -57,13 +57,13 @@
 
         <ul class="social-icon ms-lg-auto ms-md-auto">
           <li class="social-icon-item">
-            <a [href]="episode.podcast.user.intagramLink" class="social-icon-link bi-instagram"></a>
+            <a [href]="episode.podcast.user.instagramLink" class="social-icon-link bi-instagram"></a>
           </li>
           <li class="social-icon-item">
             <a [href]="episode.podcast.user.twitterLink" class="social-icon-link bi-twitter"></a>
           </li>
           <li class="social-icon-item">
-            <a [href]="episode.podcast.user.facebookLink" class="social-icon-link bi-whatsapp"></a>
+            <a [href]="episode.podcast.user.whatsappUser" class="social-icon-link bi-whatsapp"></a>
           </li>
         </ul>
       </div>
@@ -71,12 +71,16 @@
   </div>
 </div>
 
-<!-- Edit Modal  -->
 
 <app-update-modal
   *ngIf="isEditModalOpen"
-  [isPodcast]="false"
+  [type]="'episode'"
   [entityData]="episode"
   (onSave)="updateEpisode($event)"
   (onClose)="closeEditModal()">
 </app-update-modal>
+<app-create-modal
+  *ngIf="isAddModalOpen"
+  (onCreate)="addEpisode($event)"
+  (onClose)="closeAddModal()">
+</app-create-modal>

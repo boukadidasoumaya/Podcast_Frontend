@@ -9,7 +9,9 @@ import { CommonModule } from '@angular/common';
   styleUrl: './podcaster.component.css'
 })
 export class PodcasterComponent {
+  @Input() name: string = '';
+  @Input() imageUrl: string = '';
+  @Input() badges: string[] = [];
+  @Input() socialLinks: { twitter: string, facebook: string, pinterest: string } = { twitter: '#', facebook: '#', pinterest: '#' };
 
 }
-
-

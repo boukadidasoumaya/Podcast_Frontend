@@ -4,8 +4,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store'; 
-import * as AuthActions from '../../../store/auth/auth.actions'; 
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../store/auth/auth.actions';
 
 declare var bootstrap: any;
 @Component({
@@ -16,7 +16,7 @@ declare var bootstrap: any;
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
-  @Input() currentUserEmail: string = '';
+  @Input() currentUserEmail!: string ;
   @Output() onclose = new EventEmitter<void>();
   @Output() onsave = new EventEmitter<void>();
   emailData = {
@@ -24,24 +24,25 @@ export class EmailModalComponent {
     newEmail: '',
     confirmEmail: ''
   };
-  
+
   ngOnInit() {
     this.emailData.currentEmail = this.currentUserEmail;
+    console.log(this.currentUserEmail);
   }
 
-  constructor(private userService: UserService, private router: Router,private store: Store) {}  
+  constructor(private userService: UserService, private router: Router,private store: Store) {}
   onEmailUpdate(form: NgForm) {
     if (form.valid) {
       if (this.emailData.newEmail !== this.emailData.confirmEmail) {
         alert('New Emails do not match!');
         return;
       }
-  
+
       const emailUpdateData = {
         oldEmail: this.emailData.currentEmail,
         newEmail: this.emailData.newEmail,
       };
-  
+
       this.userService.updateEmail(emailUpdateData)
         .subscribe({
           next: (response) => {
@@ -76,5 +77,6 @@ export class EmailModalComponent {
     this.onsave.emit();
     this.onclose.emit();
   }
+  
 }
   

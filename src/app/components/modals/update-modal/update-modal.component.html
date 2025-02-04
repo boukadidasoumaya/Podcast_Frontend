@@ -1,46 +1,81 @@
-<div class="modal-overlay" (click)="closeModal()">
-    <div class="modal-content" (click)="$event.stopPropagation()">
-      <div class="modal-header">
-        <h2>{{ isPodcast ? 'Update Podcast' : 'Update Episode' }}</h2>
-        <button class="btn-close" (click)="closeModal()">&times;</button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="updateForm">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input
-              id="name"
-              formControlName="name"
-              type="text"
-              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} name"
-            />
+<div class="modal modal-overlay" (click)="closeModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Update Episode</h2>
+      <button class="btn-close" (click)="closeModal()">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="updateForm">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            id="name"
+            formControlName="name"
+            type="text"
+            placeholder="Enter episode name"
+            [ngClass]="{'error-input': updateForm.get('name')?.touched && updateForm.get('name')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('name')?.touched && updateForm.get('name')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('name')?.hasError('required')">Name is required.</small>
           </div>
-          <div class="form-group">
-            <label for="description">Description</label>
-            <textarea
-              id="description"
-              formControlName="description"
-              placeholder="Enter {{ isPodcast ? 'podcast' : 'episode' }} description"
-            ></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="description">Description</label>
+          <textarea
+            id="description"
+            formControlName="description"
+            placeholder="Enter episode description"
+            [ngClass]="{'error-input': updateForm.get('description')?.touched && updateForm.get('description')?.invalid}"
+          ></textarea>
+          <div *ngIf="updateForm.get('description')?.touched && updateForm.get('description')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('description')?.hasError('required')">Description is required.</small>
           </div>
-          <app-upload-progress
-              accept="'.png, .jpeg, .jpg, .svg'"
-              [buttonText]="isPodcast ? 'Podcast Cover Image' : 'Episode Cover Image'"
-              (fileUploaded)="handleFileUploaded($event)">
-            </app-upload-progress>
+        </div>
+
+        <div class="form-group">
+          <label for="duration">Duration (minutes)</label>
+
+          <input
+            id="duration"
+            formControlName="duration"
+            type="number"
+            placeholder="Enter duration"
+            min="0"
+            [ngClass]="{'error-input': updateForm.get('duration')?.touched && updateForm.get('duration')?.invalid}"
+          />
+          <div *ngIf="updateForm.get('duration')?.touched && updateForm.get('duration')?.invalid" class="error-message">
+            <small *ngIf="updateForm.get('duration')?.hasError('required')">Duration is required.</small>
+            <small *ngIf="updateForm.get('duration')?.hasError('min')">Duration must be a positive number.</small>
+          </div>
+        </div>
 
         <app-upload-progress
-            *ngIf="!isPodcast"
-            accept="'.mp3,.mp4'"
-            buttonText="Upload Episode File"
-            (fileUploaded)="handleFileUploaded($event)"
-          ></app-upload-progress>
+          *ngIf="type === 'episode'"
+          accept="audio/mp3,video/mp4"
+          type="episode"
+          buttonText="Upload Episode File"
+          [fileCategory]="'filepath'"
+          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+          (fileUploaded)="handleFileUploaded($event, 'filepath')"
+          (fileRemoved)="handleFileRemoved('filepath')">
+        </app-upload-progress>
 
+        <app-upload-progress
+          *ngIf="type === 'episode'"
+          accept="image/png,image/jpeg,image/jpg,image/svg"
+          type="episode"
+          [fileCategory]="'coverImage'"
+          buttonText="Upload Cover Image"
+          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+          (fileUploaded)="handleFileUploaded($event, 'coverImage')"
+          (fileRemoved)="handleFileRemoved('coverImage')">
+        </app-upload-progress>
+      </form>
+    </div>
 
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn-save" (click)="saveChanges()">Save</button>
-      </div>
+    <div class="modal-footer">
+      <button class="btn-save" (click)="saveChanges()" [disabled]="!isFormValid()">Save</button>
     </div>
   </div>
+</div>

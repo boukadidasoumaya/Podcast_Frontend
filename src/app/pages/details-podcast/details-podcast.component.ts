@@ -7,7 +7,8 @@ import { CardEpisodeWithDetailsComponent } from '../../components/card-episode-w
 import { CommentSectionComponent } from '../../components/comment-section/comment-section.component';
 import { Comment, Episode, EpisodeId, Podcast, PodcastId, User } from '../../interfaces/app.interfaces';
 import { EpisodeService } from '../../services/episode.service';
-import { RelatedSectionComponent } from '../../related-section/related-section.component';
+import { RelatedSectionComponent } from '../../components/related-section/related-section.component';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-details-podcast',
@@ -23,24 +24,20 @@ import { RelatedSectionComponent } from '../../related-section/related-section.c
   templateUrl: './details-podcast.component.html',
   styleUrls: ['./details-podcast.component.css']
 })
-export class DetailsPodcastComponent implements OnInit,OnDestroy {
-  comments: Comment[] = [];
-  episodeDetails: Episode | null = null;
-  episodeId: number | null = null;
+export class DetailsPodcastComponent implements OnInit {
+  episodeDetails!: Episode ;
+  episodeId!: number ;
   podcastDetails: Podcast | null = null;
-
-  currentUser: Partial<User> = {
-    id: 1
-  };
+  currentUser!:Partial<User>;
+  isOwner:boolean=false;
 
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private episodeService: EpisodeService
+    private episodeService: EpisodeService,
+    private userService: UserService
   ) {}
-  ngOnDestroy(): void {
 
-  }
 
   ngOnInit(): void {
     this.activatedRoute.paramMap.subscribe(params => {
@@ -50,6 +47,13 @@ export class DetailsPodcastComponent implements OnInit,OnDestroy {
         this.loadEpisodeDetails();
       }
     });
+    this.userService.getCurrentUser().subscribe((user) => {
+      this.currentUser = user;
+      console.log('Utilisateur actuel:', this.currentUser);
+    });
+
+
+    console.log(this.episodeDetails.podcast)
   }
 
   loadEpisodeDetails(): void {
@@ -58,6 +62,9 @@ export class DetailsPodcastComponent implements OnInit,OnDestroy {
         next: (episode: Episode) => {
           this.episodeDetails = episode;
           this.podcastDetails = episode.podcast;
+          if(this.episodeDetails.podcast.user.id==this.currentUser.id){
+            this.isOwner =true;
+          }
 
         },
         error: (error) => {
@@ -65,9 +72,12 @@ export class DetailsPodcastComponent implements OnInit,OnDestroy {
         }
       });
     }}
-    onEpisodeSelected(episodeId: number) {
+    onEpisodeSelected(episodeId: number): void {
       this.episodeId = episodeId;
+      console.log('Episode selected:', episodeId);
 
-      console.log('Episode selected:', episodeId);}
+    }
+
+
 
     }

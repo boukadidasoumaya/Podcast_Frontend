@@ -19,13 +19,14 @@ export class AuthEffects {
             if (response.accessToken) {
               localStorage.setItem('authToken', response.accessToken);
             }
-            this.router.navigate(['/profil']);
+            this.router.navigate(['']);
+            console.log(response.user);
             return AuthActions.loginSuccess({ user: response.user, token: response.accessToken });
           }),
           catchError((error) =>{
             return of(AuthActions.loginFailure({ error: error }));
           }
-            
+
           )
         )
       )
@@ -43,7 +44,7 @@ export class AuthEffects {
           }),
           catchError((error) => {
             console.error("Register error:", error);
-            return of(AuthActions.registerFailure({ error: error.message })); 
+            return of(AuthActions.registerFailure({ error: error.message }));
           })
         )
       )
@@ -52,7 +53,7 @@ export class AuthEffects {
 
   loadCurrentUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(AuthActions.loadCurrentUser), 
+      ofType(AuthActions.loadCurrentUser),
       mergeMap(() =>
         this.authService.getCurrentUser().pipe(
           map((user) => {
@@ -66,7 +67,7 @@ export class AuthEffects {
       )
     )
   );
-  
+
   updateUser$ = createEffect(() =>
       this.actions$.pipe(
         ofType(AuthActions.updateUser),
@@ -74,7 +75,7 @@ export class AuthEffects {
           this.userService.updateUserProfile(user).pipe(
             map((updatedUser) => {
               return AuthActions.updateUserSuccess({ user: updatedUser });
-  
+
             }),
             catchError((error) => {
               console.error("Error updating user:", error);

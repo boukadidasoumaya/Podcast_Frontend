@@ -21,14 +21,40 @@
   padding-bottom: 5px;
 }
 
-/* Reduce overall card height */
 .custom-block {
-  height: 220px; /* Adjust this value as needed */
+  height: 220px; /* Default height */
   display: flex;
+  min-width: 600px;
   align-items: stretch;
   overflow: hidden;
-  padding: 10px; /* Reduce padding */
+  padding: 10px; /* Default padding */
 }
+
+/* Responsive adjustments */
+@media (max-width: 1400px) {
+  .custom-block {
+    height: 180px; /* Reduce height for tablets */
+    min-width: 500px; /* Adjust width to fit screen */
+    padding: 8px; /* Reduce padding */
+  }
+}
+@media (max-width: 1200px) {
+  .custom-block {
+    height: 180px; /* Reduce height for tablets */
+    min-width: 25rem; /* Adjust width to fit screen */
+    padding: 8px; /* Reduce padding */
+  }
+}
+
+@media (max-width: 1000px) {
+  .custom-block {
+    height: auto; /* Allow height to adjust dynamically */
+    flex-direction: column; /* Stack items vertically */
+    min-width: 100%;
+    padding: 5px; /* Further reduce padding */
+  }
+}
+
 
 /* Prevent content from stretching */
 .custom-block-info {
@@ -60,5 +86,5 @@ h5 {
 /* Reduce spacing at the bottom */
 .custom-block-bottom {
   margin-top: auto;
-  padding-bottom: 3px; /* Reduce bottom padding */
+  padding-bottom: 3px; /* Reduce bottom padding */
 }

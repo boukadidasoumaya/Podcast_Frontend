@@ -24,6 +24,7 @@ export class CommentComponent {
   @Input() isLiked!: boolean;
   @Input() likesCount!: number;
   @Input() currentUser!:Partial<User>;
+  @Input() authorisedToComment!:boolean;
   @Output() liked = new EventEmitter<{ isLiked: boolean, comment:Comment }>();
   @Output() deletedComment=new EventEmitter<Comment>
   @Output() replyAdded = new EventEmitter<Comment>(); // New event emitter for replies
@@ -63,6 +64,14 @@ export class CommentComponent {
   toggleReplyForm() {
     console.log(this.showReplyForm);
     this.showReplyForm = !this.showReplyForm; // Bascule l'affichage du formulaire de réponse
+  }
+  canComment(){
+    if (this.authorisedToComment){
+      this.toggleReplyForm()
+    }
+    else{
+      return
+    }
   }
 
   async handleReplySubmit(replyText: string) {
@@ -113,6 +122,12 @@ export class CommentComponent {
   deleteMessage() {
     console.log('Le message a été supprimé');
     this.deletedComment.emit(this.comment);
+  }
+  deleteReplyMessage(comment:Comment){
+    console.log('Le message reply a été supprimé');
+
+    this.deletedComment.emit(comment);
+
   }
   isCurrentUserCommentOwner(): boolean {
     return this.currentUser?.id === this.comment.user.id;

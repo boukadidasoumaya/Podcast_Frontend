@@ -72,7 +72,7 @@ export class LoginComponent {
         default:
           this.stepValid = false;
       }
-    
+
       return this.stepValid;
     }
 
@@ -145,16 +145,16 @@ export class LoginComponent {
 
   checkUsername(): void {
     this.usernameTaken=false;
-    if (this.Data.username) { 
+    if (this.Data.username) {
         this.authService.checkUsernameUnique(this.Data.username)
             .pipe(
                 catchError((err) => {
-                    return of(false); 
+                    return of(false);
                 })
             )
             .subscribe({
                 next: (isTaken) => {
-                    this.usernameTaken = isTaken; 
+                    this.usernameTaken = isTaken;
                 }
             });
     }
@@ -163,18 +163,19 @@ export class LoginComponent {
   checkEmail(): void {
     this.emailFormat=true;
     this.emailTaken=false;
-    if (this.Data.email) { 
+    if (this.Data.email) {
       this.isValidEmail(this.Data.email);
       this.authService.checkEmailUnique(this.Data.email)
           .pipe(
               catchError((err) => {
                   console.error('Error checking username:', err);
-                  return of(false); 
+                  return of(false);
               })
           )
           .subscribe({
               next: (isTaken) => {
-                  this.emailTaken = isTaken; 
+                  this.emailTaken = isTaken;
+                  console.log("email",isTaken)
               }
           });
     }
@@ -229,7 +230,7 @@ export class LoginComponent {
       console.log("firstname :",this.Data.firstName);
     }
   }
-  
+
   passwordmatch(){
     if( this.Data.password != this.Data.confirmPassword)
       {
@@ -261,5 +262,5 @@ export class LoginComponent {
         interests: []
       };
  }
-  
+
 }

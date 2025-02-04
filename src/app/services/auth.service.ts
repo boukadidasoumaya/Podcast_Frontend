@@ -14,7 +14,7 @@ import { TOKEN_KEY } from '../../config/storage.config';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000'; 
+  private apiUrl = 'http://localhost:3000';
   private currentUserSubject: BehaviorSubject<any>;
   public currentUser: Observable<any>;
 
@@ -81,11 +81,29 @@ export class AuthService {
     return this.currentUserSubject.value;
   }
 
-  
+
 
   logout() {
     localStorage.removeItem(TOKEN_KEY);
     this.currentUserSubject.next(null);
+  }
+  // Forgot Password - Initiate password reset
+  forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/forgot-password`, { email });
+  }
+
+  // Verify Reset Code - Check if the code is valid
+  verifyResetCode(email: string, code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/verify-reset-code`, { email, code }).pipe(
+      tap(response => {
+        console.log('Réponse du backend (Verify Code) :', response);
+      })
+    );
+  }
+
+  // Reset Password - Reset the user's password
+  resetPassword(email: string, newPassword: string, code: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/reset-password`, { email, newPassword, code });
   }
 
 }

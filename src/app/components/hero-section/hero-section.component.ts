@@ -16,18 +16,18 @@ declare var $: any;
 })
 export class HeroSectionComponent {
   constructor(private ownerService : OwnersDetailsService){}
-  
+
 
   slides: { nom: string, badges: string[], imagesrc: string }[] = [];
- 
+
   ngOnInit(): void {
     this.loadPersons();
   }
-  
+
   private async loadPersons(): Promise<void> {
     try {
       const persons = await this.ownerService.getUsers();
-  
+
       // Map the normalized array to the slides
       this.slides = persons.map((person) => ({
         nom: person.firstName,
@@ -38,24 +38,18 @@ export class HeroSectionComponent {
       console.error('Error loading persons:', error);
     }
   }
-  
-  
+
+
 
   customOptions: OwlOptions = {
     loop: true,
     mouseDrag: true,
     pullDrag: false,
-
     autoplay: true,
     autoplayTimeout: 3000,
     autoplayHoverPause: true,
-
     center: true,
-
-
     dots: true,
-    dotsEach: 1,
-
     nav: false,
     responsive: {
       0: {

@@ -1,0 +1,27 @@
+<article class="podcast-card">
+  <div class="cover-container">
+    <img class="cover-image" [src]="podimage" alt="Cover Image" />
+    <div class="episode-container">
+      <div class="episode-badge">{{ nbre_episodes }}</div>
+      <span class="episode-name">Episodes</span>
+    </div>
+  </div>
+
+  <div class="content-container">
+    <h2 class="podcast-title">{{ podname }}</h2>
+
+    <div class="presenters">
+      <div class="presenter">
+        <img class="presenter-image" [src]="userimage" alt="Presenter" />
+        <span class="presenter-name">{{ username }}</span>
+      </div>
+    </div>
+
+    <p class="topic">{{ topic }}</p>
+
+
+    <div class="duration">
+      ⏳ {{ duration }} heures
+    </div>
+  </div>
+</article>

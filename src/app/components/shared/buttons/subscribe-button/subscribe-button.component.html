@@ -2,7 +2,7 @@
   <a
     class="btn custom-btn"
     [class.subscribed]="isSubscribed"
-    (click)="toggleSubscribe()">
+    (click)="toggleSubscribe(episode)">
     {{ isSubscribed ? 'Subscribed' : 'Subscribe' }}
   </a>
 </div>

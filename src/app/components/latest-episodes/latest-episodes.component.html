@@ -4,6 +4,7 @@
       [episode]="episode"
       [numberOfLikes]="likes[episode.id]"
       [isLiked]="likedEpisodes[episode.id]"
+      [authorisedToLike]="authorisedToLike"
       (liked)="onLikeChanged($event)"
       >
     </app-episode-horizontal>

@@ -23,11 +23,12 @@ export class LatestEpisodesComponent {
   private likeSubscription: any;
   private unlikeSubscription: any;
 
-  // Nombre de likes pour chaque épisode
   likes: { [episodeId: number]: number } = {};
 
-  // Track liked state for each episode
   likedEpisodes: { [episodeId: number]: boolean } = {};
+
+  authorisedToLike!:boolean;
+
 
   user: Partial<User> = {};
 
@@ -43,7 +44,18 @@ export class LatestEpisodesComponent {
     this.userService.getCurrentUser().subscribe((user) => {
       this.user = user;
       console.log('Utilisateur actuel:', this.user);
+
+      // Vérifier si l'utilisateur est connecté avant d'écouter les WebSockets
+      if (this.user && this.user.id) {
+        this.authorisedToLike=true;
+        this.subscribeToWebSockets();
+      }
+      else{
+        this.authorisedToLike=false;
+
+      }
     });
+
     this.episodeService.getAllEpisodesLatest().subscribe((data) => {
       this.episodes = data;
       console.log(this.episodes);
@@ -51,15 +63,23 @@ export class LatestEpisodesComponent {
         this.likes[episode.id] = episode.numberOfLikes;
       });
     });
+
     this.likeEpisodeServiceRest.getLikedEpisodesByUser().subscribe((likedEpisodes) => {
       likedEpisodes.forEach((episode) => {
         this.likedEpisodes[episode.id] = true;
       });
     });
-    console.log('liked',this.likedEpisodes),
+
+    console.log('liked', this.likedEpisodes);
+  }
+
+  // Séparer la gestion des WebSockets dans une méthode
+  private subscribeToWebSockets(): void {
+    console.log('Connexion aux WebSockets pour:', this.user);
+
     // Gestion des likes en temps réel
     this.likeSubscription = this.likeEpisodeService.onLikeEpisode().subscribe((data) => {
-        this.likes[data.episode] = data.numberOfLikes;
+      this.likes[data.episode] = data.numberOfLikes;
     });
 
     // Gestion des unlikes en temps réel
@@ -67,6 +87,7 @@ export class LatestEpisodesComponent {
       this.likes[data.episode] = data.numberOfLikes;
     });
   }
+
 
   ngOnDestroy(): void {
     this.likeSubscription?.unsubscribe();

@@ -12,12 +12,16 @@ import { DetailsPodcastComponent } from './pages/details-podcast/details-podcast
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProfilComponent } from './components/profil/profil.component';
 import { SearchComponent } from './components/navbar/search/search.component';
+import { PagesComponent } from './components/pages/pages.component';
+import { CardPodcastComponent } from './components/card-podcast/card-podcast.component';
 import { VidPlayerComponent } from './components/vid-player/vid-player.component';
 import { HomeComponent } from './pages/home/home.component';
 
 import { VidPageComponent } from './pages/vid-page/vid-page.component';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 export const routes: Routes = [
-  {path:'home',component:HomeComponent},
+  {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
   {path:'latest', component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
@@ -27,7 +31,12 @@ export const routes: Routes = [
   {path:'search',component:SearchComponent},
   {path:'latest-episodes',component:LatestEpisodesComponent},
   {path:'profil',component:ProfilComponent},
-  {path: '', component: LoginComponent },
+  {path: 'login', component: LoginComponent },
+  {path: 'episode/:id', component: VidPageComponent },
+  {path:'forgot-password', component: ForgotPasswordComponent},
+  {path:'pages',component:PagesComponent},
+  { path: '404', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }, // Wildcard route to catch all unknown paths
 
-{ path: 'episode/:id', component: VidPageComponent },
+
 ];

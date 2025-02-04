@@ -1,27 +1,28 @@
-import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { DeleteConfirmationModalComponent } from '../../../modals/delete-confirmation-modal/delete-confirmation-modal.component';
 
 @Component({
   selector: 'app-delete-button',
   standalone: true,
-  imports:[CommonModule],
+  imports: [CommonModule, DeleteConfirmationModalComponent],
   templateUrl: './delete-button.component.html',
   styleUrls: ['./delete-button.component.css']
 })
 export class DeleteButtonComponent {
-  @Output() deleteConfirmed = new EventEmitter<void>();
+  @Output() deleteConfirmed = new EventEmitter<boolean>();
   isModalOpen = false;
 
   openModal() {
-    this.isModalOpen = true; // Ouvre le modal
+    this.isModalOpen = true;
   }
 
   closeModal() {
-    this.isModalOpen = false; // Ferme le modal
+    this.isModalOpen = false;
   }
 
   confirmDelete() {
-    this.deleteConfirmed.emit(); // Émet un événement pour confirmer la suppression
-    this.closeModal(); // Ferme le modal
+    this.deleteConfirmed.emit(true); // Émet l'événement de suppression
+    this.closeModal();
   }
 }

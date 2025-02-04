@@ -9,15 +9,7 @@ import { CommonModule } from '@angular/common'; // Importation de CommonModule
   styleUrl: './comment-icon.component.css'
 })
 export class CommentIconComponent {
- // Etat pour savoir si le chat a des commentaires
- isCommented: boolean = false;
- // Compteur de commentaires
  @Input() numberOfComments: number = 0;
- @Output() commented = new EventEmitter<boolean>();
 
- toggleComment() {
-   // Permet de basculer l'état de l'icône du chat
-   this.isCommented = !this.isCommented;
-   this.commented.emit(this.isCommented);
- }
+
 }
