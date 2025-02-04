@@ -10,21 +10,21 @@ export class BookmarkService {
 
   constructor(private http: HttpClient) {}
 
-  isBookmarked(userId: number, episodeId: number): Observable<boolean> {
-    return this.http.get<boolean>(`${this.baseUrl}/${userId}/${episodeId}`);
+  isBookmarked( episodeId: number): Observable<boolean> {
+    return this.http.get<boolean>(`${this.baseUrl}/${episodeId}`);
   }
 
-  addBookmark(userId: number, episodeId: number): Observable<any> {
+  addBookmark( episodeId: number): Observable<any> {
     console.log('yes');
 
-    return this.http.post(`${this.baseUrl}/${userId}/${episodeId}`,null);
+    return this.http.post(`${this.baseUrl}/${episodeId}`,null);
   }
 
-  removeBookmark(userId: number, episodeId: number): Observable<any> {
+  removeBookmark( episodeId: number): Observable<any> {
     console.log('no');
-    return this.http.delete(`${this.baseUrl}/${userId}/${episodeId}`);
+    return this.http.delete(`${this.baseUrl}/${episodeId}`);
   }
-  getBookmarkedEpisodes(userId: number): Observable<Episode[]> {
-    return this.http.get<Episode[]>(`${this.baseUrl}/user/${userId}`);
+  getBookmarkedEpisodes(): Observable<Episode[]> {
+    return this.http.get<Episode[]>(`${this.baseUrl}/user`);
   }
 }

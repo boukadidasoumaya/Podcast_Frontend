@@ -1,18 +1,42 @@
-// src/app/services/view-count.service.ts
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
-
+import { HttpClient } from '@angular/common/http';
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
-export class ViewCountService {
-  private apiUrl = 'http://localhost:3000/episodes'; // Base URL for episodes API
+export class SocketService {
+  private socket: Socket;
+  constructor() {
+    this.socket = io('http://localhost:8001' , {
+      path: '',  // Ensure this matches your backend
+    });
 
-  constructor(private http: HttpClient) {}
+  this.socket.on('connect', () => {
+    console.log('Connected to WebSocket server');
+  });
 
-  incrementView(episodeId: number): Observable<any> {
-    const url = `${this.apiUrl}/${episodeId}/views`; // Construct the full URL
-    return this.http.post(url, {}); // Sending an empty body
+  this.socket.on('disconnect', () => {
+    console.log('Disconnected from WebSocket server');
+  });
+
+  this.socket.on('viewUpdate', (data: any) => {
+    console.log('View count updated:', data);
+  });
+  }
+  // Listen for view updates
+  onViewUpdate(): Observable<{ id: number; views: number }> {
+    return new Observable(observer => {
+      this.socket.on('viewUpdate', data => {
+        observer.next(data);
+      });
+    });
+  }
+  sendViewUpdate(episodeId: number) {
+    this.socket.emit('viewUpdate', { id: episodeId });
+  }
+  // Emit an event if needed
+  sendMessage(event: string, data: any) {
+    this.socket.emit(event, data);
   }
 }

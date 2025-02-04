@@ -19,6 +19,7 @@ import { HomeComponent } from './pages/home/home.component';
 
 import { VidPageComponent } from './pages/vid-page/vid-page.component';
 import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 export const routes: Routes = [
   {path:'',component:HomeComponent},
   {path:'trending',component:TrendingEpisodesComponent},
@@ -34,6 +35,8 @@ export const routes: Routes = [
   {path: 'episode/:id', component: VidPageComponent },
   {path:'forgot-password', component: ForgotPasswordComponent},
   {path:'pages',component:PagesComponent},
-  
+  { path: '404', component: NotFoundComponent },
+  { path: '**', component: NotFoundComponent }, // Wildcard route to catch all unknown paths
+
 
 ];
