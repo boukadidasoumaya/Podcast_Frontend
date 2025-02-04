@@ -12,7 +12,7 @@ import { CountryService } from '../../../../services/country.service';
 @Component({
   selector: 'app-user-info-modal',
   standalone: true,
-  imports: [FormsModule, UploadProgressComponent],
+  imports: [CommonModule,FormsModule, UploadProgressComponent],
   templateUrl: './user-info-modal.component.html',
   styleUrl: './user-info-modal.component.css'
 })
@@ -24,7 +24,8 @@ export class UserInfoModalComponent implements OnInit{
     username: this.user.username,
     birthday: this.user.birthDate,
     country: this.user.country,
-    photo: null as string | null,
+    profession:this.user.profession,
+    photo: this.user.photo,
   };
 
 
@@ -33,6 +34,7 @@ export class UserInfoModalComponent implements OnInit{
   isUploading = { image: false };
   isUploadInProgress: boolean = false;
   countries: any[] = [];
+  selectedCountry: string | undefined;
 
   constructor(private fb: FormBuilder,private countryService:CountryService) {}
 
@@ -41,15 +43,26 @@ export class UserInfoModalComponent implements OnInit{
       username: [this.formData.username],
       birthday: [this.formData.birthday],
       country: [this.formData.country],
+      profession:[this.formData.profession],
       photo: [this.formData.photo],
     });
-
-    this.countryService.getCountries().subscribe((data) => {
-      this.countries = data.map(country => country.name.common); // Extract country names
-    });
-    console.log("countries",this.countries);
+    this.loadCountries();
+    console.log(this.user);
   }
+  loadCountries(): void {
+    this.countryService.getCountries().subscribe(
+      (data: any[]) => {
 
+        // Extraire les noms communs des pays
+        this.countries = data.map(country => country.name.common);
+        this.countries.sort();
+        console.log('Countries loaded:', this.countries); // Vérifiez les données ici
+      },
+      (error) => {
+        console.error('Erreur lors de la récupération des pays:', error);
+      }
+    );
+  }
   // Listen to upload status changes
   handleUploadStatusChanged(isUploading: boolean): void {
     this.isUploadInProgress = isUploading;
@@ -107,7 +120,7 @@ export class UserInfoModalComponent implements OnInit{
   resetForm(): void {
     this.isFileUploaded = { image: false };
     this.isUploading = { image: false };
-    this.formData = { username: '', birthday: '', country: '', photo: null };
+    this.formData = { username: '', birthday: '', country: '',profession:'', photo: null };
     this.updateForm.reset(this.formData);
   }
 }

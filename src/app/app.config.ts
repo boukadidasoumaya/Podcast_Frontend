@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     ]
 )),
   provideToastr({
-    positionClass: 'toast-top-center',
+    positionClass: 'toast-center-right',
   }),provideAnimations(), provideStore({auth:authReducer }),
   provideEffects([AuthEffects ]),
 ]

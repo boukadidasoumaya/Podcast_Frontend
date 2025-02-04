@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class CountryService {
-  private apiUrl = 'https://countriesnow.space/api/v0.1/countries/capital';
+  private apiUrl = 'https://restcountries.com/v3.1/all';
 
   constructor(private http: HttpClient) {}
 
