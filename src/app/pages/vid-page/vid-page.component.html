@@ -1,3 +1,8 @@
+<app-navbar></app-navbar>
+<section class="details-podcast-section section-padding pb-0" id="section_2">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-10 col-12">
 <app-section-custom [title]="currentEpisode.name" [id]="'section_2'">
   <app-vid-player [episodeId]="currentEpisode.id" [filepath]="currentEpisode.filepath"></app-vid-player>
 </app-section-custom>
@@ -14,3 +19,9 @@
         [selectedEpisode]="currentEpisode.id"
         >
       </app-comment-section>
+    </div>
+
+  </div>
+</div>
+</section>
+      <app-footer></app-footer>

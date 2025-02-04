@@ -10,27 +10,44 @@
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Lastname" name="Lastname" [(ngModel)]="Data.lastName" [required]="true"></app-input-field>
                         <app-input-field icon="bx bxs-user" type="text" placeholder="Username" name="Username" [(ngModel)]="Data.username" [required]="true" (blur)="checkUsername()"></app-input-field>
                         <div *ngIf="usernameTaken" class="error">
-                            Username is already taken. 
+                            Username is already taken.
                         </div>
                         <app-input-field icon="bx bx-mail-send" type="email" placeholder="Email" name="Email" [(ngModel)]="Data.email" [required]="true" (blur)="checkEmail()"></app-input-field>
                         <div *ngIf="emailTaken" class="error">
-                            Email is already taken. 
+                            Email is already taken.
                         </div>
                         <div *ngIf="!emailFormat && Data.email" class="error">
-                            Email Format is not valid. 
+                            Email Format is not valid.
                         </div>
                         <app-input-field icon="bx bx-calendar" type="date" placeholder="Birth Date" name="Birthday" [(ngModel)]="Data.birthday" [required]="true" ></app-input-field>
-                        <div class="mb-3">
-                            <input type="file" class="form-control visually-hidden" id="photo" name="Photo" (change)="onFileSelect($event)">
-                            <button type="button" class="btn btn-primary" (click)="triggerFileInput()">
-                                <i class="fas fa-upload"></i> Choose File
-                            </button>
-                            <!--label for="photo" class="form-label">Add your Photo</label>
-                            <input type="file" class="form-control" id="photo" name="Photo" (change)="onFileSelect($event)"-->
-                        </div>
+
+                        <app-upload-progress class="d-flex justify-content-center"
+                          accept="image/png,image/jpeg,image/jpg,image/svg"
+                          buttonText="Upload Photo"
+                          [fileCategory]="'coverImage'"
+                          (uploadStatusChanged)="handleUploadStatusChanged($event)"
+                          (fileUploaded)="handleFileUploaded($event)"
+                          (fileRemoved)="handleFileRemoved()">
+                        </app-upload-progress>
+
                     </div>
                     <div class="step" *ngIf="currentStep === 2">
-                        <app-input-field icon="bx bx-globe" type="text" placeholder="Country" name="Country" [(ngModel)]="Data.country" [required]="true"></app-input-field>
+                      <div *ngIf="countries.length > 0">
+                        <label for="country" class="form-label">Country</label>
+                        <select class="form-select" id="country" name="country" [(ngModel)]="Data.country"
+                                #countryRef="ngModel" required>
+                          <option value="" disabled>Select a country</option>
+                          <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                        </select>
+                        <div class="text-danger" *ngIf="countryRef.invalid && countryRef.touched">
+                          Please select a country.
+                        </div>
+                      </div>
+
+                      <div *ngIf="countries.length === 0">
+                        <p>Loading countries...</p>
+                      </div>
+
                         <app-input-field icon="bx bx-briefcase" type="text" placeholder="Job" name="Job" [(ngModel)]="Data.profession" [required]="true" ></app-input-field>
                         <app-input-field icon="bx bxl-whatsapp" type="url" placeholder="WhatsApp Number" name="Whatsapp Nummber" [(ngModel)]="Data.whatsappUser"></app-input-field>
                         <app-input-field icon="bx bxl-instgram" type="url" placeholder="Instagram username" name="Instagram_user" [(ngModel)]="Data.instagramLink"></app-input-field>
@@ -40,7 +57,7 @@
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="Password" [(ngModel)]="Data.password" [required]="true"></app-input-field>
                         <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Confirm password" name="Confirm Password" [(ngModel)]="Data.confirmPassword" [required]="true" (ngModelChange)="passwordmatch()"></app-input-field>
                         <div *ngIf="!PasswordValid && Data.confirmPassword" class="error">
-                            It does not match the password. 
+                            It does not match the password.
                         </div>
                     </div>
                     <div class="step" *ngIf="currentStep === 4">
@@ -55,19 +72,19 @@
                         </div>
                     </div>
                     <div *ngIf="!stepValid" class="error">
-                        *Fields must be filled. 
+                        *Fields must be filled.
                     </div>
                     <div class="navigation">
-                        <app-action-button  
-                            *ngIf="currentStep > 1 && currentStep < 5" 
+                        <app-action-button
+                            *ngIf="currentStep > 1 && currentStep < 5"
                             buttonText="Previous"
                             [messageText]="currentStep === 1 ? 'Already have an account?' : ''"
                             [linkText]="currentStep === 1 ? 'Sign in here' : ''"
                             (linkClick)="toggle()"
                             (buttonClick)="previousStep()">
                         </app-action-button >
-                        <app-action-button  
-                            *ngIf="currentStep < 4" 
+                        <app-action-button
+                            *ngIf="currentStep < 4"
                             buttonText="Next"
                             [messageText]="(currentStep === 1 ||currentStep === 2 || currentStep === 3) ? 'Already have an account?' : ''"
                             [linkText]="(currentStep === 1 ||currentStep === 2 || currentStep === 3) ? 'Sign in here' : ''"
@@ -75,7 +92,7 @@
                             (buttonClick)="nextStep()"
                             >
                         </app-action-button >
-                        <app-action-button 
+                        <app-action-button
                             *ngIf="currentStep === 4"
                             buttonText="Sign up"
                             messageText="Already have an account?"
@@ -94,11 +111,11 @@
                 <div class="form sign-in">
                     <app-input-field icon="bx bxs-user" type="text" placeholder="Email" name="email" [(ngModel)]="Data.email" (blur)="checkEmailinLogin()" [required]="true" ></app-input-field>
                     <div *ngIf="!emailFormat && Data.email" class="error">
-                        Email Format is not valid. 
+                        Email Format is not valid.
                     </div>
                     <app-input-field icon="bx bxs-lock-alt" type="password" placeholder="Password" name="password" [(ngModel)]="Data.password"  [required]="true" ></app-input-field>
                     <div *ngIf="error$ | async as error" class="error">{{ error }}</div>
-                    <app-action-button 
+                    <app-action-button
                         buttonText="Sign in"
                         questiontext="Forget Password?"
                         messageText="Don't have an account?"

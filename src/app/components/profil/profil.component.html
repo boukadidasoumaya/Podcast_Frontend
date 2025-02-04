@@ -195,7 +195,7 @@
       </div>
 
 
-      <app-section-custom [title]='"My Channel"' [id]='"section_2"'>
+      <app-section-custom *ngIf="podcastData.length>0" [title]='"My Channel"' [id]='"section_2"'>
         <app-swiper [cards]="podcastData"  [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"  >
           <ng-template let-card>
               <app-topics
@@ -224,9 +224,9 @@
       </app-section-custom>
     </div>
     <div class="row g-4">
-    <app-section-custom [title]='"Favorites"' [id]='"section_2"'>
+    <app-section-custom *ngIf="bookmarkedEpisodes.length>0"  [title]='"Favorites"' [id]='"section_2"' >
 
-      <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'"    (slideChange)="onSwiperChange()">
+      <app-swiper [cards]="bookmarkedEpisodes" [colClass]="'col-lg-3 col-12 mb-4 mb-lg-5'" [slidesPerView]="2"  >
         <ng-template let-card>
           <app-episode-horizontal
           [episode]="card.episode"
@@ -253,5 +253,7 @@
 
 
 </div>
+<app-footer></app-footer>
+
 
 

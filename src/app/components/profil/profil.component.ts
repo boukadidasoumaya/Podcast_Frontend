@@ -13,8 +13,7 @@ import { Episode } from '../../interfaces/app.interfaces';
 import { BookmarkService } from '../../services/bookmark.service';
 import { Podcast } from '../../interfaces/app.interfaces';
 import { PodcastService } from '../../services/podcast.service';
-import { UpdateComponent } from '../update/update.component';
-import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
+
 import { CommonModule } from '@angular/common';
 import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
 import { Router } from '@angular/router';
@@ -22,6 +21,7 @@ import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/auth/auth.state';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
 import { updateUserFailure } from '../../store/auth/auth.actions';
+import { FooterComponent } from "../footer/footer.component";
 
 interface AppState {
   auth: AuthState;
@@ -30,8 +30,7 @@ interface AppState {
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,SectionCustomComponent,TopicsComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,UpdatePodcastModalComponent
-  ],
+  imports: [CommonModule, NavbarComponent, SectionCustomComponent, TopicsComponent, EpisodeHorizontalComponent, EmailModalComponent, PasswordModalComponent, SocialMediaModalComponent, UserInfoModalComponent, SwiperComponent, UpdatePodcastModalComponent, FooterComponent],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 
@@ -45,32 +44,29 @@ export class ProfilComponent  implements OnInit {
   likes: { [episodeId: number]: number } = {};
   isEditModalOpen:boolean=false;
   isEditUserPersonnalInfo:boolean=false;
-  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,    private cdr : ChangeDetectorRef) {}
+  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,private cdr : ChangeDetectorRef) {}
   selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
-    this.fetchBookmarkedEpisodes(); 
-  }
-  onSwiperChange() {
-    console.log("Swiper changed");
-    this.cdr.detectChanges();
+    this.fetchBookmarkedEpisodes();
     this.loadUserProfile();
-    console.log('user',this.user);
     this.loadUserPodcasts();
-   } // Ensure Angular updates UI
- 
+
+
+  }
+
   fetchBookmarkedEpisodes() {
     this.bookmarkService.getBookmarkedEpisodes().subscribe({
       next: (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
         console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
-    
+
       },
       error: (error: any) => {
         console.error('Error fetching bookmarked episodes:', error);
       }
     });
-    
+
   }
 
   handleLike(event: { isLiked: boolean, episode: Episode }) {
@@ -82,7 +78,6 @@ export class ProfilComponent  implements OnInit {
   handleUnfavorite(episodeId: number) {
     this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);
   }
-  
 
   loadUserProfile() {
     this.isLoading = true;

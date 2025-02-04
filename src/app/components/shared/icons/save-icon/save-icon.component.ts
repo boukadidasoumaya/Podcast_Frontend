@@ -23,21 +23,23 @@ export class SaveIconComponent implements OnInit{
   constructor(private bookmarkService: BookmarkService,private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.bookmarkService.isBookmarked( this.episodeId).subscribe(
-      (isBookmarked) => {
-        console.log(isBookmarked)
+    this.bookmarkService.isBookmarked(this.episodeId).subscribe({
+      next: (isBookmarked) => {
+        console.log(isBookmarked);
         this.isBookmarked = isBookmarked;
       },
-      (error) => {
+      error: (error) => {
+        console.error('Error checking bookmark:', error);
       }
-    );
-  }
+    })};
+    
 
       toggleBookmark(): void {
         this.bookmarkService[this.isBookmarked ? 'removeBookmark' : 'addBookmark'](this.episodeId)
           .pipe(
             catchError((error: HttpErrorResponse) => {
               if (error.status === 401) {
+                console.log('kkkkkkkkkkkkkkllllllllllllll')
                 this.toastr.error('You are not authorized!', 'Unauthorized');
               } else {
                 this.toastr.error('Failed to update bookmark.', 'Error');

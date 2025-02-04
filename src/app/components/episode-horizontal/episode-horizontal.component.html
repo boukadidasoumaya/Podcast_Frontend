@@ -1,5 +1,5 @@
 <div class="custom-block d-flex align-items-stretch fixed-card">
-  
+
   <!-- Left Column: Image and Subscribe -->
   <div class="custom-block-left">
     <div [routerLink]="['/details-podcast', episode.id]" class="custom-block-icon-wrap">
@@ -42,7 +42,7 @@
 
     <div class="custom-block-bottom d-flex justify-content-between mt-3">
       <app-headphones-icon [episodeId]="episode.id"></app-headphones-icon>
-      <app-heart-icon [numberOfLikes]="episode.likes.length" [isLiked]="isLiked" (liked)="onLikeChanged()"></app-heart-icon>
+      <app-heart-icon [numberOfLikes]="numberOfLikes" [isLiked]="isLiked" (liked)="onLikeChanged()" [authorisedToLike]="authorisedToLike"></app-heart-icon>
       <app-comment-icon [numberOfComments]="episode.comments.length" (commented)="null"></app-comment-icon>
     </div>
   </div>
@@ -50,5 +50,5 @@
   <!-- Right-most Column: Icons -->
   <div class="d-flex flex-column">
     <app-save-icon [episodeId]="episode.id"           (unfavorite)="unfavoriteEpisode()"      ></app-save-icon>  </div>
-  
+
 </div>
