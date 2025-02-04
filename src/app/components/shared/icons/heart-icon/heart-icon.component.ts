@@ -20,6 +20,7 @@ export class HeartIconComponent {
   toggleLike() {
     this.isLiked = !this.isLiked;
     this.liked.emit(this.isLiked);
+    
   }
   canLike(){
     if(this.authorisedToLike){

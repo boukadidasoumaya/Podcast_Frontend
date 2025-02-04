@@ -1,5 +1,5 @@
 import { Component, EventEmitter, forwardRef, Input, Output  } from '@angular/core';
-import { FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import {  FormsModule,  NG_VALUE_ACCESSOR} from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -12,17 +12,19 @@ import { CommonModule } from '@angular/common';
     provide: NG_VALUE_ACCESSOR,
     useExisting: forwardRef(() => InputFieldComponent),
     multi: true
-  }]
+  }
+]
 })
 export class InputFieldComponent {
   @Input() icon: string = ''; 
   @Input() type: string = 'text'; 
   @Input() placeholder: string = '';
   @Input() name: string = '';
-  @Input() required: boolean = false;
+  @Input() id: string = '';
+  @Input() required: boolean = false; 
   @Output() blur = new EventEmitter<void>();
   
-  value: any = ' ';
+  value: any = '';
   disabled: boolean = false;
   touched: boolean = false;
 
@@ -31,7 +33,7 @@ export class InputFieldComponent {
   onTouched = () => {};
 
   writeValue(value: any): void {
-    this.value = value;
+    this.value = value || '';
   }
 
   registerOnChange(fn: any): void {
@@ -54,5 +56,5 @@ export class InputFieldComponent {
   onBlur(): void {
     this.blur.emit(); 
   }
- 
+
 }
