@@ -115,7 +115,7 @@
                 <li>
                   <div class="row">
                     <span class="col-10" style="word-break: break-all">{{ user.email}}</span>
-                    <span class="col-2 p-0 edit d-flex justify-content-end" data-bs-toggle="modal" data-bs-target="#emailModal" (click)="toggleEditModal()">Update Email</span>
+                    <span class="col-2 p-0 edit d-flex justify-content-end"  (click)="editemailModal()">Update Email</span>
                   </div>
 
                 </li>
@@ -144,7 +144,7 @@
           <img src="assets/icons/whatsapp-icon.png" class="whatapp-icon" alt="WhatsApp Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="whatsapp">{{user.whatsappUser}} </p>
+          <p class="whatsapp">{{user.socialMedia.whatsapp}} </p>
         </div>
       </div>
 
@@ -156,7 +156,7 @@
           <img src="assets/icons/instagram-icon.png" class="instagram-icon" alt="Instagram Icon" width="24" height="24">
         </div>
         <div class="col-8 d-flex align-items-center">
-          <p class="instagram">{{user.instagramLink}}
+          <p class="instagram">{{user.socialMedia.instagram}}
           </p>
         </div>
       </div>
@@ -169,15 +169,14 @@
         <img src="assets/icons/twitter-icon.png" class="twitter-icon" alt="Twitter Icon" width="24" height="24">
       </div>
       <div class="col-8 d-flex align-items-center">
-        <p class="twitter">{{ user.twitterUser}}</p>
+        <p class="twitter">{{ user.socialMedia.twitter}}</p>
       </div>
     </div>
 
 
     <div class="row">
       <span class="col-12 p-0 edit d-flex flex-column align-items-end justify-content-end">
-        <span style="text-decoration: none; word-wrap: break-word; text-align: right; max-width: 150px; display: inline-block" data-bs-toggle="modal"
-        data-bs-target="#socialMediaModal">
+        <span style="text-decoration: none; word-wrap: break-word; text-align: right; max-width: 150px; display: inline-block" (click)="editSocialModal()">
           Manage your social media accounts
         </span>
       </span>
@@ -247,9 +246,9 @@
   </div>
 </div>
 <app-user-info-modal *ngIf="isEditUserPersonnalInfo" [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" (onclose)="closePersonnalInfoUserModal()"></app-user-info-modal>
-<app-email-modal [currentUserEmail]="user.email"></app-email-modal>
+<app-email-modal *ngIf="isEditEmail" [currentUserEmail]="user.email" (onclose)="closeEmailModal()"></app-email-modal>
 <app-password-modal></app-password-modal>
-<app-social-media-modal></app-social-media-modal>
+<app-social-media-modal *ngIf="isEditSocial" [user]="user" (onclose)="closeSocialModal()"></app-social-media-modal>
 
 
 </div>

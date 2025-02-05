@@ -13,6 +13,7 @@ declare var bootstrap: any;
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './email-modal.component.html',
+  styleUrl: './email-modal.component.css'
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
@@ -75,6 +76,10 @@ export class EmailModalComponent {
     }
 
     this.onsave.emit();
+    this.onclose.emit();
+  }
+
+  cancel(){
     this.onclose.emit();
   }
   
