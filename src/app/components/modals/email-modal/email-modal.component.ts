@@ -13,11 +13,13 @@ declare var bootstrap: any;
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './email-modal.component.html',
+  styleUrl: './email-modal.component.css'
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
   @Input() currentUserEmail!: string ;
-  @ViewChild('emailModal') emailModal!: ElementRef;
+  @Output() onclose = new EventEmitter<void>();
+  @Output() onsave = new EventEmitter<void>();
   emailData = {
     currentEmail: '',
     newEmail: '',
@@ -72,6 +74,14 @@ export class EmailModalComponent {
     } else {
       alert('Please fill all required fields correctly');
     }
+
+    this.onsave.emit();
+    this.onclose.emit();
   }
 
+  cancel(){
+    this.onclose.emit();
+  }
+  
 }
+  

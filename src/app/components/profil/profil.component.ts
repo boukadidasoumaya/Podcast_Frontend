@@ -44,6 +44,8 @@ export class ProfilComponent  implements OnInit {
   likes: { [episodeId: number]: number } = {};
   isEditModalOpen:boolean=false;
   isEditUserPersonnalInfo:boolean=false;
+  isEditEmail:boolean=false;
+  isEditSocial: boolean=false;
   constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,private cdr : ChangeDetectorRef) {}
   selectedPodcast:Partial<Podcast>={};
 
@@ -51,8 +53,6 @@ export class ProfilComponent  implements OnInit {
     this.fetchBookmarkedEpisodes();
     this.loadUserProfile();
     this.loadUserPodcasts();
-
-
   }
 
   fetchBookmarkedEpisodes() {
@@ -129,6 +129,7 @@ export class ProfilComponent  implements OnInit {
     this.userService.updateUserProfile(userData).subscribe();
     this.isEditUserPersonnalInfo=true;
   }
+  
   toggleEditModal(){
     this.isEditModalOpen=!this.isEditModalOpen;
   }
@@ -207,6 +208,24 @@ export class ProfilComponent  implements OnInit {
   }
   closePersonnalInfoUserModal(){
     this.isEditUserPersonnalInfo=false;
+
+  }
+
+  editemailModal(){
+    this.isEditEmail = true ;
+  }
+
+  closeEmailModal(){
+    this.isEditEmail=false;
+
+  }
+
+  editSocialModal(){
+    this.isEditSocial = true ;
+  }
+
+  closeSocialModal(){
+    this.isEditSocial=false;
 
   }
 
