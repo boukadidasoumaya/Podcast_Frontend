@@ -49,6 +49,7 @@ export class SubscribeButtonComponent {
       this.episodeservice.subscription(episode.podcast).subscribe({
         next: (data) => {
           console.log('subscribed');
+          this.isSubscribed = !this.isSubscribed;
       }});
     }else{
       this.episodeservice.unsubscription(episode.podcast).subscribe({
@@ -56,10 +57,11 @@ export class SubscribeButtonComponent {
           console.log('unsubscribed');
 
       }});
+      this.isSubscribed = !this.isSubscribed;
 
     }
     console.log("subscribed episodes",this.subscribedEpisodess)
-    this.isSubscribed = !this.isSubscribed;
+
 
   }
 }

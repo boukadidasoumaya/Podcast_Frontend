@@ -18,6 +18,7 @@
         [username]="podcast.user?.username"
         [userimage]="podcast.user?.photo"
         [topic]="podcast.topic?.title"
+        (click)="onPodcastSelect(podcast)"
         ></app-card-podcast>
   </div>
 </div>

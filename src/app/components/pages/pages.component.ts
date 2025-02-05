@@ -10,6 +10,7 @@ import { CardPodcastComponent } from '../card-podcast/card-podcast.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Podcast } from '../../interfaces/app.interfaces';
 import { FooterComponent } from '../footer/footer.component';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -21,7 +22,7 @@ import { FooterComponent } from '../footer/footer.component';
 })
 export class PagesComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   podcasts:any[]=[];
   async ngOnInit() {}
@@ -34,6 +35,9 @@ export class PagesComponent {
     this.podcasts = event.podcasts;
     console.log('reseeeeeeeeeeeeeeet ', this.podcasts);
 
+  }
+  onPodcastSelect(podcast : Podcast){
+    this.router.navigate(['/details-podcast/:podcast.id']);
   }
 
 }
