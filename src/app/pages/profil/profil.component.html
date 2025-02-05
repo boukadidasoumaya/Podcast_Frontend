@@ -11,7 +11,7 @@
           <div class="cadre d-flex flex-column align-items-center justify-content-center">
             <!-- Profile Image -->
             <div class="row d-flex justify-content-center">
-              <img class="profileImage p-0 m-2" [src]="user.photo" alt="Profile">
+              <img class="profileImage p-0 m-2" [src]="user.photo ? user.photo : 'assets/images/avatar.png'"  alt="Profile">
               <div class="d-flex justify-content-end p-0">
                 <label for="file">
                   <img src="assets/icons/edit-icon.png" class="edit-icon" alt="Edit Icon" width="24" height="24" (click)="editPersonnalInfoUserModal()">
@@ -38,7 +38,7 @@
               </div>
             </div>
 
-      
+
             <!-- Birthday -->
             <div class="row">
               <div class="col-12 d-flex details pe-0">

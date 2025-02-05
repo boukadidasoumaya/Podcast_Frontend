@@ -1,7 +1,7 @@
 export const team: any[] = [
     {
       nom: 'Siwar',
-      imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
+      imagesrc: 'https://res.cloudinary.com/ddv9diq1u/image/upload/v1738773631/phoc_k5ffrq.png',
       badges: ['Modeling', 'Fashion'],
     },
     {
@@ -11,17 +11,17 @@ export const team: any[] = [
     },
     {
         nom: 'Mabahej',
-        imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
+        imagesrc: 'https://res.cloudinary.com/ddv9diq1u/image/upload/v1738773932/97cf312a-842b-4fee-86d5-65fb30b0e4c1_u1nde9.jpg',
         badges: ['Modeling', 'Fashion'],
       },
       {
         nom: 'Arij',
-        imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
+        imagesrc: 'https://res.cloudinary.com/ddv9diq1u/image/upload/v1738773786/arij_bcum7y.jpg',
         badges: ['Modeling', 'Fashion'],
       },
       {
         nom: 'Ahmed',
-        imagesrc: 'assets/images/profile/cute-smiling-woman-outdoor-portrait.jpg',
+        imagesrc: 'https://res.cloudinary.com/ddv9diq1u/image/upload/v1738773727/d0b5f5db-c011-4d02-b5ae-590af7308604_g4yrys.jpg',
         badges: ['Modeling', 'Fashion'],
       },
   ];
