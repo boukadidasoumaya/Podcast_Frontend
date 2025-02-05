@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
-import { TrendingEpisodesComponent } from '../trending-episodes/trending-episodes.component';
-import { CardEpisodeComponent } from '../card-episode/card-episode.component';
+
 import { CommonModule } from '@angular/common';
-import { SearchComponent } from '../navbar/search/search.component';
-import { FiltreComponent } from '../filtre/filtre.component';
-import { NavbarComponent } from '../navbar/navbar.component';
+
 import { NgArrayPipesModule } from 'ngx-pipes';
-import { CardPodcastComponent } from '../card-podcast/card-podcast.component';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Podcast } from '../../interfaces/app.interfaces';
-import { FooterComponent } from '../footer/footer.component';
+import { CardPodcastComponent } from '../../components/card-podcast/card-podcast.component';
+import { FiltreComponent } from '../../components/filtre/filtre.component';
+import { FooterComponent } from '../../components/footer/footer.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
 
 
 @Component({
@@ -27,12 +26,10 @@ export class PagesComponent {
   async ngOnInit() {}
   async handleFilteredPodcasts(event: { podcasts: Podcast[] }) {
     this.podcasts = event.podcasts;
-    console.log('filtreeeeeesss', this.podcasts);
   }
 
   reset(event: { podcasts: Podcast[] }) {
     this.podcasts = event.podcasts;
-    console.log('reseeeeeeeeeeeeeeet ', this.podcasts);
 
   }
 

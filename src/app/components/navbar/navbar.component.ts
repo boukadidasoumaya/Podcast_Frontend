@@ -4,10 +4,10 @@ import { SearchComponent } from "./search/search.component";
 import { LogoComponent } from "./logo/logo.component";
 import { UserProfileComponent } from "./user-profile/user-profile.component";
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from "../contact/header/header.component";
 import { PodcastModalComponent } from "../modals/podcast-modal/podcast-modal.component";
 import { RouterModule } from '@angular/router';
 import { User } from '../../interfaces/app.interfaces';
+import { HeaderComponent } from '../../pages/contact/header/header.component';
 @Component({
   selector: 'app-navbar',
   standalone: true,

@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { InputFieldComponent } from '../input-field/input-field.component';
-import { ActionButtonComponent } from '../action-button/action-button.component';
 import { ToastrService } from 'ngx-toastr'; // Import Toastr
+import { ActionButtonComponent } from '../../components/action-button/action-button.component';
+import { InputFieldComponent } from '../../components/input-field/input-field.component';
 
 @Component({
   selector: 'app-forgot-password',

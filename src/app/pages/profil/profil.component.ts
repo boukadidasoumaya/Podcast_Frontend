@@ -1,13 +1,5 @@
 import { ChangeDetectorRef, Component, OnInit, Output } from '@angular/core';
-import { EmailModalComponent } from '../modals/email-modal/email-modal.component';
-import { PasswordModalComponent } from '../modals/password-modal/password-modal.component';
-import { SocialMediaModalComponent } from '../modals/social-media-modal/social-media-modal.component';
-import { NavbarComponent } from '../navbar/navbar.component';
-import { UserInfoModalComponent } from '../modals/user-info-modal/user-info-modal/user-info-modal.component';
-import { SwiperComponent } from '../swiper/swiper.component';
-import { TopicsComponent } from '../topics/topics.component';
-import { EpisodeHorizontalComponent } from '../episode-horizontal/episode-horizontal.component';
-import { SectionCustomComponent } from '../section-custom/section-custom.component';
+
 import { UserService } from '../../services/user.service';
 import { Episode } from '../../interfaces/app.interfaces';
 import { BookmarkService } from '../../services/bookmark.service';
@@ -15,13 +7,23 @@ import { Podcast } from '../../interfaces/app.interfaces';
 import { PodcastService } from '../../services/podcast.service';
 
 import { CommonModule } from '@angular/common';
-import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/auth/auth.state';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
 import { updateUserFailure } from '../../store/auth/auth.actions';
-import { FooterComponent } from "../footer/footer.component";
+import { FooterComponent } from '../../components/footer/footer.component';
+import { EpisodeHorizontalComponent } from '../../components/episode-horizontal/episode-horizontal.component';
+import { EmailModalComponent } from '../../components/modals/email-modal/email-modal.component';
+import { PasswordModalComponent } from '../../components/modals/password-modal/password-modal.component';
+import { SocialMediaModalComponent } from '../../components/modals/social-media-modal/social-media-modal.component';
+import { UpdatePodcastModalComponent } from '../../components/modals/update-podcast-modal/update-podcast-modal.component';
+import { UserInfoModalComponent } from '../../components/modals/user-info-modal/user-info-modal/user-info-modal.component';
+import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { SectionCustomComponent } from '../../components/section-custom/section-custom.component';
+import { SwiperComponent } from '../../components/swiper/swiper.component';
+import { TopicsComponent } from '../../components/topics/topics.component';
+
 
 interface AppState {
   auth: AuthState;
