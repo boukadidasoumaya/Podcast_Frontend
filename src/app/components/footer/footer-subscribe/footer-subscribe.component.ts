@@ -20,11 +20,11 @@ export class FooterSubscribeComponent {
 
     this.subscribeService.subscribe(this.email).subscribe({
       next: (response) => {
-        this.toastr.success("yaaaa")        
-        this.email = ''; 
+        this.toastr.success("From now on, you will receive from us our news")
+        this.email = '';
       },
       error: (err) => {
-        this.toastr.error("aahhaaa") 
+        this.toastr.error("You are already subscribed")
       },
     });
   }

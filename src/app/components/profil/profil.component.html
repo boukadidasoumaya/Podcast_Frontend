@@ -38,22 +38,7 @@
               </div>
             </div>
 
-            <div class="row">
-              <div class="col-12 d-flex details pe-0">
-                <div class="d-flex" style="width: 100%">
-                  <!-- Charger l'icône depuis assets/icons -->
-                  <img src="assets/icons/user-icon.png" class="user-icon" alt="User Icon" width="24" height="24">
-
-                  <div class="d-flex flex-column" style="width: 100%">
-                    <p class="username" type="text">
-                      {{ user.firstName }}
-                      </p>
-                  </div>
-                </div>
-
-
-              </div>
-            </div>
+      
             <!-- Birthday -->
             <div class="row">
               <div class="col-12 d-flex details pe-0">
@@ -124,7 +109,7 @@
                 <li>
                   <div class="row">
                     <span class="col-10" style="word-break: break-all">Password : *****</span>
-                    <span class="col-2 p-0 edit d-flex justify-content-end " data-bs-toggle="modal" data-bs-target="#passwordModal ">Update Password</span>
+                    <span class="col-2 p-0 edit d-flex justify-content-end " (click)="editPasswordModal()" >Update Password</span>
                   </div>
                 </li>
 
@@ -247,7 +232,7 @@
 </div>
 <app-user-info-modal *ngIf="isEditUserPersonnalInfo" [user]="user" (updatedUser)="updateUserPersonnalInfo($event)" (onclose)="closePersonnalInfoUserModal()"></app-user-info-modal>
 <app-email-modal *ngIf="isEditEmail" [currentUserEmail]="user.email" (onclose)="closeEmailModal()"></app-email-modal>
-<app-password-modal></app-password-modal>
+<app-password-modal *ngIf="isEditPassword" (onclose)="closePasswordModal()"></app-password-modal>
 <app-social-media-modal *ngIf="isEditSocial" [user]="user" (onclose)="closeSocialModal()"></app-social-media-modal>
 
 

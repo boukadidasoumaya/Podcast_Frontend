@@ -46,6 +46,7 @@ export class ProfilComponent  implements OnInit {
   isEditUserPersonnalInfo:boolean=false;
   isEditEmail:boolean=false;
   isEditSocial: boolean=false;
+  isEditPassword: boolean=false;
   constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,private cdr : ChangeDetectorRef) {}
   selectedPodcast:Partial<Podcast>={};
 
@@ -128,7 +129,7 @@ export class ProfilComponent  implements OnInit {
     this.userService.updateUserProfile(userData).subscribe();
     this.isEditUserPersonnalInfo=true;
   }
-  
+
   toggleEditModal(){
     this.isEditModalOpen=!this.isEditModalOpen;
   }
@@ -170,12 +171,10 @@ export class ProfilComponent  implements OnInit {
       next: (response) => {
         console.log("Podcast mis à jour avec succès :", response);
 
-        // Mettre à jour la liste locale des podcasts pour refléter les changements
         this.podcastData = this.podcastData.map(podcast =>
           podcast.id === this.selectedPodcast.id ? { ...podcast, ...updatedPodcast } : podcast
         );
 
-        // Fermer le modal après mise à jour
         this.closeEditModal();
       },
       error: (error) => {
@@ -225,6 +224,15 @@ export class ProfilComponent  implements OnInit {
 
   closeSocialModal(){
     this.isEditSocial=false;
+
+  }
+
+  editPasswordModal(){
+    this.isEditPassword = true ;
+  }
+
+  closePasswordModal(){
+    this.isEditPassword=false;
 
   }
 

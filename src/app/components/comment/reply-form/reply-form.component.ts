@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-// import { HttpClient } from '@angular/common/http';
 import { CommonModule, NgFor } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { Comment, User } from '../../../interfaces/app.interfaces';
@@ -22,8 +21,8 @@ export class ReplyFormComponent  {
 
   handleSubmit(event:Event): void {
     if (this.replyText.trim()) {
-      this.onDataReceived.emit(this.replyText); // Émet la valeur de replyText
-      this.replyText = ''; // Réinitialise le champ après l'envoi
+      this.onDataReceived.emit(this.replyText);
+      this.replyText = ''; 
     }
   }
 

@@ -13,5 +13,6 @@ export const APP_API = {
   subscribeOnPodcast:baseUrl+'subscribe',
   topics:baseUrl+'topics',
   countries:'https://restcountries.com/v3.1/all',
+  bookmarks:baseUrl+'bookmarks'
 
 }

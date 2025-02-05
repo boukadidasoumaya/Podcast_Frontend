@@ -20,9 +20,8 @@ export class ForgotPasswordComponent {
   newPassword: string = '';
   confirmPassword: string = '';
 
-  constructor(private authService: AuthService, private toastr: ToastrService) {} // Inject ToastrService
+  constructor(private authService: AuthService, private toastr: ToastrService) {}
 
-  // Step 1: Send the verification code
   sendVerificationCode() {
     if (this.email) {
       this.authService.forgotPassword(this.email).subscribe({

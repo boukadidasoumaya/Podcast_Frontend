@@ -2,11 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Episode } from '../interfaces/app.interfaces';
+import { APP_API, baseUrl } from '../config/app-api.config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class BookmarkService {
-  private baseUrl = 'http://localhost:3000/bookmarks';
+  private baseUrl = APP_API.bookmarks;
 
   constructor(private http: HttpClient) {}
 

@@ -15,9 +15,9 @@
 }
 
 .comments {
-  flex-shrink: 0; /* Prevent shrinking */
-  width: 100%; /* Occupies full width */
-  overflow: hidden; /* Avoid overflow affecting layout */
+  flex-shrink: 0;
+  width: 100%;
+  overflow: hidden; 
 }
 
 .comments .comments {
