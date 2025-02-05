@@ -1,4 +1,4 @@
-import { Component, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, Output } from '@angular/core';
 import { EmailModalComponent } from '../modals/email-modal/email-modal.component';
 import { PasswordModalComponent } from '../modals/password-modal/password-modal.component';
 import { SocialMediaModalComponent } from '../modals/social-media-modal/social-media-modal.component';
@@ -13,14 +13,15 @@ import { Episode } from '../../interfaces/app.interfaces';
 import { BookmarkService } from '../../services/bookmark.service';
 import { Podcast } from '../../interfaces/app.interfaces';
 import { PodcastService } from '../../services/podcast.service';
-import { UpdateComponent } from '../update/update.component';
-import { UpdateModalComponent } from '../modals/update-modal/update-modal.component';
+
 import { CommonModule } from '@angular/common';
 import { UpdatePodcastModalComponent } from '../modals/update-podcast-modal/update-podcast-modal.component';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/auth/auth.state';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
+import { updateUserFailure } from '../../store/auth/auth.actions';
+import { FooterComponent } from "../footer/footer.component";
 
 interface AppState {
   auth: AuthState;
@@ -29,8 +30,7 @@ interface AppState {
 @Component({
   selector: 'app-profil',
   standalone: true,
-  imports: [CommonModule,NavbarComponent,SectionCustomComponent,TopicsComponent, EpisodeHorizontalComponent,EmailModalComponent,PasswordModalComponent,SocialMediaModalComponent,UserInfoModalComponent,SwiperComponent,UpdatePodcastModalComponent
-  ],
+  imports: [CommonModule, NavbarComponent, SectionCustomComponent, TopicsComponent, EpisodeHorizontalComponent, EmailModalComponent, PasswordModalComponent, SocialMediaModalComponent, UserInfoModalComponent, SwiperComponent, UpdatePodcastModalComponent, FooterComponent],
   templateUrl: './profil.component.html',
   styleUrls: ['./profil.component.css']
 
@@ -43,49 +43,54 @@ export class ProfilComponent  implements OnInit {
   bookmarkedEpisodes: Episode[] = [];
   likes: { [episodeId: number]: number } = {};
   isEditModalOpen:boolean=false;
-  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>) {}
+  isEditUserPersonnalInfo:boolean=false;
+  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,private cdr : ChangeDetectorRef) {}
   selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
-    this.fetchBookmarkedEpisodes(1);
+    this.fetchBookmarkedEpisodes();
     this.loadUserProfile();
-    console.log('user',this.user);
     this.loadUserPodcasts();
-   } // Assuming user ID is 1
 
-
-  fetchBookmarkedEpisodes(userId: number) {
-    this.bookmarkService.getBookmarkedEpisodes(userId).subscribe(
-      (episodes: Episode[]) => {
-        this.bookmarkedEpisodes = episodes;
-        console.log('nhhhhhhhhhhhhh')
-        console.log(this.bookmarkedEpisodes.length)
-
-      },
-      (error: any) => { // Explicitly typing the 'error' parameter as 'any'
-        console.error('Error fetching bookmarked episodes:', error);
-      }
-    );
 
   }
+
+  fetchBookmarkedEpisodes() {
+    this.bookmarkService.getBookmarkedEpisodes().subscribe({
+      next: (episodes: Episode[]) => {
+        this.bookmarkedEpisodes = episodes;
+        console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
+
+      },
+      error: (error: any) => {
+        console.error('Error fetching bookmarked episodes:', error);
+      }
+    });
+
+  }
+
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
   }
 
+  // Listen to the unfavorite event and remove the episode from the list
+
+  handleUnfavorite(episodeId: number) {
+    this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);
+  }
 
   loadUserProfile() {
     this.isLoading = true;
     this.store.select(selectUser).subscribe({
 
-    next: (user: { photo: any; firstName: any; lastName: any; birthday: string | number | Date; country: any; profession: any; email: any; whatsappUser: any; instagramLink: any; twitterUser: any; }) => {
-      console.log(user);
+    next: (user) => {
       if (user) {
         this.user = {
           ...user,
           profilImage: user.photo || 'assets/images/default-profile.png',
           name: `${user.firstName} ${user.lastName}`,
           birthDate: new Date(user.birthday).toLocaleDateString(),
-          address: user.country,
+          country: user.country,
           profession: user.profession,
           email: user.email,
           socialMedia: {
@@ -104,6 +109,8 @@ export class ProfilComponent  implements OnInit {
     }
   });
 }
+
+
   loadUserPodcasts() {
     this.podcastService.getPodcastsByUser().subscribe({
       next: (podcasts) => {
@@ -119,26 +126,8 @@ export class ProfilComponent  implements OnInit {
   }
 
   updateUserPersonnalInfo = (userData: any) => {
-    this.userService.updateUserProfile(userData).subscribe({
-      next: (updatedUser) => {
-        this.user = {
-          ...updatedUser,
-          profilImage: updatedUser.profileImage || 'assets/images/default-profile.png',
-          name: `${updatedUser.firstName} ${updatedUser.lastName}`,
-          birthDate: new Date(updatedUser.birthday).toLocaleDateString(),
-          address: updatedUser.country,
-          job: updatedUser.profession,
-          socialMedia: {
-            whatsapp: updatedUser.whatsappUser,
-            instagram: updatedUser.instagramLink,
-            twitter: updatedUser.twitterUser || 'Not provided'
-          }
-        };
-      },
-      error: (error) => {
-        console.error('Error updating profile:', error);
-      }
-    });
+    this.userService.updateUserProfile(userData).subscribe();
+    this.isEditUserPersonnalInfo=true;
   }
   toggleEditModal(){
     this.isEditModalOpen=!this.isEditModalOpen;
@@ -213,6 +202,12 @@ export class ProfilComponent  implements OnInit {
   onCheckDetails(podcast:Podcast) {
     this.goToDetails(podcast.id);
   }
+  editPersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=true;
+  }
+  closePersonnalInfoUserModal(){
+    this.isEditUserPersonnalInfo=false;
 
+  }
 
 }

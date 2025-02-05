@@ -6,33 +6,30 @@ import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
-import { catchError, from, of, switchMap } from 'rxjs';
+import { catchError, from, Observable, of, switchMap } from 'rxjs';
 import { CloudinaryService } from '../../services/cloudinary.service';
 import { Store } from '@ngrx/store';
 import { login } from '../../store/auth/auth.actions';
 import { register } from '../../store/auth/auth.actions';
-
+import { selectAuthError } from '../../store/auth/auth.selectors';
+import { AppState } from '../../store/auth/app.state';
+import { CountryService } from '../../services/country.service';
+import { UploadProgressComponent } from "../upload-progress/upload-progress.component";
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [InputFieldComponent, ActionButtonComponent, CommonModule, FormsModule],
+  imports: [InputFieldComponent, ActionButtonComponent, CommonModule, FormsModule, UploadProgressComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   isSignIn: boolean = true;
   usernameTaken: boolean = false;
-  validation={
-    firstName:true,
-    lastName: true,
-    username: true,
-    email: true,
-    birthday: true,
-    country: true,
-    profession: true,
-    password: true,
-    confirmPassword: true
-  }
+  emailTaken: boolean = false;
+  emailFormat : boolean =true;
+  stepValid : boolean =true;
+  PasswordValid: boolean = true;
+  error$: Observable<string | null>;
   Data = {
     firstName: '',
     lastName: '',
@@ -52,32 +49,76 @@ export class LoginComponent {
     };
 
     interestsList: string[] = [];
+    countries: any[] = [];
+    isFileUploaded = { image: false };
+    isUploading = { image: false };
+    isUploadInProgress: boolean = false;
+
+    constructor(
+      private http: HttpClient,
+      private authService: AuthService,
+      private router: Router,
+      private cloudinaryService: CloudinaryService,
+      private countryService: CountryService,
+
+      private store: Store<AppState>
+    ) {
+      this.error$ = this.store.select(selectAuthError);
+
+    }
+    ngOnInit() {
+      this.loadInterests();
+      this.loadCountries();
+    }
+    loadCountries(): void {
+      this.countryService.getCountries().subscribe(
+        (data: any[]) => {
+          this.countries = data.map(country => country.name.common);
+          this.countries.sort();
+          console.log('Countries loaded:', this.countries);
+        },
+        (error) => {
+          console.error('Error fetching countries:', error);
+        }
+      );
+    }
+    handleUploadStatusChanged(isUploading: boolean): void {
+    this.isUploadInProgress = isUploading;
+    }
 
     isStepValid(step: number): boolean {
-    switch (step) {
-      case 1:
-        return !!(this.Data.firstName && 
-                 this.Data.lastName && 
-                 this.Data.username &&
-                 this.Data.email &&
-                 !this.usernameTaken &&
-                 this.Data.birthday && 
-                 this.isValidEmail(this.Data.email));
-      case 2:
-        return !!(this.Data.country && 
-                 this.Data.profession);
-      case 3:
-        return !!(this.Data.password &&
-                 this.Data.confirmPassword&&
-                 this.Data.password === this.Data.confirmPassword
-                );
-      default:
-        return false;
+      switch (step) {
+        case 1:
+          this.stepValid = !!(this.Data.firstName &&
+                              this.Data.lastName &&
+                              this.Data.username &&
+                              this.Data.email &&
+                              !this.usernameTaken &&
+                              !this.emailTaken &&
+                              this.Data.birthday &&
+                              this.emailFormat &&
+                              !this.isUploadInProgress
+                            );
+          break;
+        case 2:
+          this.stepValid = !!(this.Data.country &&
+                              this.Data.profession);
+          break;
+        case 3:
+          this.stepValid = !!(this.Data.password &&
+                              this.Data.confirmPassword &&
+                              this.PasswordValid);
+          break;
+        default:
+          this.stepValid = false;
+      }
+
+      return this.stepValid;
     }
-  }
 
   toggle(): void {
     this.isSignIn = !this.isSignIn;
+    this.resetData();
     const container = document.getElementById('container');
     if (this.isSignIn) {
       container?.classList.add('sign-in');
@@ -88,14 +129,17 @@ export class LoginComponent {
     }
   }
 
-  isValidEmail(email: string): boolean {
-    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return emailRegex.test(email);
+  isValidEmail(email: string) {
+      const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      this.emailFormat=emailRegex.test(email);
   }
 
   currentStep = 1;
 
   nextStep() {
+    console.log("1",this.isStepValid(this.currentStep));
+    console.log("2",this.stepValid);
+
     if (this.isStepValid(this.currentStep)) {
       if (this.currentStep < 4) {
         this.currentStep++;
@@ -103,18 +147,18 @@ export class LoginComponent {
     }
   }
 
+
   previousStep() {
     if (this.currentStep > 1) {
       this.currentStep--;
     }
   }
-  constructor(
-    private http: HttpClient,
-    private authService: AuthService,
-    private router: Router,
-    private cloudinaryService: CloudinaryService,
-    private store: Store
-  ) {}
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('photo') as HTMLInputElement;
+    fileInput.click(); // Programmatically click the hidden file input
+  }
+
 
   async onFileSelect(event: Event): Promise<void>  {
     const input = event.target as HTMLInputElement;
@@ -130,47 +174,72 @@ export class LoginComponent {
       }    }
   }
   }
+  handleFileUploaded(fileUrl: string): void {
+    this.isUploading.image = false;
+    this.isFileUploaded.image = true;
+    this.Data.photo = fileUrl;
+  }
 
+  handleFileRemoved(): void {
+    this.Data.photo = null;
+    this.isFileUploaded.image = false;
+    this.isUploading.image = false;
+  }
   checkUsername(): void {
     this.usernameTaken=false;
-    if(!this.Data.username || this.Data.username.trim().length <4)
-      {
-        this.validation.username=false;
-      }
-      else{
-        this.validation.username=true;
-      }
-    if (this.Data.username) { 
-        console.log(this.Data.username);
+    if (this.Data.username) {
         this.authService.checkUsernameUnique(this.Data.username)
             .pipe(
                 catchError((err) => {
-                    console.error('Error checking username:', err);
-                    return of(false); 
+                    return of(false);
                 })
             )
             .subscribe({
                 next: (isTaken) => {
-                    this.usernameTaken = isTaken; 
-                    console.log(this.usernameTaken)
+                    this.usernameTaken = isTaken;
                 }
             });
     }
 }
 
+  checkEmail(): void {
+    this.emailFormat=true;
+    this.emailTaken=false;
+    if (this.Data.email) {
+      this.isValidEmail(this.Data.email);
+      this.authService.checkEmailUnique(this.Data.email)
+          .pipe(
+              catchError((err) => {
+                  console.error('Error checking username:', err);
+                  return of(false);
+              })
+          )
+          .subscribe({
+              next: (isTaken) => {
+                  this.emailTaken = isTaken;
+                  console.log("email",isTaken)
+              }
+          });
+    }
+  }
+
+  checkEmailinLogin(){
+    if(this.Data.email){
+    this.isValidEmail(this.Data.email);
+  }
+  }
   signUp(): void {
     this.store.dispatch(register({ userData: this.Data }));
     this.currentStep++;
-    
+    this.resetData();
+    this.toggle();
   }
 
   signIn() {
     this.store.dispatch(login({ userData :this.Data }));
   }
 
-  ngOnInit() {
-    this.loadInterests();
-  }
+
 
   loadInterests() {
     this.http.get<string[]>('http://localhost:3000/auth/interests').subscribe({
@@ -202,72 +271,36 @@ export class LoginComponent {
     }
   }
 
-  validateFirstName(){
-    if(!this.Data.firstName || this.Data.firstName.trim().length <4)
-    {
-      this.validation.firstName=false;
-    }
-    else{
-      this.validation.firstName=true;
-    }
-  }
-
-  validateLastName(){
-    if(!this.Data.lastName || this.Data.lastName.trim().length <4)
-    {
-      this.validation.lastName=false;
-    }
-    else{
-      this.validation.lastName=true;
-    }
-  }
-  validateProfession(){
-    if(!this.Data.profession || this.Data.profession.trim().length <4)
-    {
-      this.validation.profession=false;
-    }
-    else{
-      this.validation.profession=true;
-    }
-  }
-  validateCountry(){
-    if(!this.Data.country || this.Data.profession.trim().length <4)
-    {
-      this.validation.country=false;
-    }
-    else{
-      this.validation.country=true;
-    }
-  }
-  validateEmail(){
-    if(!this.isValidEmail(this.Data.email))
-    {
-      this.validation.email=false;
-    }
-    else{
-      this.validation.email=true;
-    }
-  }
-
-  validatePwd(){
-    if(!this.Data.password || this.Data.password.trim().length <4)
-    {
-      this.validation.password=false;
-    }
-    else{
-      this.validation.password=true;
-    }
-  }
-
-  validateConPwd(){
-    if(this.Data.password != this.Data.confirmPassword)
+  passwordmatch(){
+    if( this.Data.password != this.Data.confirmPassword)
       {
-        this.validation.confirmPassword=false;
+         this.PasswordValid=false;
       }
       else{
-        this.validation.confirmPassword=true;
+        this.PasswordValid=true;
       }
-  }
-  
-  
+    }
+
+
+
+    resetData(): void {
+      this.Data = {
+        firstName: '',
+        lastName: '',
+        username: '',
+        email: '',
+        birthday: '',
+        country: '',
+        profession: '',
+        whatsappUser: '',
+        role: '',
+        instagramLink: '',
+        twitterUser: '',
+        password: '',
+        confirmPassword: '',
+        photo: null,
+        interests: []
+      };
+ }
+
 }

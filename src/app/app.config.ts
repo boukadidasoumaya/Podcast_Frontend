@@ -15,9 +15,7 @@ export const appConfig: ApplicationConfig = {
     [authInterceptor,
     ]
 )),
-  provideToastr({
-    positionClass: 'toast-top-right',
-  }),provideAnimations(), provideStore({auth:authReducer }),
+  provideToastr(),provideAnimations(), provideStore({auth:authReducer }),
   provideEffects([AuthEffects ]),
 ]
 };

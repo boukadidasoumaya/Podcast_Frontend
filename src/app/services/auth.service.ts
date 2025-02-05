@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
+import { catchError, tap } from 'rxjs/operators';
 import { TOKEN_KEY } from '../../config/storage.config';
 
   
@@ -32,7 +32,14 @@ export class AuthService {
       email: data.email,
       password: data.password
     };
-    return this.http.post(`${this.apiUrl}/auth/login`, loginData);
+    return this.http.post(`${this.apiUrl}/auth/login`, loginData).pipe(
+      catchError((error: HttpErrorResponse) => {
+        const errorMessage = error.error.message ;
+        console.log('Backend Error:', errorMessage);
+        return throwError(() => new Error(errorMessage));
+      })
+    );
+
   }
   
   getCurrentUser(): Observable<any> {
@@ -41,6 +48,10 @@ export class AuthService {
 
   checkUsernameUnique(username: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/auth/check-username?username=${username}`);
+  }
+
+  checkEmailUnique(email: string): Observable<boolean> {
+    return this.http.get<boolean>(`${this.apiUrl}/auth/check-email?email=${email}`);
   }
 
   private parseJwt(token: string) {

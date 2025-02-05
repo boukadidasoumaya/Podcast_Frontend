@@ -12,11 +12,12 @@
       required
       email
     />
-    <small *ngIf="emailInput.invalid && emailInput.touched" class="text-danger">
+    <span *ngIf="emailInput.invalid && emailInput.touched && email" class="text-danger">
       Please enter a valid email address.
-    </small>
+    </span>
+    
     <div class="col-lg-12 col-12">
-      <button type="submit" [disabled]="!emailInput.valid" class="form-control" id="submit">
+      <button type="submit" [disabled]="!emailInput.valid" class="form-control" id="submit" routerLink >
         Subscribe
       </button>
     </div>

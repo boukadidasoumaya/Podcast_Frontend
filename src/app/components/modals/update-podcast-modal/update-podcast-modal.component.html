@@ -33,26 +33,14 @@
           </div>
         </div>
 
-        <div class="form-group">
-          <label for="nbre_episode">Number of Episodes</label>
-          <input
-            id="nbre_episode"
-            formControlName="nbre_episode"
-            type="number"
-            placeholder="Enter number of episodes"
-            min="1"
-            [ngClass]="{'error-input': updateForm.get('nbre_episode')?.touched && updateForm.get('nbre_episode')?.invalid}"
-          />
-          <div *ngIf="updateForm.get('nbre_episode')?.touched && updateForm.get('nbre_episode')?.invalid" class="error-message">
-            <small *ngIf="updateForm.get('nbre_episode')?.hasError('required')">Number of episodes is required.</small>
-            <small *ngIf="updateForm.get('nbre_episode')?.hasError('min')">Number of episodes must be at least 1.</small>
-          </div>
-        </div>
+        
 
         <!-- Upload Cover Image -->
         <app-upload-progress
           accept="image/png,image/jpeg,image/jpg,image/svg"
           buttonText="Upload Cover Image"
+          type="podcast"
+          [fileCategory]="'coverImage'"
           (uploadStatusChanged)="handleUploadStatusChanged($event)"
           (fileUploaded)="handleFileUploaded($event)"
           (fileRemoved)="handleFileRemoved()">

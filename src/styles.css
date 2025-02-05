@@ -5,8 +5,8 @@
 @import "assets/css/bootstrap-icons.css";
 @import "assets/css/owl.theme.default.min.css";
 @import "assets/css/owl.carousel.min.css";
-/* @import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
-@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default'; */
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.carousel';
+@import 'ngx-owl-carousel-o/lib/styles/scss/owl.theme.default';
 
 
 :root {
@@ -27,10 +27,10 @@
   --h1-font-size:                 58px;
   --h2-font-size:                 46px;
   --h3-font-size:                 32px;
-  --h4-font-size:                 28px;
+  --h4-font-size:                 30px;
   --h5-font-size:                 24px;
   --h6-font-size:                 22px;
-  --p-font-size:                  16px;
+  --p-font-size:                  20px;
   --menu-font-size:               14px;
 
   --border-radius-large:          100px;
@@ -136,5 +136,5 @@ strong {
   color: var(--white-color);
 }
 
-/* html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; } */
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

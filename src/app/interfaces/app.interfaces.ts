@@ -117,5 +117,10 @@ export interface Topic {
 export interface subscriptionPodcast{
   id:number;
   name:string;
-
+}
+export interface Contact{
+  fullName:string,
+  email:string,
+  subject:string,
+  content:string
 }

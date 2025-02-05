@@ -1,40 +1,18 @@
-
-  <carousel
-  [infinite]="false"
-  [responsive]="true"
-  [autoSlide]="true"
-  [autoslideLimitPercentCard]="30"
-  [autoPlay]="false"
-  [autoPlayInterval]="1500"
-  [autoPlayAtStart]="false"
-  [autoPlaySlideToScroll]="1"
-  [displayAutoPlayControls]="true"
-  [slideToShow]="slideToShow"
-  [slideToScroll]="1"
-  [strechingLimit]="60"
-  [slideWidth]="slideWidth"
-  [slideMaxWidth]="700"
-  [dots]="true"
-  [arrows]="true"
-  [counter]="false"
-  [counterSeparator]="'/'"
-  [enableMouseDrag]="true"
-  [enableTouch]="true"
-  [gapBetweenSlides]="5"
-  [animationTimingFn]="'ease-out'"
-  [animationTimingMs]="300"
-  [maxDomSize]="4">
-    <div class="carousel-slide" *ngFor="let card of cards">
-      <div [ngClass]="colClass">
-
-        <!-- Dynamically pass the card data to the projected content -->
-        <ng-container
-          *ngTemplateOutlet="contentTemplate; context: { $implicit: card }"
-        ></ng-container>
-      </div>
+<swiper-container
+  loop="false"
+  autoplay="false"
+  [attr.slides-per-view]="slidesPerView"
+  space-between="5"
+  navigation="true"
+  mousewheel="true"
+  keyboard="true"
+  css-mode="true"
+>
+  <swiper-slide *ngFor="let card of cards">
+    <div [ngClass]="colClass">
+      <ng-container
+        *ngTemplateOutlet="contentTemplate; context: { $implicit: card }"
+      ></ng-container>
     </div>
-    <!-- Custom Carousel Arrows -->
-
-
-  </carousel>
-
+  </swiper-slide>
+</swiper-container>

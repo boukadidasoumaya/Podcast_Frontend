@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
-import { User } from '../interfaces/app.interfaces';
+import { Contact, User } from '../interfaces/app.interfaces';
 
 @Injectable({
   providedIn: 'root'
@@ -38,5 +38,17 @@ export class UserService {
   }
   getCurrentUser(): Observable<Partial<User>> {
     return this.http.get(`${this.apiUrl}/user/current-user`);
+  }
+  sendMailContact(contactData: Contact): Observable<any> {
+    return this.http.post(`${this.apiUrl}/user/contact`, contactData);
+  }
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('photo', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/user/photo`,
+      formData
+    );
   }
 }

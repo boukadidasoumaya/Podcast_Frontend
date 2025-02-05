@@ -4,6 +4,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeroSectionComponent } from './components/hero-section/hero-section.component';
 import { SearchComponent } from './components/navbar/search/search.component';
 import { PagesComponent } from './components/pages/pages.component';
+import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 
 import { Store } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -12,7 +13,7 @@ import * as AuthActions from './store/auth/auth.actions';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet,MatSelectCountryModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
@@ -26,7 +27,7 @@ export class AppComponent {
     if (token) {
       this.store.dispatch(AuthActions.loadCurrentUser());
     } else {
-      this.router.navigate(['/login']);
+      this.router.navigate(['']);
     }
   }
 }

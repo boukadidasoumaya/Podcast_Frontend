@@ -2,6 +2,12 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Input } from '@angular/core'
 import { BookmarkService } from '../../../../services/bookmark.service';
+import { ToastrService } from 'ngx-toastr';
+import { catchError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
+import { of } from 'rxjs';
+import { throwError } from 'rxjs';
+
 @Component({
   selector: 'app-save-icon',
   standalone: true,
@@ -14,30 +20,38 @@ export class SaveIconComponent implements OnInit{
   @Input() episodeId!: number;
   isBookmarked: boolean = false;
 
-  constructor(private bookmarkService: BookmarkService) {}
+  constructor(private bookmarkService: BookmarkService,private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.bookmarkService.isBookmarked(this.userId, this.episodeId).subscribe(
-      (isBookmarked) => {
-        console.log(isBookmarked)
+    this.bookmarkService.isBookmarked(this.episodeId).subscribe({
+      next: (isBookmarked) => {
+        console.log(isBookmarked);
         this.isBookmarked = isBookmarked;
       },
-      (error) => {
+      error: (error) => {
         console.error('Error checking bookmark:', error);
       }
-    );
-  }
+    })};
+    
 
-  toggleBookmark(): void {
-    if (this.isBookmarked) {
-      this.bookmarkService.removeBookmark(this.userId, this.episodeId).subscribe(() => {
-        this.isBookmarked = false;
-      });
-    } else {
-      console.log('ddddddddddddddddddddfrefzf')
-      this.bookmarkService.addBookmark(this.userId, this.episodeId).subscribe(() => {
-        this.isBookmarked = true;
-      });
-    }
-  }
-}
+      toggleBookmark(): void {
+        this.bookmarkService[this.isBookmarked ? 'removeBookmark' : 'addBookmark'](this.episodeId)
+          .pipe(
+            catchError((error: HttpErrorResponse) => {
+              if (error.status === 401) {
+                console.log('kkkkkkkkkkkkkkllllllllllllll')
+                this.toastr.error('You are not authorized!', 'Unauthorized');
+              } else {
+                this.toastr.error('Failed to update bookmark.', 'Error');
+              }
+              return throwError(() => error); // Prevents the state from toggling
+            })
+          )
+          .subscribe({
+            next: () => {
+              this.isBookmarked = !this.isBookmarked; // Only toggle if successful
+             
+            },
+            error: () => {} // Prevents state change on error
+          });
+        }}

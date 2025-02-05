@@ -27,16 +27,24 @@ export class EpisodeHorizontalComponent {
 
 
     subscribedEpisodess:{ [episodeId: number]: boolean } = this.subscribedEpisodes;
+    @Output() unfavorite = new EventEmitter<number>();  // Emit episode ID when unfavorite
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
     }
 
+
     // Modified method to emit the liked event
     onLikeChanged() {
       this.isLiked = !this.isLiked;
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
+
+
+    unfavoriteEpisode() {
+      if (this.episode) {
+        this.unfavorite.emit(this.episode.id);  // Emit the episode ID to the parent component
+      }}
 }
 

@@ -31,4 +31,13 @@ export class PodcastService {
   deletePodcast(id:number){
     return this.http.delete<Number>(`${this.apiUrl}/${id}`)
   }
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('image', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/image`,
+      formData
+    );
+  }
 }

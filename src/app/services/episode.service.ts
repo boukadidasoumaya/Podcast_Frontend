@@ -43,20 +43,16 @@ export class EpisodeService {
   }
 
   // Incrémenter les vues d'un épisode
-  incrementViews(id: number): Observable<{ message: string; views: number }> {
-    return this.http.post<{ message: string; views: number }>(
-      `${this.apiUrl}/${id}/views`,
-      {}
-    );
-  }
+ 
+  
   getEpisodeById(id: number): Observable<Episode> {
     console.log('hhhjj')
     console.log(this.http.get<Episode>(`${this.apiUrl}/${id}`))
     return this.http.get<Episode>(`${this.apiUrl}/${id}`);
   }
 
-  getRelatedEpisodes(podcastId: number): Observable<any[]> {
-    return this.http.get<any[]>(`${baseUrl}podcast/${podcastId}/episodes`);
+  getRelatedEpisodes(podcastId: number): Observable<Episode[]> {
+    return this.http.get<Episode[]>(`${baseUrl}podcast/${podcastId}/episodes`);
   }
   //subscription
   subscription(podcast: subscriptionPodcast) : Observable<{ message: string }>{
@@ -72,6 +68,24 @@ export class EpisodeService {
     return this.http.post<{ message: string }>(
       'http://localhost:3000/subscription/unsubscribe',
       podcast
+    );
+  }
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('coverImage', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/coverImage`,
+      formData
+    );
+  }
+  uploadVideo(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('filepath', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/filepath`,
+      formData
     );
   }
 }

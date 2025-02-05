@@ -1,5 +1,8 @@
 <div class="input-group">
     <i [class]="icon"></i>
-    <input [type]="type" [name]="name" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="onInput($event)" minlength="4" (blur)="onBlur()"  required>
+    <input #inputField="ngModel" [type]="type" [name]="name" [placeholder]="placeholder" [(ngModel)]="value" (ngModelChange)="onInput($event)" (blur)="onBlur()" [required]="required">
+    <div *ngIf="inputField.invalid && (inputField.dirty || inputField.touched)" class="alert">
+        <div *ngIf="inputField.errors?.['required']">{{ name }} is required.</div>
+   </div>
 </div>
 
