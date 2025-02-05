@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { InputFieldComponent } from '../input-field/input-field.component';
-import { ActionButtonComponent } from '../action-button/action-button.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
@@ -14,7 +12,9 @@ import { register } from '../../store/auth/auth.actions';
 import { selectAuthError } from '../../store/auth/auth.selectors';
 import { AppState } from '../../store/auth/app.state';
 import { CountryService } from '../../services/country.service';
-import { UploadProgressComponent } from "../upload-progress/upload-progress.component";
+import { ActionButtonComponent } from '../../components/action-button/action-button.component';
+import { InputFieldComponent } from '../../components/input-field/input-field.component';
+import { UploadProgressComponent } from '../../components/upload-progress/upload-progress.component';
 @Component({
   selector: 'app-login',
   standalone: true,
