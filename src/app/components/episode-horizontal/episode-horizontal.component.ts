@@ -27,7 +27,7 @@ export class EpisodeHorizontalComponent {
 
 
     subscribedEpisodess:{ [episodeId: number]: boolean } = this.subscribedEpisodes;
-    @Output() subchange= new EventEmitter<void>();
+    @Output() subchange3= new EventEmitter<void>();
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
@@ -41,7 +41,7 @@ export class EpisodeHorizontalComponent {
     }
 
     reload(){
-      this.subchange.emit();
+      this.subchange3.emit();
     }
 
 

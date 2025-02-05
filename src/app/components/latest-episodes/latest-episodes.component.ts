@@ -79,7 +79,7 @@ export class LatestEpisodesComponent {
   }
 
   reload(){
-    // location.reload();
+    location.reload();
   }
 
   // Séparer la gestion des WebSockets dans une méthode
