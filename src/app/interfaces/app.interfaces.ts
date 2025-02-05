@@ -119,3 +119,8 @@ export interface Contact{
   subject:string,
   content:string
 }
+export interface subscriptionPodcast{
+  id:number;
+  name:string;
+
+}

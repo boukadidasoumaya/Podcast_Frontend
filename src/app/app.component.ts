@@ -7,6 +7,8 @@ import { PagesComponent } from './components/pages/pages.component';
 import { MatSelectCountryModule } from '@angular-material-extensions/select-country';
 
 import { Store } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+
 import * as AuthActions from './store/auth/auth.actions';
 @Component({
   selector: 'app-root',

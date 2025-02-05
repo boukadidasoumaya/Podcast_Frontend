@@ -17,6 +17,8 @@ import { User } from '../../interfaces/app.interfaces';
 })
 export class NavbarComponent {
   user: Partial<User> = {};
+  @Input() hideBackground: boolean = false;
+
 
   constructor(private userService:UserService){}
   ngOnInit(): void {

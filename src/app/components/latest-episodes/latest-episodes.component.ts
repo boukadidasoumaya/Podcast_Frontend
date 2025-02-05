@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { CardEpisodeComponent } from '../card-episode/card-episode.component';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
@@ -10,6 +10,7 @@ import { EpisodeService } from '../../services/episode.service';
 import { LikeEpisodeService } from '../../services/likeEpisode-websocket.service';
 import { UserService } from '../../services/user.service';
 import { LikeEpisodeServiceRest } from '../../services/likeEpisode-rest.service';
+import { SubscriptionService } from '../../services/subscription.service';
 @Component({
   selector: 'app-latest-episodes',
   standalone: true,
@@ -27,6 +28,7 @@ export class LatestEpisodesComponent {
 
   likedEpisodes: { [episodeId: number]: boolean } = {};
 
+
   authorisedToLike!:boolean;
 
 
@@ -36,8 +38,9 @@ export class LatestEpisodesComponent {
     private episodeService: EpisodeService,
     private likeEpisodeService: LikeEpisodeService,
     private likeEpisodeServiceRest:LikeEpisodeServiceRest,
-
-    private userService:UserService
+    private subscriptionservice:SubscriptionService,
+    private userService:UserService,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -71,7 +74,10 @@ export class LatestEpisodesComponent {
     });
 
     console.log('liked', this.likedEpisodes);
+
+
   }
+
 
   // Séparer la gestion des WebSockets dans une méthode
   private subscribeToWebSockets(): void {

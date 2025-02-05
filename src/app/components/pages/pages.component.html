@@ -1,10 +1,10 @@
-<app-navbar></app-navbar>
+<app-navbar class="modif_navbar"></app-navbar>
 
 <div class="cont">
   <!-- Sidebar -->
   <div class="sidebar">
     <h3>Filtre</h3>
-    <app-filtre (filteredpodcasts)="handleFilteredPodcasts($event)"></app-filtre>
+    <app-filtre (filteredpodcasts)="handleFilteredPodcasts($event)" (reset)="reset($event)"></app-filtre>
 
   </div>
 
@@ -17,6 +17,9 @@
         [nbre_episodes]="podcast.nbre_episode"
         [username]="podcast.user?.username"
         [userimage]="podcast.user?.photo"
+        [topic]="podcast.topic?.title"
         ></app-card-podcast>
   </div>
 </div>
+
+<app-footer></app-footer>

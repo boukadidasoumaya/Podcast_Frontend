@@ -16,6 +16,9 @@ export class PodcastService {
   createPodcast(podcast: CreatePodcast): Observable<CreatePodcast> {
     return this.http.post<CreatePodcast>(this.apiUrl, podcast);
   }
+  getPodcasts(podcast: Podcast): Observable<Podcast> {
+    return this.http.post<Podcast>(this.apiUrl, podcast);
+  }
   getPodcastsByUser():Observable<Podcast[]>{
     return this.http.get<Podcast[]>(`${this.apiUrl}/user`)
   }

@@ -4,6 +4,7 @@ export const APP_API = {
   websocket: 'http://localhost:8001',
   episode:baseUrl+'episodes',
   likeEpisode:baseUrl+'like-episode',
-  podcast:baseUrl+'podcast'
+  podcast:baseUrl+'podcast',
+  subscription:baseUrl+'subscription',
 
 }
