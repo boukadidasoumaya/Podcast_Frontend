@@ -20,14 +20,11 @@ export class EpisodeHorizontalComponent {
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
-    @Input() authorisedToLike!:boolean
-    @Output() unfavorite = new EventEmitter<number>();  // Emit episode ID when unfavorite
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
     }
-    
 
     // Modified method to emit the liked event
     onLikeChanged() {
@@ -35,10 +32,9 @@ export class EpisodeHorizontalComponent {
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
 
-   
-    unfavoriteEpisode() {
-      if (this.episode) {
-        this.unfavorite.emit(this.episode.id);  // Emit the episode ID to the parent component
-      }}
+    onCommentChanged(isCommented: boolean) {
+      console.log('Commentaire modifié:', isCommented);
+    }
+
 }
 

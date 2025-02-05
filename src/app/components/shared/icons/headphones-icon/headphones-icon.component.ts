@@ -28,7 +28,7 @@ export class HeadphonesIconComponent {
       console.log('Updated View Count from WebSocket:', data);  // Log received data
       if (data.id === this.episodeId) {
         this.viewCount = data.views;
- // Trigger change detection
+        this.cdr.detectChanges();  // Trigger change detection
       }
     });
   }
@@ -37,7 +37,7 @@ export class HeadphonesIconComponent {
       (episodeData) => {
         console.log('Initial Episode Data:', episodeData); // Log to check if correct data is fetched
         this.viewCount = episodeData.views; // Set initial view count
-// Trigger change detection after initial data
+        this.cdr.detectChanges(); // Trigger change detection after initial data
       },
       (error) => {
         console.error('Error fetching episode data:', error);
