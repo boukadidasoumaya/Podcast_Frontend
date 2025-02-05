@@ -17,8 +17,6 @@ export class SubscribeButtonComponent {
 
   subscribedEpisodes: { [episodeId: number]: boolean } = {};
 
-  @Output() subchange= new EventEmitter<void>();
-  @Output() subchange2= new EventEmitter<void>();
 
 
   constructor(private httpclient: HttpClient,private episodeservice :EpisodeService,
@@ -51,13 +49,11 @@ export class SubscribeButtonComponent {
       this.episodeservice.subscription(episode.podcast).subscribe({
         next: (data) => {
           console.log('subscribed');
-          this.subchange.emit();
       }});
     }else{
       this.episodeservice.unsubscription(episode.podcast).subscribe({
         next: (data) => {
           console.log('unsubscribed');
-          this.subchange2.emit();
 
       }});
 
