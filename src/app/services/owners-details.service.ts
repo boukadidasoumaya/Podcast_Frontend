@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Owner } from '../interfaces/app.interfaces';
+import { APP_API, baseUrl } from '../config/app-api.config';
+
 
 @Injectable({
   providedIn: 'root'
@@ -7,7 +9,7 @@ import { Owner } from '../interfaces/app.interfaces';
 export class OwnersDetailsService {
 
 
-  private apiUrl = 'http://localhost:3000/user/owner-details';  
+  private apiUrl =APP_API.owner;
 
   constructor() { }
 
@@ -16,7 +18,7 @@ export class OwnersDetailsService {
       const response = await fetch(this.apiUrl);
       const data = await response.json();
       console.log('API response:', data);
-  
+
       // Normalize the response to an array
       return Array.isArray(data) ? data : data ? [data] : [];
     } catch (error) {
@@ -24,5 +26,5 @@ export class OwnersDetailsService {
       throw error;
     }
   }
-  
+
 }

@@ -73,7 +73,6 @@ export class ProfilComponent  implements OnInit {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
   }
 
-  // Listen to the unfavorite event and remove the episode from the list
 
   handleUnfavorite(episodeId: number) {
     this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);

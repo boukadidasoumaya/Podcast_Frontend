@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { APP_API, baseUrl } from '../config/app-api.config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class SocketService {
   private socket: Socket;
   constructor() {
-    this.socket = io('http://localhost:8001' , {
+    this.socket = io(APP_API.websocket, {
       path: '',  // Ensure this matches your backend
     });
 

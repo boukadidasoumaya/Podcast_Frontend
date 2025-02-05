@@ -2,16 +2,16 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Podcast, Topic, User } from '../interfaces/app.interfaces';
+import { APP_API, baseUrl } from '../config/app-api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FiltreService {
 
-  private url='http://localhost:3000/podcast/filter';
-  private url1='http://localhost:3000/user/users';
-  private url3='http://localhost:3000/podcast/reset';
-  // private url2='http://localhost:3000/topic/topics';
+  private url=APP_API.podcast+'/filter';
+  private url1=APP_API.user+'/users';
+  private url3=APP_API.podcast+'/reset';
 
 
   constructor(private http: HttpClient) {}

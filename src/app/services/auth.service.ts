@@ -3,8 +3,9 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 import { TOKEN_KEY } from '../../config/storage.config';
+import { APP_API, baseUrl } from '../config/app-api.config';
 
-  
+
   interface LoginData {
     email: string;
     password: string;
@@ -41,7 +42,7 @@ export class AuthService {
     );
 
   }
-  
+
   getCurrentUser(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}/auth/me`);
   }

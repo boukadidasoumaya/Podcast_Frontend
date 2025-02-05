@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { APP_API, baseUrl } from '../config/app-api.config';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CountryService {
-  private apiUrl = 'https://restcountries.com/v3.1/all';
+  private apiUrl =APP_API.countries ;
 
   constructor(private http: HttpClient) {}
 

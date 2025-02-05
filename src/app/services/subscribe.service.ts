@@ -1,11 +1,12 @@
 import {  Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { APP_API, baseUrl } from '../config/app-api.config';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscribeService {
-  private apiUrl = 'http://localhost:3000/subscribe'; 
+  private apiUrl = APP_API.subscribeOnPodcast;
 
   constructor() {}
 
@@ -28,5 +29,5 @@ export class SubscribeService {
       });
     });
   }
-  
+
 }
