@@ -57,19 +57,20 @@ export class ProfilComponent  implements OnInit {
     this.loadUserProfile();
     this.loadUserPodcasts();
   }
-
+  onSwiperChange() {
+    console.log("Swiper changed");
+    this.cdr.detectChanges(); // Ensure Angular updates UI
+  }
   fetchBookmarkedEpisodes() {
-    this.bookmarkService.getBookmarkedEpisodes().subscribe({
-      next: (episodes: Episode[]) => {
+    this.bookmarkService.getBookmarkedEpisodes().subscribe(
+      (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
         console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
-
       },
-      error: (error: any) => {
+      (error: any) => {
         console.error('Error fetching bookmarked episodes:', error);
       }
-    });
-
+    );
   }
 
   handleLike(event: { isLiked: boolean, episode: Episode }) {
@@ -80,6 +81,7 @@ export class ProfilComponent  implements OnInit {
   handleUnfavorite(episodeId: number) {
     this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);
   }
+  
 
   loadUserProfile() {
     this.isLoading = true;
