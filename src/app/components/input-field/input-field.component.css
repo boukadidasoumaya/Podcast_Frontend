@@ -1,7 +1,7 @@
 .input-group {
     position: relative;
     width: 100%;
-    margin: 1rem 0;
+    margin: 0.5rem 0;
 }
 
 .input-group i {
@@ -29,3 +29,14 @@
 
 .ng-invalid.ng-touched {
     border: solid red !important;}
+
+.alert {
+    color: #dc3545;
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    padding: 0.25rem 3rem ;
+    animation: fadeIn 0.3s ease-in;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+}

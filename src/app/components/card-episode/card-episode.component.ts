@@ -28,7 +28,6 @@ export class CardEpisodeComponent {
     console.log('Lecture modifiée:', isListened);
   }
 
-  // Modified method to emit the liked event
   onLikeChanged(liked: boolean) {
     this.liked.emit({ isLiked: liked, episode: this.episode });
   }

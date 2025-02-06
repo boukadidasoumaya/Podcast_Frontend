@@ -27,6 +27,7 @@ constructor(private http: HttpClient,private filtreService: FiltreService) { }
   podcasts: Podcast[] = [];
 
   @Output() filteredpodcasts: EventEmitter<{ podcasts: Podcast[] }> = new EventEmitter();
+  @Output() reset: EventEmitter<{ podcasts: Podcast[] }> = new EventEmitter();
 
   users: User[]=[];
   presentors:string[]=[];
@@ -38,6 +39,7 @@ constructor(private http: HttpClient,private filtreService: FiltreService) { }
       this.filtreService.getAllpodcasts().subscribe({
         next:(res)=>{
           this.podcasts = res;
+          this.reset.emit({ podcasts: res});
           console.log('podcasts', res);
         },
         error:(err)=>{console.log(err)}
@@ -49,8 +51,6 @@ constructor(private http: HttpClient,private filtreService: FiltreService) { }
 
     this.filtreService.getFilteredPodcasts(this.filtres).subscribe({
       next:(res)=>{
-        // console.log('filtered podcasts', res);
-        // console.log(this.filtres)
         console.log('emission started');
         this.filteredpodcasts.emit({ podcasts: res});
         console.log('emission succeeded');
@@ -89,13 +89,17 @@ constructor(private http: HttpClient,private filtreService: FiltreService) { }
 // }
 
 ngOnInit(): void {
-  this.getFilteredPodcasts();
-
-  // this.getAlltopics();
+this.getAllpodcasts();
 }
 
 //filtrage :
   async filtrer(){
+    const filtrevide = Object.values(this.filtres).every(value =>
+      value === '' || value === 0
+    );
+    if(filtrevide){
+    this.getAllpodcasts();
+    }else{
     this.getFilteredPodcasts();
     console.log('filtres',this.filtres);
     console.log(await this.getAllpodcasts());
@@ -103,7 +107,7 @@ ngOnInit(): void {
     console.log('filtered pods',filteredpodcasts);
     await this.getAllusers();
     console.log('presentors',this.presentors);
-  }
+  }}
 
   reinitialiser(){
       this.filtres.title='',
@@ -112,6 +116,6 @@ ngOnInit(): void {
       this.filtres.user='',
       this.filtres.minDuration=0,
       this.filtres.maxDuration=0;
-      return;
-  }
+      this.getAllpodcasts();
+    }
 }

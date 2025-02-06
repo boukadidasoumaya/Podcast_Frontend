@@ -1,11 +1,11 @@
 // email-modal.component.ts
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, NgForm } from '@angular/forms';
 import { UserService } from "../../../services/user.service";
 import { Router } from '@angular/router';
-import { Store } from '@ngrx/store'; 
-import * as AuthActions from '../../../store/auth/auth.actions'; 
+import { Store } from '@ngrx/store';
+import * as AuthActions from '../../../store/auth/auth.actions';
 
 declare var bootstrap: any;
 @Component({
@@ -13,28 +13,37 @@ declare var bootstrap: any;
   standalone: true,
   imports: [CommonModule, FormsModule],
   templateUrl: './email-modal.component.html',
+  styleUrl: './email-modal.component.css'
 })
 export class EmailModalComponent {
   @Output() emailUpdated = new EventEmitter<string>();
-  @ViewChild('emailModal') emailModal!: ElementRef;
+  @Input() currentUserEmail!: string ;
+  @Output() onclose = new EventEmitter<void>();
+  @Output() onsave = new EventEmitter<void>();
   emailData = {
     currentEmail: '',
     newEmail: '',
     confirmEmail: ''
   };
-  constructor(private userService: UserService, private router: Router,private store: Store) {}  
+
+  ngOnInit() {
+    this.emailData.currentEmail = this.currentUserEmail;
+    console.log(this.currentUserEmail);
+  }
+
+  constructor(private userService: UserService, private router: Router,private store: Store) {}
   onEmailUpdate(form: NgForm) {
     if (form.valid) {
       if (this.emailData.newEmail !== this.emailData.confirmEmail) {
         alert('New Emails do not match!');
         return;
       }
-  
+
       const emailUpdateData = {
         oldEmail: this.emailData.currentEmail,
         newEmail: this.emailData.newEmail,
       };
-  
+
       this.userService.updateEmail(emailUpdateData)
         .subscribe({
           next: (response) => {
@@ -65,6 +74,14 @@ export class EmailModalComponent {
     } else {
       alert('Please fill all required fields correctly');
     }
+
+    this.onsave.emit();
+    this.onclose.emit();
+  }
+
+  cancel(){
+    this.onclose.emit();
   }
   
 }
+  

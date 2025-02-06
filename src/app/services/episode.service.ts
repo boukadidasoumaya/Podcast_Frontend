@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Episode } from '../interfaces/app.interfaces'; // Assure-toi que tu as un modèle Episode
+import { Episode, Podcast,subscriptionPodcast } from '../interfaces/app.interfaces'; // Assure-toi que tu as un modèle Episode
 import { APP_API, baseUrl } from '../config/app-api.config';
 import { CreateEpisode } from '../models/podcast.model';
 @Injectable({
@@ -15,7 +15,7 @@ export class EpisodeService {
   createEpisode(episode: CreateEpisode): Observable<CreateEpisode> {
     return this.http.post<CreateEpisode>(this.apiUrl, episode);
   }
- 
+
 
   // Récupérer tous les épisodes
   getAllEpisodes(): Observable<Episode[]> {
@@ -55,16 +55,37 @@ export class EpisodeService {
     return this.http.get<Episode[]>(`${baseUrl}podcast/${podcastId}/episodes`);
   }
   //subscription
-  subscription(idpod: number): Observable<{ message: string }> {
+  subscription(podcast: subscriptionPodcast) : Observable<{ message: string }>{
     return this.http.post<{ message: string }>(
-      `${this.apiUrl}/subscription/subscribe/${idpod}`,
-      {}
+      'http://localhost:3000/subscription/subscribe',
+      podcast
+    );
+
+  }
+
+  //unsubscription
+  unsubscription(podcast: subscriptionPodcast): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(
+      'http://localhost:3000/subscription/unsubscribe',
+      podcast
     );
   }
-  unsubscription(idpod: number): Observable<{ message: string }> {
-    return this.http.post<{ message: string }>(
-      `${this.apiUrl}/subscription/unsubscribe/${idpod}`,
-      {}
+  uploadImage(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('coverImage', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/coverImage`,
+      formData
+    );
+  }
+  uploadVideo(file: File): Observable<{ message: string; filename: string }> {
+    const formData = new FormData();
+    formData.append('filepath', file);
+
+    return this.http.post<{ message: string; filename: string }>(
+      `${this.apiUrl}/filepath`,
+      formData
     );
   }
 }

@@ -7,7 +7,7 @@ import { HeadphonesIconComponent } from '../shared/icons/headphones-icon/headpho
 import { Episode } from '../../interfaces/app.interfaces';
 import { SubscribeButtonComponent } from '../shared/buttons/subscribe-button/subscribe-button.component';
 import { RouterModule } from '@angular/router';
-import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component'; 
+import { SaveIconComponent } from '../shared/icons/save-icon/save-icon.component';
 @Component({
   selector: 'app-episode-horizontal',
   standalone: true,
@@ -20,11 +20,20 @@ export class EpisodeHorizontalComponent {
     @Input() numberOfLikes!: number;
     @Input() isLiked: boolean = false; // Add this line
     @Output() liked = new EventEmitter<{ isLiked: boolean, episode: Episode }>();
+    @Input() authorisedToLike!:boolean
+    @Output() unfavorite = new EventEmitter<number>();  // Emit episode ID when unfavorite
+    @Input() isSubscribed :boolean= false;
+    @Output() subscribed = new EventEmitter<{ isSubscribed: boolean, episode:Episode}>
+    @Input() subscribedEpisodes:{ [episodeId: number]: boolean } = {};
+
+
+    subscribedEpisodess:{ [episodeId: number]: boolean } = this.subscribedEpisodes;
 
     // Événements lorsque l'utilisateur interagit avec les icônes
     onListenChanged(isListened: boolean) {
       console.log('Lecture modifiée:', isListened);
     }
+
 
     // Modified method to emit the liked event
     onLikeChanged() {
@@ -32,9 +41,10 @@ export class EpisodeHorizontalComponent {
       this.liked.emit({ isLiked: this.isLiked, episode: this.episode });
     }
 
-    onCommentChanged(isCommented: boolean) {
-      console.log('Commentaire modifié:', isCommented);
-    }
 
+    unfavoriteEpisode() {
+      if (this.episode) {
+        this.unfavorite.emit(this.episode.id);  // Emit the episode ID to the parent component
+      }}
 }
 

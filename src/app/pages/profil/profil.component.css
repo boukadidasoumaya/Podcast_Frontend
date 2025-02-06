@@ -1,0 +1,250 @@
+/* :root {
+  --cadreglobal:  #87b3c6;
+  --text:         #21252F;
+  --insideCercle: #ffffff;
+  --outsideCercle:#d9ffdf;
+} */
+/*---------------------------------------
+  SITE HEADER
+-----------------------------------------*/
+.site-header {
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  min-height: 80px;
+  position: relative;
+}
+
+p,ul li{
+  color: var(--text);
+}
+
+
+.profil{
+  background-color: white;
+  position: relative;
+  margin-top: -330px;
+}
+.profil-content {
+
+  padding: 17vh 0 20px;
+}
+
+.profil-content .profil-right {
+  padding-left: 5vw;
+}
+
+.profil-content .profileImage {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: 0 0 0 3px #ffffff, 0 0 0 10px #e7faea
+}
+
+.profil-content label {
+  position: relative;
+  /*left: 85%*/
+  text-align: end;
+  padding: 0 !important;
+}
+
+.profil-content .container {
+  position: relative;
+  top: 10%;
+}
+
+.profil-content .cadre {
+  background-color: #87b3c6;
+  border-radius: 17px;
+  padding: 25px 30px 40px;
+  position: relative;
+  top: -8px;
+
+}
+
+.profil-content .row {
+  width: 100%;
+}
+
+.profil-content .img {
+  width: 200px;
+}
+
+.profil-content .hr {
+  color: white !important;
+}
+
+.profil-content .details {
+  display: flex;
+  justify-content: space-between;
+}
+
+.profil-content .username,
+.profil-content .birthday{
+  margin-left: 10px;
+  position: relative;
+  top: -10%;
+}
+.profil-content .country, .job {
+  margin-left: 10px;
+  position: relative;
+}
+.profil-content .birthday {
+  margin-left: 6px;
+}
+
+.profil-content .edit i {
+  position: relative;
+  top: 10%;
+}
+.profil-content .user-icon {
+  font-size: 20px;
+  position: relative;
+  bottom: 3px;
+  right: 5px;
+}
+
+.profil-content .birth {
+  font-size: 11px;
+  text-align: center;
+
+}
+.profil-content .birthday-icon,.map-icon,.job-icon {
+  position: relative;
+  right: 5px;
+}
+
+.profil-content .fa-cake-candles {
+  font-size: 20px;
+  position: relative;
+  top: 7px;
+  right: 2px;
+}
+
+.profil-content .fa-map-marker-alt {
+  font-size: 20px;
+  position: relative;
+  top: -2px;
+  right: 2px;
+}
+
+.profil-content .member {
+  position: relative;
+  top: 10px;
+  left: 20px;
+}
+
+.profil-content .custom-hr {
+  border-width: 3px;
+}
+
+.profil-content .plan,
+.profil-content .sub-bil {
+  padding: 9px 0 0px 10%;
+
+}
+
+.profil-content .sub-bil ul li {
+  margin-top: 15px;
+  font-size: 17px;
+  font-weight: lighter;
+}
+
+.profil-content .plan .edit,
+.profil-content .sub-bil .edit {
+  text-align: right;
+  color: #000000 !important;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.profil-content .input-username{
+  margin-bottom: 10px;
+  margin-top: -7px;
+  width: 90%;
+}
+
+.profil-content .input-date {
+  margin-bottom: 30px;
+  width: 85%;
+}
+
+.profil-content .input-address {
+  margin-top: -8px;
+  width: 85%;
+}
+
+.profil-content .input-email {
+  width: 80%;
+
+}
+
+.profil-content .done-account {
+  margin-top: 10px;
+
+}
+
+.profil-content input:not([type="file"]) {
+background-color: #87b3c6;
+  border: none;
+  border-radius: 5px;
+  border-bottom: 1px solid #D2DAEF;
+  color: #000000;
+  padding: 5px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.social-media .whatsapp , .instagram , .twitter{
+  position: relative;
+  top: 5px;
+}
+app-episode-horizontal.episode-horizontal {
+  width: 100%;
+  max-width: 500px;
+  height: 250px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+.section-title-wrap {
+    position: relative;
+  }
+  .custom-btn {
+    background-color: #0056b3; /* Slightly darker blue */
+    color: #fff; /* White text */
+    border: none; /* Remove border */
+    border-radius: 25px; /* Rounded corners */
+    padding: 8px 20px; /* Adjust padding for better appearance */
+    font-size: 16px; /* Adjust font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover effect */
+  }
+
+  .custom-btn:hover {
+    background-color: #40e0d0; /* Turquoise color on hover */
+    transform: scale(1.05); /* Slight zoom on hover */
+    color: #fff; /* Ensure text remains white */
+  }
+
+  /* Adjust horizontal spacing between the cards (inside .row) */
+.latest-podcast-section .row {
+  display: flex;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .episode-horizontal {
+    max-width: 90%; /* Adjust width for tablets */
+    height: 220px;
+  }
+}
+
+@media (max-width: 480px) {
+  .episode-horizontal {
+    max-width: 100%;
+    height: auto; /* Auto height on small screens */
+  }
+}

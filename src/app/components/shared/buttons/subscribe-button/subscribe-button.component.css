@@ -4,7 +4,6 @@
   border-radius: var(--border-radius-large);
   color: var(--white-color);
   font-family: var(--title-font-family);
-  font-size: var(--p-font-size);
   font-weight: var(--font-weight-semibold);
   line-height: normal;
   transition: all 0.3s;
@@ -21,3 +20,4 @@
   background: var(--custom-btn-bg-hover-color); /* Green color */
   color: var(--white-color);
 }
+

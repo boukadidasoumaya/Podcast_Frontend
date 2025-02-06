@@ -18,9 +18,9 @@ export class UpdatePodcastModalComponent implements OnInit {
   @Output() onClose = new EventEmitter<void>();
 
   updateForm!: FormGroup;
-  isFileUploaded = { image: false }; // Suivi du statut de téléchargement des fichiers
-  isUploading = { image: false };  // Suivi des fichiers en cours de téléchargement
-  isUploadInProgress: boolean = false;  // Track the overall upload status
+  isFileUploaded = { image: false };
+  isUploading = { image: false };
+  isUploadInProgress: boolean = false;  
 
   constructor(private fb: FormBuilder) {}
 
@@ -28,7 +28,6 @@ export class UpdatePodcastModalComponent implements OnInit {
     this.updateForm = this.fb.group({
       name: [this.podcastData?.name, Validators.required],
       description: [this.podcastData?.description, Validators.required],
-      nbre_episode: [this.podcastData?.nbre_episode, [Validators.required, Validators.min(1)]],
       image: [this.podcastData?.image],
     });
   }
@@ -43,7 +42,6 @@ export class UpdatePodcastModalComponent implements OnInit {
   }
 
   saveChanges(): void {
-    // Si un fichier est en cours de téléchargement, on bloque l'envoi
     if (this.isUploadInProgress) {
       console.log('En attente de l\'upload...');
       return;
@@ -63,7 +61,6 @@ export class UpdatePodcastModalComponent implements OnInit {
     this.updateForm.reset({
       name: this.podcastData?.name || '',
       description: this.podcastData?.description || '',
-      nbre_episode: this.podcastData?.nbre_episode || null,
       image: this.podcastData?.image || null,
     });
   }

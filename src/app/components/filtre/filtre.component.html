@@ -3,14 +3,11 @@
   <section class="search-section">
     <label>Title</label>
     <div class="search-input">
-      <input type="text" placeholder="Rechercher un podcast" name="title" [(ngModel)]="filtres.title">
+      <input type="text" placeholder="search for a podcast" name="title" [(ngModel)]="filtres.title">
     </div>
     <label>Topic</label>
-    <div class="category-select">
-
-      <select name="topic" [(ngModel)]="filtres.topic">
-        <option *ngFor="let topic of topics" [value]="topic">{{ topic }}</option>
-      </select>
+    <div class="search-input">
+      <input type="text" placeholder="Topic" name="topic" [(ngModel)]="filtres.topic">
     </div>
   </section>
 
@@ -19,8 +16,8 @@
       <div class="filter-group">
         <label>Duration</label>
         <div class="range-input">
-          <input type="number" placeholder="De" min="1" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
-          <input type="number" placeholder="À" min="1" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
+          <input type="number" placeholder="min" min="10" max="2025" name="minDuration" [(ngModel)]="filtres.minDuration">
+          <input type="number" placeholder="max" min="10" max="2025" name="maxDuration" [(ngModel)]="filtres.maxDuration">
         </div>
       </div>
 
@@ -29,9 +26,9 @@
 
   <section class="price-location-filters">
     <div class="price-filter">
-      <label>Nombre d'épisodes</label>
+      <label>Episodes Number</label>
       <div class="search-input">
-        <input type="text" placeholder="nombre d'épisodes" name="episodesCount" [(ngModel)]="filtres.nbre_episodes">
+        <input type="text" placeholder="episodes number" name="episodesCount" [(ngModel)]="filtres.nbre_episodes">
       </div>
     </div>
 
@@ -42,7 +39,7 @@
   </section>
 
   <section class="filter-actions">
-    <button class="btn-primary" (click)="filtrer()">Rechercher</button>
-    <button class="btn-secondary" (click)="reinitialiser()">Réinitialiser</button>
+    <button class="btn-primary" (click)="filtrer()">search</button>
+    <button class="btn-secondary" (click)="reinitialiser()">reset</button>
   </section>
 </div>

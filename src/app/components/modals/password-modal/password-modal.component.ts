@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component } from "@angular/core";
+import { Component, EventEmitter, Output } from "@angular/core";
 import { FormsModule, NgForm } from "@angular/forms";
 import { UserService } from "../../../services/user.service";
 
@@ -8,15 +8,19 @@ import { UserService } from "../../../services/user.service";
   standalone: true,
   imports: [CommonModule, FormsModule ],
   templateUrl: './password-modal.component.html',
+  styleUrl: './password-modal.component.css'
+
 })
 export class PasswordModalComponent {
+  @Output() onclose = new EventEmitter<void>();
+
   passwordData = {
-    oldPassword: '',  
+    oldPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
 
-  constructor(private userService: UserService) {}  
+  constructor(private userService: UserService) {}
 
   onPasswordUpdate(form: NgForm) {
     if (form.valid) {
@@ -32,13 +36,12 @@ export class PasswordModalComponent {
 
       this.userService.updatePassword(passwordUpdateData).subscribe({
         next: (response) => {
-          console.log('Password updated successfully:', response);
           this.passwordData = {
             oldPassword: '',
             newPassword: '',
             confirmPassword: ''
           };
-          alert('Password updated successfully!');
+          this.onclose.emit();
         },
         error: (error) => {
           console.error('Error updating password:', error);
@@ -48,5 +51,9 @@ export class PasswordModalComponent {
     } else {
       alert('Please fill all required fields correctly');
     }
+  }
+
+  cancel(){
+    this.onclose.emit();
   }
 }

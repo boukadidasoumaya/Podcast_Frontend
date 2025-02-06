@@ -5,3 +5,8 @@ app-section-custom {
     gap: 20px; /* Spacing between sections */
     width: 100%;
   }
+  .details-podcast-section{
+    position: relative;
+    top: -300px;
+    background-color: #ffffff;
+  }
