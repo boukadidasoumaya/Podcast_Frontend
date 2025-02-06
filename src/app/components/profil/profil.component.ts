@@ -48,6 +48,9 @@ export class ProfilComponent  implements OnInit {
   ngOnInit() {
     this.fetchBookmarkedEpisodes(); 
   }
+  onSwiperChange() {
+    console.log("Swiper changed");
+  }
   fetchBookmarkedEpisodes() {
     this.bookmarkService.getBookmarkedEpisodes().subscribe({
       next: (episodes: Episode[]) => {
