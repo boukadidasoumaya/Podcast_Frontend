@@ -54,6 +54,8 @@ export class SaveIconComponent implements OnInit{
           )
           .subscribe({
             next: () => {
+              this.unfavorite.emit();  // Emit the episode ID to the parent component
+
               this.isBookmarked = !this.isBookmarked; // Only toggle if successful
              
             },
