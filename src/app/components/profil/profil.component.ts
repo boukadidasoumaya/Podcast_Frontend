@@ -21,6 +21,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthState } from '../../store/auth/auth.state';
 import { selectUser,selectAuthState  } from '../../store/auth/auth.selectors';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface AppState {
   auth: AuthState;
@@ -43,27 +44,25 @@ export class ProfilComponent  implements OnInit {
   bookmarkedEpisodes: Episode[] = [];
   likes: { [episodeId: number]: number } = {};
 
-  constructor(private userService: UserService, private bookmarkService: BookmarkService) {}
+  constructor(private userService: UserService,  private cdr : ChangeDetectorRef, private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
     this.fetchBookmarkedEpisodes(); 
   }
   onSwiperChange() {
     console.log("Swiper changed");
+    this.cdr.detectChanges(); // Ensure Angular updates UI
   }
   fetchBookmarkedEpisodes() {
-    this.bookmarkService.getBookmarkedEpisodes().subscribe({
-      next: (episodes: Episode[]) => {
+    this.bookmarkService.getBookmarkedEpisodes().subscribe(
+      (episodes: Episode[]) => {
         this.bookmarkedEpisodes = episodes;
-        console.log('nhhhhhhhhhhhhh')
-        console.log(this.bookmarkedEpisodes.length)
-
+        console.log('Bookmarked episodes:', this.bookmarkedEpisodes.length);
       },
-      (error: any) => { // Explicitly typing the 'error' parameter as 'any'
+      (error: any) => {
         console.error('Error fetching bookmarked episodes:', error);
       }
     );
-
   }
   handleLike(event: { isLiked: boolean, episode: Episode }) {
     console.log('Liked:', event.isLiked, 'Episode:', event.episode);
