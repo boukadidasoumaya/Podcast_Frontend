@@ -9,6 +9,8 @@ import { CardPodcastComponent } from '../../components/card-podcast/card-podcast
 import { FiltreComponent } from '../../components/filtre/filtre.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { NavbarComponent } from '../../components/navbar/navbar.component';
+import { PodcastService } from '../../services/podcast.service';
+import {  Router } from '@angular/router';
 
 
 @Component({
@@ -20,7 +22,7 @@ import { NavbarComponent } from '../../components/navbar/navbar.component';
 })
 export class PagesComponent {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private podcastService: PodcastService,private router:Router) { }
 
   podcasts:any[]=[];
   async ngOnInit() {}
@@ -31,6 +33,19 @@ export class PagesComponent {
   reset(event: { podcasts: Podcast[] }) {
     this.podcasts = event.podcasts;
 
+  }
+  onPodcastSelect(podcast: Podcast) {
+    const podcastId=podcast.id;
+    this.podcastService.getFirstEpisode(podcastId).subscribe({
+      next: (episode) => {
+        if (episode) {
+          this.router.navigate([`/details-podcast/${episode.id}`]);
+        } else {
+          console.error("Aucun épisode trouvé.");
+        }
+      },
+      error: (err) => console.error("Erreur lors de la récupération de l'épisode :", err),
+    });
   }
 
 }
