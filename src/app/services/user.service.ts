@@ -23,7 +23,7 @@ export class UserService {
 
   updateUserProfile(userData: any): Observable<any> {
     console.log(userData);
-    return this.http.patch(`${this.apiUrl}/profile`, userData);
+    return this.http.put(`${this.apiUrl}/profile`, userData);
   }
 
   updatePassword(passwordData: { oldPassword: string; newPassword: string }): Observable<any> {

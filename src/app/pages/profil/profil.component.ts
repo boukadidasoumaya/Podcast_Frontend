@@ -49,7 +49,7 @@ export class ProfilComponent  implements OnInit {
   isEditEmail:boolean=false;
   isEditSocial: boolean=false;
   isEditPassword: boolean=false;
-  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>,private cdr : ChangeDetectorRef) {}
+  constructor(private userService: UserService,private podcastService: PodcastService, private router: Router,private bookmarkService: BookmarkService,private store: Store<AppState>) {}
   selectedPodcast:Partial<Podcast>={};
 
   ngOnInit() {
@@ -59,7 +59,6 @@ export class ProfilComponent  implements OnInit {
   }
   onSwiperChange() {
     console.log("Swiper changed");
-    this.cdr.detectChanges(); // Ensure Angular updates UI
   }
   fetchBookmarkedEpisodes() {
     this.bookmarkService.getBookmarkedEpisodes().subscribe(
@@ -81,7 +80,7 @@ export class ProfilComponent  implements OnInit {
   handleUnfavorite(episodeId: number) {
     this.bookmarkedEpisodes = this.bookmarkedEpisodes.filter(ep => ep.id !== episodeId);
   }
-  
+
 
   loadUserProfile() {
     this.isLoading = true;
